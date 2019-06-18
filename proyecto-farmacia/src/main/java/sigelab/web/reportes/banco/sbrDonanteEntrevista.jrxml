@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sbrDiagnosticosReferencia" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="0" rightMargin="72" topMargin="0" bottomMargin="0" uuid="d5dc36d2-ab38-48f4-93b5-5f4eef6509a3">
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="respuesta" class="java.lang.String">
+		<fieldDescription><![CDATA[respuesta]]></fieldDescription>
+	</field>
+	<field name="observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[observacion]]></fieldDescription>
+	</field>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[pregunta.nombreCorto]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="0" width="554" height="10" uuid="3e146ef5-661c-43cf-a4a6-2e30efb43a7f"/>
+			</rectangle>
+			<textField>
+				<reportElement x="2" y="0" width="378" height="9" uuid="b6ba366e-8c2a-49a5-a97e-3a4da02df14d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="25" height="9" uuid="12e3e243-6f01-4b72-8ba5-3b06ccef3213"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{respuesta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="140" height="9" uuid="6106ed31-1eb2-4f27-bb97-9ca99ab61ef6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

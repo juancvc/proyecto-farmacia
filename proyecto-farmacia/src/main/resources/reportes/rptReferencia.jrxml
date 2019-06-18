@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptReferencia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8f02de3-5f75-4519-ae32-86ae275db9ef">
+	<property name="ireport.zoom" value="1.8150000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["P:\\AmbDesarrollo\\SIGEHOv2\\workspace\\referencia-hnch-web-gestion\\src\\main\\resources\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fechaNac" class="java.util.Date">
+		<fieldDescription><![CDATA[paciente.persona.fechaNac]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_8" class="java.lang.String">
+		<fieldDescription><![CDATA[tiempoEnfermedad.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.nombreCompleto]]></fieldDescription>
+	</field>
+	<field name="fechaIngresoRef" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaIngresoRef]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_7" class="java.lang.String">
+		<fieldDescription><![CDATA[servicioUPSReferencia.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="apellidoPaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.apellidoPaterno]]></fieldDescription>
+	</field>
+	<field name="horaIngresoRef" class="java.lang.String">
+		<fieldDescription><![CDATA[horaIngresoRef]]></fieldDescription>
+	</field>
+	<field name="nroDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.nroDocumento]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_2" class="java.lang.String">
+		<fieldDescription><![CDATA[especialidad.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="codReg" class="java.lang.String">
+		<fieldDescription><![CDATA[especialidad.codReg]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_9" class="java.lang.String">
+		<fieldDescription><![CDATA[planAtenSIS.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[condicionPaciente.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="listReferenciaApoyoDxResultadoBean" class="java.util.List">
+		<fieldDescription><![CDATA[listReferenciaApoyoDxResultadoBean]]></fieldDescription>
+	</field>
+	<field name="frecuenciaRespiratorio" class="java.lang.String">
+		<fieldDescription><![CDATA[frecuenciaRespiratorio]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_3" class="java.lang.String">
+		<fieldDescription><![CDATA[motivoReferencia.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="listReferenciaDiagnosticoBean" class="java.util.List">
+		<fieldDescription><![CDATA[listReferenciaDiagnosticoBean]]></fieldDescription>
+	</field>
+	<field name="segundoNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.segundoNombre]]></fieldDescription>
+	</field>
+	<field name="descripcionMotivoReferencia" class="java.lang.String">
+		<fieldDescription><![CDATA[descripcionMotivoReferencia]]></fieldDescription>
+	</field>
+	<field name="nombreCompleto_2" class="java.lang.String">
+		<fieldDescription><![CDATA[responsableReferencia.persona.nombreCompleto]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_5" class="java.lang.String">
+		<fieldDescription><![CDATA[motivoReferencia.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="temperatura" class="java.lang.String">
+		<fieldDescription><![CDATA[temperatura]]></fieldDescription>
+	</field>
+	<field name="examenesAuxHC" class="java.lang.String">
+		<fieldDescription><![CDATA[examenesAuxHC]]></fieldDescription>
+	</field>
+	<field name="relato" class="java.lang.String">
+		<fieldDescription><![CDATA[relato]]></fieldDescription>
+	</field>
+	<field name="categoriaSeguro_1" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.categoriaSeguro]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_4" class="java.lang.String">
+		<fieldDescription><![CDATA[formaInicio.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="primerNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.primerNombre]]></fieldDescription>
+	</field>
+	<field name="nomRenaes_1" class="java.lang.String">
+		<fieldDescription><![CDATA[establecimientoOrige.nomRenaes]]></fieldDescription>
+	</field>
+	<field name="nombreCompleto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[responsableEstablecimiento.persona.nombreCompleto]]></fieldDescription>
+	</field>
+	<field name="anamnesisHC" class="java.lang.String">
+		<fieldDescription><![CDATA[anamnesisHC]]></fieldDescription>
+	</field>
+	<field name="codReg_1" class="java.lang.String">
+		<fieldDescription><![CDATA[servicioUPSReferencia.codReg]]></fieldDescription>
+	</field>
+	<field name="listReferenciaApoyoDxBean" class="java.util.List">
+		<fieldDescription><![CDATA[listReferenciaApoyoDxBean]]></fieldDescription>
+	</field>
+	<field name="frecuenciaCardiaca" class="java.lang.String">
+		<fieldDescription><![CDATA[frecuenciaCardiaca]]></fieldDescription>
+	</field>
+	<field name="presionArterial" class="java.lang.String">
+		<fieldDescription><![CDATA[presionArterial]]></fieldDescription>
+	</field>
+	<field name="nombreCompleto_3" class="java.lang.String">
+		<fieldDescription><![CDATA[personalAcompanante.persona.nombreCompleto]]></fieldDescription>
+	</field>
+	<field name="numeroReferencia" class="java.lang.String">
+		<fieldDescription><![CDATA[numeroReferencia]]></fieldDescription>
+	</field>
+	<field name="apellidoMaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.apellidoMaterno]]></fieldDescription>
+	</field>
+	<field name="cantTiempoEnfermedad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cantTiempoEnfermedad]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_6" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.tipoSeguro.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="codigoAfiliacion" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoAfiliacion]]></fieldDescription>
+	</field>
+	<field name="nomRenaes" class="java.lang.String">
+		<fieldDescription><![CDATA[establecimientoDestino.nomRenaes]]></fieldDescription>
+	</field>
+	<field name="sintomas" class="java.lang.String">
+		<fieldDescription><![CDATA[sintomas]]></fieldDescription>
+	</field>
+	<field name="fechaReferencia" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaReferencia]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[curso.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="categoriaSeguro" class="java.lang.String">
+		<fieldDescription><![CDATA[categoriaSeguro]]></fieldDescription>
+	</field>
+	<field name="nroHC" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.nroHC]]></fieldDescription>
+	</field>
+	<field name="fechaNac_1" class="java.util.Date">
+		<fieldDescription><![CDATA[paciente.persona.fechaNac]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.edad]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_10" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.sexo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nroHC_1" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.nroHC]]></fieldDescription>
+	</field>
+	<field name="codigoAfiliacion_1" class="java.lang.String">
+		<fieldDescription><![CDATA[codigoAfiliacion]]></fieldDescription>
+	</field>
+	<field name="edadCompleta" class="java.lang.String">
+		<fieldDescription><![CDATA[paciente.persona.edadCompleta]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="192" y="0" width="185" height="25" uuid="85d5046d-99cd-4617-b148-1c0b1dcafef9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HOJA DE REFERENCIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="203" height="28" uuid="d5d0ab03-ecf4-42f3-9b27-da71f9ca7d27"/>
+				<imageExpression><![CDATA["/hnch/referencia/web/reportes/logoMINSA.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="1" y="78" width="167" height="20" backcolor="#CCCCCC" uuid="1091a87d-9be9-4f31-b152-97dec964c86c"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="168" y="78" width="386" height="20" uuid="a86b671c-efff-49c0-adbf-7d343a1862d6"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="98" width="167" height="20" backcolor="#CCCCCC" uuid="5d45c978-dc27-446c-9ca9-657cf13e46e7"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="80" width="146" height="17" uuid="42044326-384e-47b7-aa26-14fe014b225d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTABLECIMIENTO ORIGEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="99" width="151" height="17" backcolor="#CCCCCC" uuid="dc132ca8-8b79-4f50-a499-e0cab1b8d767"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTABLECIMIENTO DESTINO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="168" y="98" width="386" height="20" uuid="6d83628c-d117-4752-9d33-9dc8001a121a"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="175" y="80" width="341" height="17" uuid="6b52ddfd-1cde-4f53-a030-189a4098de25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomRenaes_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="100" width="341" height="17" uuid="2b94adfd-226c-42c0-9840-9181ebe2f44b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomRenaes}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="39" width="553" height="17" backcolor="#FFFFFF" uuid="18e20d8e-e679-44c4-9ce5-670237e8ccca"/>
+				<graphicElement>
+					<pen lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="26" y="40" width="166" height="15" uuid="061183b0-a570-40e4-976d-4ff1d9283c2e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS GENERALES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="39" width="20" height="17" backcolor="#000000" uuid="bf912474-105c-44d5-a40e-db10ef92af6f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="39" width="14" height="18" forecolor="#FFFFFF" uuid="ab265912-5889-459f-acf8-efd7de2fa336"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="57" width="167" height="20" backcolor="#FAF8EC" uuid="e9eea834-ee80-4dd7-b6ab-952b81fb5da0"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="57" width="146" height="20" uuid="da73c383-7862-43c1-9e14-a7f4332eb409"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO REFERENCIA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="426" y="57" width="43" height="20" backcolor="#FAF8EC" uuid="6de76080-86c2-4b4e-9b31-f87b584d0099"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="292" y="57" width="56" height="20" backcolor="#FAF8EC" uuid="cb3bc158-270f-4819-9049-c799f43c93f8"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="292" y="55" width="45" height="20" uuid="f3a8f0cf-6f68-4659-8f5d-bdc4b34959f7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="469" y="57" width="85" height="20" uuid="05d084bb-0e88-4ce7-92bd-ba798fe9f640"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="426" y="57" width="39" height="20" uuid="7cf2e753-f3b1-4b32-b371-a5053a0932d6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<textField pattern="h.mm a">
+				<reportElement x="474" y="57" width="73" height="19" uuid="47eddb27-ed85-4caf-b3e9-1e759500ed07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaIngresoRef}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="349" y="57" width="76" height="20" uuid="3e60a4ea-b2e5-4859-8121-e2f872945fb4"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="168" y="57" width="123" height="20" uuid="965d197c-420a-4578-86f2-c8af4dd7e735"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="348" y="57" width="69" height="19" uuid="d4221d75-dd6e-43bc-a9e2-bd60caa4d5b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaIngresoRef}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="168" y="57" width="118" height="19" uuid="d048177a-8766-4b97-856f-aa7f31ac1c1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroReferencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="418" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="19" width="95" height="20" backcolor="#FAF8EC" uuid="67dcac66-04c4-42b0-bd25-c2cdc070a47a"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="40" width="95" height="20" backcolor="#FAF8EC" uuid="c5b03ade-7e82-493a-b6d7-338c3dc4f314"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="96" y="19" width="100" height="20" backcolor="#FFFFFF" uuid="72f04b1f-ac0c-4a01-9847-dda2b70bc1ab"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="20" width="93" height="17" uuid="c2ca4393-61b8-434c-b039-c06023b82ca9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO PATERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="196" y="19" width="95" height="20" backcolor="#FAF8EC" uuid="b978f62c-d92e-4ba7-a282-4db04c553c5f"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="197" y="20" width="95" height="17" uuid="e4c74992-2904-45bd-9dfa-158bb6ef8478"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDO MATERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="291" y="19" width="106" height="20" backcolor="#FFFFFF" uuid="04dab4e1-76b6-4475-b10d-38a91db7d84b"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="397" y="19" width="50" height="20" backcolor="#FAF8EC" uuid="72e2750d-3f96-4913-81a4-91487c0e70f4"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="397" y="20" width="50" height="17" uuid="b4836482-d201-494c-855f-bef6f1973b0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="447" y="19" width="107" height="20" backcolor="#FFFFFF" uuid="6ec84e3a-90a5-4b71-9091-d0b3caa80608"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="97" y="19" width="100" height="18" uuid="69223a88-6c32-4855-bed3-962436657db5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidoPaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="19" width="105" height="18" uuid="016e8324-33a8-4d62-bc4f-2414bf6f5de2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidoMaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="19" width="107" height="18" uuid="b0f1c9ef-b98d-4812-b53a-9c045c9c463c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primerNombre} + " "+ $F{segundoNombre}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="99" width="65" height="20" backcolor="#FAF8EC" uuid="5a74bda4-26dd-4bec-802f-89572eb9a76b"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="41" width="95" height="17" uuid="fa9132d0-2726-4e64-9d12-c93106e84a26"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA NACIMIENTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="96" y="40" width="100" height="20" backcolor="#FFFFFF" uuid="b8a0837a-9b3b-42f7-b91e-7f62bcffe177"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="96" y="60" width="140" height="20" backcolor="#FFFFFF" uuid="dca49dcb-1e12-4cc9-906b-f8a8d0480b2a"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="196" y="40" width="30" height="20" backcolor="#FAF8EC" uuid="d9c69d8b-5442-4d8d-bf2b-7ba5317c63ee"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="196" y="41" width="30" height="17" uuid="4caeb5bf-e601-40ff-90be-338a3b9b7647"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="226" y="40" width="171" height="20" backcolor="#FFFFFF" uuid="0283966c-5b91-4af0-a418-8273eb44f47b"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="397" y="40" width="49" height="20" backcolor="#FAF8EC" uuid="aaa71865-02b2-4e78-a4e8-519230bacbe5"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="447" y="40" width="107" height="20" backcolor="#FFFFFF" uuid="9b445c61-bd5f-4b14-b0b2-bc20ece40d3f"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="399" y="41" width="47" height="17" uuid="5280edf5-4fd6-4980-b198-dfa733743380"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="474" y="60" width="80" height="20" backcolor="#FFFFFF" uuid="075a8fe6-ba83-4205-8264-62271b975ac2"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="447" y="60" width="27" height="20" backcolor="#FAF8EC" uuid="9161a998-220e-4a4e-bb8b-8f4816e44506"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="447" y="61" width="28" height="17" uuid="e2ee20d0-3fb3-45c0-a007-779160a2f901"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[H.C.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="60" width="95" height="20" backcolor="#FAF8EC" uuid="15bf564c-d0ab-4a82-94f8-3e1b660ed5d9"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="61" width="80" height="17" uuid="d3d6d645-514e-468d-a2bd-e99f794b7ef7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FINANCIADOR]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="99" width="488" height="20" backcolor="#FFFFFF" uuid="3fff7f52-b688-4346-b67b-39f3b6fd367d"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="95" y="60" width="140" height="18" uuid="9b33ab82-c824-4b6c-b5cd-cc6d2858771f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_6}+ " -  " + ($F{categoriaSeguro_1} == null? "": $F{categoriaSeguro_1})]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="236" y="60" width="100" height="20" backcolor="#FAF8EC" uuid="f44264d1-efcd-4e8d-bf57-b4f8f915499c"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="237" y="61" width="99" height="17" uuid="0064668a-d1b3-4544-a5a8-daf17742a21d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO DE AFILIACION]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="336" y="60" width="110" height="20" backcolor="#FFFFFF" uuid="70624923-0242-4d41-9d23-deec8221a9ca"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="337" y="61" width="109" height="18" uuid="add372ab-d091-422d-9a4f-9c9e774ebc1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoAfiliacion_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="450" y="41" width="100" height="18" uuid="51457919-976e-4f37-b36f-2d0f38ef477f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="96" y="41" width="100" height="18" uuid="ac42bc3b-f64a-467c-b4eb-85a5b9144223"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaNac_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="477" y="61" width="70" height="18" uuid="e96e5a29-b232-4105-8aa1-fbc5917dccfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroHC_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="66" height="17" uuid="915f355c-e9e0-428d-99f0-d4b267220165"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UPS DESTINO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="99" width="159" height="20" isRemoveLineWhenBlank="true" uuid="a4cfa00d-6ade-466a-aecb-b125bd9790c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_7}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="1" width="553" height="17" backcolor="#FFFFFF" uuid="5e3fe0ac-14f2-4a1a-b876-eee32f396da4"/>
+				<graphicElement>
+					<pen lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="26" y="2" width="166" height="15" uuid="2e425d43-c6c8-4c70-9e15-9055acba068b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE PACIENTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="1" width="20" height="17" backcolor="#000000" uuid="438a07b2-4304-4471-bc71-1313083f141b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="81" width="553" height="17" backcolor="#FFFFFF" uuid="868a3f80-4738-4a3f-b5f1-cd42012adc9d"/>
+				<graphicElement>
+					<pen lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="2" y="81" width="20" height="17" backcolor="#000000" uuid="438e1f24-4275-4643-841f-db88dfabd2bd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="26" y="82" width="98" height="15" uuid="a615178a-37f0-4e43-904e-13a73e33c441"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS CLÍNICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="1" width="14" height="18" forecolor="#FFFFFF" uuid="b222f8b4-189b-4b4e-baa2-185fc5ed989b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[II]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="81" width="14" height="18" forecolor="#FFFFFF" uuid="06196440-8a03-41db-a8c2-0b16dbdd3d5c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[III]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="119" width="105" height="20" backcolor="#FAF8EC" uuid="26d9eef1-28f5-4327-b7f7-9683fcb1e562"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="67" y="120" width="103" height="17" uuid="c6f20dbd-26b7-4879-a332-1e96cf1e215b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIEMPO ENFERMEDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="447" y="119" width="107" height="20" backcolor="#FFFFFF" uuid="36ee4e26-3e87-434d-8ae1-3ae661f50ac9"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="410" y="119" width="37" height="20" backcolor="#FAF8EC" uuid="a235ce26-34e9-4786-8c17-8c84c7514bd6"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="410" y="120" width="36" height="17" uuid="3b6e9736-29a1-4279-aefb-9b6c97e03910"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CURSO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="237" y="119" width="87" height="20" backcolor="#FAF8EC" uuid="df2dd9bb-9010-4cb4-b68b-e24aeb86a34c"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="238" y="120" width="84" height="17" uuid="94d6191d-a51c-43dd-a5d2-343992f514d0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMA DE INICIO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="120" width="82" height="17" uuid="5321c797-89c1-490b-93af-14f0ce649702"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_1}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="325" y="119" width="85" height="20" backcolor="#FFFFFF" uuid="e9b7109b-eebc-4433-bc30-7c4e4193be02"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="119" width="65" height="58" backcolor="#CCCCCC" uuid="66b87380-f685-4ad5-a7a1-ff7f9aea0c58"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="120" width="59" height="57" uuid="01fdf5d4-a037-4066-aefd-6417e52f94b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANAMNESIS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="140" width="105" height="37" backcolor="#FAF8EC" uuid="20f0b24f-a2bc-4b30-a097-2b871955617d"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="67" y="141" width="103" height="36" uuid="76a82114-fc66-4a34-ac1b-d64699788db0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SINTOMAS Y SIGNOS PRINCIPALES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="171" y="119" width="66" height="20" backcolor="#FFFFFF" uuid="0967121b-3655-419e-bde9-50fea1952323"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="171" y="140" width="383" height="37" backcolor="#FFFFFF" uuid="1507532e-464b-49a0-add7-916781cb2af6"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="327" y="120" width="80" height="17" uuid="813a71ac-8474-485b-a866-aac4cf41342c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="174" y="120" width="63" height="17" uuid="936780c6-fc19-4441-8430-4d62476355b1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantTiempoEnfermedad}+" " + $F{nombreCorto_8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="141" width="361" height="36" uuid="bbdec9f4-67cf-47e7-9eaa-7706e33f2627"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sintomas}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="178" width="65" height="58" backcolor="#CCCCCC" uuid="81519b15-9771-41fe-bf29-205b741df4ef"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="178" width="59" height="57" uuid="35e33da6-9fb0-45c9-a763-d43eb6769195"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXAMEN FISICO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="178" width="40" height="20" backcolor="#FAF8EC" uuid="10f9f9e4-fb54-49d5-935b-4375c0020475"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="177" width="37" height="20" uuid="0f2ed662-ae92-454b-87f1-336c50dd06b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEMP.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="199" width="53" height="37" backcolor="#FAF8EC" uuid="d0b8e58e-70cf-492c-8e60-05ac120a68ff"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="69" y="199" width="50" height="37" uuid="f211dc3d-320d-480f-8cb9-e3c282a8e915"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="107" y="178" width="64" height="20" backcolor="#FFFFFF" uuid="0db4a764-a866-46bc-abff-cd35ce558c26"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="212" y="178" width="78" height="20" backcolor="#FFFFFF" uuid="871ceb49-fd98-4843-9f8a-b0c2ea27ef82"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="171" y="178" width="40" height="20" backcolor="#FAF8EC" uuid="b7edc243-7c94-41f2-bd3b-c7163e75c503"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="174" y="177" width="37" height="20" uuid="62064a9b-cde7-4143-b3a0-064c986866d3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.A.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="412" y="178" width="40" height="20" backcolor="#FAF8EC" uuid="2f20bfa2-59a9-4466-b89f-d91c3f52bba3"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="416" y="177" width="31" height="20" uuid="41daa2b3-d4f8-442d-8a0c-6bdf5bbec7be"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F.C.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="452" y="178" width="102" height="20" backcolor="#FFFFFF" uuid="84ffb558-5157-4ade-b788-4ddf20eede63"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="290" y="178" width="40" height="20" backcolor="#FAF8EC" uuid="30346a91-9a69-401e-a874-69c3e0a7f4c5"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="293" y="177" width="32" height="20" uuid="46cf0ec5-8f9c-4f0f-a572-19b8f89a1a4e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.A.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="331" y="178" width="80" height="20" backcolor="#FFFFFF" uuid="13fcab03-712a-46b1-8ee8-00bd94e229f7"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="111" y="179" width="59" height="18" uuid="b0b4c88e-2642-4c5d-8189-b2d4e7001324"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{temperatura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="218" y="179" width="50" height="18" uuid="af966df8-1c53-4b9d-b22c-7a239c1b3e54"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presionArterial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="336" y="179" width="63" height="18" uuid="8b452f8f-111f-4489-8600-f4fc049f0457"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frecuenciaRespiratorio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="462" y="179" width="65" height="18" uuid="7980c202-734d-45b4-832c-8d16b763de92"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frecuenciaCardiaca}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="119" y="199" width="435" height="37" backcolor="#FFFFFF" uuid="aa7875c6-8cbb-4b82-9bac-d121e9204b82"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="119" y="201" width="410" height="35" uuid="33c95559-7ade-4b0b-bc51-8b90efe7935f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{relato}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="236" width="65" height="40" backcolor="#CCCCCC" uuid="359d8e12-4c47-4fa0-8fba-eb1e45ab9041"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="242" width="65" height="30" uuid="82926dc9-e6fc-4935-a3f8-50fe7fb31943"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXAMENES AUXILIARES]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="236" width="488" height="40" backcolor="#FFFFFF" uuid="2e926f27-3bc2-48dd-8651-f352322c038e"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="67" y="238" width="460" height="35" uuid="fbef98c5-f495-4fa4-b4ab-32aae50635a7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{examenesAuxHC}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="276" width="65" height="77" backcolor="#CCCCCC" uuid="6a3fc0db-8d08-4446-8d81-da21c90fd96d"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="282" width="61" height="64" uuid="aaa154fc-fe05-4868-acf6-1901afd3483e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DX(S)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="276" width="488" height="77" backcolor="#FFFFFF" uuid="b1ed3d9b-18a2-4b63-82e3-4d3d5012cad1"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="66" y="276" width="488" height="70" uuid="2d16235e-c51c-492b-aa70-bfff038441df"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listReferenciaDiagnosticoBean})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[getClass().getResource("/hnch/referencia/web/reportes/sbrDiagnosticosReferencia.jasper").openStream()]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement x="1" y="353" width="65" height="65" backcolor="#CCCCCC" uuid="c74f6023-1fb6-45b2-a330-44c96aca51d5"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="364" width="57" height="30" uuid="0220f75c-5d27-4086-96c2-658370944908"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APOYO(S) AL DX]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="66" y="353" width="488" height="65" backcolor="#FFFFFF" uuid="58437b95-5340-4d49-96f7-b73e358bf671"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<subreport>
+				<reportElement x="67" y="353" width="487" height="40" uuid="4899c243-c016-4d54-91f6-cf6916be0db8"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listReferenciaApoyoDxBean})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[getClass().getResource("/hnch/referencia/web/reportes/subRptApoyoalDx.jasper").openStream()]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="226" y="41" width="171" height="18" uuid="3155694d-6dc0-4e2a-8324-9718808150e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edadCompleta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="132">
+			<rectangle>
+				<reportElement x="1" y="72" width="167" height="20" backcolor="#CCCCCC" uuid="92cda65e-bbc4-460a-8581-7f7eabaf2454"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="92" width="167" height="20" backcolor="#CCCCCC" uuid="2c553311-9901-4373-989c-888bb046f0b7"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="112" width="167" height="20" backcolor="#CCCCCC" uuid="8379623a-8470-4e2f-8822-b6c1a738f6c0"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="73" width="153" height="18" isRemoveLineWhenBlank="true" uuid="b0a8749d-1db4-43a8-8c76-1e41b110ddad"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE DE REFERENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="94" width="164" height="18" isRemoveLineWhenBlank="true" uuid="fd1b6eab-9cd1-4871-8c36-b686ff690d78"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE ESTABLECIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="114" width="164" height="18" isRemoveLineWhenBlank="true" uuid="b3f5e03e-507c-4e18-aa58-9f58acbf8100"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONAL QUE ACOMPAÑA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="169" y="72" width="385" height="20" backcolor="#FFFFFF" uuid="2427fdc3-1ef2-40e6-80e1-41714f42f013"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="169" y="92" width="385" height="20" backcolor="#FFFFFF" uuid="2ca6c7c3-ea0b-4295-8330-da145bfcea93"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="169" y="112" width="385" height="20" backcolor="#FFFFFF" uuid="03b6a173-1c7d-4e03-a90f-fd1a23e27210"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="175" y="93" width="370" height="18" uuid="5ed754b2-007d-4c3a-976d-a9438978a3c2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCompleto_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="175" y="73" width="370" height="18" uuid="cc234692-cff4-4832-bfde-b8343815ba1e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCompleto_2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="175" y="113" width="370" height="18" uuid="be47c296-e523-408d-b851-dd8c56ce61ab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCompleto_3}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="219" y="19" width="105" height="20" backcolor="#FAF8EC" uuid="e8f8ca09-78e0-440c-92e8-4f2cacf58be5"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="221" y="21" width="100" height="17" uuid="de0ef52d-df2f-48de-a8ed-ce7c54f79580"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTIVO REFERENCIA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="1" width="553" height="17" backcolor="#FFFFFF" uuid="5185067b-023e-42b0-9d1d-9c7c2eff7da1"/>
+				<graphicElement>
+					<pen lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="1" width="20" height="17" backcolor="#000000" uuid="49bb672e-5254-44f8-a830-289ef6eb10c5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="1" width="15" height="18" forecolor="#FFFFFF" uuid="494dc9e7-39a0-4b8f-af2b-668396bec8e8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="2" width="163" height="15" uuid="2824cc93-44f1-496c-912a-70ccc6cbfd5f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA REFERENCIA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="19" width="135" height="20" backcolor="#FAF8EC" uuid="e254fb75-4de3-4f88-8dae-30e45ee9bc34"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="21" width="134" height="17" uuid="f78ef136-6d76-416d-baa0-dd21266098f1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDICION DEL PACIENTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="136" y="19" width="82" height="20" backcolor="#FFFFFF" uuid="92ba9939-36d5-40ed-92f4-6157ba4f1c84"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="324" y="19" width="230" height="20" backcolor="#FFFFFF" uuid="615c5805-0016-444f-86db-d10aab8460af"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="20" width="81" height="18" uuid="9d814f27-23a9-4075-b919-1bfd0567b6af"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="325" y="20" width="225" height="18" uuid="b3d7c428-3adf-4a5a-a52b-14ac53167eaa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_3}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="39" width="135" height="32" backcolor="#FAF8EC" uuid="523cea2f-1bfe-4573-ac8c-cc98d860df88"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="41" width="123" height="30" uuid="cf213d8e-8bee-433e-8343-081952b9c8fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE DE MOTIVO REFERENCIA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="136" y="39" width="418" height="32" backcolor="#FFFFFF" uuid="327594e2-7ad0-4a9e-8e0e-0e55061d6ee2"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="137" y="41" width="412" height="30" uuid="c4849669-9865-41b9-b155-fcd62fdd0a95"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionMotivoReferencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="41" width="202" height="10" uuid="a4d3fb37-a4cb-42bf-a7bd-3febcf608f2f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="53" width="197" height="20" isRemoveLineWhenBlank="true" uuid="d7983422-b845-499f-a449-04bda8e629bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Médico encargado de la Referencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="41" width="202" height="10" uuid="35df8ce7-704c-441d-b559-a27ddd19df70"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="53" width="197" height="20" isRemoveLineWhenBlank="true" uuid="48ac06e7-5fe4-4f34-a8df-268b216c3c5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Personal acompaña paciente]]></text>
+			</staticText>
+			<frame>
+				<reportElement key="firmaMedico" x="3" y="12" width="201" height="29" uuid="a94d9404-99e5-4fa5-b584-f580e56cda91"/>
+			</frame>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="0" width="553" height="14" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="990e4fe2-bd5a-4dac-b931-81482fba9e0d"/>
+				<staticText>
+					<reportElement x="1" y="0" width="44" height="14" forecolor="#736343" uuid="97eb2fd2-e10b-49dd-85a8-b0c62f4cdd0d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Usuario :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="51" y="0" width="114" height="14" forecolor="#736343" uuid="014380d5-af3f-49cb-8f4a-257a03311e05"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="214" y="0" width="60" height="14" forecolor="#736343" uuid="a1b3330a-c842-4550-b356-259be0660e86"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HCH - WEB]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy h.mm a">
+					<reportElement x="483" y="0" width="70" height="14" forecolor="#736343" uuid="73e63bc7-d07a-4419-b133-46678d21d222"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Entrevista" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66ddc814-d3f9-44df-beec-230bbb1cc0e8">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="25"/>
+	<property name="ireport.y" value="288"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="apellidoPaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.apellidoPaterno]]></fieldDescription>
+	</field>
+	<field name="apellidoMaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.apellidoMaterno]]></fieldDescription>
+	</field>
+	<field name="primerNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.primerNombre]]></fieldDescription>
+	</field>
+	<field name="segundoNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.segundoNombre]]></fieldDescription>
+	</field>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.sexo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.nacionalidad.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_2" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.estadoCivil.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="lugarNac" class="gob.hnch.systems.sigeho.modulos.gene.model.Ubigeo">
+		<fieldDescription><![CDATA[persona.lugarNac]]></fieldDescription>
+	</field>
+	<field name="fechaNac" class="java.util.Date">
+		<fieldDescription><![CDATA[persona.fechaNac]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="nropost" class="java.lang.String">
+		<fieldDescription><![CDATA[nropost]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_3" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.codtipodona.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_5" class="java.lang.String">
+		<fieldDescription><![CDATA[codresul.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[resultado]]></fieldDescription>
+	</field>
+	<field name="observa" class="java.lang.String">
+		<fieldDescription><![CDATA[observa]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_6" class="java.lang.String">
+		<fieldDescription><![CDATA[documPerso.tipoDocumento.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nroDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[documPerso.nroDocumento]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_7" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.factor.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_8" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.grupo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[direccion.descripcion]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[ubigeo.nombre]]></fieldDescription>
+	</field>
+	<field name="peso" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.peso]]></fieldDescription>
+	</field>
+	<field name="talla" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.talla]]></fieldDescription>
+	</field>
+	<field name="pulso" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.pulso]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_10" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.grupo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_11" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.factor.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="presion" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.presion]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono.numero]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_4" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.codparent.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="hcto" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.hcto]]></fieldDescription>
+	</field>
+	<field name="temperatura" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.temperatura]]></fieldDescription>
+	</field>
+	<field name="descripcion_1" class="java.lang.String">
+		<fieldDescription><![CDATA[correos.descripcion]]></fieldDescription>
+	</field>
+	<field name="temperatura_1" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.temperatura]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_9" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.estaccvenos.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="apeMatPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.apeMatPaci]]></fieldDescription>
+	</field>
+	<field name="apePatPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.apePatPaci]]></fieldDescription>
+	</field>
+	<field name="dnipacit" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.dnipacit]]></fieldDescription>
+	</field>
+	<field name="priNomPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.priNomPaci]]></fieldDescription>
+	</field>
+	<field name="obseresul" class="java.lang.String">
+		<fieldDescription><![CDATA[obseresul]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_13" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.nivelInstrucion.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_14" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.ocupacion.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nacilugar" class="java.lang.String">
+		<fieldDescription><![CDATA[nacilugar]]></fieldDescription>
+	</field>
+	<field name="rpta" class="java.lang.String">
+		<fieldDescription><![CDATA[respuesta.rpta]]></fieldDescription>
+	</field>
+	<field name="cama" class="java.lang.String">
+		<fieldDescription><![CDATA[cama]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_12" class="java.lang.String">
+		<fieldDescription><![CDATA[codcondicio.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_15" class="java.lang.String">
+		<fieldDescription><![CDATA[codservicio.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="numids" class="java.lang.String">
+		<fieldDescription><![CDATA[numids]]></fieldDescription>
+	</field>
+	<field name="foto" class="java.lang.Object">
+		<fieldDescription><![CDATA[foto]]></fieldDescription>
+	</field>
+	<group name="persona">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="307">
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="13" width="551" height="92"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="121" width="551" height="186"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="5" y="124" width="100" height="15" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[APELLIDOS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="6" y="142" width="89" height="15" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[NOMBRES:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24b08fb7-ea8d-4263-a334-d10855841185" x="6" y="269" width="87" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[VIAJES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="286" y="188" width="81" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[ESTADO CIVIL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7fe7643a-a3f0-4407-bb8b-598dfa9ac50c" x="5" y="159" width="33" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[SEXO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="255" y="236" width="40" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[TELEF.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7a6d06e8-f79b-4487-a8c4-ffa55ad30e64" x="7" y="252" width="62" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[CORREO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8f36ce94-f094-4872-af22-f72bef35175b" x="6" y="220" width="53" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[DISTRITO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7e854f63-7109-46d2-bc52-2f48cfa98651" x="334" y="174" width="108" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[FECHA DE NACIMIENTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d25b5e33-df6c-4631-8c50-13b949283563" x="6" y="188" width="90" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[PROCEDENCIA]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="105" width="551" height="16" backcolor="#CCCCFF"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="7" y="108" width="174" height="13"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[I. DATOS PERSONALES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="6" y="235" width="66" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[OCUPACION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="6" y="205" width="66" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[DOMICILIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="6" y="173" width="109" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[LUGAR DE NAC.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="322" y="38" width="97" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[CODIGO DONANTE:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="425" y="34" width="71" height="18"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="ffabce05-f41c-410b-a527-7d59c684ace6" x="8" y="19" width="47" height="14"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Fecha:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="345" y="19" width="73" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[N° Postulante:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="3" width="551" height="10"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="10" y="4" width="311" height="9"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Para ser llenado en recepción a todos los postulantes con letra de imprenta]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="425" y="18" width="71" height="14"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="b58bb6a0-8820-4946-84de-c1ca0867eae4" x="220" y="105" width="169" height="16"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Para ser completado por el postulante]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d25b5e33-df6c-4631-8c50-13b949283563" x="334" y="158" width="110" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[EDAD (Años cumplidos)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="423" y="235" width="40" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[CEL.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="255" y="221" width="40" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[PROV.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7990dbc3-60f7-4573-8fc9-7df33f2ebee4" x="416" y="220" width="40" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[DPTO.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24b08fb7-ea8d-4263-a334-d10855841185" x="411" y="268" width="47" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[FECHA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24b08fb7-ea8d-4263-a334-d10855841185" x="224" y="268" width="87" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[PERMANENCIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24b08fb7-ea8d-4263-a334-d10855841185" x="354" y="251" width="99" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[LUGAR DE TRABAJO]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="125" width="461" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="142" width="461" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="172" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="359" y="189" width="100" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="174" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="158" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="219" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="235" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="267" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="464" y="251" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="309" y="220" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="309" y="236" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="308" y="268" width="80" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="268" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="252" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="236" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="220" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="204" width="317" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="188" width="131" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="388" y="189" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="359" y="189" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="373" y="189" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="403" y="189" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="83" y="159" width="25" height="11"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="139" y="159" width="25" height="11"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="506" y="62" width="47" height="43"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="506" y="18" width="47" height="34"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="80" y="18" width="119" height="16"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="426" y="56" width="71" height="14"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="aad55aff-d5bf-4117-89a8-2d698fd63ca5" x="183" y="52" width="238" height="20"/>
+					<textElement/>
+					<text><![CDATA[DNI o N° Pasaporte o Carnet de Extranjeria (Vigente)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="52" y="72" width="97" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[TIPO DE DONANTE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="403" y="72" width="48" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Reposicion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="173" y="72" width="44" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Voluntario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="144" y="88" width="73" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[SANGRE TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="278" y="72" width="37" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Aunto..]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d5b8a2be-94ca-4616-a467-67df53681479" x="267" y="87" width="49" height="14"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[AFERENE]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="455" y="73" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="322" y="73" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="322" y="88" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="221" y="73" width="15" height="13"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="221" y="89" width="22" height="13"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="7" y="88" width="47" height="15" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[DONANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24b08fb7-ea8d-4263-a334-d10855841185" x="7" y="288" width="87" height="13" forecolor="#000452"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Otros :]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="343" y="137" width="139" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="85" y="300" width="459" height="1"/>
+				</line>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="359" y="189" width="13" height="13" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[S]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="375" y="189" width="13" height="13" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[C]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="390" y="189" width="13" height="13" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[V]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="403" y="189" width="13" height="13" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[D]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="419" y="190" width="38" height="13" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Conv.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="139" y="159" width="25" height="11" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[F]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="610b3860-ece0-45b2-9369-b39494754b41" x="83" y="159" width="25" height="11" forecolor="#000452"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[M]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="662">
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="3" width="551" height="16" backcolor="#CCCCFF"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="8edd0908-32fb-4cde-9612-716679efda97" x="108" y="28" width="39" height="20" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Peso]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="19" width="551" height="45"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="8" y="23" width="29" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Peso:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="149" y="25" width="29" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Talla:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a265ed02-6886-4ea3-a177-61acb55493fe" x="416" y="23" width="76" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Presion Arterial:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="64" width="551" height="47"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="11" y="66" width="78" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Observaciones:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="2" y="130" width="84" height="50"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="16" y="134" width="50" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[FIRMA Y]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="11" y="147" width="69" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[NOMBRE DEL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="6" y="161" width="80" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[ENTREVISTADOR]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="86" y="130" width="161" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="247" y="130" width="75" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="322" y="130" width="160" height="50"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="482" y="130" width="71" height="50"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="259" y="133" width="50" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[FIRMA Y]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="253" y="158" width="67" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[POSTULANTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="10" y="7" width="116" height="12"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[II. EXAMEN FISICO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f2b7922b-61ee-4aa7-abbe-d02cdf37f9c5" x="240" y="7" width="311" height="12"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Para ser llenado por el examinador]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="544ad48f-647a-4b87-8f25-dc07dc92a7e0" x="2" y="101" width="551" height="29" backcolor="#CCCCFF"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="a265ed02-6886-4ea3-a177-61acb55493fe" x="150" y="43" width="90" height="15" forecolor="#000066"/>
+					<textElement/>
+					<text><![CDATA[Presion Cardiaca:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="192" y="24" width="48" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="235" y="44" width="48" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="488" y="24" width="48" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="38" y="23" width="48" height="14"/>
+				</rectangle>
+				<rectangle>
+					<reportElement uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d" x="86" y="67" width="458" height="30"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="252" y="145" width="69" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[NOMBRE DEL]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="96" y="147" width="139" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="333" y="146" width="139" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="334" y="173" width="139" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="cc626f6f-56b3-4065-819d-0a78e1844209" x="97" y="173" width="139" height="1"/>
+				</line>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="7" y="102" width="360" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[En caso se determina que el postulante hasta este punto no califica para realizar el]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a" x="6" y="113" width="360" height="15" forecolor="#000066"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[proceso se da por finalizado este Firmando de postulante en señal de aceptacion]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<image>
+				<reportElement uuid="802fd128-b388-4330-af31-4c5efbe22770" stretchType="RelativeToBandHeight" x="476" y="3" width="76" height="65"/>
+				<imageExpression><![CDATA[$F{foto}.equals(null)? this.class.getResourceAsStream("/gob/hnch/systems/sigeho/recursos/hnch/gota_sangre.jpg") : JRImageRenderer.getInstance((byte []) $F{foto})]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="3143f7c9-a535-4102-a786-dda130e386b7" x="6" y="3" width="146" height="26"/>
+				<imageExpression><![CDATA[this.class.getResourceAsStream("/gob/hnch/systems/sigeho/recursos/hnch/logoInstitucional.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c8d0d14e-4f03-4dfc-af13-b231c5c6664e" x="102" y="36" width="355" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CENTRO DE HEMOTERAPIA Y BANCO DE SANGRE]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="358a2c34-b26b-439e-882a-13e7c2bf5c57" x="6" y="29" width="53" height="39"/>
+				<imageExpression><![CDATA[this.class.getResourceAsStream("/gob/hnch/systems/sigeho/recursos/hnch/logoGobierno.jpg")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="2696d913-c948-4134-a038-a532f8b2e4c7" x="58" y="50" width="418" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="10"/>
+				</textElement>
+				<text><![CDATA["ANEXO N°1: FORMATO DE SELECCION DEL POSTULANTE A DONADOR DE SANGRE"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8d0d14e-4f03-4dfc-af13-b231c5c6664e" x="100" y="22" width="357" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[HOSPITAL NACIONAL CAYETANO HEREDIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="2" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="49" splitType="Stretch"/>
+	</summary>
+</jasperReport>

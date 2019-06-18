@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subRptApoyoalDx" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="0" rightMargin="72" topMargin="0" bottomMargin="0" uuid="403ea8d4-2721-4478-9e77-a0e3fc6ee921">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoApoyo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[apoyoDX.nombreCorto]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="487" height="15" backcolor="#FAF8EC" uuid="d46e013b-f915-40e0-abdb-876f246cef38"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="90" y="1" width="1" height="15" forecolor="#999999" uuid="56a48161-1180-4aef-afc7-b64be5f8cf51"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="2" y="2" width="67" height="14" uuid="4cb4ae3e-c89c-4eae-b458-1b6bafb200d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="2" width="320" height="14" uuid="183dd7d1-433e-4a28-9c97-7e3541e67db8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE APOYO AL DIAGNÓSTICO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="2" width="88" height="16" uuid="d1c263a7-6e16-4554-9264-c2fa52d832f1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="18" width="485" height="1" forecolor="#999999" uuid="edc8da64-c84f-4388-bbb2-e56339ceaf28"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" forecolor="#999999" uuid="f229cac5-1f6f-4bd0-bf87-4ed5e5b2feb1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="90" y="0" width="1" height="18" forecolor="#999999" uuid="ddf7f609-4f9d-4b6e-a34e-5840e385da1d"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="486" y="0" width="1" height="18" forecolor="#999999" uuid="6d856284-b782-4f3f-b877-6c6ac0c8b99e"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="92" y="2" width="395" height="16" uuid="152e441b-050b-4f0a-b6b7-7cdaae90f8ab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

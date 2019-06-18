@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="analisis" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66ddc814-d3f9-44df-beec-230bbb1cc0e8">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="732"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="apellidoPaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.apellidoPaterno]]></fieldDescription>
+	</field>
+	<field name="apellidoMaterno" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.apellidoMaterno]]></fieldDescription>
+	</field>
+	<field name="primerNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.primerNombre]]></fieldDescription>
+	</field>
+	<field name="segundoNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.segundoNombre]]></fieldDescription>
+	</field>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.sexo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.nacionalidad.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_2" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.estadoCivil.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="fechaNac" class="java.util.Date">
+		<fieldDescription><![CDATA[persona.fechaNac]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="nropost" class="java.lang.String">
+		<fieldDescription><![CDATA[nropost]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_3" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.codtipodona.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_5" class="java.lang.String">
+		<fieldDescription><![CDATA[codresul.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[resultado]]></fieldDescription>
+	</field>
+	<field name="observa" class="java.lang.String">
+		<fieldDescription><![CDATA[observa]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_6" class="java.lang.String">
+		<fieldDescription><![CDATA[documPerso.tipoDocumento.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nroDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[documPerso.nroDocumento]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_7" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.factor.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_8" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.grupo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[direccion.descripcion]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[ubigeo.nombre]]></fieldDescription>
+	</field>
+	<field name="peso" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.peso]]></fieldDescription>
+	</field>
+	<field name="talla" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.talla]]></fieldDescription>
+	</field>
+	<field name="pulso" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.pulso]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_10" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.grupo.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_11" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.factor.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="presion" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.presion]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[telefono.numero]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_4" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.codparent.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="hcto" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.hcto]]></fieldDescription>
+	</field>
+	<field name="temperatura" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.temperatura]]></fieldDescription>
+	</field>
+	<field name="descripcion_1" class="java.lang.String">
+		<fieldDescription><![CDATA[correos.descripcion]]></fieldDescription>
+	</field>
+	<field name="temperatura_1" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.temperatura]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_9" class="java.lang.String">
+		<fieldDescription><![CDATA[predonante.estaccvenos.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="apeMatPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.apeMatPaci]]></fieldDescription>
+	</field>
+	<field name="apePatPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.apePatPaci]]></fieldDescription>
+	</field>
+	<field name="dnipacit" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.dnipacit]]></fieldDescription>
+	</field>
+	<field name="priNomPaci" class="java.lang.String">
+		<fieldDescription><![CDATA[pacientbanco.priNomPaci]]></fieldDescription>
+	</field>
+	<field name="obseresul" class="java.lang.String">
+		<fieldDescription><![CDATA[obseresul]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_13" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.nivelInstrucion.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_14" class="java.lang.String">
+		<fieldDescription><![CDATA[persona.ocupacion.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nacilugar" class="java.lang.String">
+		<fieldDescription><![CDATA[nacilugar]]></fieldDescription>
+	</field>
+	<field name="rpta" class="java.lang.String">
+		<fieldDescription><![CDATA[respuesta.rpta]]></fieldDescription>
+	</field>
+	<field name="cama" class="java.lang.String">
+		<fieldDescription><![CDATA[cama]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_12" class="java.lang.String">
+		<fieldDescription><![CDATA[codcondicio.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_15" class="java.lang.String">
+		<fieldDescription><![CDATA[codservicio.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="numids" class="java.lang.String">
+		<fieldDescription><![CDATA[numids]]></fieldDescription>
+	</field>
+	<field name="foto" class="java.lang.Object">
+		<fieldDescription><![CDATA[foto]]></fieldDescription>
+	</field>
+	<group name="persona">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="342">
+				<rectangle>
+					<reportElement x="2" y="13" width="551" height="44" uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="8" y="13" width="44" height="14" uuid="d5b8a2be-94ca-4616-a467-67df53681479"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Paciente:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="55" y="13" width="256" height="14" uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="312" y="13" width="47" height="14" uuid="ffabce05-f41c-410b-a527-7d59c684ace6"/>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Fecha:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="8" y="27" width="49" height="14" uuid="d5b8a2be-94ca-4616-a467-67df53681479"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[N° Análisis:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="2" y="3" width="551" height="10" uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="59" y="27" width="88" height="14" uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="357" y="13" width="119" height="14" uuid="49cd3bf5-87c1-472b-9e00-c6293a246d3d"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="5" y="43" width="50" height="14" uuid="aad55aff-d5bf-4117-89a8-2d698fd63ca5"/>
+					<text><![CDATA[DNI o C.E:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="312" y="27" width="47" height="14" uuid="d5b8a2be-94ca-4616-a467-67df53681479"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Edad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="311" y="42" width="48" height="14" uuid="d5b8a2be-94ca-4616-a467-67df53681479"/>
+					<textElement>
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Sexo:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="59" y="43" width="88" height="14" uuid="0ee656e0-626b-4c4f-a90a-6e5a23150b76"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="359" y="27" width="44" height="14" uuid="0d085113-eb79-4e96-becd-6ebbdd9ddad1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="359" y="41" width="44" height="14" uuid="aa1da3cb-7253-49e7-9617-915ae9eeb71f"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="202"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="102" y="36" width="355" height="14" uuid="c8d0d14e-4f03-4dfc-af13-b231c5c6664e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[LABORATORIOS CLINICOS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="29" width="53" height="39" uuid="358a2c34-b26b-439e-882a-13e7c2bf5c57"/>
+				<imageExpression><![CDATA[this.class.getResourceAsStream("/sigelab/web/reportes/laboratorios_labmed.jpg")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="14" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="8" width="57" height="15" forecolor="#000066" uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[VALIDACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="7" width="50" height="15" forecolor="#000066" uuid="f7a846e5-2a56-403a-8ac0-94ab234b3d1a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[REVISADO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="102" y="21" width="139" height="1" uuid="cc626f6f-56b3-4065-819d-0a78e1844209"/>
+			</line>
+			<line>
+				<reportElement x="339" y="20" width="139" height="1" uuid="cc626f6f-56b3-4065-819d-0a78e1844209"/>
+			</line>
+			<line>
+				<reportElement x="340" y="47" width="139" height="1" uuid="cc626f6f-56b3-4065-819d-0a78e1844209"/>
+			</line>
+			<line>
+				<reportElement x="343" y="71" width="139" height="1" uuid="cc626f6f-56b3-4065-819d-0a78e1844209"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="49" splitType="Stretch"/>
+	</summary>
+</jasperReport>

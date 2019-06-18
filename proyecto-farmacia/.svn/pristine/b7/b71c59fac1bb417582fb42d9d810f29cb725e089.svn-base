@@ -1,0 +1,37 @@
+ 
+ ################### Parametros para Gestion de Archivos #####################
+ 
+ ### resultados ###
+ruta.webhnch.archivos.resultados=C\:\\webhnch\\archivos\\resultados
+#ruta.natigu.archivos.general.subNivel=//opt//l
+ 
+### Sistema Operativo ###
+#	1:	Windows
+#	2:	Linux
+sistemaOperativo=1
+
+### Clave de encriptacion ###
+KEY_ENCRYPT_PASS=M1N3DU2O$7
+KEY_ENCRYPT_PREGU=PR3GU4PR3N$
+KEY_ENCRYPT_ALTER=4LT3R4PR3N$
+KEY_ENCRYPT_REL=R3L4C4PR3N$
+
+################### OFFLINE ##########################
+## 1 - Funcionará como servidor local ##
+## 2 - Funcionará como servidor remoto ##
+SERVIDOR_LOCAL =1
+### Conexion a servidor local ###
+jdbcLocal.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+jdbcLocal.url=jdbc:sqlserver://192.168.24.2/SIGEHOV2ASIS
+jdbcLocal.username=sa
+jdbcLocal.password=Hnch2012
+
+### Conexion a servidor remoto ###
+jdbcOnline.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+jdbcOnline.url=jdbc:sqlserver://192.168.24.2/SIGEHOV2ASIS
+jdbcOnline.username=sa
+jdbcOnline.password=Hnch2012
+
+
+
+ 

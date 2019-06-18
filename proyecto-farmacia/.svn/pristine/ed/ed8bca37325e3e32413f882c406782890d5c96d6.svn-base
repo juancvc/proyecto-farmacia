@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sbrDiagnosticosReferencia" pageWidth="595" pageHeight="842" columnWidth="523" leftMargin="0" rightMargin="72" topMargin="0" bottomMargin="0" uuid="d5dc36d2-ab38-48f4-93b5-5f4eef6509a3">
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreCorto" class="java.lang.String">
+		<fieldDescription><![CDATA[diagnostico.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="valor4" class="java.lang.String">
+		<fieldDescription><![CDATA[diagnostico.valor4]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_1" class="java.lang.String">
+		<fieldDescription><![CDATA[especialidad.nombreCorto]]></fieldDescription>
+	</field>
+	<field name="nombreCorto_2" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo.nombreCorto]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="487" height="15" backcolor="#FAF8EC" uuid="80683b69-dfeb-4e80-ab6f-47277c551fa9"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="2" width="33" height="14" uuid="fad5ba78-3335-4ad7-bc99-fbd278b50547"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIEX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="2" width="254" height="14" uuid="3a53e991-e05d-487b-9c2f-db687284c6e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE  DIAGNÓSTICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="132" height="14" uuid="782b6ef0-d24d-417c-be40-3682486f8167"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESPECIALIDAD]]></text>
+			</staticText>
+			<line>
+				<reportElement x="33" y="1" width="1" height="15" forecolor="#999999" uuid="399eeea4-45a2-49da-8bb5-816190a668ef"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="354" y="1" width="1" height="15" forecolor="#999999" uuid="0c13f967-d599-44a7-ac7a-6314e464fe84"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="288" y="1" width="1" height="15" forecolor="#999999" uuid="16366db1-c4ab-4f51-9426-6e25aa264985"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="289" y="2" width="65" height="14" uuid="54e261a9-662e-458a-9705-7a4ba4f30340"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="2" width="32" height="16" uuid="c6178e50-c016-485a-bd6a-d7305f77029b"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="2" width="253" height="16" uuid="c5c4ff25-6a47-425d-a6a7-b485780d3577"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="487" y="0" width="1" height="20" forecolor="#999999" uuid="c182112b-c8e8-493b-b9db-0c4e58d88d08"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="18" width="488" height="1" forecolor="#999999" uuid="45f212fd-eb85-4899-ba64-28bc89d30e72"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" forecolor="#999999" uuid="9cd26636-48f5-47bd-a75e-20109dd93334"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="33" y="0" width="1" height="20" forecolor="#999999" uuid="d307dee0-9b3b-425d-acce-d044fe241cab"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="354" y="2" width="133" height="16" uuid="e2479ced-1e99-45c4-9862-eca649866120"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="354" y="0" width="1" height="20" forecolor="#999999" uuid="070125a1-a489-4ba0-b3ee-4917a1042e7f"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="288" y="0" width="1" height="20" forecolor="#999999" uuid="d0c1c4e2-5a70-4c3b-bf14-906022bc6ff2"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="289" y="2" width="65" height="16" uuid="b45ce66e-79e5-42d8-acd3-2c08e67210ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCorto_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
