@@ -2,8 +2,8 @@ package sigelab.core.repository.implementacion.general;
 
 import sigelab.core.bean.general.PacienteBean;
 import sigelab.core.bean.general.PersonaBean;
-import sigelab.core.entity.general_.Paciente;
-import sigelab.core.entity.general_.Persona;
+import sigelab.core.entity.general.Paciente;
+import sigelab.core.entity.general.Persona;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.PacienteDAO;
 
@@ -171,7 +171,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 		if (entity != null) {
 			
 			bean = new PacienteBean();
-			 
+		/**	 
 			bean.setCodigo(entity.getId().getCodpacie());
 			bean.setNumeroPeriodo(""+entity.getId().getNroPerio());
 			bean.setCodigoOrganizacion(entity.getId().getCodorgan());
@@ -180,6 +180,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 			bean.getPersona().setCodigo(entity.getCodPerso());  
 			bean.getTipoSeguro().setCodReg(entity.getTg14tpse());  
 			bean.setCategoriaSeguro(entity.getCategoria());
+			*/
 		}
 		
 		return bean;

@@ -2,7 +2,7 @@ package sigelab.core.repository.implementacion.general;
 
 
 import sigelab.core.bean.general.PersonaBean;
-import sigelab.core.entity.general_.Persona;
+import sigelab.core.entity.general.Persona;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.PersonaDAO;
 
@@ -208,7 +208,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		if (entity != null) {
 			
 			bean = new PersonaBean(); 
-			bean.setCodigo(entity.getId().getCodperso());
+		/**	bean.setCodigo(entity.getId().getCodperso());
 			bean.setCodigoPersonaSigeho(entity.getCodPersoSigeho());
 			bean.setNroPeriodoPersona(""+entity.getId().getNroperio());
 			bean.setNumeroPeriodo(""+entity.getId().getNroperio());
@@ -251,7 +251,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			bean.setCodigoDireccion(entity.getCODDIXPE());
 			bean.setCodigoTelefono(entity.getCODTEXPE());
 			bean.setCorreo(entity.getCorreope());
-			bean.setTelfCelu(entity.getTelfcelu());
+			bean.setTelfCelu(entity.getTelfcelu());*/
 			
 		}
 		

@@ -160,10 +160,7 @@ public class PreparadoPaciente implements Serializable {
 	@Column(name="FECHA_ENTREGA")
 	private Timestamp fechaEntrega;
      
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_SITUACION", referencedColumnName = "ID_SITUACION", insertable = false, updatable = false)
-	})
+	@Column(name="ID_SITUACION")
 	private String situacion;
 
 	private Timestamp fechaEntregaDesde;

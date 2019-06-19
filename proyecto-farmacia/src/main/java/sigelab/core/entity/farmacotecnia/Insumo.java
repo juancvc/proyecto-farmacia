@@ -142,10 +142,7 @@ public class Insumo implements Serializable {
 	@Column(name="ESTADO")
 	private String estado;
  
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_SITUACION", referencedColumnName = "ID_SITUACION", insertable = false, updatable = false)
-	})
+	@Column(name="ID_SITUACION")
 	private String situacion;
 	
 	@Column(name="NOMBRE_CORTO")
@@ -154,9 +151,7 @@ public class Insumo implements Serializable {
 	@Column(name="NOMBRE_LARGO")
 	private String nombreLargo;
 
-	public Insumo() {
-		this.setId(new InsumoPK());
-		this.setSituacion(new String());
+	public Insumo() { 
 	}
 
 	public InsumoPK getId() {

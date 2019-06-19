@@ -164,10 +164,7 @@ public class PreparadoInsumo implements Serializable {
 	@Column(name="ESTADO")
 	private String estado;
 
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_SITUACION", referencedColumnName = "ID_SITUACION", insertable = false, updatable = false)
-	})
+	@Column(name="ID_SITUACION")
 	private String situacion;
  
 

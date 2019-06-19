@@ -228,7 +228,7 @@ public class Stock
 	
  
 	@Column(name="ID_ARTICULO")
-	private Articulo articulo;
+	private String idArticulo;
 	
 	private String tipoLlamada;
 	
@@ -359,16 +359,55 @@ public class Stock
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
+ 
 
-	 
-
-	public Articulo getArticulo() {
-		return articulo;
+	public String getIdAlmacen() {
+		return idAlmacen;
 	}
 
 
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+	public void setIdAlmacen(String idAlmacen) {
+		this.idAlmacen = idAlmacen;
+	}
+
+
+	public String getIdArticulo() {
+		return idArticulo;
+	}
+
+
+	public void setIdArticulo(String idArticulo) {
+		this.idArticulo = idArticulo;
+	}
+
+
+	public String getTipoFinanciamiento() {
+		return tipoFinanciamiento;
+	}
+
+
+	public void setTipoFinanciamiento(String tipoFinanciamiento) {
+		this.tipoFinanciamiento = tipoFinanciamiento;
+	}
+
+
+	public String getTipoProcesoSeleccion() {
+		return TipoProcesoSeleccion;
+	}
+
+
+	public void setTipoProcesoSeleccion(String tipoProcesoSeleccion) {
+		TipoProcesoSeleccion = tipoProcesoSeleccion;
+	}
+
+
+	public String getProveedor() {
+		return proveedor;
+	}
+
+
+	public void setProveedor(String proveedor) {
+		this.proveedor = proveedor;
 	}
 
 
