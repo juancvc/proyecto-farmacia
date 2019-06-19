@@ -1,25 +1,16 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.receta;
+package sigelab.core.entity.receta;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.sql.Timestamp; 
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.Entity; 
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter; 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.EventoPersona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Paciente;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Personal;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.RecetaVO;
+import javax.persistence.StoredProcedureParameter;  
 
 
 @SuppressWarnings("serial")
@@ -29,7 +20,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.RecetaVO;
 				@NamedStoredProcedureQuery(
 						name="receta.buscarxid", 
 						procedureName="SP_RECETA_BUSCAR_X_ID",
-						resultClasses= RecetaVO.class,
+						resultClasses= Receta.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
@@ -53,7 +44,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.RecetaVO;
 				@NamedStoredProcedureQuery(
 						name="receta.buscarxcriterios", 
 						procedureName="SP_RECETA_BUSCAR_X_CRITERIOS",
-						resultClasses= RecetaVO.class,
+						resultClasses= Receta.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
@@ -182,17 +173,10 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.RecetaVO;
 	)
 
 @Entity
-public class Receta 
-	extends GenericEntity{
+public class Receta   {
 
 	@EmbeddedId
-	private RecetaPK id;
-	 
-	private EventoPersona evento;
-	 
-	private Paciente paciente;
-	 
-	private Personal medico;
+	private RecetaPK id; 
 	
 	@Column(name="ID_CIE10")
 	private int idCIE10;
@@ -247,14 +231,7 @@ public class Receta
 	
 	private int   idAlmacen;
 	
-	public Receta() {
-		this.setId(new RecetaPK());
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
-		this.setPaciente(new Paciente());
-		this.setEvento(new EventoPersona());
-		this.setMedico(new Personal());
-		this.setRecetaItems(new ArrayList<RecetaDetalle>());
+	public Receta() { 
 	}
 
 
@@ -283,35 +260,7 @@ public class Receta
 	public void setId(RecetaPK id) {
 		this.id = id;
 	}
-	public EventoPersona getEvento() {
-		return evento;
-	}
-
-
-	public void setEvento(EventoPersona evento) {
-		this.evento = evento;
-	}
-
-
-	public Paciente getPaciente() {
-		return paciente;
-	}
-
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
-
-
-	public Personal getMedico() {
-		return medico;
-	}
-
-
-	public void setMedico(Personal medico) {
-		this.medico = medico;
-	}
-
+ 
 
 	public int getIdCIE10() {
 		return idCIE10;
@@ -450,18 +399,6 @@ public class Receta
 	}
 	public void setIdTipoSis(int idTipoSis) {
 		this.idTipoSis = idTipoSis;
-	}
-	@Override
-	public String toString() {
-		return "Receta [id=" + id + ", evento=" + evento + ", paciente=" + paciente + ", medico=" + medico
-				+ ", idCIE10=" + idCIE10 + ", observacion=" + observacion + ", fechaAtencion=" + fechaAtencion
-				+ ", aud_fechaOperacion=" + aud_fechaOperacion + ", numeroHC=" + numeroHC + ", recetaItems="
-				+ recetaItems + ", tipo=" + tipo + ", tipoPaciente=" + tipoPaciente + ", cantidadItems=" + cantidadItems
-				+ ", cadenaIdRecetaDetalle=" + cadenaIdRecetaDetalle + ", cadenaIdArticulo=" + cadenaIdArticulo
-				+ ", cadenaDosis=" + cadenaDosis + ", cadenaCantidad=" + cadenaCantidad + ", fechaDesde=" + fechaDesde
-				+ ", fechaHasta=" + fechaHasta + ", idAlmacen=" + idAlmacen + "]";
-	}
-	
-	
+	} 
 	
 }

@@ -1,7 +1,6 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.venta;
+package sigelab.core.entity.venta;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,10 +9,7 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
+ 
 @NamedStoredProcedureQueries(
 		{
 				
@@ -120,8 +116,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
 	)
 @Entity
 @Table(name="PRECIOS_VENTA_ART")
-public class PreciosVentaArticulo 
-	extends GenericEntity{
+public class PreciosVentaArticulo  {
 	private static final int serialVersionUID = 1;
 	@Id
 	@Column(name="ID_PRECIO_VENTA_ART")
@@ -294,9 +289,7 @@ public class PreciosVentaArticulo
 	}
 
 
-	public PreciosVentaArticulo() {
-		this.setAud_usuario(new Usuario());
-		this.setSituacion(new Situacion());
+	public PreciosVentaArticulo() { 
 	}
 
 

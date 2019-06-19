@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad;
+package sigelab.core.entity.seguridad;
 
 import java.io.Serializable;
 import javax.persistence.*;

@@ -1,17 +1,15 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.venta;
+package  sigelab.core.entity.venta;
 
-import java.io.Serializable; 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity; 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Entity;  
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table; 
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.stock.Articulo;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
+import javax.persistence.Table;  
 
 
 @NamedStoredProcedureQueries(
@@ -48,39 +46,31 @@ public class VentaItem implements Serializable {
 	private Float precio;
  
 	private Venta venta;
-
-	//bi-directional many-to-one association to Producto
-	@ManyToOne
-	@JoinColumn(name="ID_ARTICULO")
-	private Articulo articulo;
-
-	//bi-directional many-to-one association to Producto
-	@ManyToOne
-	@JoinColumn(name="ID_STOCK")
-	private StockVO stockVO;
+ 
+	@Column(name="ID_ARTICULO")
+	private String idArticulo;
+ 
+	@Column(name="ID_STOCK")
+	private String idStock;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_MOTIVO_DEVOLUCION")
-	private MotivoDevolucion motivoDevolucion;
+	@Column(name="ID_MOTIVO_DEVOLUCION")
+	private String idMotivoDevolucion;
 	
 	private int restoStockSolicitado;
 	
-	public VentaItem() {
-		this.setVenta(new Venta());
-		this.setArticulo(new Articulo());
-		this.setStockVO(new StockVO());
-		this.setMotivoDevolucion(new MotivoDevolucion());
-	}
-	public MotivoDevolucion getMotivoDevolucion() {
-		return motivoDevolucion;
+	public VentaItem() { 
 	}
 
-	public void setMotivoDevolucion(MotivoDevolucion motivoDevolucion) {
-		this.motivoDevolucion = motivoDevolucion;
+	public VentaItemPK getId() {
+		return id;
 	}
- 
+
+	public void setId(VentaItemPK id) {
+		this.id = id;
+	}
+
 	public int getCantidad() {
-		return this.cantidad;
+		return cantidad;
 	}
 
 	public void setCantidad(int cantidad) {
@@ -88,7 +78,7 @@ public class VentaItem implements Serializable {
 	}
 
 	public String getEstado() {
-		return this.estado;
+		return estado;
 	}
 
 	public void setEstado(String estado) {
@@ -96,7 +86,7 @@ public class VentaItem implements Serializable {
 	}
 
 	public Float getImporte() {
-		return this.importe;
+		return importe;
 	}
 
 	public void setImporte(Float importe) {
@@ -104,13 +94,12 @@ public class VentaItem implements Serializable {
 	}
 
 	public Float getPrecio() {
-		return this.precio;
+		return precio;
 	}
 
 	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
-
 
 	public Venta getVenta() {
 		return venta;
@@ -120,49 +109,38 @@ public class VentaItem implements Serializable {
 		this.venta = venta;
 	}
 
-	public Articulo getArticulo() {
-		return this.articulo;
+	 
+	public String getIdArticulo() {
+		return idArticulo;
 	}
 
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+	public void setIdArticulo(String idArticulo) {
+		this.idArticulo = idArticulo;
 	}
 
-	public StockVO getStockVO() {
-		return stockVO;
+	public String getIdStock() {
+		return idStock;
 	}
 
-	public void setStockVO(StockVO stock) {
-		this.stockVO = stock;
+	public void setIdStock(String idStock) {
+		this.idStock = idStock;
 	}
 
-	public void ejecutarCalculos(){
-		//System.out.println("this.getPrecio() "  + this.getPrecio());
-		this.setImporte(this.getCantidad()* this.getPrecio());
-		//System.out.println("this.getImporte() " + this.getImporte());
+	public String getIdMotivoDevolucion() {
+		return idMotivoDevolucion;
 	}
-	public void ejecutarCalculos(int resto, int stock){
-		if(resto > 0){
-			this.setImporte(stock * this.getPrecio());
-		}else{
-			this.setImporte(this.getCantidad() * this.getPrecio());
-		}
+
+	public void setIdMotivoDevolucion(String idMotivoDevolucion) {
+		this.idMotivoDevolucion = idMotivoDevolucion;
 	}
+
 	public int getRestoStockSolicitado() {
 		return restoStockSolicitado;
 	}
+
 	public void setRestoStockSolicitado(int restoStockSolicitado) {
 		this.restoStockSolicitado = restoStockSolicitado;
 	}
 	
-	public VentaItemPK getId() {
-		if (id == null) {
-			id = new VentaItemPK();
-		}
-		return id;
-	} 
-
-	public void setId(VentaItemPK id) {
-		this.id = id;
-	} 
+	 
 }

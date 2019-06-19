@@ -161,7 +161,7 @@ public class PerfilDAOImp implements PerfilDAO {
 
 		if (lstPerfil != null && lstPerfil.size() > 0) {
 			for ( Perfil p : lstPerfil ) {
-				System.out.println("perfil.getNombPerf :: " + p.getNombPerf());
+				System.out.println("perfil.getNombreCorto :: " + p.getNombreCorto());
 			}
 			lstPerfilBean = deListaPerfilAListaPerfilBean(lstPerfil);
 		}
@@ -198,8 +198,8 @@ public class PerfilDAOImp implements PerfilDAO {
 	private PerfilBean dePerfilToPerfilBean(Perfil entity) {
 		PerfilBean bean = new PerfilBean();
 		if (entity != null) {
-			bean.setCodigo(entity.getCodiPerf());
-			bean.setNombrePerfil(entity.getNombPerf());
+			bean.setCodigo(entity.getIdPerfil());
+			bean.setNombrePerfil(entity.getNombreCorto());
 
 		}
 		return bean;
@@ -216,7 +216,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			List<Perfil> resultList = query.getResultList();
 			if (resultList != null && resultList.size() > 0) {
 				for ( Perfil p : resultList ) {
-					System.out.println("perfil.getNombPerf :: " + p.getNombPerf());
+					System.out.println("perfil.getNombreCorto :: " + p.getNombreCorto());
 				}
 				lstPerfilBean = deListaPerfilAListaPerfilBean(resultList);
 			}
@@ -235,7 +235,7 @@ public class PerfilDAOImp implements PerfilDAO {
 
 		if (lstPerfil != null && lstPerfil.size() > 0) {
 			for ( Perfil p : lstPerfil ) {
-				System.out.println("perfil.getNombPerf :: " + p.getNombPerf());
+				System.out.println("perfil.getNombreCorto :: " + p.getNombreCorto());
 			}
 			lstPerfilBean = deListaPerfilAListaPerfilBean(lstPerfil);
 		}

@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.receta;
+package sigelab.core.entity.receta;
 
 import java.sql.Timestamp;
 
@@ -11,13 +11,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
- 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.stock.Articulo;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.RecetaDetalleVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.ReservaRecetaDetalleVO; 
+  
 
 @SuppressWarnings("serial")
 @NamedStoredProcedureQueries(
@@ -48,7 +42,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.ReservaRecetaDetalleVO
 				@NamedStoredProcedureQuery(
 						name="recetaDetalle.buscarxIdReceta", 
 						procedureName="SP_RECETA_DETALLE_BUSCAR_X_ID_RECETA",
-						resultClasses= RecetaDetalleVO.class,
+						resultClasses= RecetaDetalle.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_RECETA", type=Long.class ),
@@ -119,7 +113,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.ReservaRecetaDetalleVO
 				),@NamedStoredProcedureQuery(
 						name="recetaDetalle.listarArticulosPorReceta", 
 						procedureName="[SP_RECETA_DETALLE_LISTAR_ARTICULOS_X_ID_RECETA]",
-						resultClasses= ReservaRecetaDetalleVO.class,
+						resultClasses= RecetaDetalle.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="TIPO", type=int.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
@@ -133,8 +127,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.ReservaRecetaDetalleVO
 		}
 	)
 @Entity
-public class RecetaDetalle 
-	extends GenericEntity{
+public class RecetaDetalle  {
 
 	@EmbeddedId
 	private RecetaDetallePK id;
@@ -143,7 +136,7 @@ public class RecetaDetalle
 	private Receta receta;
 	
 	@JoinColumn(name="ID_ARTICULO")
-	private Articulo articulo;
+	private String idArticulo;
 	
 	@Column(name="CANTIDAD")
 	private int cantidad;
@@ -154,11 +147,7 @@ public class RecetaDetalle
 	@Column(name="DOSIS")
 	private  String dosis;
 	
-	public RecetaDetalle() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
-		this.setArticulo(new Articulo());
-		this.setReceta(new Receta());
+	public RecetaDetalle() { 
 	}
 
  
@@ -181,17 +170,7 @@ public class RecetaDetalle
 		this.receta = receta;
 	}
 
-
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
-
-
+ 
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -221,11 +200,6 @@ public class RecetaDetalle
 		this.dosis = dosis;
 	}
 
-
-	@Override
-	public String toString() {
-		return "RecetaDetalle [id=" + id + ", receta=" + receta + ", articulo=" + articulo + ", cantidad=" + cantidad
-				+ ", aud_fechaOperacion=" + aud_fechaOperacion + ", dosis=" + dosis + "]";
-	}
+ 
 	
 }

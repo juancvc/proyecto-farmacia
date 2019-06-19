@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.venta;
+package sigelab.core.entity.venta;
 
 import java.io.Serializable;
 import javax.persistence.*;

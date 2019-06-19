@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.stock;
+package sigelab.core.entity.stock;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,10 +7,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
+ 
 @NamedStoredProcedureQueries(
 		{
 				
@@ -98,8 +95,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
 		}
 	)
 @Entity
-public class Proveedor 
-	extends GenericEntity{
+public class Proveedor  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="ID_PROVEEDOR")
@@ -129,9 +125,7 @@ public class Proveedor
 	@Column(name="NRO_PERIODO_PROVEEDOR")
 	private int nroPeriodoProveedor;
 	
-	public Proveedor() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	public Proveedor() { 
 	}
 
 
@@ -219,13 +213,6 @@ public class Proveedor
 	public void setNroPeriodoProveedor(int nroPeriodoProveedor) {
 		this.nroPeriodoProveedor = nroPeriodoProveedor;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Proveedor [idProveedor=" + idProveedor + ", nombreCorto=" + nombreCorto
-				+ ", nombreLargo=" + nombreLargo + ", ruc=" + ruc + ", estado="
-				+ estado + "]";
-	}
+ 
 	
 }

@@ -1,26 +1,17 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.stock;
+package sigelab.core.entity.stock;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id; 
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table;
+import javax.persistence.Table; 
 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.inventario.Almacen;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.movimiento.TipoFinanciamiento;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.movimiento.TipoProcesoSeleccion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 @SuppressWarnings("serial")
 @NamedStoredProcedureQueries(
 		{
@@ -28,7 +19,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 				@NamedStoredProcedureQuery(
 						name="stock.findByObjectVO", 
 						procedureName="SP_STOCK_BUSCAR_X_ID",
-						resultClasses= StockVO.class,
+						resultClasses= Stock.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_STOCK", type=Integer.class),
@@ -53,7 +44,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 				@NamedStoredProcedureQuery(
 						name="stock.findByLikeObjectVO", 
 						procedureName="SP_STOCK_BUSCAR_X_CRITERIOS",
-						resultClasses= StockVO.class,
+						resultClasses= Stock.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO_ARTICULO", type=String.class),
@@ -118,7 +109,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 				@NamedStoredProcedureQuery(
 						name="stock.listarProductosAVerncerse", 
 						procedureName="[FARMACIA].[dbo].[SP_STOCK_LISTAR_PRODUCTOS_A_VENCER]",
-						resultClasses = StockVO.class,
+						resultClasses = Stock.class,
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=Integer.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=Integer.class),
@@ -177,7 +168,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 				@NamedStoredProcedureQuery(
 						name="stock.listarStockDiarios", 
 						procedureName="[FARMACIA].[dbo].[SP_STOCK_DIARIOS]",
-						resultClasses = StockVO.class,
+						resultClasses = Stock.class,
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class)
@@ -211,8 +202,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.StockVO;
 @Entity
 @Table(name="STOCK")
 public class Stock 
-
-	extends GenericEntity{
+ {
 	
 	@Id
 	@Column(name="ID_STOCK")
@@ -233,12 +223,11 @@ public class Stock
 	@Column(name="FECHA_VENCIMIENTO")
 	private Timestamp fechaVencimiento;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_ALMACEN")
-	private Almacen almacen;
+	@Column(name="ID_ALMACEN")
+	private String idAlmacen;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_ARTICULO")
+ 
+	@Column(name="ID_ARTICULO")
 	private Articulo articulo;
 	
 	private String tipoLlamada;
@@ -246,13 +235,12 @@ public class Stock
 	@Column(name="ID_MODALIDAD_ADQUISICION")
 	private int idModalidaAquisicion;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_FINANCIADOR")
-	private TipoFinanciamiento tipoFinanciamiento;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_SELECCION")
-	private TipoProcesoSeleccion TipoProcesoSeleccion;
+ 
+	@Column(name="ID_TIPO_FINANCIADOR")
+	private String tipoFinanciamiento;
+	 
+	@Column(name="ID_TIPO_SELECCION")
+	private String TipoProcesoSeleccion;
 	
 	@Column(name="NRO_REG_SANITARIO")
 	private String nroRegistroSanitario;
@@ -272,9 +260,9 @@ public class Stock
 	@Column(name="NRO_PERIODO_STOCK")
 	private int nroPeriodoStock;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_PROVEEDOR")
-	private Proveedor proveedor;
+ 
+	@Column(name="ID_PROVEEDOR")
+	private String proveedor;
 	
 	private String cadenaIdArticulo;
 	
@@ -298,14 +286,7 @@ public class Stock
 	
 	private int cantidadItems;
 	
-	public Stock() {
-		this.setArticulo(new Articulo());
-		this.setAlmacen(new Almacen());
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
-		this.setTipoFinanciamiento(new TipoFinanciamiento());
-		this.setTipoProcesoSeleccion(new TipoProcesoSeleccion());
-		this.setProveedor(new Proveedor());
+	public Stock() { 
 	}
 
     
@@ -379,15 +360,7 @@ public class Stock
 	}
 
 
-	public Almacen getAlmacen() {
-		return almacen;
-	}
-
-
-	public void setAlmacen(Almacen almacen) {
-		this.almacen = almacen;
-	}
-
+	 
 
 	public Articulo getArticulo() {
 		return articulo;
@@ -425,28 +398,7 @@ public class Stock
 	public void setIdModalidaAquisicion(int idModalidaAquisicion) {
 		this.idModalidaAquisicion = idModalidaAquisicion;
 	}
-
-
-	public TipoFinanciamiento getTipoFinanciamiento() {
-		return tipoFinanciamiento;
-	}
-
-
-	public void setTipoFinanciamiento(TipoFinanciamiento tipoFinanciamiento) {
-		this.tipoFinanciamiento = tipoFinanciamiento;
-	}
-
-
-	public TipoProcesoSeleccion getTipoProcesoSeleccion() {
-		return TipoProcesoSeleccion;
-	}
-
-
-	public void setTipoProcesoSeleccion(TipoProcesoSeleccion tipoProcesoSeleccion) {
-		TipoProcesoSeleccion = tipoProcesoSeleccion;
-	}
-
-
+ 
 	public String getNroRegistroSanitario() {
 		return nroRegistroSanitario;
 	}
@@ -494,14 +446,7 @@ public class Stock
 	public void setCadenaLote(String cadenaLote) {
 		this.cadenaLote = cadenaLote;
 	}
-
-	public Proveedor getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(Proveedor proveedor) {
-		this.proveedor = proveedor;
-	}
+ 
 
 	public String getCadenaIdProveedor() {
 		return cadenaIdProveedor;

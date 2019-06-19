@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad;
+package sigelab.core.entity.seguridad;
 
 import java.sql.Timestamp;
 
@@ -9,9 +9,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
+ 
 @NamedStoredProcedureQueries(
 		{
 				
@@ -112,12 +110,11 @@ import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
 		}
 	)
 @Entity
-public class Perfil 
-	extends GenericEntity{
+public class Perfil  {
 	private static final int serialVersionUID = 1;
 	@Id
 	@Column(name="ID_PERFIL")
-	private int idPerfil;
+	private String idPerfil;
 
 	@Column(name="NOMBRE_CORTO")
 	private String nombreCorto;
@@ -143,17 +140,17 @@ public class Perfil
 	@Column(name="AUD_FECHA_OPERACION")
 	private  Timestamp 	aud_fechaOperacion;
 	
-	public Perfil() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	
+	
+	public Perfil() { 
 	}
 
 
-	public int getIdPerfil() {
+	public String getIdPerfil() {
 		return idPerfil;
 	}
 
-	public void setIdPerfil(int idPerfil) {
+	public void setIdPerfil(String idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 
@@ -222,14 +219,7 @@ public class Perfil
 		this.nroPeriodoPerfil = nroPeriodoPerfil;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Perfil [idPerfil=" + idPerfil + ", nombreCorto=" + nombreCorto
-				+ ", nombreLargo=" + nombreLargo + ", estado="
-				+ estado + "]";
-	}
-
+ 
 
 	public Timestamp getAud_fechaOperacion() {
 		return aud_fechaOperacion;

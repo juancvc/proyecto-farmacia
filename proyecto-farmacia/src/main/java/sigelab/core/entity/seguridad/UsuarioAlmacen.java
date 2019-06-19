@@ -1,12 +1,8 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad;
+package sigelab.core.entity.seguridad;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioAlmacenVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
+import javax.persistence.*; 
 
 import java.sql.Timestamp;
 
@@ -34,7 +30,7 @@ import java.sql.Timestamp;
 	)
 @Entity
 @Table(name="USUARIO_ALMACEN")
-public class UsuarioAlmacen extends GenericEntity implements Serializable {
+public class UsuarioAlmacen implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId

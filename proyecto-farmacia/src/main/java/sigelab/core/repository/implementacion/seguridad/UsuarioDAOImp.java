@@ -213,14 +213,14 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	private UsuarioBean deSigehoUsuarioToUsuarioBean(Usuario entity){
 		UsuarioBean bean = new UsuarioBean();
 		if(entity!=null){
-			bean.setCodigo(entity.getnCodusuari());//codigo Usuario
-			bean.setCodigoOrganizacion(entity.getCodOrgan());
+			bean.setCodigo(entity.getIdUsuario());//codigo Usuario
+			/*bean.setCodigoOrganizacion(entity.getCodOrgan());
 			bean.setCodigoInstitucion(entity.getCodInsti());
 			bean.setCodigoSede(entity.getCodSedei());
 			bean.setNumeroPeriodo(entity.getNroPerio());
 			bean.setNumeroVersion(entity.getNroVersi());
-			
-			bean.setCodigoUsuario(entity.getnCodusuari()); 
+			*/
+			bean.setCodigoUsuario(entity.getIdUsuario()); 
 			bean.setEstado(entity.getvFlgest());
 			bean.setNombreUsuario(entity.getvNomusuari());
 			bean.setPasswordUsuario(entity.getvPassusuar());
@@ -237,7 +237,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.setCorreo(entity.getCorreo());
 			bean.setNroCelular(entity.getNroCelular());
 			bean.setPerfil(new PerfilBean());
-			bean.getPerfil().setCodigo(entity.getnCodperfil());
+			bean.getPerfil().setCodigo(entity.getCodperfil());
 			bean.getPerfil().setNombrePerfil(entity.getNomPerfil());
 			bean.setNombrePerfiles(entity.getNomPerfil());
 			bean.setFlgRestPass(entity.getvFlgrestpas()); 

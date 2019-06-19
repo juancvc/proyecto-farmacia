@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import java.io.Serializable; 
 import javax.persistence.Column;
@@ -8,8 +8,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table; 
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PacienteVO;
+import javax.persistence.Table;  
 
 
 
@@ -18,7 +17,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PacienteVO;
 				@NamedStoredProcedureQuery(
 					name="paciente.buscarXNroDocumento", 
 					procedureName="SP_PACIENTE_BUSCAR_X_NRO_DOCUMENTO",
-					resultClasses= PacienteVO.class,
+					resultClasses= Paciente.class,
 					parameters={
 							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class)
@@ -37,7 +36,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PacienteVO;
 				@NamedStoredProcedureQuery(
 						name="paciente.findByLikeObjectVO", 
 						procedureName="SP_PACIENTE_BUSCAR_X_CRITERIOS",
-						resultClasses= PacienteVO.class,
+						resultClasses= Paciente.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
@@ -98,7 +97,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PacienteVO;
 				@NamedStoredProcedureQuery(
 						name="paciente.buscarPorNroDocumento", 
 						procedureName="[dbo].[SP_PACIENTE_BUSCAR_X_NRO_DOCUMENTO]",
-								resultClasses= PacienteVO.class,//resultClasses= PacienteVO.class,
+								resultClasses= Paciente.class,//resultClasses= Paciente.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ), 
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
@@ -118,7 +117,8 @@ public class Paciente implements Serializable {
 	@EmbeddedId
 	private PacientePK id;
 	 
-	private Persona persona;
+	@Column(name="ID_PERSONA")
+	private String persona;
 
 	@Column(name="NUMERO_HC")
 	private String numeroHC;
@@ -146,26 +146,20 @@ public class Paciente implements Serializable {
 	}
 
 
-	public Paciente() {
-		this.setId(new PacientePK());
-		this.setPersona(new Persona());
-		//this.setDocumento_Persona(new DocumentoPersona());
+	public Paciente() { 
 	}
 
- 
-	public Persona getPersona() {
+
+	public String getPersona() {
 		return persona;
 	}
 
 
-	public void setPersona(Persona persona) {
+	public void setPersona(String persona) {
 		this.persona = persona;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Paciente [id=" + id + ", persona=" + persona + ", numeroHC=" + numeroHC + "]";
-	}
+ 
+ 
    
 }

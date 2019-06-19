@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,14 +12,9 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import javax.persistence.TemporalType; 
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PacienteVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalGiseVO;
-
+  
 
 @NamedStoredProcedureQueries(
 		{
@@ -158,7 +153,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalGiseVO;
 		)
 @Entity
 @Table(name="PERSONA")
-public class Persona extends GenericEntity implements Serializable {
+public class Persona   implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId

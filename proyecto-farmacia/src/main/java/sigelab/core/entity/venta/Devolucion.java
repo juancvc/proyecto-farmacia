@@ -1,7 +1,6 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.venta;
+package sigelab.core.entity.venta;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,12 +9,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.venta.VentaItem;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.DevolucionVO;
+ 
 @NamedStoredProcedureQueries(
 		{
 				
@@ -44,7 +38,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.DevolucionVO;
 				@NamedStoredProcedureQuery(
 						name="devolucion.listar", 
 						procedureName="SP_DEVOLUCION_BUSCAR_X_CRITERIOS",
-						resultClasses= DevolucionVO.class,
+						resultClasses= Devolucion.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -117,35 +111,35 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.DevolucionVO;
 		}
 	)
 @Entity
-public class Devolucion 
-	extends GenericEntity{
+public class Devolucion  {
 	private static final int serialVersionUID = 1;
 	@Id
 	@Column(name="ID_DEVOLUCION")
-	private int idDevolucion;
+	private String idDevolucion;
 
 	@Column(name="ID_ORGANIZACION_DEVOLUCION")
-	private int idOrganizacionDevolucion;
+	private String idOrganizacionDevolucion;
 	
 	@Column(name="ID_INSTITUCION_DEVOLUCION")
-	private int idInstitucionDevolucion;
+	private String idInstitucionDevolucion;
 	
 	@Column(name="ID_SEDE_DEVOLUCION")
-	private int idSedeDevolucion;
+	private String idSedeDevolucion;
 	
 	@Column(name="NRO_VERSION_DEVOLUCION")
-	private int nroVersionDevolucion;
+	private String nroVersionDevolucion;
 	
 	@Column(name="NRO_PERIODO_DEVOLUCION")
-	private int nroPeriodoDevolucion;
+	private String nroPeriodoDevolucion;
+	
 	
 	@Column(name="AUD_FECHA_OPERACION")
 	private  Timestamp 	aud_fechaOperacion;
 	 
 	private VentaItem ventaItem;
 
-	@JoinColumn(name="ID_MOTIVO_DEVOLUCION")
-	private MotivoDevolucion motivoDevolucion;
+	@Column(name="ID_MOTIVO_DEVOLUCION")
+	private String idMotivoDevolucion;
 	
 	@Column(name="CANTIDAD_DEVUELTA")
 	private int cantidadDevuelta;
@@ -156,100 +150,81 @@ public class Devolucion
 	
 	
 	
-	public Devolucion() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
-		this.setVentaItem(new VentaItem());
-		this.setMotivoDevolucion(new MotivoDevolucion());
+	public Devolucion() { 
 	}
 
 
-	public int getIdDevolucion() {
+
+	public String getIdDevolucion() {
 		return idDevolucion;
 	}
 
-	public void setIdDevolucion(int idDevolucion) {
+
+
+	public void setIdDevolucion(String idDevolucion) {
 		this.idDevolucion = idDevolucion;
 	}
 
-	public int getIdOrganizacionDevolucion() {
+
+
+	public String getIdOrganizacionDevolucion() {
 		return idOrganizacionDevolucion;
 	}
 
 
-	public void setIdOrganizacionDevolucion(int idOrganizacionDevolucion) {
+
+	public void setIdOrganizacionDevolucion(String idOrganizacionDevolucion) {
 		this.idOrganizacionDevolucion = idOrganizacionDevolucion;
 	}
 
 
-	public int getIdInstitucionDevolucion() {
+
+	public String getIdInstitucionDevolucion() {
 		return idInstitucionDevolucion;
 	}
 
 
-	public void setIdInstitucionDevolucion(int idInstitucionDevolucion) {
+
+	public void setIdInstitucionDevolucion(String idInstitucionDevolucion) {
 		this.idInstitucionDevolucion = idInstitucionDevolucion;
 	}
 
 
-	public int getIdSedeDevolucion() {
+
+	public String getIdSedeDevolucion() {
 		return idSedeDevolucion;
 	}
 
 
-	public void setIdSedeDevolucion(int idSedeDevolucion) {
+
+	public void setIdSedeDevolucion(String idSedeDevolucion) {
 		this.idSedeDevolucion = idSedeDevolucion;
 	}
 
 
-	public int getNroVersionDevolucion() {
+
+	public String getNroVersionDevolucion() {
 		return nroVersionDevolucion;
 	}
 
 
-	public void setNroVersionDevolucion(int nroVersionDevolucion) {
+
+	public void setNroVersionDevolucion(String nroVersionDevolucion) {
 		this.nroVersionDevolucion = nroVersionDevolucion;
 	}
 
 
-	public int getNroPeriodoDevolucion() {
+
+	public String getNroPeriodoDevolucion() {
 		return nroPeriodoDevolucion;
 	}
 
 
-	public void setNroPeriodoDevolucion(int nroPeriodoDevolucion) {
+
+	public void setNroPeriodoDevolucion(String nroPeriodoDevolucion) {
 		this.nroPeriodoDevolucion = nroPeriodoDevolucion;
 	}
 
-
-	public VentaItem getVentaItem() {
-		return ventaItem;
-	}
-
-
-	public void setVentaItem(VentaItem ventaItem) {
-		this.ventaItem = ventaItem;
-	}
-
-
-	public MotivoDevolucion getMotivoDevolucion() {
-		return motivoDevolucion;
-	}
-
-
-	public void setMotivoDevolucion(MotivoDevolucion motivoDevolucion) {
-		this.motivoDevolucion = motivoDevolucion;
-	}
-
-
-	public int getCantidadDevuelta() {
-		return cantidadDevuelta;
-	}
-
-
-	public void setCantidadDevuelta(int cantidadDevuelta) {
-		this.cantidadDevuelta = cantidadDevuelta;
-	}
 
 
 	public Timestamp getAud_fechaOperacion() {
@@ -257,9 +232,47 @@ public class Devolucion
 	}
 
 
+
 	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
 		this.aud_fechaOperacion = aud_fechaOperacion;
 	}
+
+
+
+	public VentaItem getVentaItem() {
+		return ventaItem;
+	}
+
+
+
+	public void setVentaItem(VentaItem ventaItem) {
+		this.ventaItem = ventaItem;
+	}
+
+
+
+	public String getIdMotivoDevolucion() {
+		return idMotivoDevolucion;
+	}
+
+
+
+	public void setIdMotivoDevolucion(String idMotivoDevolucion) {
+		this.idMotivoDevolucion = idMotivoDevolucion;
+	}
+
+
+
+	public int getCantidadDevuelta() {
+		return cantidadDevuelta;
+	}
+
+
+
+	public void setCantidadDevuelta(int cantidadDevuelta) {
+		this.cantidadDevuelta = cantidadDevuelta;
+	}
+
 
 
 	public String getFechaInicio() {
@@ -267,9 +280,11 @@ public class Devolucion
 	}
 
 
+
 	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+
 
 
 	public String getFechaFin() {
@@ -277,8 +292,12 @@ public class Devolucion
 	}
 
 
+
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
+
+	 
 	
 }

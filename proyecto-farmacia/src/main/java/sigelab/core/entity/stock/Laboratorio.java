@@ -1,7 +1,6 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.stock;
+package sigelab.core.entity.stock;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,10 +8,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
+ 
 @NamedStoredProcedureQueries(
 		{
 				
@@ -121,8 +117,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
 		}
 	)
 @Entity
-public class Laboratorio 
-	extends GenericEntity{
+public class Laboratorio  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="ID_LABORATORIO")
@@ -152,9 +147,7 @@ public class Laboratorio
 	@Column(name="AUD_FECHA_OPERACION")
 	private  Timestamp 	aud_fechaOperacion;
 	
-	public Laboratorio() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	public Laboratorio() { 
 	}
 
 
@@ -242,12 +235,6 @@ public class Laboratorio
 		this.aud_fechaOperacion = aud_fechaOperacion;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Laboratorio [idLaboratorio=" + idLaboratorio + ", nombreCorto=" + nombreCorto
-				+ ", nombreLargo=" + nombreLargo + ", estado="
-				+ estado + "]";
-	}
+ 
 	
 }

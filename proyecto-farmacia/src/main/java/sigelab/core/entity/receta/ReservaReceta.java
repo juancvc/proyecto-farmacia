@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.receta;
+package sigelab.core.entity.receta;
 
 import java.io.Serializable;
 import javax.persistence.*;

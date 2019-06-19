@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad;
+package sigelab.core.entity.seguridad;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,12 +8,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Persona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioAlmacenVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO; 
+ 
 @Entity
 @NamedStoredProcedureQueries(
 		{
@@ -30,7 +25,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 				@NamedStoredProcedureQuery(
 						name="usuario.findByObject", 
 						procedureName="SP_USUARIO_BUSCAR_X_ID",
-						resultClasses= UsuarioVO.class,
+						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=Long.class),
@@ -43,7 +38,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 				@NamedStoredProcedureQuery(
 						name="usuario.findByIdPersona", 
 						procedureName="[dbo].[SP_USUARIO_BUSCAR_X_ID_PERSONA]",
-						resultClasses= UsuarioVO.class,
+						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=Long.class),
@@ -57,7 +52,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 				@NamedStoredProcedureQuery(
 						name="usuario.findByLikeObjectVO", 
 						procedureName="SP_USUARIO_BUSCAR_X_CRITERIOS",
-						resultClasses= UsuarioVO.class,
+						resultClasses= Usuario.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
@@ -120,7 +115,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 				@NamedStoredProcedureQuery(
 						name="usuario.validarAccesoAlmacen", 
 						procedureName="SP_USUARIO_VALIDAR_ACCESO_ALMACEN",
-						resultClasses= UsuarioAlmacenVO.class,
+						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
@@ -136,7 +131,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 					@NamedStoredProcedureQuery(
 							name="usuario.buscarPorCriterios", 
 							procedureName="[Farmacia].[dbo].[SP_USUARIO_ALMACEN_BUSCAR_X_CRITERIOS] ",
-							resultClasses= UsuarioAlmacenVO.class,
+							resultClasses= Usuario.class,
 							parameters={
 									
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
@@ -164,13 +159,12 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.seguridad.UsuarioVO;
 		}
 	)
 
-public class Usuario 
-	extends GenericEntity{
+public class Usuario  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="ID_USUARIO")
-	private long idUsuario;
+	private String idUsuario;
 
 	@Column(name="USUARIO")
 	private String usuario;
@@ -181,11 +175,11 @@ public class Usuario
 	@Column(name="NOMBRE")
 	private String nombre;
 
-	@Column(name="ID_ORGANIZACION_USUARIO")
-	private int idOrganizacionUsuario;
+/**	@Column(name="ID_ORGANIZACION_USUARIO")
+	private String idOrganizacionUsuario;
 	
 	@Column(name="ID_INSTITUCION_USUARIO")
-	private int idInstitucionUsuario;
+	private String idInstitucionUsuario;
 	
 	@Column(name="ID_SEDE_USUARIO")
 	private int idSedeUsuario;
@@ -196,34 +190,93 @@ public class Usuario
 	@Column(name="NRO_PERIODO_USUARIO")
 	private int nroPeriodoUsuario;
 	
-	//@ManyToOne 
-	private Persona persona;
+	*/
+	 
 
-    private int  idPerfil;
+	@Column(name = "ID_PERFIL")
+	private String codperfil;
+
+	@Column(name = "EMAIL")
+	private String correo;
+	
+	@Column(name = "NUMECELU")
+	private String nroCelular;
+	
 	@Column(name="AUD_ID_USUARIO")
 	private int audIdUsuario;
+	 
 	
-	private int idAlmacen;
-	
-	public Usuario() {
-		this.setPersona(new Persona());
-		this.setSituacion(new Situacion());
-		//this.setAud_usuario(new Usuario());
-	}
-	
-	
+	@Column(name = "CODPERSO")
+	private String nCodperso;
 
-	public long getIdUsuario() {
-		return this.idUsuario;
+	@Column(name = "AUCDUSCR")
+	private String nCodusureg;
+
+	@Column(name = "SITUSUAR")
+	private String nTm1situsu;
+
+	@Column(name = "ESTADORG")
+	private String vFlgest;
+
+	@Column(name = "NOMUSUAR")
+	private String vNomusuari;
+
+	@Column(name = "PSWUSUAR")
+	private String vPassusuar;
+
+	@Column(name = "SWCLAVEP")
+	private String vFlgrestpas;
+
+	@Column(name = "NOMBPERF")
+	private String nomPerfil;
+
+	@Column(name = "APEPATER")
+	private String apePater;
+
+	@Column(name = "APEMATER")
+	private String apeMater;
+
+	@Column(name = "PRINOMBR")
+	private String priNombr;
+
+	@Column(name = "SEGNOMBR")
+	private String segNombr;
+
+	@Column(name = "NRODOCUM")
+	private String nroDocum;
+	
+	@Column(name = "TG1TPDOC")
+	private String tg1TpDoc;
+	
+	
+	public Usuario() { 
 	}
 
-	public void setIdUsuario(long idUsuario) {
+
+	public String getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(String idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getClave() {
-		return this.clave;
+
+	public String getUsuario() {
+		return usuario;
 	}
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getClave() {
+		return clave;
+	}
+
 
 	public void setClave(String clave) {
 		this.clave = clave;
@@ -231,88 +284,50 @@ public class Usuario
 
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public String getUsuario() {
-		return this.usuario;
-	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+	 
 
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
-
-	public int getIdOrganizacionUsuario() {
-		return idOrganizacionUsuario;
+	public String getCodperfil() {
+		return codperfil;
 	}
 
 
-
-	public void setIdOrganizacionUsuario(int idOrganizacionUsuario) {
-		this.idOrganizacionUsuario = idOrganizacionUsuario;
+	public void setCodperfil(String codperfil) {
+		this.codperfil = codperfil;
 	}
 
 
-
-	public int getIdInstitucionUsuario() {
-		return idInstitucionUsuario;
+	public String getCorreo() {
+		return correo;
 	}
 
 
-
-	public void setIdInstitucionUsuario(int idInstitucionUsuario) {
-		this.idInstitucionUsuario = idInstitucionUsuario;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 
-
-	public int getIdSedeUsuario() {
-		return idSedeUsuario;
+	public String getNroCelular() {
+		return nroCelular;
 	}
 
 
-
-	public void setIdSedeUsuario(int idSedeUsuario) {
-		this.idSedeUsuario = idSedeUsuario;
+	public void setNroCelular(String nroCelular) {
+		this.nroCelular = nroCelular;
 	}
 
-
-
-	public int getNroVersionUsuario() {
-		return nroVersionUsuario;
-	}
-
-
-
-	public void setNroVersionUsuario(int nroVersionUsuario) {
-		this.nroVersionUsuario = nroVersionUsuario;
-	}
-
-
-
-	public int getNroPeriodoUsuario() {
-		return nroPeriodoUsuario;
-	}
-
-
-	
 
 	public int getAudIdUsuario() {
 		return audIdUsuario;
 	}
-
 
 
 	public void setAudIdUsuario(int audIdUsuario) {
@@ -320,41 +335,147 @@ public class Usuario
 	}
 
 
-
-	public void setNroPeriodoUsuario(int nroPeriodoUsuario) {
-		this.nroPeriodoUsuario = nroPeriodoUsuario;
+	public String getnCodperso() {
+		return nCodperso;
 	}
 
 
-	@Override
-	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", usuario=" + usuario
-				+ ", clave=" + clave + ", nombre=" + nombre + ", estado="
-				+ estado + "]";
+	public void setnCodperso(String nCodperso) {
+		this.nCodperso = nCodperso;
 	}
 
 
-
-	public int getIdPerfil() {
-		return idPerfil;
+	public String getnCodusureg() {
+		return nCodusureg;
 	}
 
 
-
-	public void setIdPerfil(int idPerfil) {
-		this.idPerfil = idPerfil;
+	public void setnCodusureg(String nCodusureg) {
+		this.nCodusureg = nCodusureg;
 	}
 
 
-
-	public int getIdAlmacen() {
-		return idAlmacen;
+	public String getnTm1situsu() {
+		return nTm1situsu;
 	}
 
 
-
-	public void setIdAlmacen(int idAlmacen) {
-		this.idAlmacen = idAlmacen;
+	public void setnTm1situsu(String nTm1situsu) {
+		this.nTm1situsu = nTm1situsu;
 	}
+
+
+	public String getvFlgest() {
+		return vFlgest;
+	}
+
+
+	public void setvFlgest(String vFlgest) {
+		this.vFlgest = vFlgest;
+	}
+
+
+	public String getvNomusuari() {
+		return vNomusuari;
+	}
+
+
+	public void setvNomusuari(String vNomusuari) {
+		this.vNomusuari = vNomusuari;
+	}
+
+
+	public String getvPassusuar() {
+		return vPassusuar;
+	}
+
+
+	public void setvPassusuar(String vPassusuar) {
+		this.vPassusuar = vPassusuar;
+	}
+
+
+	public String getvFlgrestpas() {
+		return vFlgrestpas;
+	}
+
+
+	public void setvFlgrestpas(String vFlgrestpas) {
+		this.vFlgrestpas = vFlgrestpas;
+	}
+
+
+	public String getNomPerfil() {
+		return nomPerfil;
+	}
+
+
+	public void setNomPerfil(String nomPerfil) {
+		this.nomPerfil = nomPerfil;
+	}
+
+
+	public String getApePater() {
+		return apePater;
+	}
+
+
+	public void setApePater(String apePater) {
+		this.apePater = apePater;
+	}
+
+
+	public String getApeMater() {
+		return apeMater;
+	}
+
+
+	public void setApeMater(String apeMater) {
+		this.apeMater = apeMater;
+	}
+
+
+	public String getPriNombr() {
+		return priNombr;
+	}
+
+
+	public void setPriNombr(String priNombr) {
+		this.priNombr = priNombr;
+	}
+
+
+	public String getSegNombr() {
+		return segNombr;
+	}
+
+
+	public void setSegNombr(String segNombr) {
+		this.segNombr = segNombr;
+	}
+
+
+	public String getNroDocum() {
+		return nroDocum;
+	}
+
+
+	public void setNroDocum(String nroDocum) {
+		this.nroDocum = nroDocum;
+	}
+
+
+	public String getTg1TpDoc() {
+		return tg1TpDoc;
+	}
+
+
+	public void setTg1TpDoc(String tg1TpDoc) {
+		this.tg1TpDoc = tg1TpDoc;
+	}
+	
+	
+
+	 
 	
 }

@@ -1,7 +1,6 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,9 +8,7 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
+  
 @NamedStoredProcedureQueries(
 		{
 				
@@ -88,12 +85,11 @@ import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
 		}
 	)
 @Entity
-public class Institucion extends GenericEntity{
-	private static final long serialVersionUID = 1;
+public class Institucion { 
 	
 	@Id
 	@Column(name="ID_INSTITUCION")
-	private int idInstitucion;
+	private String idInstitucion;
 
 	@Column(name="NOMBRE_CORTO")
 	private String nombreCorto;
@@ -104,7 +100,7 @@ public class Institucion extends GenericEntity{
 	@Column(name="ID_ORGANIZACION")
 	private int idOrganizacion;
 	
-	@Column(name="ID_SEDE")
+	/**@Column(name="ID_SEDE")
 	private int idSede;
 	
 	@Column(name="NRO_VERSION")
@@ -112,7 +108,7 @@ public class Institucion extends GenericEntity{
 	
 	@Column(name="NRO_PERIODO")
 	private int nroPeriodo;
-	
+	*/
 	private String ruc;
 	
 	@Column(name="AUD_FECHA_OPERACION")
@@ -120,51 +116,15 @@ public class Institucion extends GenericEntity{
 	
 	private String observacion;
 	
-	public Institucion() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	public Institucion() {  
 	}
-	
-	public int getIdInstitucion() {
+
+	public String getIdInstitucion() {
 		return idInstitucion;
 	}
 
-	public void setIdInstitucion(int idInstitucion) {
+	public void setIdInstitucion(String idInstitucion) {
 		this.idInstitucion = idInstitucion;
-	}
-
-
-
-	public int getIdOrganizacion() {
-		return idOrganizacion;
-	}
-
-	public void setIdOrganizacion(int idOrganizacion) {
-		this.idOrganizacion = idOrganizacion;
-	}
-
-	public int getIdSede() {
-		return idSede;
-	}
-
-	public void setIdSede(int idSede) {
-		this.idSede = idSede;
-	}
-
-	public int getNroVersion() {
-		return nroVersion;
-	}
-
-	public void setNroVersion(int nroVersion) {
-		this.nroVersion = nroVersion;
-	}
-
-	public int getNroPeriodo() {
-		return nroPeriodo;
-	}
-
-	public void setNroPeriodo(int nroPeriodo) {
-		this.nroPeriodo = nroPeriodo;
 	}
 
 	public String getNombreCorto() {
@@ -181,6 +141,14 @@ public class Institucion extends GenericEntity{
 
 	public void setNombreLargo(String nombreLargo) {
 		this.nombreLargo = nombreLargo;
+	}
+
+	public int getIdOrganizacion() {
+		return idOrganizacion;
+	}
+
+	public void setIdOrganizacion(int idOrganizacion) {
+		this.idOrganizacion = idOrganizacion;
 	}
 
 	public String getRuc() {
@@ -206,7 +174,8 @@ public class Institucion extends GenericEntity{
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-	
-	
+	 
+
+ 
 	
 }

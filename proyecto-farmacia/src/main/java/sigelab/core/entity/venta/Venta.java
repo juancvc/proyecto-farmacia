@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.venta;
+package sigelab.core.entity.venta;
 
 import java.io.Serializable;
 import java.util.ArrayList; 
@@ -13,22 +13,8 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter; 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.EventoPersona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Persona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Personal;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.TipoMoneda;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Turno;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.inventario.Almacen;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaAnuladasVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaDetalleDevolucionVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaDetalleVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaDiariaVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaPacienteFuaVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
+import javax.persistence.StoredProcedureParameter;
+  
 
 
 @SuppressWarnings("serial")
@@ -37,7 +23,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 			@NamedStoredProcedureQuery(
 				name="venta.insertVenta", 
 				procedureName="SP_VENTA_INSERTAR_VENTA",
-				resultClasses= VentaVO.class,
+				resultClasses= Venta.class,
 				parameters={
 						    @StoredProcedureParameter(mode=ParameterMode.OUT, name="VALIDA", type=Integer.class),
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="NOMBRE_ARTICULO", type=String.class ),
@@ -97,7 +83,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 			@NamedStoredProcedureQuery(
 				name="venta.findByLikeObjectVO", 
 				procedureName="SP_VENTA_BUSCAR_X_CRITERIOS",
-				resultClasses= VentaVO.class,
+				resultClasses= Venta.class,
 				parameters={
 							//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class),
@@ -111,7 +97,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 			@NamedStoredProcedureQuery(
 							name="venta.findByLikeObject", 
 							procedureName="SP_VENTA_LISTA_VENTAITEM_X_ID_VENTA",
-							resultClasses= VentaDetalleVO.class,
+							resultClasses= Venta.class,
 							parameters={
 										//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class),
@@ -126,7 +112,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="venta.findByLikeObjectDIARIOS", 
 							procedureName="SP_VENTA_LISTA_VENTAITEM_X_ID_VENTA_DIARIOS",
-							resultClasses= VentaDetalleVO.class,
+							resultClasses= Venta.class,
 							parameters={
 										//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class),
@@ -159,7 +145,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 			@NamedStoredProcedureQuery(
 					name="venta.buscarxFechaClienteVO", 
 					procedureName="SP_VENTA_BUSCAR_FECHA_CLIENTE",
-					resultClasses= VentaVO.class,
+					resultClasses= Venta.class,
 					parameters={
 							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CLIENTE", type=String.class),
@@ -169,7 +155,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.findByObjectVO", 
 						procedureName="SP_VENTA_LISTA_VENTAITEM_X_ID_VENTA",
-						resultClasses= VentaDetalleVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class),
@@ -180,9 +166,9 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				}					
 				),
 				@NamedStoredProcedureQuery(
-						name="venta.buscarArticulosxIdVentaVO", 
+						name="venta.buscarArticulosxIdVenta", 
 						procedureName="SP_VENTA_LISTAR_ARTICULOS_VENTA_X_ID",
-						resultClasses= VentaDetalleDevolucionVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class)
@@ -191,7 +177,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.buscarArticulosxIdEvento", 
 						procedureName="SP_VENTA_LISTA_ARTICULOS_X_ID_EVENTO",
-						resultClasses= VentaDetalleDevolucionVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_EVENTO", type=Integer.class),
@@ -230,7 +216,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.findByIdVenta", 
 						procedureName="SP_VENTA_BUSCAR_X_ID",
-						resultClasses= VentaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_VENTA", type=Integer.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=Integer.class),
@@ -243,7 +229,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.cierreVentaDiariaTurno", 
 						procedureName="SP_VENTA_CIERRE_VENTA_DIARIA",
-						resultClasses= VentaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=Integer.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA", type=String.class),
@@ -253,7 +239,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentaDiariaTurno", 
 						procedureName="SP_VENTA_LISTAR_VENTA_DIARIA",
-						resultClasses= VentaDiariaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 						//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=Integer.class),
@@ -265,7 +251,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentasAnuladas", 
 						procedureName="[Farmacia].[dbo].[SP_VENTA_LISTAR_VENTA_ANULADAS]",
-						resultClasses= VentaAnuladasVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -278,7 +264,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentasAnuladasIME", 
 						procedureName="[Farmacia].[dbo].[SP_VENTA_LISTAR_VENTA_ANULADAS_IME]",
-						resultClasses= VentaAnuladasVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -291,7 +277,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentasDiariasFindByObject", 
 						procedureName="[Farmacia].[dbo].[SP_VENTA_LISTAR_VENTA_DIARIA_FINDBYOBJECT]",
-						resultClasses= VentaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -305,7 +291,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentasDiariasFindByObjectPagante", 
 						procedureName="[Farmacia].[dbo].[SP_VENTA_LISTAR_VENTA_DIARIA_FINDBYOBJECT_PAGANTE]",
-						resultClasses= VentaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -319,7 +305,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				,@NamedStoredProcedureQuery(
 						name="venta.listarArticulosxIdPersona", 
 						procedureName="SP_VENTA_LISTA_ARTICULOS_X_ID_PERSONA",
-						resultClasses= VentaDetalleDevolucionVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=Integer.class),
@@ -332,7 +318,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarAtencionesIME", 
 						procedureName="SP_VENTA_LISTAR_VENTA_ATENCIONES_IME",
-						resultClasses= VentaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -345,7 +331,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarVentasPacienteFUA", 
 						procedureName="[Farmacia].[dbo].SP_VENTA_PACIENTE_FUA",
-						resultClasses= VentaPacienteFuaVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -359,7 +345,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 				@NamedStoredProcedureQuery(
 						name="venta.listarItemsVentasFUA", 
 						procedureName="SP_VENTA_LISTAR_ITEMS_FUA ",
-						resultClasses= VentaDetalleVO.class,
+						resultClasses= Venta.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_VENTA", type=int.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_VENTA", type=int.class ),
@@ -373,7 +359,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 
 
 @Entity 
-public class Venta extends GenericEntity implements Serializable {
+public class Venta  implements Serializable {
 
 	@EmbeddedId
 	private VentaPK id;
@@ -396,42 +382,37 @@ public class Venta extends GenericEntity implements Serializable {
 
 	private Float total;
  
-	private Persona persona;
+	@Column(name="ID_PERSONA")
+	private String idPersona;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_MONEDA")
-	private TipoMoneda tipoMoneda;
-
-	@ManyToOne
-	@JoinColumn(name="ID_TURNO")
-	private Turno turno;
+	@Column(name="ID_TIPO_MONEDA")
+	private String tipoMoneda;
+ 
+	@Column(name="ID_TURNO")
+	private String turno;
 	
 	@OneToMany(mappedBy="venta")
 	private List<VentaItem> ventaItems;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_ALMACEN")
-	private Almacen almacen;
+	 
+	@Column(name="ID_ALMACEN")
+	private String almacen;
 	
 	private String fechaInicio;
 	
 	private String fechaTermino;
 	
-	private EventoPersona eventoPersona;
+//	private EventoPersona eventoPersona;
 	
 	private String mes;
 	private String anio;
 	
-    private 	List<VentaVO> lstVentasVO ;
-    private 	List<Almacen> lstAlmacen ;
+    private 	List<Venta> lstVentasVO ;
+  //  private 	List<Almacen> lstAlmacen ;
     
     private 	String		  nroFUA;
-	
-    /**
-     * ADICIONALES
-     * **/
-    private Personal preescriptor;
-    private Personal responsable;
+	 
+    private String preescriptor;
+    private String responsable;
     
     @Column(name="NRO_RECETA")
     private String numeroReceta;
@@ -442,38 +423,31 @@ public class Venta extends GenericEntity implements Serializable {
     @Column(name="TIPO_VENTA")
     private int tipoVenta;
     
-    private int idPrograma;
-    private int idSubPrograma;
-    private int tipoPacienteHospitalizado;
+    private String idPrograma;
+    private String idSubPrograma;
+    private String tipoPacienteHospitalizado;
     
-	public Venta() {
-		this.setPersona(new Persona());
-		this.setVentaItems(new ArrayList<VentaItem>());
-		this.setTipoMoneda(new TipoMoneda());
-		this.setEventoPersona(new EventoPersona());
-		this.setAud_usuario(new Usuario());
-		this.setSituacion(new Situacion());
-		this.setAlmacen(new Almacen());
-		this.setTurno(new Turno());
-		this.setLstVentasVO(new ArrayList<VentaVO>());
-		this.setLstAlmacen(new ArrayList<Almacen>());
-		
-		this.setPreescriptor(new Personal());
-		this.setResponsable(new Personal());
+	public Venta() { 
 	}
 
- 
+	public VentaPK getId() {
+		return id;
+	}
 
-	public double getDescimp() {
-		return this.descimp;
+	public void setId(VentaPK id) {
+		this.id = id;
+	}
+
+	public Float getDescimp() {
+		return descimp;
 	}
 
 	public void setDescimp(Float descimp) {
 		this.descimp = descimp;
 	}
 
-	public double getDescporc() {
-		return this.descporc;
+	public Float getDescporc() {
+		return descporc;
 	}
 
 	public void setDescporc(Float descporc) {
@@ -481,7 +455,7 @@ public class Venta extends GenericEntity implements Serializable {
 	}
 
 	public String getEstado() {
-		return this.estado;
+		return estado;
 	}
 
 	public void setEstado(String estado) {
@@ -489,7 +463,7 @@ public class Venta extends GenericEntity implements Serializable {
 	}
 
 	public String getFechaAtencion() {
-		return this.fechaAtencion;
+		return fechaAtencion;
 	}
 
 	public void setFechaAtencion(String fechaAtencion) {
@@ -497,7 +471,7 @@ public class Venta extends GenericEntity implements Serializable {
 	}
 
 	public String getFechaRegistro() {
-		return this.fechaRegistro;
+		return fechaRegistro;
 	}
 
 	public void setFechaRegistro(String fechaRegistro) {
@@ -505,66 +479,67 @@ public class Venta extends GenericEntity implements Serializable {
 	}
 
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
 
-	public double getSubtotal() {
-		return this.subtotal;
+	public Float getSubtotal() {
+		return subtotal;
 	}
 
 	public void setSubtotal(Float subtotal) {
 		this.subtotal = subtotal;
 	}
 
-	public double getTotal() {
-		return this.total;
+	public Float getTotal() {
+		return total;
 	}
 
 	public void setTotal(Float total) {
 		this.total = total;
 	}
 
-	public Persona getPersona() {
-		return this.persona;
+	public String getIdPersona() {
+		return idPersona;
 	}
 
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getTipoMoneda() {
+		return tipoMoneda;
+	}
+
+	public void setTipoMoneda(String tipoMoneda) {
+		this.tipoMoneda = tipoMoneda;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
 	}
 
 	public List<VentaItem> getVentaItems() {
-		return this.ventaItems;
+		return ventaItems;
 	}
 
 	public void setVentaItems(List<VentaItem> ventaItems) {
 		this.ventaItems = ventaItems;
 	}
 
-	public VentaItem addVentaItem(VentaItem ventaItem) {
-		getVentaItems().add(ventaItem);
-		ventaItem.setVenta(this);
-
-		return ventaItem;
+	public String getAlmacen() {
+		return almacen;
 	}
 
-	public VentaItem removeVentaItem(VentaItem ventaItem) {
-		getVentaItems().remove(ventaItem);
-		ventaItem.setVenta(null);
-
-		return ventaItem;
-	}
-
-	public void ejecutarCalculos(){
-		Float tmpImporte = (float) 0.00;
-		for (VentaItem ventaItem : ventaItems) {
-			tmpImporte += ventaItem.getImporte();
-		}
-		System.out.println("tmpImporte " + tmpImporte);
-		this.setTotal(tmpImporte);
+	public void setAlmacen(String almacen) {
+		this.almacen = almacen;
 	}
 
 	public String getFechaInicio() {
@@ -583,140 +558,60 @@ public class Venta extends GenericEntity implements Serializable {
 		this.fechaTermino = fechaTermino;
 	}
 
-	public TipoMoneda getTipoMoneda() {
-		return tipoMoneda;
-	}
-
-	public void setTipoMoneda(TipoMoneda tipoMoneda) {
-		this.tipoMoneda = tipoMoneda;
-	}
-
-	public EventoPersona getEventoPersona() {
-		return eventoPersona;
-	}
-
-	public void setEventoPersona(EventoPersona eventoPersona) {
-		this.eventoPersona = eventoPersona;
-	}
-
-	public Turno getTurno() {
-		return turno;
-	}
-
-	public void setTurno(Turno turno) {
-		this.turno = turno;
-	}
-
-	public Almacen getAlmacen() {
-		return almacen;
-	}
-
-	public void setAlmacen(Almacen almacen) {
-		this.almacen = almacen;
-	}
-
-	 
-	public List<VentaVO> getLstVentasVO() {
-		return lstVentasVO;
-	}
-
-	public void setLstVentasVO(List<VentaVO> lstVentasVO) {
-		this.lstVentasVO = lstVentasVO;
-	}
-
-	public List<Almacen> getLstAlmacen() {
-		return lstAlmacen;
-	}
-
-	public void setLstAlmacen(List<Almacen> lstAlmacen) {
-		this.lstAlmacen = lstAlmacen;
-	} 
-
-	public VentaPK getId() {
-		if (id == null) {
-			id = new VentaPK();
-		}
-		return id;
-	} 
-
-	public void setId(VentaPK id) {
-		this.id = id;
-	} 
-
 	public String getMes() {
 		return mes;
-	} 
+	}
 
 	public void setMes(String mes) {
 		this.mes = mes;
 	}
 
-
-
 	public String getAnio() {
 		return anio;
 	}
-
-
 
 	public void setAnio(String anio) {
 		this.anio = anio;
 	}
 
+	public List<Venta> getLstVentasVO() {
+		return lstVentasVO;
+	}
 
+	public void setLstVentasVO(List<Venta> lstVentasVO) {
+		this.lstVentasVO = lstVentasVO;
+	}
 
 	public String getNroFUA() {
 		return nroFUA;
 	}
 
-
-
 	public void setNroFUA(String nroFUA) {
 		this.nroFUA = nroFUA;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Venta [id=" + id + ", descimp=" + descimp + ", descporc=" + descporc + ", estado=" + estado
-				+ ", fechaAtencion=" + fechaAtencion + ", fechaRegistro=" + fechaRegistro + ", observacion="
-				+ observacion + ", subtotal=" + subtotal + ", total=" + total + ", persona=" + persona + ", tipoMoneda="
-				+ tipoMoneda + ", turno=" + turno + ", ventaItems=" + ventaItems + ", almacen=" + almacen
-				+ ", fechaInicio=" + fechaInicio + ", fechaTermino=" + fechaTermino + ", eventoPersona=" + eventoPersona
-				+ ", lstVentasVO=" + lstVentasVO + ", lstAlmacen=" + lstAlmacen + "]";
-	}
-
-
-
-	public Personal getPreescriptor() {
+	public String getPreescriptor() {
 		return preescriptor;
 	}
 
-
-
-	public void setPreescriptor(Personal preescriptor) {
+	public void setPreescriptor(String preescriptor) {
 		this.preescriptor = preescriptor;
 	}
 
+	public String getResponsable() {
+		return responsable;
+	}
 
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
+	}
 
 	public String getNumeroReceta() {
 		return numeroReceta;
 	}
 
-
-
 	public void setNumeroReceta(String numeroReceta) {
 		this.numeroReceta = numeroReceta;
-	}
-
-	public Personal getResponsable() {
-		return responsable;
-	}
-
-	public void setResponsable(Personal responsable) {
-		this.responsable = responsable;
 	}
 
 	public String getCodDiagnostico() {
@@ -730,45 +625,37 @@ public class Venta extends GenericEntity implements Serializable {
 	public int getTipoVenta() {
 		return tipoVenta;
 	}
+
 	public void setTipoVenta(int tipoVenta) {
 		this.tipoVenta = tipoVenta;
 	}
 
-
-
-	public int getIdPrograma() {
+	public String getIdPrograma() {
 		return idPrograma;
 	}
 
-
-
-	public void setIdPrograma(int idPrograma) {
+	public void setIdPrograma(String idPrograma) {
 		this.idPrograma = idPrograma;
 	}
 
-
-
-	public int getIdSubPrograma() {
+	public String getIdSubPrograma() {
 		return idSubPrograma;
 	}
 
-
-
-	public void setIdSubPrograma(int idSubPrograma) {
+	public void setIdSubPrograma(String idSubPrograma) {
 		this.idSubPrograma = idSubPrograma;
 	}
 
-
-
-	public int getTipoPacienteHospitalizado() {
+	public String getTipoPacienteHospitalizado() {
 		return tipoPacienteHospitalizado;
 	}
 
-
-
-	public void setTipoPacienteHospitalizado(int tipoPacienteHospitalizado) {
+	public void setTipoPacienteHospitalizado(String tipoPacienteHospitalizado) {
 		this.tipoPacienteHospitalizado = tipoPacienteHospitalizado;
 	}
 
+ 
+
+ 
  
 }

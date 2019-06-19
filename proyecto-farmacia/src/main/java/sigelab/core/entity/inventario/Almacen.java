@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.inventario;
+package sigelab.core.entity.inventario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,7 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
-
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.AlmacenDBFVO;
+ 
 @SuppressWarnings("serial")
 @NamedStoredProcedureQueries(
 		{
@@ -116,7 +112,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.AlmacenDBFVO;
 				@NamedStoredProcedureQuery(
 						name="almacen.listaDbf", 
 						procedureName="SP_ALMACEN_EXP_DBF",
-						resultClasses= AlmacenDBFVO.class,
+						resultClasses= Almacen.class,
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
@@ -129,12 +125,11 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.AlmacenDBFVO;
 	)
 @Entity
 @Table(name="ALMACEN")
-public class Almacen 
-	extends GenericEntity{
+public class Almacen  {
 	
 	@Id
 	@Column(name="ID_ALMACEN")
-	private long idAlmacen;
+	private String idAlmacen;
 
 	@Column(name="NOMBRE_CORTO")
 	private String nombreCorto;
@@ -166,20 +161,9 @@ public class Almacen
 	@Column(name="CODIGO_MINSA")
 	private String codigoMinsa;
 	
-	public Almacen() {
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	public Almacen() { 
 	}
-
-
-	public long getIdAlmacen() {
-		return idAlmacen;
-	}
-
-	public void setIdAlmacen(long idAlmacen) {
-		this.idAlmacen = idAlmacen;
-	}
-
+ 
 	public String getNombreCorto() {
 		return nombreCorto;
 	}

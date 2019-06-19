@@ -1,24 +1,14 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.stock;
+package sigelab.core.entity.stock;
 
 import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id; 
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
+import javax.persistence.StoredProcedureParameter; 
 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.ArticuloVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.movimiento.MovimientoBalanzaPorPeridoRptVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 @NamedStoredProcedureQueries(
 		{
 			@NamedStoredProcedureQuery(
@@ -107,7 +97,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 			    @NamedStoredProcedureQuery(
 						name="articulo.findByObjectVO", 
 						procedureName="SP_ARTICULO_BUSCAR_X_ID",
-						resultClasses= ArticuloVO.class,
+						resultClasses= Articulo.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ARTICULO", type=Integer.class),
@@ -119,7 +109,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 				@NamedStoredProcedureQuery(
 						name="articulo.findByLikeObjectVO", 
 						procedureName="SP_ARTICULO_BUSCAR_X_CRITERIOS",
-						resultClasses= ArticuloVO.class,
+						resultClasses= Articulo.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
@@ -135,7 +125,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 				@NamedStoredProcedureQuery(
 						name="articulo.movimientoBalanzaPorPeriodo", 
 						procedureName="[FARMACIA].[DBO].[SP_VENTA_REPORTE_BALANZA]",
-						resultClasses= MovimientoBalanzaPorPeridoRptVO.class,
+						resultClasses= Articulo.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class),
@@ -147,7 +137,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 				@NamedStoredProcedureQuery(
 						name="articulo.listarArticulosPorRecetaPorIdReceta", 
 						procedureName="SP_LISTAR_ARTICULOS_X_RECETA_X_ID_RECETA",
-						resultClasses= PreviaVentaVO.class,
+						resultClasses= Articulo.class,
 						parameters={
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="TIPO", type=int.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
@@ -207,7 +197,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 				@NamedStoredProcedureQuery(
 						name="articulo.listarArticulosAvencerse", 
 						procedureName="[dbo].[SP_ARTICULO_A_VENCERSE]",
-						resultClasses = ArticuloVO.class,
+						resultClasses = Articulo.class,
 						parameters={
 									
 							}					
@@ -227,8 +217,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.PreviaVentaVO;
 				
 	)
 @Entity
-public class Articulo 
-	extends GenericEntity{
+public class Articulo  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="ID_ARTICULO")
@@ -326,51 +315,9 @@ public class Articulo
 	private	int NOVIEMBRE;
 	private	int DICIEMBRE;
 	
+	 
 	
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_TIPO_ARTICULO", referencedColumnName = "ID_TIPO_ARTICULO", insertable = false, updatable = false)
-	})
-	private TipoArticulo tipoArticulo;
-	
-	@Column(name="ID_TIPO_ARTICULO")
-	private Long idTipoArticulo;
-	
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_CLASE", referencedColumnName = "ID_CLASE", insertable = false, updatable = false)
-	})
-	private Clase clase;
-
-	@Column(name="ID_CLASE")
-	private Long idClase;
-	
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_PRESENTACION", referencedColumnName = "ID_PRESENTACION", insertable = false, updatable = false)
-	})
-	private Presentacion presentacion;
-	
-	@Column(name="ID_PRESENTACION")
-	private Long idPresentacion;
-	
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "ID_LABORATORIO", referencedColumnName = "ID_LABORATORIO", insertable = false, updatable = false)
-	})
-	private Laboratorio laboratorio;
-	
-	@Column(name="ID_LABORATORIO")
-	private Long idLaboratorio;
-
-	
-	public Articulo() {
-		this.setClase(new Clase());
-	    this.setTipoArticulo(new TipoArticulo());
-		this.setLaboratorio(new Laboratorio());
-		this.setPresentacion(new Presentacion());
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
+	public Articulo() { 
 	}
 
 	public String getCodigoSismed() {
@@ -465,71 +412,7 @@ public class Articulo
 	public void setStockOptimo(double stockOptimo) {
 		this.stockOptimo = stockOptimo;
 	}
-
-	public TipoArticulo getTipoArticulo() {
-		return this.tipoArticulo;
-	}
-
-	public void setTipoArticulo(TipoArticulo tipoArticulo) {
-		this.tipoArticulo = tipoArticulo;
-	}
-
-	public Clase getClase() {
-		return this.clase;
-	}
-
-	public void setClase(Clase clase) {
-		this.clase = clase;
-	}
-
-	public Presentacion getPresentacion() {
-		return this.presentacion;
-	}
-
-	public void setPresentacion(Presentacion presentacion) {
-		this.presentacion = presentacion;
-	}
-
-	public Laboratorio getLaboratorio() {
-		return this.laboratorio;
-	}
-
-	public void setLaboratorio(Laboratorio laboratorio) {
-		this.laboratorio = laboratorio;
-	}
-
-	public Long getIdTipoArticulo() {
-		return idTipoArticulo;
-	}
-
-	public void setIdTipoArticulo(Long idTipoArticulo) {
-		this.idTipoArticulo = idTipoArticulo;
-	}
-
-	public Long getIdClase() {
-		return idClase;
-	}
-
-	public void setIdClase(Long idClase) {
-		this.idClase = idClase;
-	}
-
-	public Long getIdPresentacion() {
-		return idPresentacion;
-	}
-
-	public void setIdPresentacion(Long idPresentacion) {
-		this.idPresentacion = idPresentacion;
-	}
-
-	public Long getIdLaboratorio() {
-		return idLaboratorio;
-	}
-
-	public void setIdLaboratorio(Long idLaboratorio) {
-		this.idLaboratorio = idLaboratorio;
-	}
-
+ 
 	public int getIdOrganizacionArticulo() {
 		return idOrganizacionArticulo;
 	}
@@ -569,21 +452,7 @@ public class Articulo
 	public void setNroPeriodoArticulo(int nroPeriodoArticulo) {
 		this.nroPeriodoArticulo = nroPeriodoArticulo;
 	}
-
-	@Override
-	public String toString() {
-		return "Articulo [idArticulo=" + idArticulo + ", nombreCorto="
-				+ nombreCorto + ", nombreLargo=" + nombreLargo
-				+ ", codGenerico=" + codGenerico + ", concentracion="
-				+ concentracion + ", volumen=" + volumen + ", posologia="
-				+ posologia + ", stockAlerta=" + stockAlerta + ", stockOptimo="
-				+ stockOptimo + ", tipoArticulo=" + tipoArticulo
-				+ ", idTipoArticulo=" + idTipoArticulo + ", clase=" + clase
-				+ ", idClase=" + idClase + ", presentacion=" + presentacion
-				+ ", idPresentacion=" + idPresentacion + ", laboratorio="
-				+ laboratorio + ", idLaboratorio=" + idLaboratorio + "]";
-	}
-
+ 
 	public int getAnio() {
 		return anio;
 	}

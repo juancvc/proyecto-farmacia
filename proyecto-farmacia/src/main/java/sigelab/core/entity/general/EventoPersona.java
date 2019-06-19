@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -8,12 +8,8 @@ import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table; 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.venta.ModalidadPago;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.venta.TipoSeguro;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaConsumoVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
+import javax.persistence.Table;  
+
 @NamedStoredProcedureQueries(
 		{
 				
@@ -29,7 +25,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
 				@NamedStoredProcedureQuery(
 						name="eventoPersona.findByLikeObject", 
 						procedureName="SP_EVENTO_PERSONA_BUSCAR_X_CRITERIOS",
-						resultClasses= EventoPersonaVO.class,
+						resultClasses= EventoPersona.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOCUMENTO", type=String.class)
@@ -77,7 +73,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
 				@NamedStoredProcedureQuery(
 						name="eventoPersona.buscarXnroDocumento", 
 						procedureName="SP_EVENTO_PERSONA_FIND_BY_NRO_DOCUMENTO",
-						resultClasses= EventoPersonaVO.class,
+						resultClasses= EventoPersona.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOCUMENTO", type=String.class)
@@ -86,7 +82,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
 					@NamedStoredProcedureQuery(
 							name="eventoPersona.findByObjectVO", 
 							procedureName="SP_EVENTO_PERSONA_BUSCAR_X_ID",
-							resultClasses= EventoPersonaVO.class,
+							resultClasses= EventoPersona.class,
 							parameters={
 										//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_EVENTO", type=Long.class)
@@ -95,7 +91,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
 					@NamedStoredProcedureQuery(
 							name="eventoPersona.buscarConsumoXid", 
 							procedureName="SP_EVENTO_PERSONA_BUSCAR_CONSUMO_X_ID",
-							resultClasses= EventoPersonaConsumoVO.class,
+							resultClasses= EventoPersona.class,
 							parameters={
 										//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
@@ -116,8 +112,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.EventoPersonaVO;
 	)
 @Entity
 @Table(name="EVENTO_PERSONA")
-public class EventoPersona 
-	extends GenericEntity{
+public class EventoPersona {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
@@ -129,20 +124,20 @@ public class EventoPersona
 	@Column(name="MONTO_CREDITO_ACTUAL")
 	private Double montoCreditoActual;
 
-	@JoinColumn(name="ID_MODALIDAD_PAGO")
-	private ModalidadPago modalidadPago;
+	@Column(name="ID_MODALIDAD_PAGO")
+	private String modalidadPago;
 	 
-	private Persona persona;
+	//private Persona persona;
 	
-	private Paciente paciente;
+	//private Paciente paciente;
 	
-	@JoinColumn(name="ID_PROGRAMA")
+	@Column(name="ID_PROGRAMA")
 	private Programas programa;
 	
-	@JoinColumn(name="ID_TIPO_SEGURO")
-	private TipoSeguro tipoSeguro ;
+	@Column(name="ID_TIPO_SEGURO")
+	private String tipoSeguro ;
 	
-	@Column(name="ID_ORGANIZACION_EVENTO_PERSONA")
+	/**@Column(name="ID_ORGANIZACION_EVENTO_PERSONA")
 	private int idOrganizacionEventoPersona;
 	
 	@Column(name="ID_INSTITUCION_EVENTO_PERSONA")
@@ -156,13 +151,18 @@ public class EventoPersona
 	
 	@Column(name="NRO_PERIODO_EVENTO_PERSONA")
 	private int nroPeriodoEventoPersona;
+	*/
 	
-	public EventoPersona() {
-		this.setPersona(new Persona());
-		this.setModalidadPago(new ModalidadPago());
-		this.setTipoSeguro(new TipoSeguro());
+	public EventoPersona() { 
 	}
- 
+
+	public EventoPersonaPK getId() {
+		return id;
+	}
+
+	public void setId(EventoPersonaPK id) {
+		this.id = id;
+	}
 
 	public Double getMontoCreditoAsignado() {
 		return montoCreditoAsignado;
@@ -180,20 +180,12 @@ public class EventoPersona
 		this.montoCreditoActual = montoCreditoActual;
 	}
 
-	public ModalidadPago getModalidadPago() {
+	public String getModalidadPago() {
 		return modalidadPago;
 	}
 
-	public void setModalidadPago(ModalidadPago modalidadPago) {
+	public void setModalidadPago(String modalidadPago) {
 		this.modalidadPago = modalidadPago;
-	}
-
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
 	}
 
 	public Programas getPrograma() {
@@ -204,85 +196,15 @@ public class EventoPersona
 		this.programa = programa;
 	}
 
-	public TipoSeguro getTipoSeguro() {
+	public String getTipoSeguro() {
 		return tipoSeguro;
 	}
 
-	public void setTipoSeguro(TipoSeguro tipoSeguro) {
+	public void setTipoSeguro(String tipoSeguro) {
 		this.tipoSeguro = tipoSeguro;
 	}
-
-	public int getIdOrganizacionEventoPersona() {
-		return idOrganizacionEventoPersona;
-	}
-
-	public void setIdOrganizacionEventoPersona(int idOrganizacionEventoPersona) {
-		this.idOrganizacionEventoPersona = idOrganizacionEventoPersona;
-	}
-
-	public int getIdInstitucionEventoPersona() {
-		return idInstitucionEventoPersona;
-	}
-
-	public void setIdInstitucionEventoPersona(int idInstitucionEventoPersona) {
-		this.idInstitucionEventoPersona = idInstitucionEventoPersona;
-	}
-
-	public int getIdSedeEventoPersona() {
-		return idSedeEventoPersona;
-	}
-
-	public void setIdSedeEventoPersona(int idSedeEventoPersona) {
-		this.idSedeEventoPersona = idSedeEventoPersona;
-	}
-
-	public int getNroVersionEventoPersona() {
-		return nroVersionEventoPersona;
-	}
-
-	public void setNroVersionEventoPersona(int nroVersionEventoPersona) {
-		this.nroVersionEventoPersona = nroVersionEventoPersona;
-	}
-
-	public int getNroPeriodoEventoPersona() {
-		return nroPeriodoEventoPersona;
-	}
-
-	public void setNroPeriodoEventoPersona(int nroPeriodoEventoPersona) {
-		this.nroPeriodoEventoPersona = nroPeriodoEventoPersona;
-	}
-
-	public Paciente getPaciente() {
-		return paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
-
-
-	public EventoPersonaPK getId() {
-		if (id == null) {
-			id = new EventoPersonaPK();
-		}
-		return id;
-	}
-
-
-	public void setId(EventoPersonaPK id) {
-		this.id = id;
-	}
-
-
-	@Override
-	public String toString() {
-		return "EventoPersona [id=" + id + ", montoCreditoAsignado=" + montoCreditoAsignado + ", montoCreditoActual="
-				+ montoCreditoActual + ", modalidadPago=" + modalidadPago + ", persona=" + persona + ", paciente="
-				+ paciente + ", programa=" + programa + ", tipoSeguro=" + tipoSeguro + ", idOrganizacionEventoPersona="
-				+ idOrganizacionEventoPersona + ", idInstitucionEventoPersona=" + idInstitucionEventoPersona
-				+ ", idSedeEventoPersona=" + idSedeEventoPersona + ", nroVersionEventoPersona="
-				+ nroVersionEventoPersona + ", nroPeriodoEventoPersona=" + nroPeriodoEventoPersona + "]";
-	}
-
+ 
+ 
+	 
 
 }

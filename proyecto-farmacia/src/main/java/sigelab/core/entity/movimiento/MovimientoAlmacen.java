@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.movimiento;
+package sigelab.core.entity.movimiento;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,20 +15,8 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Persona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.TipoDocumentoCompra;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.inventario.Almacen;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.stock.Articulo;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.stock.Stock; 
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.movimiento.MovimientoAlmacenIngresoTransferenciaVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.movimiento.MovimientoAlmacenKardexVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.movimiento.MovimientoAlmacenRptICIVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.movimiento.MovimientoAlmacenVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaAnuladasVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
+import sigelab.core.entity.stock.Stock;
+ 
 
 
 @NamedStoredProcedureQueries(
@@ -133,7 +121,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.cargarIngresoTransferencia", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_CARGAR_INGRESO_TRANF",
-							resultClasses= MovimientoAlmacenVO.class,
+							resultClasses= MovimientoAlmacen.class,
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_ORIGEN", type=int.class),
@@ -147,7 +135,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.buscarXCriterioVO", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_BUSCAR_X_CRITERIOS",
-							resultClasses= MovimientoAlmacenVO.class,
+							resultClasses= MovimientoAlmacen.class,
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
@@ -163,7 +151,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listaIngresoTransferencia", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_LISTA_INGRESO_TRANF",
-							resultClasses= MovimientoAlmacenIngresoTransferenciaVO.class,
+							resultClasses= MovimientoAlmacen.class,
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_DESTINO", type=int.class),
@@ -190,7 +178,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listarMovimientoKardexXidStock", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_X_ID_STOCK",
-							resultClasses= MovimientoAlmacenKardexVO.class,
+							resultClasses= MovimientoAlmacen.class,
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_STOCK", type=int.class),
@@ -205,7 +193,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listarMovimientoKardexXcodsismed", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_X_CODSISMED",
-							resultClasses= MovimientoAlmacenKardexVO.class,
+							resultClasses= MovimientoAlmacen.class,
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="COD_SISMED", type=String.class),
@@ -226,7 +214,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.reporteICI", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_REPORTE_ICI",
-							resultClasses= MovimientoAlmacenRptICIVO.class,
+							resultClasses= MovimientoAlmacen.class,
 									parameters={
 											//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 												@StoredProcedureParameter(mode=ParameterMode.IN,  name="MES", type=String.class),
@@ -243,7 +231,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listarAbastecimiento", 
 							procedureName="[SP_VENTA_LISTAR_ABASTECIMIENTO_IME]",
-							resultClasses= MovimientoAlmacenVO.class,
+							resultClasses= MovimientoAlmacen.class,
 									parameters={
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -258,7 +246,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.venta.VentaVO;
 
 
 @Entity
-public class MovimientoAlmacen extends GenericEntity implements Serializable {
+public class MovimientoAlmacen  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -295,39 +283,34 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 	@Column(name="TIPO_ING_DOCUM")
 	private int tipoIngresoDocumento;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_ARTICULO")
-	private Articulo articulo;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_STOCK")
-	private Stock stock;
-
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_MOVIMIENTO")
-	private TipoMovimiento tipoMovimiento;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_ALMACEN_ORIGEN")
-	private Almacen almacenOrigen;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_ALMACEN_DESTINO")
-	private Almacen almacenDestino;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_FINANCIADOR")
-	private TipoFinanciamiento tipoFinanciamiento;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_SELECCION")
-	private TipoProcesoSeleccion tipoProcesoSeleccion;
  
-	private Persona persona;
+	@Column(name="ID_ARTICULO")
+	private String articulo;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_TIPO_DOCUM_COMPRA")
-	private TipoDocumentoCompra tipoDocumentoCompra;
+
+	@Column(name="ID_STOCK")
+	private  String idStock;
+
+	@Column(name="ID_TIPO_MOVIMIENTO")
+	private  String idTipoMovimiento;
+	
+	@Column(name="ID_ALMACEN_ORIGEN")
+	private  String almacenOrigen;
+	
+	@Column(name="ID_ALMACEN_DESTINO")
+	private  String almacenDestino;
+	
+	@Column(name="ID_TIPO_FINANCIADOR")
+	private  String tipoFinanciamiento;
+	
+	@Column(name="ID_TIPO_SELECCION")
+	private  String tipoProcesoSeleccion;
+ 
+	@Column(name="ID_PERSONA")
+	private  String idPersona;
+	
+	@Column(name="ID_TIPO_DOCUM_COMPRA")
+	private  String idTipoDocumentoCompra;
 	
 	@Column(name="MES")
 	private String mes;
@@ -335,7 +318,7 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 	@Column(name="ANIO")
 	private String anio;
 	
-	@Column(name="ID_ORGANIZACION_MOVIMIENTO_ALMACEN")
+/**	@Column(name="ID_ORGANIZACION_MOVIMIENTO_ALMACEN")
 	private int idOrganizacionMovimientoAlmacen;
 	
 	@Column(name="ID_INSTITUCION_MOVIMIENTO_ALMACEN")
@@ -349,22 +332,14 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 	
 	@Column(name="NRO_PERIODO_MOVIMIENTO_ALMACEN")
 	private int nroPeriodoMovimientoAlmacen;
+*/
 	
 	@Column(name="FECHA_ORDEN")
 	private Timestamp fechaOrden;
 	
 	
-	private String id_alm_origen;
-	
-
-	private String id_alm_vir_ori;
-	
-
-	private String id_alm_destino;
-	
-	
-	private String id_alm_vir_dest;
-	
+	 
+	 
 	
 	private String id_concepto;
 	
@@ -388,27 +363,14 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 	
 	private Timestamp fechaInventarioSig;
 	
-	private List<VentaAnuladasVO> ventaAnuladas;
+//	private List<VentaAnuladasVO> ventaAnuladas;
 	
-	private List<VentaVO> atenciones;
+//	private List<VentaVO> atenciones;
 	
-	private List<MovimientoAlmacenVO> abastecimientos;
+	private List<MovimientoAlmacen> abastecimientos;
 	
 	
-	public MovimientoAlmacen() {
-		this.setStock(new Stock());
-		this.setAlmacenDestino(new Almacen());
-		this.setAlmacenOrigen(new Almacen());
-		this.setArticulo(new Articulo());
-		this.setTipoMovimiento(new TipoMovimiento());
-		this.setStockItems(new ArrayList<Stock>());
-		this.setMovimientoAlmacenItems(new ArrayList<MovimientoAlmacen>());
-		this.setSituacion(new Situacion());
-		this.setAud_usuario(new Usuario());
-		this.setTipoFinanciamiento(new TipoFinanciamiento());
-		this.setTipoProcesoSeleccion(new TipoProcesoSeleccion());
-		this.setTipoDocumentoCompra(new TipoDocumentoCompra());
-		this.setPersona(new Persona());
+	public MovimientoAlmacen() { 
 	}
 	
 	public MovimientoAlmacen removeMovimientoAlmacenItem(MovimientoAlmacen movimientoAlmacenItem) {
@@ -486,158 +448,12 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 		return precio;
 	}
 
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
-
-
-	public TipoMovimiento getTipoMovimiento() {
-		return tipoMovimiento;
-	}
-
-
-	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
-	}
-
-
-	public Almacen getAlmacenOrigen() {
-		return almacenOrigen;
-	}
-
-
-	public void setAlmacenOrigen(Almacen almacenOrigen) {
-		this.almacenOrigen = almacenOrigen;
-	}
-
-
-	public Almacen getAlmacenDestino() {
-		return almacenDestino;
-	}
-
-
-	public void setAlmacenDestino(Almacen almacenDestino) {
-		this.almacenDestino = almacenDestino;
-	}
-
-
 	public String getNroGuia() {
 		return nroGuia;
 	}
 
-
 	public void setNroGuia(String nroGuia) {
 		this.nroGuia = nroGuia;
-	}
-
-
-	public double getSubtotal() {
-		return subtotal;
-	}
-
-
-	public void setSubtotal(double subtotal) {
-		this.subtotal = subtotal;
-	}
-
-
-	public double getTotal() {
-		return total;
-	}
-
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-
-	public String getFechaMovimiento() {
-		return fechaMovimiento;
-	}
-
-
-	public void setFechaMovimiento(String fechaMovimiento) {
-		this.fechaMovimiento = fechaMovimiento;
-	}
-
-
-	public List<Stock> getStockItems() {
-		return stockItems;
-	}
-
-
-	public void setStockItems(List<Stock> stockItems) {
-		this.stockItems = stockItems;
-	}
-
-	public List<MovimientoAlmacen> getMovimientoAlmacenItems() {
-		return movimientoAlmacenItems;
-	}
-
-	public void setMovimientoAlmacenItems(
-			List<MovimientoAlmacen> movimientoAlmacenItems) {
-		this.movimientoAlmacenItems = movimientoAlmacenItems;
-	}
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
-
-	public String getCadenaCantdArt() {
-		return cadenaCantdArt;
-	}
-	public void setCadenaCantdArt(String cadenaCantdArt) {
-		this.cadenaCantdArt = cadenaCantdArt;
-	}
-	public String getCadenaIdStock() {
-		return cadenaIdStock;
-	}
-	public void setCadenaIdStock(String cadenaIdStock) {
-		this.cadenaIdStock = cadenaIdStock;
-	}
-	public int getTipoIngresoDocumento() {
-		return tipoIngresoDocumento;
-	}
-	public void setTipoIngresoDocumento(int tipoIngresoDocumento) {
-		this.tipoIngresoDocumento = tipoIngresoDocumento;
-	}
-	public TipoFinanciamiento getTipoFinanciamiento() {
-		return tipoFinanciamiento;
-	}
-	public void setTipoFinanciamiento(TipoFinanciamiento tipoFinanciamiento) {
-		this.tipoFinanciamiento = tipoFinanciamiento;
-	}
-	public TipoProcesoSeleccion getTipoProcesoSeleccion() {
-		return tipoProcesoSeleccion;
-	}
-	public void setTipoProcesoSeleccion(TipoProcesoSeleccion tipoProcesoSeleccion) {
-		this.tipoProcesoSeleccion = tipoProcesoSeleccion;
-	}
-	public TipoDocumentoCompra getTipoDocumentoCompra() {
-		return tipoDocumentoCompra;
-	}
-	public void setTipoDocumentoCompra(TipoDocumentoCompra tipoDocumentoCompra) {
-		this.tipoDocumentoCompra = tipoDocumentoCompra;
-	}
-	public Persona getPersona() {
-		return persona;
-	}
-	public void setPersona(Persona persona) {
-		this.persona = persona;
 	}
 
 	public String getGlosa() {
@@ -648,23 +464,93 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 		this.glosa = glosa;
 	}
 
-	public void ejecutarCalculosTotal(){
-		Double tmpImporte=0.0;
-		for (Stock StockItem : stockItems) {
-			tmpImporte+=StockItem.getPrecioVenta();
-		}
-		this.setTotal(tmpImporte);
-	}	
-	
-	public void ejecutarCalculosTotalCompra(){
-		Double tmpImporte=0.0;
-		System.out.println("stockItems " +stockItems.size());
-		System.out.println("movimientoAlmacenItems " +movimientoAlmacenItems.size());
-		for (MovimientoAlmacen StockItem : movimientoAlmacenItems) {
-			tmpImporte+=StockItem.getSubtotal();
-		}
-		this.setTotal(tmpImporte);
-	}	
+	public String getFechaMovimiento() {
+		return fechaMovimiento;
+	}
+
+	public void setFechaMovimiento(String fechaMovimiento) {
+		this.fechaMovimiento = fechaMovimiento;
+	}
+
+	public int getTipoIngresoDocumento() {
+		return tipoIngresoDocumento;
+	}
+
+	public void setTipoIngresoDocumento(int tipoIngresoDocumento) {
+		this.tipoIngresoDocumento = tipoIngresoDocumento;
+	}
+
+	public String getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(String articulo) {
+		this.articulo = articulo;
+	}
+
+	public String getIdStock() {
+		return idStock;
+	}
+
+	public void setIdStock(String idStock) {
+		this.idStock = idStock;
+	}
+
+	public String getIdTipoMovimiento() {
+		return idTipoMovimiento;
+	}
+
+	public void setIdTipoMovimiento(String idTipoMovimiento) {
+		this.idTipoMovimiento = idTipoMovimiento;
+	}
+
+	public String getAlmacenOrigen() {
+		return almacenOrigen;
+	}
+
+	public void setAlmacenOrigen(String almacenOrigen) {
+		this.almacenOrigen = almacenOrigen;
+	}
+
+	public String getAlmacenDestino() {
+		return almacenDestino;
+	}
+
+	public void setAlmacenDestino(String almacenDestino) {
+		this.almacenDestino = almacenDestino;
+	}
+
+	public String getTipoFinanciamiento() {
+		return tipoFinanciamiento;
+	}
+
+	public void setTipoFinanciamiento(String tipoFinanciamiento) {
+		this.tipoFinanciamiento = tipoFinanciamiento;
+	}
+
+	public String getTipoProcesoSeleccion() {
+		return tipoProcesoSeleccion;
+	}
+
+	public void setTipoProcesoSeleccion(String tipoProcesoSeleccion) {
+		this.tipoProcesoSeleccion = tipoProcesoSeleccion;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getIdTipoDocumentoCompra() {
+		return idTipoDocumentoCompra;
+	}
+
+	public void setIdTipoDocumentoCompra(String idTipoDocumentoCompra) {
+		this.idTipoDocumentoCompra = idTipoDocumentoCompra;
+	}
 
 	public String getMes() {
 		return mes;
@@ -682,58 +568,76 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 		this.anio = anio;
 	}
 
-	public int getIdOrganizacionMovimientoAlmacen() {
-		return idOrganizacionMovimientoAlmacen;
+	public Timestamp getFechaOrden() {
+		return fechaOrden;
 	}
 
-	public void setIdOrganizacionMovimientoAlmacen(int idOrganizacionMovimientoAlmacen) {
-		this.idOrganizacionMovimientoAlmacen = idOrganizacionMovimientoAlmacen;
+	public void setFechaOrden(Timestamp fechaOrden) {
+		this.fechaOrden = fechaOrden;
 	}
 
-	public int getIdInstitucionMovimientoAlmacen() {
-		return idInstitucionMovimientoAlmacen;
+	public String getId_concepto() {
+		return id_concepto;
 	}
 
-	public void setIdInstitucionMovimientoAlmacen(int idInstitucionMovimientoAlmacen) {
-		this.idInstitucionMovimientoAlmacen = idInstitucionMovimientoAlmacen;
+	public void setId_concepto(String id_concepto) {
+		this.id_concepto = id_concepto;
 	}
 
-	public int getIdSedeMovimientoAlmacen() {
-		return idSedeMovimientoAlmacen;
+	public List<Stock> getStockItems() {
+		return stockItems;
 	}
 
-	public void setIdSedeMovimientoAlmacen(int idSedeMovimientoAlmacen) {
-		this.idSedeMovimientoAlmacen = idSedeMovimientoAlmacen;
+	public void setStockItems(List<Stock> stockItems) {
+		this.stockItems = stockItems;
 	}
 
-	public int getNroVersionMovimientoAlmacen() {
-		return nroVersionMovimientoAlmacen;
+	public List<MovimientoAlmacen> getMovimientoAlmacenItems() {
+		return movimientoAlmacenItems;
 	}
 
-	public void setNroVersionMovimientoAlmacen(int nroVersionMovimientoAlmacen) {
-		this.nroVersionMovimientoAlmacen = nroVersionMovimientoAlmacen;
+	public void setMovimientoAlmacenItems(List<MovimientoAlmacen> movimientoAlmacenItems) {
+		this.movimientoAlmacenItems = movimientoAlmacenItems;
 	}
 
-	public int getNroPeriodoMovimientoAlmacen() {
-		return nroPeriodoMovimientoAlmacen;
+	public String getCadenaCantdArt() {
+		return cadenaCantdArt;
 	}
 
-	public void setNroPeriodoMovimientoAlmacen(int nroPeriodoMovimientoAlmacen) {
-		this.nroPeriodoMovimientoAlmacen = nroPeriodoMovimientoAlmacen;
+	public void setCadenaCantdArt(String cadenaCantdArt) {
+		this.cadenaCantdArt = cadenaCantdArt;
 	}
 
-	public void ejecutarCalculos(){
-		System.out.println("this.getPrecio() "  + this.getPrecio());
-		this.setTotal(this.getCantidad()* this.getPrecio());
-		
-	}
-	
 	public String getCadenaNroPeriodoStock() {
 		return cadenaNroPeriodoStock;
 	}
 
 	public void setCadenaNroPeriodoStock(String cadenaNroPeriodoStock) {
 		this.cadenaNroPeriodoStock = cadenaNroPeriodoStock;
+	}
+
+	public String getCadenaIdStock() {
+		return cadenaIdStock;
+	}
+
+	public void setCadenaIdStock(String cadenaIdStock) {
+		this.cadenaIdStock = cadenaIdStock;
+	}
+
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public int getIdAlmacen() {
@@ -760,94 +664,19 @@ public class MovimientoAlmacen extends GenericEntity implements Serializable {
 		this.fechaInventarioSig = fechaInventarioSig;
 	}
 
-	public List<VentaAnuladasVO> getVentaAnuladas() {
-		if (ventaAnuladas == null) {
-			ventaAnuladas = new ArrayList<VentaAnuladasVO>();
-		}
-		return ventaAnuladas;
-	}
-
-	public void setVentaAnuladas(List<VentaAnuladasVO> ventaAnuladas) {
-		this.ventaAnuladas = ventaAnuladas;
-	}
-
-	public List<VentaVO> getAtenciones() {
-		if (atenciones == null) {
-			atenciones = new ArrayList<VentaVO>();
-		}
-		return atenciones;
-	}
-
-	public void setAtenciones(List<VentaVO> atenciones) {
-		this.atenciones = atenciones;
-	}
-
-	public List<MovimientoAlmacenVO> getAbastecimientos() {
-		if (abastecimientos == null) {
-			abastecimientos = new ArrayList<MovimientoAlmacenVO>();
-		}
+	public List<MovimientoAlmacen> getAbastecimientos() {
 		return abastecimientos;
 	}
 
-	public void setAbastecimientos(List<MovimientoAlmacenVO> abastecimientos) {
+	public void setAbastecimientos(List<MovimientoAlmacen> abastecimientos) {
 		this.abastecimientos = abastecimientos;
 	}
 
-	public Timestamp getFechaOrden() {
-		return fechaOrden;
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
+ 
 
-	public void setFechaOrden(Timestamp fechaOrden) {
-		this.fechaOrden = fechaOrden;
-	}
-
-	public void ejecutarImporteCompra(){
-		System.out.println("this.getPrecio() "  + this.getPrecio());
-		System.out.println("this.getPrecio() "  + this.getCantidad());
-		this.setSubtotal(this.getCantidad()* this.getPrecio());
-		
-	}
-
-	public String getId_alm_origen() {
-		return id_alm_origen;
-	}
-
-	public void setId_alm_origen(String id_alm_origen) {
-		this.id_alm_origen = id_alm_origen;
-	}
-
-	public String getId_alm_vir_ori() {
-		return id_alm_vir_ori;
-	}
-
-	public void setId_alm_vir_ori(String id_alm_vir_ori) {
-		this.id_alm_vir_ori = id_alm_vir_ori;
-	}
-
-	public String getId_alm_destino() {
-		return id_alm_destino;
-	}
-
-	public void setId_alm_destino(String id_alm_destino) {
-		this.id_alm_destino = id_alm_destino;
-	}
-
-	public String getId_alm_vir_dest() {
-		return id_alm_vir_dest;
-	}
-
-	public void setId_alm_vir_dest(String id_alm_vir_dest) {
-		this.id_alm_vir_dest = id_alm_vir_dest;
-	}
-
-	public String getId_concepto() {
-		return id_concepto;
-	}
-
-	public void setId_concepto(String id_concepto) {
-		this.id_concepto = id_concepto;
-	}
-
-	
+	 
 	
 }

@@ -1,25 +1,16 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.inventario;
-
-import java.util.ArrayList;
+package sigelab.core.entity.inventario;
+ 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id; 
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
-import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Personal;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.stock.Stock;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad.Usuario;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.inventario.InventarioDetalleVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.inventario.InventarioVO;
+import sigelab.core.entity.stock.Stock;
+ 
 @SuppressWarnings("serial")
 @NamedStoredProcedureQueries(
 		{
@@ -54,7 +45,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.inventario.InventarioVO;
 				@NamedStoredProcedureQuery(
 						name="inventario.buscarXNroDocumento", 
 						procedureName="SP_INVENTARIO_BUSCAR_X_NRO_DOCUMENTO",
-						resultClasses = InventarioDetalleVO.class,
+						resultClasses = Inventario.class,
 						parameters={
 							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
@@ -94,7 +85,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.inventario.InventarioVO;
 				@NamedStoredProcedureQuery(
 						name="inventario.findByLikeObjectVO", 
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
-						resultClasses = InventarioVO.class,
+						resultClasses = Inventario.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
@@ -108,23 +99,19 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.inventario.InventarioVO;
 		}
 	)
 @Entity
-public class Inventario 
-	extends GenericEntity{
+public class Inventario  {
 	@Id
 	@Column(name="ID_INVENTARIO")
-	private int idInventario;
+	private String idInventario;
 
-	@ManyToOne
-	@JoinColumn(name="ID_ALMACEN")
-	private Almacen almacen;
-	
-	@ManyToOne
-	@JoinColumn(name="COD_PERSONAL_RESPONSABLE")
-	private Personal personalResponsable;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_STOCK")
-	private Stock stock;
+	@Column(name="ID_ALMACEN")
+	private String idAlmacen;
+	 
+	@Column(name="COD_PERSONAL_RESPONSABLE")
+	private String idPersonalResponsable;
+	 
+	@Column(name="ID_STOCK")
+	private String idStock;
 	
 	@Column(name="FECHA")
 	private String fecha;
@@ -135,7 +122,7 @@ public class Inventario
 	@Column(name="CANTIDAD")
 	private int cantidad;
 	
-	@Column(name="ID_ORGANIZACION_INVENTARIO")
+	/**@Column(name="ID_ORGANIZACION_INVENTARIO")
 	private int idOrganizacionInventario;
 	
 	@Column(name="ID_INSTITUCION_INVENTARIO")
@@ -146,7 +133,7 @@ public class Inventario
 	
 	@Column(name="NRO_PERIODO")
 	private int nroPeriodo;
-	
+	*/
 	@Column(name="NRO_MES")
 	private int nroMes;
 	
@@ -166,13 +153,7 @@ public class Inventario
 	
 	private double precio;
 	
-	public Inventario() {
-		this.setAlmacen(new Almacen());
-		this.setStock(new Stock());
-		this.setPersonalResponsable(new Personal());
-		this.setAud_usuario(new Usuario());
-		this.setSituacion(new Situacion());
-		this.setStockItems(new ArrayList<Stock>());
+	public Inventario() { 
 	}
 
 	public Stock removeStockItem(Stock stockItem) {
@@ -185,29 +166,9 @@ public class Inventario
 
 		return stock;
 	}
-	public int getIdInventario() {
-		return idInventario;
-	}
+ 
 
-
-	public void setIdInventario(int idInventario) {
-		this.idInventario = idInventario;
-	}
-
-
-	public Almacen getAlmacen() {
-		return almacen;
-	}
-
-
-	public void setAlmacen(Almacen almacen) {
-		this.almacen = almacen;
-	}
-
-
-	public String getFecha() {
-		return fecha;
-	}
+	 
 
 
 	public void setFecha(String fecha) {
@@ -253,14 +214,7 @@ public class Inventario
 	public void setCadenaCantidad(String cadenaCantidad) {
 		this.cadenaCantidad = cadenaCantidad;
 	}
-
-	public Personal getPersonalResponsable() {
-		return personalResponsable;
-	}
-
-	public void setPersonalResponsable(Personal personalResponsable) {
-		this.personalResponsable = personalResponsable;
-	}
+ 
 
 	public List<Stock> getStockItems() {
 		return stockItems;
@@ -270,14 +224,7 @@ public class Inventario
 	public void setStockItems(List<Stock> stockItems) {
 		this.stockItems = stockItems;
 	}
-
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
+ 
 
 	public int getCantidad() {
 		return cantidad;
@@ -311,37 +258,7 @@ public class Inventario
 		this.precio = precio;
 	}
 
-	public int getIdOrganizacionInventario() {
-		return idOrganizacionInventario;
-	}
-
-	public void setIdOrganizacionInventario(int idOrganizacionInventario) {
-		this.idOrganizacionInventario = idOrganizacionInventario;
-	}
-
-	public int getIdInstitucionInventario() {
-		return idInstitucionInventario;
-	}
-
-	public void setIdInstitucionInventario(int idInstitucionInventario) {
-		this.idInstitucionInventario = idInstitucionInventario;
-	}
-
-	public int getIdSedeInventario() {
-		return idSedeInventario;
-	}
-
-	public void setIdSedeInventario(int idSedeInventario) {
-		this.idSedeInventario = idSedeInventario;
-	}
-
-	public int getNroPeriodo() {
-		return nroPeriodo;
-	}
-
-	public void setNroPeriodo(int nroPeriodo) {
-		this.nroPeriodo = nroPeriodo;
-	}
+ 
 
 	public int getNroMes() {
 		return nroMes;
@@ -351,9 +268,8 @@ public class Inventario
 		this.nroMes = nroMes;
 	}
 
-	public void ejecutarCalculosSubTotal(){
-		System.out.println("this.getPrecio() "  + this.getPrecio());
-		this.setSubtotal(this.getStock().getStock() * this.getPrecio());
+	public void ejecutarCalculosSubTotal(){ 
+		//this.setSubtotal(this.getStock().getStock() * this.getPrecio());
 	}
 	
 	public void ejecutarCalculosTotal(){
@@ -372,16 +288,41 @@ public class Inventario
 		this.cadenaNroPeriodoStock = cadenaNroPeriodoStock;
 	}
 
-	@Override
-	public String toString() {
-		return "Inventario [idInventario=" + idInventario + ", almacen=" + almacen + ", personalResponsable="
-				+ personalResponsable + ", stock=" + stock + ", fecha=" + fecha + ", nroDocumento=" + nroDocumento
-				+ ", cantidad=" + cantidad + ", idOrganizacionInventario=" + idOrganizacionInventario
-				+ ", idInstitucionInventario=" + idInstitucionInventario + ", idSedeInventario=" + idSedeInventario
-				+ ", nroPeriodo=" + nroPeriodo + ", nroMes=" + nroMes + ", cantidadItems=" + cantidadItems
-				+ ", cadenaIdStock=" + cadenaIdStock + ", cadenaCantidad=" + cadenaCantidad + ", stockItems="
-				+ stockItems + ", subtotal=" + subtotal + ", total=" + total + ", precio=" + precio + "]";
+	public String getIdInventario() {
+		return idInventario;
 	}
 
-	
+	public void setIdInventario(String idInventario) {
+		this.idInventario = idInventario;
+	}
+
+	public String getIdAlmacen() {
+		return idAlmacen;
+	}
+
+	public void setIdAlmacen(String idAlmacen) {
+		this.idAlmacen = idAlmacen;
+	}
+
+	public String getIdPersonalResponsable() {
+		return idPersonalResponsable;
+	}
+
+	public void setIdPersonalResponsable(String idPersonalResponsable) {
+		this.idPersonalResponsable = idPersonalResponsable;
+	}
+
+	public String getIdStock() {
+		return idStock;
+	}
+
+	public void setIdStock(String idStock) {
+		this.idStock = idStock;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	 
 }

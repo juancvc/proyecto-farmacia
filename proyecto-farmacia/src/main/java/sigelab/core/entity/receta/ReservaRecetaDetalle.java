@@ -1,10 +1,9 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.receta;
+package sigelab.core.entity.receta;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
-
-import pe.com.galaxy.systems.apolo.core.entidad.vo.receta.ReservaRecetaDetalleVO;
+ 
 
 import java.sql.Timestamp;
 import java.math.BigDecimal;
@@ -16,7 +15,7 @@ import java.math.BigDecimal;
 		@NamedStoredProcedureQuery(
 			name="reservaRecetaDetalle.listarReservasReceta", 
 			procedureName="GISEASISTENCIAL.ATEN.SP_RerservaReceta_Listar",
-			resultClasses= ReservaRecetaDetalleVO.class,
+			resultClasses= ReservaRecetaDetalle.class,
 			parameters={
 				@StoredProcedureParameter(mode=ParameterMode.IN, name="FechaInicio", type=String.class ),
 				@StoredProcedureParameter(mode=ParameterMode.IN, name="FechaFin", type=String.class ),
@@ -25,7 +24,7 @@ import java.math.BigDecimal;
 			@NamedStoredProcedureQuery(
 					name="reservaRecetaDetalle.listarPorCodigo", 
 					procedureName="GISEASISTENCIAL.ATEN.SP_ReservaReceta_Buscar_Codigo",
-					resultClasses= ReservaRecetaDetalleVO.class,
+					resultClasses= ReservaRecetaDetalle.class,
 					parameters={
 						@StoredProcedureParameter(mode=ParameterMode.IN, name="CodigoRecetaMedica", type=int.class )
 						
