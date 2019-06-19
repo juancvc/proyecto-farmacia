@@ -515,13 +515,12 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      
+      <jsp:include
+			page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
+			
+			
+     
       <!-- End of Footer -->
 
     </div>
