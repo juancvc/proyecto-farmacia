@@ -1,5 +1,6 @@
 package sigelab.web.controller.inicio;
   
+import sigelab.core.bean.asistencial.farmacia.general.AlmacenBean;
 import sigelab.core.bean.general.TablaBean;
 import sigelab.core.bean.seguridad.AccesoBean;
 import sigelab.core.bean.seguridad.AuditoriaAccesoBean;
@@ -8,7 +9,8 @@ import sigelab.core.bean.seguridad.UsuarioBean;
 import sigelab.core.bean.seguridad.UsuarioPerfilBean;
 import sigelab.core.service.exception.ServiceException;
 import sigelab.core.service.interfaces.asistencial.maestra.MaestraAsis01Service;
-import sigelab.core.service.interfaces.asistencial.maestra.MaestraAsis14Service; 
+import sigelab.core.service.interfaces.asistencial.maestra.MaestraAsis14Service;
+import sigelab.core.service.interfaces.farmacia.general.AlmacenService;
 import sigelab.core.service.interfaces.seguridad.AccesoService;
 import sigelab.core.service.interfaces.seguridad.UsuarioPerfilService;
 import sigelab.core.service.interfaces.seguridad.UsuarioService;
@@ -36,6 +38,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itextpdf.text.log.SysoCounter;
  
  
 @Controller
@@ -56,23 +60,30 @@ public class InicioController extends BaseController{
 	
 	@Autowired
 	private MaestraAsis01Service maestraAsis14Service;
-	 
+ 
+	@Autowired
+	AlmacenService almacenService;
 	
 	List<TablaBean> lstMaestra =(new ArrayList<TablaBean>()); ;
 	List<TablaBean> lstSituacion = new ArrayList<TablaBean>();
 	List<TablaBean> lstTipoPaciente = new ArrayList<TablaBean>(); 
-    
+	List<AlmacenBean> lstAlmacenBean;
+	
 	@PostConstruct
 	public void init(){
-		this.setLstMaestra(new ArrayList<TablaBean>()); 
-	/*	this.setLenguaForm(new LenguaForm());
-		this.setLstLenguaBean(new ArrayList<LenguaBean>()); 
-		this.setLstLenguaEstructuraBean(new ArrayList<LenguaEstructuraBean>());  
-		this.setLstLenguaNivelBean(new ArrayList<LenguaNivelBean>());
-		this.setLstUnidadLeccionBean(new ArrayList<UnidadLeccionBean>());
-		this.setLstUnidadBean(new ArrayList<UnidadBean>());
-		this.setLstNivel(new ArrayList<TablaBean>());
-		this.setLstLecciones(new ArrayList<TablaBean>());*/
+		this.setLstMaestra(new ArrayList<TablaBean>());  
+	}
+	
+	private void cargarComboAlmacen(ModelAndView mav){
+		AlmacenBean almacenBean = new AlmacenBean();
+		 
+			try {
+				lstAlmacenBean = almacenService.getBuscarPorFiltros(almacenBean);
+			} catch (ServiceException e) {
+				e.printStackTrace(); 	
+		}
+  
+		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
 	}
 	
 	
@@ -96,10 +107,12 @@ public class InicioController extends BaseController{
 			//Encriptando la clave ingresada
 			prmUsuario.setPasswordUsuario(Encrypt.encrypt(prmLogin.getContrasena()));
 			//prmUsuario.setPasswordUsuario(prmLogin.getContrasena());
-			prmUsuario.setNombreUsuario(prmLogin.getNombreUsuario());
 			
-			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario);
-			System.out.println("11111");
+			System.out.println("prmUsuario getPasswordUsuario" + prmUsuario.getPasswordUsuario());
+			prmUsuario.setNombreUsuario(prmLogin.getNombreUsuario());
+			System.out.println("prmLogin.getAlmacen() " + prmLogin.getAlmacen().getCodigo());
+			prmUsuario.setAlmacen(prmLogin.getAlmacen());
+			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario); 
 			if (oUsuario != null) {
 				System.out.println("NombreUsuario "+oUsuario.getNombreUsuario());
 				System.out.println("NombreUsuario persona "+oUsuario.getPersona().getNombreCompleto());
@@ -123,6 +136,7 @@ public class InicioController extends BaseController{
 					
 					ModelAndView mav = new ModelAndView("seguridad/usuario/cambiar-contrasenia-usuario", "command",oUsuario);
 					mav.addObject("usuarioBean", oUsuario);
+					
 					return mav;
 				}
 				
@@ -147,6 +161,7 @@ public class InicioController extends BaseController{
 				ModelAndView mav = new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
 				mav.addObject("msgErrorLogin", "El usuario y/o contraseña no coinciden");
 				mav.addObject("usuarioSesion", tmpUsuario);
+				cargarComboAlmacen(mav);
 				return mav;
 			}
 		}else{
@@ -172,9 +187,11 @@ public class InicioController extends BaseController{
 		if (prmLogin != null) {
 			UsuarioBean prmUsuario = new UsuarioBean();
 			//Encriptando la clave ingresada
-			prmUsuario.setPasswordUsuario(Encrypt.encrypt(prmLogin.getContrasena()));
-			//prmUsuario.setPasswordUsuario(prmLogin.getContrasena());
+			prmUsuario.setPasswordUsuario(Encrypt.encrypt(prmLogin.getContrasena()));  ; 
+			System.out.println("prmUsuario getPasswordUsuario" + prmUsuario.getPasswordUsuario());
 			prmUsuario.setNombreUsuario(prmLogin.getNombreUsuario());
+			System.out.println("prmLogin.getAlmacen() " + prmLogin.getAlmacen().getCodigo());
+			prmUsuario.setAlmacen(prmLogin.getAlmacen()); 
 			
 			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario);
 			System.out.println("11111");
@@ -225,6 +242,7 @@ public class InicioController extends BaseController{
 				ModelAndView mav = new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
 				mav.addObject("msgErrorLogin", "El usuario y/o contraseña no coinciden");
 				mav.addObject("usuarioSesion", tmpUsuario);
+				cargarComboAlmacen(mav);
 				return mav;
 			}
 		}else{

@@ -185,10 +185,11 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		List<Usuario> lstLeotbcUsuario = null;
 		
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.autenticar");
-			spq.setParameter("NOMUSUAR", prmUsuarioBean.getNombreUsuario());
-			spq.setParameter("PSWUSUAR", prmUsuarioBean.getPasswordUsuario());
-		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.validarAccesoAlmacen");
+			spq.setParameter("USUARIO", prmUsuarioBean.getNombreUsuario());
+			spq.setParameter("CLAVE", prmUsuarioBean.getPasswordUsuario());
+			spq.setParameter("ID_ALMACEN", prmUsuarioBean.getAlmacen().getCodigo());
+			
 			if (spq.execute()) {
 				lstLeotbcUsuario = spq.getResultList();			
 			}

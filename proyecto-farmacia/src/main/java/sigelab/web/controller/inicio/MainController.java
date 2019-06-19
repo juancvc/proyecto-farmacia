@@ -1,8 +1,13 @@
 package sigelab.web.controller.inicio;
+import sigelab.core.bean.asistencial.farmacia.general.AlmacenBean;
+import sigelab.core.service.exception.ServiceException;
+import sigelab.core.service.interfaces.farmacia.general.AlmacenService;
 import sigelab.web.utilitarios.acceso.LoginVo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="")
 public class MainController {
-
+	List<AlmacenBean> lstAlmacenBean;
+	
+	
+	@Autowired
+	AlmacenService almacenService;
+	
+	
 /*	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView getdata() {
 		System.out.println("controller");
@@ -26,10 +37,28 @@ public class MainController {
 
 	}*/
 	
+	private void cargarComboAlmacen(ModelAndView mav){
+		AlmacenBean almacenBean = new AlmacenBean();
+		 
+			try {
+				lstAlmacenBean = almacenService.getBuscarPorFiltros(almacenBean);
+			} catch (ServiceException e) {
+				e.printStackTrace(); 	
+		}
+  
+		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
 		LoginVo prmLogin = new LoginVo();
-		return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+	//	return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+		
+		ModelAndView mav =   new ModelAndView("seguridad/login/login-admin", "command",prmLogin); 
+		cargarComboAlmacen(mav);
+		
+		return mav;
+		
 	}
 	
 	@RequestMapping(value = "/lista", method = RequestMethod.GET)

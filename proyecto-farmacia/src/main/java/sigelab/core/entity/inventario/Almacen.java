@@ -14,29 +14,21 @@ import javax.persistence.Table;
 		{
 				
 				@NamedStoredProcedureQuery(
-						name="almacen.findByObject", 
+						name="almacen.buscarPorObjeto", 
 						procedureName="SP_ALMACEN_BUSCAR_X_ID",
 						resultClasses= Almacen.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_ALMACEN", type=Integer.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class)
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="almacen.findByLikeObject", 
+						name="almacen.buscarPorFiltros", 
 						procedureName="SP_ALMACEN_BUSCAR_X_CRITERIOS",
 						resultClasses= Almacen.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_LARGO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class) 
 							}	
 				),
 				
@@ -254,6 +246,14 @@ public class Almacen  {
 		this.codigoMinsa = codigoMinsa;
 	}
 
+
+	public String getIdAlmacen() {
+		return idAlmacen;
+	}
+
+	public void setIdAlmacen(String idAlmacen) {
+		this.idAlmacen = idAlmacen;
+	}
 
 	@Override
 	public String toString() {

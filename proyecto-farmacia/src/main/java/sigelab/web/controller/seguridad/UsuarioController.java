@@ -1,6 +1,7 @@
 package sigelab.web.controller.seguridad;
 
 import sigelab.core.bean.general.TablaBean;
+import sigelab.core.bean.asistencial.farmacia.general.AlmacenBean;
 import sigelab.core.bean.general.PacienteBean;
 import sigelab.core.bean.general.PersonaBean;
 import sigelab.core.bean.general.RenaesBean;
@@ -11,6 +12,7 @@ import sigelab.core.bean.seguridad.UsuarioRenaesBean;
 import sigelab.core.service.exception.ServiceException;
 import sigelab.core.service.interfaces.asistencial.maestra.MaestraAsis01Service;
 import sigelab.core.service.interfaces.asistencial.maestra.MaestraAsis14Service;
+import sigelab.core.service.interfaces.farmacia.general.AlmacenService;
 import sigelab.core.service.interfaces.general.Maestra1Service;
 import sigelab.core.service.interfaces.general.PersonaService;
 import sigelab.core.service.interfaces.general.RenaesService;
@@ -78,6 +80,10 @@ public class UsuarioController extends BaseController{
 	@Autowired
 	PerfilService perfilService;
 	
+	
+	@Autowired
+	AlmacenService almacenService;
+	
 	@Autowired
 	private MaestraAsis14Service maestraAsis14Service;
 
@@ -97,6 +103,8 @@ public class UsuarioController extends BaseController{
 	List<TablaBean> lstDocumento = new ArrayList<TablaBean>();
 	List<TablaBean> tipoPerfil = new ArrayList<TablaBean>();
 	List<TablaBean> sedes = new ArrayList<TablaBean>();
+	List<AlmacenBean> lstAlmacenBean;
+	
 	private List<RenaesBean> lstRenaesBean;
 	private String tmpContrasena;
 	
@@ -107,9 +115,7 @@ public class UsuarioController extends BaseController{
 		this.perfilBean= new PerfilBean();
 		this.setLstRenaesBean(new ArrayList<RenaesBean>());
 	}
-	
-	
-	
+ 
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
 	public ModelAndView doListado(@ModelAttribute("usuarioBean") UsuarioBean bean, HttpServletRequest request)throws Exception {
@@ -925,7 +931,10 @@ public static String stripAccents(String str) {
 						session.removeAttribute("usuarioSesion");
 						session.invalidate();
 						LoginVo prmLogin = new LoginVo();
-						return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+						ModelAndView mav =   new ModelAndView("seguridad/login/login-admin", "command",prmLogin); 
+						cargarComboAlmacen(mav);
+						
+						return mav;
 					} else if(sw==0){
 						usuarioBean.setPasswordUsuario("");
 						usuarioBean.setNewPassword("");
@@ -1015,6 +1024,18 @@ public static String stripAccents(String str) {
 		}
   
 		mav.addObject("lstPerfiles",lstPerfiles); 
+	}  
+	
+	private void cargarComboAlmacen(ModelAndView mav){
+		AlmacenBean almacenBean = new AlmacenBean();
+		 
+			try {
+				lstAlmacenBean = almacenService.getBuscarPorFiltros(almacenBean);
+			} catch (ServiceException e) {
+				e.printStackTrace(); 	
+		}
+  
+		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
 	}  
 
 	public UsuarioBean getUsuarioBean() {

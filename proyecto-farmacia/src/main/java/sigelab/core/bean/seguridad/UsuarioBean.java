@@ -2,6 +2,7 @@ package sigelab.core.bean.seguridad;
 
 import sigelab.base.bean.BaseBean;
 import sigelab.core.bean.general.TablaBean;
+import sigelab.core.bean.asistencial.farmacia.general.AlmacenBean;
 import sigelab.core.bean.general.PersonaBean;
 
 import java.util.List;
@@ -46,9 +47,29 @@ public class UsuarioBean extends BaseBean {
 	
 	private String nroCelular;
 	
+	private AlmacenBean almacen;
+	
+	
 	public UsuarioBean() {
 		super();
 	}
+	
+	
+
+	public AlmacenBean getAlmacen() {
+		if (almacen == null) {
+			almacen = new AlmacenBean();
+		}
+		return almacen;
+	}
+
+
+
+	public void setAlmacen(AlmacenBean almacen) {
+		this.almacen = almacen;
+	}
+
+
 
 	public String getCodigoUsuario() {
 		return codigoUsuario;

@@ -120,12 +120,12 @@ import javax.persistence.StoredProcedureParameter;
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CLAVE", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=Long.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=String.class),
 									//@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.OUT,  name="RESPUESTA", type=String.class),
+									/*	@StoredProcedureParameter(mode=ParameterMode.OUT,  name="RESPUESTA", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )*/
 							}					
 					),
 					@NamedStoredProcedureQuery(
@@ -215,7 +215,7 @@ public class Usuario  {
 	@Column(name = "SITUSUAR")
 	private String nTm1situsu;
 
-	@Column(name = "ESTADORG")
+	@Column(name = "ESTADO")
 	private String vFlgest;
 
 	@Column(name = "NOMUSUAR")

@@ -1,10 +1,21 @@
 package sigelab.web.utilitarios.acceso;
+ 
+import sigelab.core.bean.asistencial.farmacia.general.AlmacenBean;
 
 public class LoginVo {
 	
 	private String	nombreUsuario;
 	private String 	contrasena;
+	private AlmacenBean almacen;
 	
+	
+	
+	public AlmacenBean getAlmacen() {
+		return almacen;
+	}
+	public void setAlmacen(AlmacenBean almacen) {
+		this.almacen = almacen;
+	}
 	public LoginVo() {
 		super();
 	}
@@ -20,5 +31,7 @@ public class LoginVo {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+ 
+	
 
 }
