@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.farmacotecnia;
+package sigelab.core.entity.farmacotecnia;
 
 import java.io.Serializable;
 import javax.persistence.*;

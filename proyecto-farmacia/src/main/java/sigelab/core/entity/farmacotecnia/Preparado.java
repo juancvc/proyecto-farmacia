@@ -1,10 +1,7 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.farmacotecnia;
+package sigelab.core.entity.farmacotecnia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +157,7 @@ public class Preparado implements Serializable {
 	@JoinColumns({
 		@JoinColumn(name = "ID_SITUACION", referencedColumnName = "ID_SITUACION", insertable = false, updatable = false)
 	})
-	private Situacion situacion;
+	private String situacion;
 	
 	@Column(name="NOMBRE_CORTO")
 	private String nombreCorto;
@@ -299,15 +296,15 @@ public class Preparado implements Serializable {
 	}
 
 
-	public Situacion getSituacion() {
+	public String getSituacion() {
 		if (situacion == null) {
-			situacion = new Situacion();
+			situacion = new String();
 		}
 		return situacion;
 	}
 
 
-	public void setSituacion(Situacion situacion) {
+	public void setSituacion(String situacion) {
 		this.situacion = situacion;
 	}
  

@@ -1,11 +1,8 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.farmacotecnia;
+package sigelab.core.entity.farmacotecnia;
 
 import java.io.Serializable;
 import javax.persistence.*; 
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.EventoPersona; 
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Persona;
-import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.farmacotecnia.PreparadoPacienteVO;
+
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -92,7 +89,7 @@ import java.util.List;
 			    @NamedStoredProcedureQuery(
 						name="preparadoPaciente.findByObjectVO", 
 						procedureName="SP_PREPARADO_BUSCAR_X_ID",
-						resultClasses= PreparadoPacienteVO.class,
+						resultClasses= PreparadoPaciente.class,
 						parameters={ 
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO", type=int.class ),
@@ -104,7 +101,7 @@ import java.util.List;
 				@NamedStoredProcedureQuery(
 						name="preparadoPaciente.findByLikeObject", 
 						procedureName="SP_PREPARADO_PACIENTE_BUSCAR_X_CRITERIOS",
-						resultClasses= PreparadoPacienteVO.class,
+						resultClasses= PreparadoPaciente.class,
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO_PACIENTE", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO_PACIENTE", type=int.class ),
@@ -126,9 +123,9 @@ public class PreparadoPaciente implements Serializable {
 	@EmbeddedId
 	private PreparadoPacientePK id;
 
-	private Persona persona;
+//	private Persona persona;
 	
-	private EventoPersona EventoPersona;
+//	private EventoPersona EventoPersona;
 	
 	@OneToMany(mappedBy="preparadoPaciente")
 	private List<PreparadoPacienteDetalle> itemPreparadoPacienteDetalle;
@@ -167,7 +164,7 @@ public class PreparadoPaciente implements Serializable {
 	@JoinColumns({
 		@JoinColumn(name = "ID_SITUACION", referencedColumnName = "ID_SITUACION", insertable = false, updatable = false)
 	})
-	private Situacion situacion;
+	private String situacion;
 
 	private Timestamp fechaEntregaDesde;
 	private Timestamp fechaEntregaHasta;
@@ -242,7 +239,7 @@ public class PreparadoPaciente implements Serializable {
 	public void setAudSession(String audSession) {
 		this.audSession = audSession;
 	}
-
+/*
 	public Persona getPersona() {
 		return persona;
 	}
@@ -260,7 +257,7 @@ public class PreparadoPaciente implements Serializable {
 
 	public void setEventoPersona(EventoPersona eventoPersona) {
 		EventoPersona = eventoPersona;
-	}
+	}*/
 
 	public String getObservacion() {
 		return observacion;
@@ -286,14 +283,14 @@ public class PreparadoPaciente implements Serializable {
 		this.fechaEntrega = fechaEntrega;
 	}
 
-	public Situacion getSituacion() {
+	public String getSituacion() {
 		if (situacion == null) {
-			situacion = new Situacion();
+			situacion = new String();
 		}
 		return situacion;
 	}
 
-	public void setSituacion(Situacion situacion) {
+	public void setSituacion(String situacion) {
 		this.situacion = situacion;
 	}
 
@@ -347,14 +344,15 @@ public class PreparadoPaciente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PreparadoPaciente [id=" + id + ", persona=" + persona + ", EventoPersona=" + EventoPersona
-				+ ", itemPreparadoPacienteDetalle=" + itemPreparadoPacienteDetalle + ", audFechaOperacion="
-				+ audFechaOperacion + ", audIdOperacion=" + audIdOperacion + ", audIdUsuario=" + audIdUsuario
-				+ ", audIp=" + audIp + ", audMac=" + audMac + ", audObservacion=" + audObservacion + ", audSession="
-				+ audSession + ", observacion=" + observacion + ", estado=" + estado + ", fechaEntrega=" + fechaEntrega
-				+ ", situacion=" + situacion + ", fechaEntregaDesde=" + fechaEntregaDesde + ", fechaEntregaHasta="
-				+ fechaEntregaHasta + ", tipo=" + tipo + "]";
+		return "PreparadoPaciente [id=" + id + ", itemPreparadoPacienteDetalle=" + itemPreparadoPacienteDetalle
+				+ ", audFechaOperacion=" + audFechaOperacion + ", audIdOperacion=" + audIdOperacion + ", audIdUsuario="
+				+ audIdUsuario + ", audIp=" + audIp + ", audMac=" + audMac + ", audObservacion=" + audObservacion
+				+ ", audSession=" + audSession + ", observacion=" + observacion + ", estado=" + estado
+				+ ", fechaEntrega=" + fechaEntrega + ", situacion=" + situacion + ", fechaEntregaDesde="
+				+ fechaEntregaDesde + ", fechaEntregaHasta=" + fechaEntregaHasta + ", tipo=" + tipo + "]";
 	}
+
+
 
 	 
 }
