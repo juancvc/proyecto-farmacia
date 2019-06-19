@@ -1,7 +1,7 @@
- <footer class="sticky-footer">
-      <div class="container">
-        <div class="text-center">
-          <small>Copyright  &copy; 2019<a href="http://www.labmed.com.pe/" target="_blank" class="text-bold-800 grey darken-2"> LABMED</a>, Todos los derechos reservados. / Laboratorios LABMED</small>
+ <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Moon Solution 2019</span>
+          </div>
         </div>
-      </div>
-</footer>
+      </footer>
