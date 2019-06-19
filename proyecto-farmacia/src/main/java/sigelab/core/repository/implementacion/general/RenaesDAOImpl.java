@@ -1,7 +1,7 @@
 package sigelab.core.repository.implementacion.general;
   
-import sigelab.core.bean.general.RenaesBean;  
-import sigelab.core.entity.general.Renae;
+import sigelab.core.bean.general.RenaesBean;
+import sigelab.core.entity.general_.Renae;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.RenaesDAO; 
 import java.util.ArrayList;

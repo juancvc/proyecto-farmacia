@@ -10,7 +10,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import sigelab.core.entity.general.PacienteReniec; 
+import sigelab.core.entity.general_.PacienteReniec;
 import sigelab.core.repository.interfaces.general.PacienteReniecDAO; 
 import sigelab.base.repository.DAOException;
 

@@ -1,50 +1,36 @@
 table.dataTable {
   clear: both;
-  margin-top: 3px !important;
-  margin-bottom: 3px !important;
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
   max-width: none !important;
-  border-collapse: separate !important; 
-	font-family: Cambria;
-	font-size: 13px;  
-	color: #052236;
+  border-collapse: separate !important;
+  border-spacing: 0;
 }
 table.dataTable td,
 table.dataTable th {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  color: #212F3D;
-	font-size: 13px;
 }
 table.dataTable td.dataTables_empty,
 table.dataTable th.dataTables_empty {
   text-align: center;
-     color: #212F3D;
-	font-size: 13px;
 }
 table.dataTable.nowrap th,
 table.dataTable.nowrap td {
   white-space: nowrap;
-     color: #5d5d5d;
-	font-size: 14px;
 }
 
 div.dataTables_wrapper div.dataTables_length label {
   font-weight: normal;
   text-align: left;
   white-space: nowrap;
-     color: #212F3D;
-	font-size: 14px;
 }
 div.dataTables_wrapper div.dataTables_length select {
-  width: 75px;
+  width: auto;
   display: inline-block;
-     color: #5d5d5d;
-	font-size: 14px;
 }
 div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
-     color: #5d5d5d;
-	font-size: 14px;
 }
 div.dataTables_wrapper div.dataTables_filter label {
   font-weight: normal;
@@ -59,22 +45,16 @@ div.dataTables_wrapper div.dataTables_filter input {
 div.dataTables_wrapper div.dataTables_info {
   padding-top: 0.85em;
   white-space: nowrap;
-     color: #5d5d5d;
-	font-size: 14px;
 }
 div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
   white-space: nowrap;
   text-align: right;
-    color: #5d5d5d;
-	font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-  margin: 1px 0;
+  margin: 2px 0;
   white-space: nowrap;
   justify-content: flex-end;
-  color: #5d5d5d;
-	font-size: 12px;
 }
 div.dataTables_wrapper div.dataTables_processing {
   position: absolute;
@@ -85,8 +65,6 @@ div.dataTables_wrapper div.dataTables_processing {
   margin-top: -26px;
   text-align: center;
   padding: 1em 0;
-   color: #5d5d5d;
-	font-size: 14px;
 }
 
 table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting,
@@ -94,8 +72,6 @@ table.dataTable thead > tr > td.sorting_asc,
 table.dataTable thead > tr > td.sorting_desc,
 table.dataTable thead > tr > td.sorting {
   padding-right: 30px;
-     color: #273746;
-	font-size: 13px;
 }
 table.dataTable thead > tr > th:active,
 table.dataTable thead > tr > td:active {
@@ -157,6 +133,9 @@ div.dataTables_scrollBody table {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+div.dataTables_scrollBody table thead .sorting:before,
+div.dataTables_scrollBody table thead .sorting_asc:before,
+div.dataTables_scrollBody table thead .sorting_desc:before,
 div.dataTables_scrollBody table thead .sorting:after,
 div.dataTables_scrollBody table thead .sorting_asc:after,
 div.dataTables_scrollBody table thead .sorting_desc:after {

@@ -1,4 +1,4 @@
-package sigelab.core.entity.general;
+package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,63 +12,63 @@ public class PersonaPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="CODORGAN")
-	private String codorgan;
+	@Column(name="ID_ORGANIZACION_PERSONA")
+	private int idOrganizacionPersona;
 
-	@Column(name="CODINSTI")
-	private String codinsti;
+	@Column(name="ID_INSTITUCION_PERSONA")
+	private int idInstitucionPersona;
 
-	@Column(name="CODSEDEI")
-	private String codsedei;
+	@Column(name="ID_SEDE_PERSONA")
+	private int idSedePersona;
 
-	@Column(name="CODPERSO")
-	private String codperso;
+	@Column(name="NRO_VERSION_PERSONA")
+	private int nroVersionPersona;
 
-	@Column(name="NROVERSI")
-	private String nroversi;
-	
-	@Column(name="NROPERIO")
-	private String nroperio;
-	
+	@Column(name="NRO_PERIODO_PERSONA")
+	private int nroPeriodoPersona;
+
+	@Column(name="ID_PERSONA")
+	private int idPersona;
+
 	public PersonaPK() {
 	}
-	public String getCodorgan() {
-		return this.codorgan;
+	public int getIdOrganizacionPersona() {
+		return this.idOrganizacionPersona;
 	}
-	public void setCodorgan(String codorgan) {
-		this.codorgan = codorgan;
+	public void setIdOrganizacionPersona(int idOrganizacionPersona) {
+		this.idOrganizacionPersona = idOrganizacionPersona;
 	}
-	public String getCodinsti() {
-		return this.codinsti;
+	public int getIdInstitucionPersona() {
+		return this.idInstitucionPersona;
 	}
-	public void setCodinsti(String codinsti) {
-		this.codinsti = codinsti;
+	public void setIdInstitucionPersona(int idInstitucionPersona) {
+		this.idInstitucionPersona = idInstitucionPersona;
 	}
-	public String getCodsedei() {
-		return this.codsedei;
+	public int getIdSedePersona() {
+		return this.idSedePersona;
 	}
-	public void setCodsedei(String codsedei) {
-		this.codsedei = codsedei;
+	public void setIdSedePersona(int idSedePersona) {
+		this.idSedePersona = idSedePersona;
 	}
-	public String getCodperso() {
-		return this.codperso;
+	public int getNroVersionPersona() {
+		return this.nroVersionPersona;
 	}
-	public void setCodperso(String codperso) {
-		this.codperso = codperso;
+	public void setNroVersionPersona(int nroVersionPersona) {
+		this.nroVersionPersona = nroVersionPersona;
 	}
-	public String getNroversi() {
-		return this.nroversi;
+	public int getNroPeriodoPersona() {
+		return this.nroPeriodoPersona;
 	}
-	public void setNroversi(String nroversi) {
-		this.nroversi = nroversi;
+	public void setNroPeriodoPersona(int nroPeriodoPersona) {
+		this.nroPeriodoPersona = nroPeriodoPersona;
+	}
+	public int getIdPersona() {
+		return this.idPersona;
+	}
+	public void setIdPersona(int idPersona) {
+		this.idPersona = idPersona;
 	}
 
-	public String getNroperio() {
-		return nroperio;
-	}
-	public void setNroperio(String nroperio) {
-		this.nroperio = nroperio;
-	}
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -78,22 +78,32 @@ public class PersonaPK implements Serializable {
 		}
 		PersonaPK castOther = (PersonaPK)other;
 		return 
-			this.codorgan.equals(castOther.codorgan)
-			&& this.codinsti.equals(castOther.codinsti)
-			&& this.codsedei.equals(castOther.codsedei)
-			&& this.codperso.equals(castOther.codperso)
-			&& this.nroversi.equals(castOther.nroversi);
+			(this.idOrganizacionPersona == castOther.idOrganizacionPersona)
+			&& (this.idInstitucionPersona == castOther.idInstitucionPersona)
+			&& (this.idSedePersona == castOther.idSedePersona)
+			&& (this.nroVersionPersona == castOther.nroVersionPersona)
+			&& (this.nroPeriodoPersona == castOther.nroPeriodoPersona)
+			&& (this.idPersona == castOther.idPersona);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.codorgan.hashCode();
-		hash = hash * prime + this.codinsti.hashCode();
-		hash = hash * prime + this.codsedei.hashCode();
-		hash = hash * prime + this.codperso.hashCode();
-		hash = hash * prime + this.nroversi.hashCode();
+		hash = hash * prime + this.idOrganizacionPersona;
+		hash = hash * prime + this.idInstitucionPersona;
+		hash = hash * prime + this.idSedePersona;
+		hash = hash * prime + this.nroVersionPersona;
+		hash = hash * prime + this.nroPeriodoPersona;
+		hash = hash * prime + this.idPersona;
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "PersonaPK [idOrganizacionPersona=" + idOrganizacionPersona + ", idInstitucionPersona="
+				+ idInstitucionPersona + ", idSedePersona=" + idSedePersona + ", nroVersionPersona=" + nroVersionPersona
+				+ ", nroPeriodoPersona=" + nroPeriodoPersona + ", idPersona=" + idPersona + "]";
+	}
+	
+	
 }

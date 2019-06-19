@@ -3,7 +3,7 @@ package sigelab.core.repository.implementacion.general;
 import sigelab.core.bean.general.TablaBean;
 import sigelab.core.bean.general.TarifarioDetalleBean;
 import sigelab.core.entity.asistencial.laboratorio.Tarifario_unidadValor;
-import sigelab.core.entity.general.Tgemae02;
+import sigelab.core.entity.general_.Tgemae02;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.TarifarioDAO;
 import sigelab.core.repository.interfaces.general.TarifarioDetalleDAO;

@@ -4,7 +4,7 @@ package sigelab.core.repository.implementacion.general;
 
 import sigelab.core.bean.general.TablaBean;
 import sigelab.core.entity.asistencial.maestras.TgemaeAsis01;
-import sigelab.core.entity.general.Tgemae01;
+import sigelab.core.entity.general_.Tgemae01;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.Maestra1DAO;
 

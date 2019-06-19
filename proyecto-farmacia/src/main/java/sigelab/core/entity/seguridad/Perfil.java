@@ -1,211 +1,243 @@
+package pe.com.galaxy.systems.apolo.core.entidad.entidad.seguridad;
 
-package sigelab.core.entity.seguridad;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 
-import java.util.Date;
-
-@NamedStoredProcedureQueries({	
-	@NamedStoredProcedureQuery(name = "perfil.insertar", 
-		procedureName = "[SIGEHOV2SEGU].[RECO].[USP_PERFIL_INSERT] ", 
-		parameters = {
-			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "CODIPERF", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "NOMBPERF", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUCDUSCR", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUPCIPCR", type = String.class) 
-		}),
+import pe.com.galaxy.systems.apolo.core.entidad.GenericEntity;
+import pe.com.galaxy.systems.apolo.core.entidad.entidad.general.Situacion;
+@NamedStoredProcedureQueries(
+		{
+				
+				@NamedStoredProcedureQuery(
+						name="perfil.buscarxid", 
+						procedureName="SP_PERFIL_BUSCAR_X_ID",
+						resultClasses= Perfil.class,
+						parameters={
+								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERFIL", type=Long.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+							}					
+					),
+				
+				@NamedStoredProcedureQuery(
+						name="perfil.buscarTodos", 
+						procedureName="SP_PERFIL_BUSCAR_TODOS",
+						resultClasses= Perfil.class
+					/*	parameters={
+									@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class )
+							}	*/				
+					),
+					
+				@NamedStoredProcedureQuery(
+						name="perfil.buscarxcriterios", 
+						procedureName="SP_PERFIL_BUSCAR_X_CRITERIOS",
+						resultClasses= Perfil.class,
+						parameters={
+								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+							}	
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="perfil.insert", 
+						procedureName="SP_PERFIL_INSERTAR",
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_PERFIL", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
+									
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+							}					
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="perfil.update", 
+						procedureName="SP_PERFIL_ACTUALIZAR",
+						parameters={
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PERFIL", type=Long.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_LARGO", type=String.class),
+								
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+						}					
+										
+				),
+				@NamedStoredProcedureQuery(
+						name="perfil.delete", 
+						procedureName="SP_PERFIL_ELIMINAR",
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PERFIL", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+							}					
+				)
 		
-	@NamedStoredProcedureQuery(name = "perfil.actualizar", 
-	procedureName = "[SIGEHOV2SEGU].[RECO].[USP_PERFIL_UPDATE]", 
-	resultClasses = Perfil.class,
-	parameters = {
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "CODIPERF", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "NOMBPERF", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUCDUSMO", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUPCIPMO", type = String.class)
-	}),
-	@NamedStoredProcedureQuery(name = "perfil.eliminar", 
-	procedureName = " [SIGEHOV2SEGU].[LABO].[USP_PERFIL_DELETE]", 
-	resultClasses = Perfil.class,
-	parameters = {
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODIPERF", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUCDUSMO", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUPCIPMO", type = String.class)
-	}),
-	@NamedStoredProcedureQuery(name = "perfil.listar", 
-	procedureName = "[BDLABORATORIO].LABO.USP_PERFIL_FINDBYLIKEOBJECT", 
-	resultClasses = Perfil.class,
-	parameters = {
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "NOMBPERF", type = String.class) 
-	}),
-
-	@NamedStoredProcedureQuery(name = "perfil.buscarObjeto", 
-	procedureName = "[SIGEHOV2SEGU].[RECO].[USP_PERFIL_FINDBYOBJECT] ", 
-	resultClasses = Perfil.class,
-	parameters = {
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODIPERF", type = String.class) 
-	}),
-	@NamedStoredProcedureQuery(name = "perfil.listado", 
-	procedureName = "[SIGEHOV2SEGU].[RECO].[USP_PERFIL_LISTADO]", 
-	resultClasses = Perfil.class,
-	parameters = {
-		//@StoredProcedureParameter(mode = ParameterMode.IN, name = "NOMBPERF", type = String.class) 
-	})
-})
-
-@Entity 
-public class Perfil implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	@Temporal(TemporalType.DATE)
-	@Column(name="d_fecmod")
-	private Date dFecmod;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="d_fecreg")
-	private Date dFecreg;
-	 */
-	
+		}
+	)
+@Entity
+public class Perfil 
+	extends GenericEntity{
+	private static final int serialVersionUID = 1;
 	@Id
-	@Column(name="CODIPERF")
-	private String codiPerf;
+	@Column(name="ID_PERFIL")
+	private int idPerfil;
 
-	@Column(name="NOMBPERF")
-	private String nombPerf;
+	@Column(name="NOMBRE_CORTO")
+	private String nombreCorto;
+
+	@Column(name="NOMBRE_LARGO")
+	private String nombreLargo;
+
+	@Column(name="ID_ORGANIZACION_PERFIL")
+	private int idOrganizacionPerfil;
 	
-	@Column(name="AUCDUSCR")
-	private String aucduscr;
-
-	@Column(name="AUCDUSMO")
-	private String aucdusmo;
-
-	@Column(name="AUFECHCR")
-	private Timestamp aufechcr;
-
-	@Column(name="AUFECHMO")
-	private Timestamp aufechmo;
-
-	@Column(name="AUOBSEMO")
-	private String auobsemo;
-
-	@Column(name="AUPCIPCR")
-	private String aupcipcr;
-
-	@Column(name="AUPCIPMO")
-	private String aupcipmo; 
+	@Column(name="ID_INSTITUCION_PERFIL")
+	private int idInstitucionPerfil;
 	
-	@Column(name="ESTADORG")
-	private String estadorg;
-  
-
-	@Column(name="SITUACRG")
-	private String situacrg;
-
-	@Column(name="SWMIGRAD")
-	private short swmigrad;
-
-	public  Perfil(){
-		return;
-	}
-	public String getCodiPerf() {
-		return codiPerf;
-	}
-
-	public void setCodiPerf(String codiPerf) {
-		this.codiPerf = codiPerf;
+	@Column(name="ID_SEDE_PERFIL")
+	private int idSedePerfil;
+	
+	@Column(name="NRO_VERSION_PERFIL")
+	private int nroVersionPerfil;
+	
+	@Column(name="NRO_PERIODO_PERFIL")
+	private int nroPeriodoPerfil;
+	
+	@Column(name="AUD_FECHA_OPERACION")
+	private  Timestamp 	aud_fechaOperacion;
+	
+	public Perfil() {
+		this.setSituacion(new Situacion());
+		this.setAud_usuario(new Usuario());
 	}
 
-	public String getNombPerf() {
-		return nombPerf;
+
+	public int getIdPerfil() {
+		return idPerfil;
 	}
 
-	public void setNombPerf(String nombPerf) {
-		this.nombPerf = nombPerf;
+	public void setIdPerfil(int idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 
-	public String getAucduscr() {
-		return aucduscr;
+	public String getNombreCorto() {
+		return nombreCorto;
 	}
 
-	public void setAucduscr(String aucduscr) {
-		this.aucduscr = aucduscr;
+	public void setNombreCorto(String nombreCorto) {
+		this.nombreCorto = nombreCorto;
 	}
 
-	public String getAucdusmo() {
-		return aucdusmo;
+	public String getNombreLargo() {
+		return nombreLargo;
 	}
 
-	public void setAucdusmo(String aucdusmo) {
-		this.aucdusmo = aucdusmo;
+	public void setNombreLargo(String nombreLargo) {
+		this.nombreLargo = nombreLargo;
 	}
 
-	public Timestamp getAufechcr() {
-		return aufechcr;
+	public int getIdOrganizacionPerfil() {
+		return idOrganizacionPerfil;
 	}
 
-	public void setAufechcr(Timestamp aufechcr) {
-		this.aufechcr = aufechcr;
+
+	public void setIdOrganizacionPerfil(int idOrganizacionPerfil) {
+		this.idOrganizacionPerfil = idOrganizacionPerfil;
 	}
 
-	public Timestamp getAufechmo() {
-		return aufechmo;
+
+	public int getIdInstitucionPerfil() {
+		return idInstitucionPerfil;
 	}
 
-	public void setAufechmo(Timestamp aufechmo) {
-		this.aufechmo = aufechmo;
+
+	public void setIdInstitucionPerfil(int idInstitucionPerfil) {
+		this.idInstitucionPerfil = idInstitucionPerfil;
 	}
 
-	public String getAuobsemo() {
-		return auobsemo;
+
+	public int getIdSedePerfil() {
+		return idSedePerfil;
 	}
 
-	public void setAuobsemo(String auobsemo) {
-		this.auobsemo = auobsemo;
+
+	public void setIdSedePerfil(int idSedePerfil) {
+		this.idSedePerfil = idSedePerfil;
 	}
 
-	public String getAupcipcr() {
-		return aupcipcr;
+
+	public int getNroVersionPerfil() {
+		return nroVersionPerfil;
 	}
 
-	public void setAupcipcr(String aupcipcr) {
-		this.aupcipcr = aupcipcr;
+
+	public void setNroVersionPerfil(int nroVersionPerfil) {
+		this.nroVersionPerfil = nroVersionPerfil;
 	}
 
-	public String getAupcipmo() {
-		return aupcipmo;
+
+	public int getNroPeriodoPerfil() {
+		return nroPeriodoPerfil;
 	}
 
-	public void setAupcipmo(String aupcipmo) {
-		this.aupcipmo = aupcipmo;
+
+	public void setNroPeriodoPerfil(int nroPeriodoPerfil) {
+		this.nroPeriodoPerfil = nroPeriodoPerfil;
 	}
 
-	public String getEstadorg() {
-		return estadorg;
+
+	@Override
+	public String toString() {
+		return "Perfil [idPerfil=" + idPerfil + ", nombreCorto=" + nombreCorto
+				+ ", nombreLargo=" + nombreLargo + ", estado="
+				+ estado + "]";
 	}
 
-	public void setEstadorg(String estadorg) {
-		this.estadorg = estadorg;
+
+	public Timestamp getAud_fechaOperacion() {
+		return aud_fechaOperacion;
 	}
 
-	public String getSituacrg() {
-		return situacrg;
-	}
 
-	public void setSituacrg(String situacrg) {
-		this.situacrg = situacrg;
+	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
+		this.aud_fechaOperacion = aud_fechaOperacion;
 	}
-
-	public short getSwmigrad() {
-		return swmigrad;
-	}
-
-	public void setSwmigrad(short swmigrad) {
-		this.swmigrad = swmigrad;
-	}
-
 	
 }

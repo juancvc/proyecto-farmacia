@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sigelab.base.service.ServiceException;
-import sigelab.core.entity.general.PacienteReniec;
+import sigelab.core.entity.general_.PacienteReniec;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.PacienteReniecDAO;
 import sigelab.core.service.interfaces.general.PacienteReniecService; 

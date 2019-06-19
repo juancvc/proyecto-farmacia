@@ -1,4 +1,4 @@
-package sigelab.core.entity.general;
+package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,72 +12,63 @@ public class PacientePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="CODORGAN")
-	private String codorgan;
+	@Column(name="ID_PACIENTE")
+	private long idPaciente;
 
-	@Column(name="CODINSTI")
-	private String codinsti;
+	@Column(name="ID_ORGANIZACION_PACIENTE")
+	private int idOrganizacionPaciente;
 
-	@Column(name="CODSEDEI")
-	private String codsedei;
+	@Column(name="ID_INSTITUCION_PACIENTE")
+	private int idInstitucionPaciente;
 
-	@Column(name="CODVERSI")
-	private String codversi;
+	@Column(name="ID_SEDE_PACIENTE")
+	private int idSedePaciente;
 
-	@Column(name="CODPACIE")
-	private String codpacie;
+	@Column(name="NRO_VERSION_PACIENTE")
+	private int nroVersionPaciente;
 
-	@Column(name="NROVERSI")
-	private String nroversi;
-
-	@Column(name="NROPERIO")
-	private String nroPerio;
+	@Column(name="NRO_PERIODO_PACIENTE")
+	private int nroPeriodoPaciente;
 
 	public PacientePK() {
 	}
-	public String getCodorgan() {
-		return this.codorgan;
+	public long getIdPaciente() {
+		return this.idPaciente;
 	}
-	public void setCodorgan(String codorgan) {
-		this.codorgan = codorgan;
+	public void setIdPaciente(long idPaciente) {
+		this.idPaciente = idPaciente;
 	}
-	public String getCodinsti() {
-		return this.codinsti;
+	public int getIdOrganizacionPaciente() {
+		return this.idOrganizacionPaciente;
 	}
-	public void setCodinsti(String codinsti) {
-		this.codinsti = codinsti;
+	public void setIdOrganizacionPaciente(int idOrganizacionPaciente) {
+		this.idOrganizacionPaciente = idOrganizacionPaciente;
 	}
-	public String getCodsedei() {
-		return this.codsedei;
+	public int getIdInstitucionPaciente() {
+		return this.idInstitucionPaciente;
 	}
-	public void setCodsedei(String codsedei) {
-		this.codsedei = codsedei;
+	public void setIdInstitucionPaciente(int idInstitucionPaciente) {
+		this.idInstitucionPaciente = idInstitucionPaciente;
 	}
-	public String getCodversi() {
-		return this.codversi;
+	public int getIdSedePaciente() {
+		return this.idSedePaciente;
 	}
-	public void setCodversi(String codversi) {
-		this.codversi = codversi;
+	public void setIdSedePaciente(int idSedePaciente) {
+		this.idSedePaciente = idSedePaciente;
 	}
-	public String getCodpacie() {
-		return this.codpacie;
+	public int getNroVersionPaciente() {
+		return this.nroVersionPaciente;
 	}
-	public void setCodpacie(String codpacie) {
-		this.codpacie = codpacie;
+	public void setNroVersionPaciente(int nroVersionPaciente) {
+		this.nroVersionPaciente = nroVersionPaciente;
 	}
-	public String getNroversi() {
-		return this.nroversi;
+	public int getNroPeriodoPaciente() {
+		return this.nroPeriodoPaciente;
 	}
-	public void setNroversi(String nroversi) {
-		this.nroversi = nroversi;
-	} 
+	public void setNroPeriodoPaciente(int nroPeriodoPaciente) {
+		this.nroPeriodoPaciente = nroPeriodoPaciente;
+	}
 
-	public String getNroPerio() {
-		return nroPerio;
-	}
-	public void setNroPerio(String nroPerio) {
-		this.nroPerio = nroPerio;
-	}
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -87,24 +78,32 @@ public class PacientePK implements Serializable {
 		}
 		PacientePK castOther = (PacientePK)other;
 		return 
-			this.codorgan.equals(castOther.codorgan)
-			&& this.codinsti.equals(castOther.codinsti)
-			&& this.codsedei.equals(castOther.codsedei)
-			&& this.codversi.equals(castOther.codversi)
-			&& this.codpacie.equals(castOther.codpacie)
-			&& this.nroversi.equals(castOther.nroversi) ;
+			(this.idPaciente == castOther.idPaciente)
+			&& (this.idOrganizacionPaciente == castOther.idOrganizacionPaciente)
+			&& (this.idInstitucionPaciente == castOther.idInstitucionPaciente)
+			&& (this.idSedePaciente == castOther.idSedePaciente)
+			&& (this.nroVersionPaciente == castOther.nroVersionPaciente)
+			&& (this.nroPeriodoPaciente == castOther.nroPeriodoPaciente);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.codorgan.hashCode();
-		hash = hash * prime + this.codinsti.hashCode();
-		hash = hash * prime + this.codsedei.hashCode();
-		hash = hash * prime + this.codversi.hashCode();
-		hash = hash * prime + this.codpacie.hashCode();
-		hash = hash * prime + this.nroversi.hashCode(); 
+		hash = hash * prime + ((int) (this.idPaciente ^ (this.idPaciente >>> 32)));
+		hash = hash * prime + this.idOrganizacionPaciente;
+		hash = hash * prime + this.idInstitucionPaciente;
+		hash = hash * prime + this.idSedePaciente;
+		hash = hash * prime + this.nroVersionPaciente;
+		hash = hash * prime + this.nroPeriodoPaciente;
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "PacientePK [idPaciente=" + idPaciente + ", idOrganizacionPaciente=" + idOrganizacionPaciente
+				+ ", idInstitucionPaciente=" + idInstitucionPaciente + ", idSedePaciente=" + idSedePaciente
+				+ ", nroVersionPaciente=" + nroVersionPaciente + ", nroPeriodoPaciente=" + nroPeriodoPaciente + "]";
+	}
+	
+	
 }

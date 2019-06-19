@@ -1,7 +1,7 @@
 package sigelab.core.repository.implementacion.general;
 
 import sigelab.core.bean.general.UbigeoBean;
-import sigelab.core.entity.general.Ubigeo;
+import sigelab.core.entity.general_.Ubigeo;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.UbigeoDAO;
 

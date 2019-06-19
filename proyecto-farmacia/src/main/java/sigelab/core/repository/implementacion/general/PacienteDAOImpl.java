@@ -2,8 +2,8 @@ package sigelab.core.repository.implementacion.general;
 
 import sigelab.core.bean.general.PacienteBean;
 import sigelab.core.bean.general.PersonaBean;
-import sigelab.core.entity.general.Paciente;
-import sigelab.core.entity.general.Persona;
+import sigelab.core.entity.general_.Paciente;
+import sigelab.core.entity.general_.Persona;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.PacienteDAO;
 

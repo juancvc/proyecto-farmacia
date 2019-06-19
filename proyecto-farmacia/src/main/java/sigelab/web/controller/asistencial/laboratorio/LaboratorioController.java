@@ -42,7 +42,7 @@ import sigelab.core.bean.general.TarifarioBean;
 import sigelab.core.bean.general.UbigeoBean;
 import sigelab.core.bean.seguridad.UsuarioBean;
 import sigelab.core.entity.asistencial.banco.InterUAL;
-import sigelab.core.entity.general.PacienteReniec;
+import sigelab.core.entity.general_.PacienteReniec;
 import sigelab.core.service.exception.ServiceException;
 import sigelab.core.service.interfaces.asistencial.banco.CampaniaService;
 import sigelab.core.service.interfaces.asistencial.banco.DonanteService;

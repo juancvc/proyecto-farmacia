@@ -1,7 +1,7 @@
 package sigelab.core.repository.implementacion.general;
 
 import sigelab.core.bean.general.PersonalBean;
-import sigelab.core.entity.general.Personal;
+import sigelab.core.entity.general_.Personal;
 import sigelab.core.repository.DAOException;
 import sigelab.core.repository.interfaces.general.PersonalDAO;
 

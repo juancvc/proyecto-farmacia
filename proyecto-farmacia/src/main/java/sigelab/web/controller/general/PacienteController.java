@@ -29,7 +29,7 @@ import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
 import sigelab.core.bean.general.PacienteBean;
 import sigelab.core.bean.general.PersonaBean; 
 import sigelab.core.bean.general.UbigeoBean;
-import sigelab.core.entity.general.PacienteReniec;
+import sigelab.core.entity.general_.PacienteReniec;
 import sigelab.core.service.exception.ServiceException;
 import sigelab.core.service.interfaces.general.PacienteReniecService;
 import sigelab.core.service.interfaces.general.PersonaService;
