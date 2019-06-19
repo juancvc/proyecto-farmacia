@@ -1,4 +1,4 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import java.io.Serializable;
 

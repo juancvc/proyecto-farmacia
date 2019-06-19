@@ -1,8 +1,7 @@
-package pe.com.galaxy.systems.apolo.core.entidad.entidad.general;
+package sigelab.core.entity.general;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,9 +11,7 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
-
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalGiseVO;
-import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalVO;
+ 
 
 
 
@@ -23,7 +20,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalVO;
 				@NamedStoredProcedureQuery(
 					name="personal.buscarXNroDocumento", 
 					procedureName="SP_PERSONAL_BUSCAR_X_NRO_DOCUMENTO",
-					resultClasses= PersonalVO.class,
+					resultClasses= Personal.class,
 					parameters={
 							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class)
@@ -42,7 +39,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalVO;
 				@NamedStoredProcedureQuery(
 						name="personal.findByLikeObjectVO", 
 						procedureName="SP_PERSONAL_BUSCAR_X_CRITERIOS",
-						resultClasses= PersonalVO.class,
+						resultClasses= Personal.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="APELLIDO_PATERNO", type=String.class),
@@ -90,7 +87,7 @@ import pe.com.galaxy.systems.apolo.core.entidad.vo.general.PersonalVO;
 				@NamedStoredProcedureQuery(
 						name="personal.listarPersonalGise", 
 						procedureName="[Farmacia].[dbo].[SP_PERSONAL_BUSCAR_X_CRITERIOS_GISE]",
-						resultClasses= PersonalGiseVO.class,
+						resultClasses= Personal.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="APEPATER", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="APEMATER", type=String.class ),
@@ -107,42 +104,16 @@ public class Personal implements Serializable {
 
 	@Id
 	@Column(name="ID_PERSONAL")
-	private long idPersonal;
+	private String idPersonal;
 	 
-	private Persona persona;
+	@Column(name="ID_PERSONA")
+	private String idPersona;
 
-	
-	//Bib-directional many-to-one association to document
-/*	@ManyToOne
-	@JoinColumn(name="ID_DOCUMENTO_PERSONA")
-	private DocumentoPersona documentoPersona;
-	*/	
-
-	//private 
+ 
 		
-	public Personal() {
-		this.setPersona(new Persona());
-		//this.setDocumento_Persona(new DocumentoPersona());
+	public Personal() { 
 	}
 
-
-	public long getIdPersonal() {
-		return idPersonal;
-	}
-
-
-	public void setIdPersonal(long idPersonal) {
-		this.idPersonal = idPersonal;
-	}
-
-
-	public Persona getPersona() {
-		return persona;
-	}
-
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
+  
    
 }

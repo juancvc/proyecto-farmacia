@@ -132,7 +132,7 @@ public class EventoPersona {
 	//private Paciente paciente;
 	
 	@Column(name="ID_PROGRAMA")
-	private Programas programa;
+	private String idPrograma;
 	
 	@Column(name="ID_TIPO_SEGURO")
 	private String tipoSeguro ;
@@ -187,14 +187,7 @@ public class EventoPersona {
 	public void setModalidadPago(String modalidadPago) {
 		this.modalidadPago = modalidadPago;
 	}
-
-	public Programas getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(Programas programa) {
-		this.programa = programa;
-	}
+ 
 
 	public String getTipoSeguro() {
 		return tipoSeguro;

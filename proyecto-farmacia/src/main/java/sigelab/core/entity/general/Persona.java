@@ -287,13 +287,7 @@ public class Persona   implements Serializable {
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
 	}
-	
-	public Situacion getSituacion() {
-		return situacion;
-	}
-	public void setSituacion(Situacion situacion) {
-		this.situacion = situacion;
-	}
+	 
 	public int getAudIdUsuario() {
 		return audIdUsuario;
 	}
