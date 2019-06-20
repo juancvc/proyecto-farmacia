@@ -30,7 +30,7 @@
 	<bean id="emf"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="sigelab" />
+		<property name="packagesToScan" value="proyect" />
 		<property name="jpaVendorAdapter">
 			<bean
 				class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
@@ -84,11 +84,11 @@
 
 
 	<context:component-scan
-		base-package="sigelab.core,
-					  sigelab.base,
-					  sigelab.web" />
+		base-package="proyect.core,
+					  proyect.base,
+					  proyect.web" />
 
-	<jpa:repositories base-package="sigelab.core" />
+	<jpa:repositories base-package="proyect.core" />
 
 
 </beans>

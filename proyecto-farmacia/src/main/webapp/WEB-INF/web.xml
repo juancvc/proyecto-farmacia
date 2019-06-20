@@ -21,7 +21,7 @@
     <filter-name>LoginFilter</filter-name>
     <filter-class>
 	
-		sigelab.web.controller.seguridad.filtro.LoginFilter
+		proyect.web.controller.seguridad.filtro.LoginFilter
 	</filter-class>
     <init-param>
       <param-name>ajaxSessionExpiredErrorCode</param-name>

@@ -1,0 +1,16 @@
+package proyect.core.service.interfaces.general;
+
+import java.util.List;
+
+import proyect.base.service.interfaces.GenericService;
+import proyect.core.entity.general_.PacienteReniec;
+import proyect.core.service.exception.ServiceException;
+
+public interface PacienteReniecService extends GenericService<PacienteReniec> {
+	
+
+	
+
+	public List<PacienteReniec>  pacienteReniecVerificacion(PacienteReniec acienteReniec) throws ServiceException;
+	
+}
