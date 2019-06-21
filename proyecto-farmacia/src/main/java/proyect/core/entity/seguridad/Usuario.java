@@ -163,90 +163,33 @@ public class Usuario  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID_USUARIO")
+	@Column(name="idUsuario")
 	private String idUsuario;
 
-	@Column(name="USUARIO")
+	@Column(name="nombreUsuario")
 	private String usuario;
 
-	@Column(name="CLAVE")
+	@Column(name="clave")
 	private String clave;
 	
-	@Column(name="NOMBRE")
-	private String nombre;
-
-/**	@Column(name="ID_ORGANIZACION_USUARIO")
-	private String idOrganizacionUsuario;
+	@Column(name="descripcion")
+	private String nombre; 
+	  
+	@Column(name = "idPerfil")
+	private String idPerfil; 
 	
-	@Column(name="ID_INSTITUCION_USUARIO")
-	private String idInstitucionUsuario;
-	
-	@Column(name="ID_SEDE_USUARIO")
-	private int idSedeUsuario;
-	
-	@Column(name="NRO_VERSION_USUARIO")
-	private int nroVersionUsuario;
-	
-	@Column(name="NRO_PERIODO_USUARIO")
-	private int nroPeriodoUsuario;
-	
-	*/
-	 
+	@Column(name = "idPersona")
+	private String idPersona; 
 
-	@Column(name = "ID_PERFIL")
-	private String codperfil;
+	@Column(name = "flgEstado")
+	private String fglgest; 
 
-	@Column(name = "EMAIL")
-	private String correo;
-	
-	@Column(name = "NUMECELU")
-	private String nroCelular;
-	
-	@Column(name="AUD_ID_USUARIO")
-	private int audIdUsuario;
-	 
-	
-	@Column(name = "CODPERSO")
-	private String nCodperso;
-
-	@Column(name = "AUCDUSCR")
-	private String nCodusureg;
-
-	@Column(name = "SITUSUAR")
-	private String nTm1situsu;
-
-	@Column(name = "ESTADO")
-	private String vFlgest;
-
-	@Column(name = "NOMUSUAR")
-	private String vNomusuari;
-
-	@Column(name = "PSWUSUAR")
-	private String vPassusuar;
-
-	@Column(name = "SWCLAVEP")
+	@Column(name = "flgResetClave")
 	private String vFlgrestpas;
-
-	@Column(name = "NOMBPERF")
-	private String nomPerfil;
-
-	@Column(name = "APEPATER")
-	private String apePater;
-
-	@Column(name = "APEMATER")
-	private String apeMater;
-
-	@Column(name = "PRINOMBR")
-	private String priNombr;
-
-	@Column(name = "SEGNOMBR")
-	private String segNombr;
-
-	@Column(name = "NRODOCUM")
-	private String nroDocum;
-	
-	@Column(name = "TG1TPDOC")
-	private String tg1TpDoc;
+ 
+	private String apellidoPaterno; 
+	private String apellidoMaterno; 
+	private String nombres;  
 	
 	
 	public Usuario() { 
@@ -293,105 +236,33 @@ public class Usuario  {
 	}
 
 
-	 
-
-	public String getCodperfil() {
-		return codperfil;
+	public String getIdPerfil() {
+		return idPerfil;
 	}
 
 
-	public void setCodperfil(String codperfil) {
-		this.codperfil = codperfil;
+	public void setIdPerfil(String idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 
 
-	public String getCorreo() {
-		return correo;
+	public String getIdPersona() {
+		return idPersona;
 	}
 
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
 	}
 
 
-	public String getNroCelular() {
-		return nroCelular;
+	public String getFglgest() {
+		return fglgest;
 	}
 
 
-	public void setNroCelular(String nroCelular) {
-		this.nroCelular = nroCelular;
-	}
-
-
-	public int getAudIdUsuario() {
-		return audIdUsuario;
-	}
-
-
-	public void setAudIdUsuario(int audIdUsuario) {
-		this.audIdUsuario = audIdUsuario;
-	}
-
-
-	public String getnCodperso() {
-		return nCodperso;
-	}
-
-
-	public void setnCodperso(String nCodperso) {
-		this.nCodperso = nCodperso;
-	}
-
-
-	public String getnCodusureg() {
-		return nCodusureg;
-	}
-
-
-	public void setnCodusureg(String nCodusureg) {
-		this.nCodusureg = nCodusureg;
-	}
-
-
-	public String getnTm1situsu() {
-		return nTm1situsu;
-	}
-
-
-	public void setnTm1situsu(String nTm1situsu) {
-		this.nTm1situsu = nTm1situsu;
-	}
-
-
-	public String getvFlgest() {
-		return vFlgest;
-	}
-
-
-	public void setvFlgest(String vFlgest) {
-		this.vFlgest = vFlgest;
-	}
-
-
-	public String getvNomusuari() {
-		return vNomusuari;
-	}
-
-
-	public void setvNomusuari(String vNomusuari) {
-		this.vNomusuari = vNomusuari;
-	}
-
-
-	public String getvPassusuar() {
-		return vPassusuar;
-	}
-
-
-	public void setvPassusuar(String vPassusuar) {
-		this.vPassusuar = vPassusuar;
+	public void setFglgest(String fglgest) {
+		this.fglgest = fglgest;
 	}
 
 
@@ -405,77 +276,35 @@ public class Usuario  {
 	}
 
 
-	public String getNomPerfil() {
-		return nomPerfil;
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
 	}
 
 
-	public void setNomPerfil(String nomPerfil) {
-		this.nomPerfil = nomPerfil;
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
 	}
 
 
-	public String getApePater() {
-		return apePater;
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
 	}
 
 
-	public void setApePater(String apePater) {
-		this.apePater = apePater;
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
 
-	public String getApeMater() {
-		return apeMater;
+	public String getNombres() {
+		return nombres;
 	}
 
 
-	public void setApeMater(String apeMater) {
-		this.apeMater = apeMater;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
-
-	public String getPriNombr() {
-		return priNombr;
-	}
-
-
-	public void setPriNombr(String priNombr) {
-		this.priNombr = priNombr;
-	}
-
-
-	public String getSegNombr() {
-		return segNombr;
-	}
-
-
-	public void setSegNombr(String segNombr) {
-		this.segNombr = segNombr;
-	}
-
-
-	public String getNroDocum() {
-		return nroDocum;
-	}
-
-
-	public void setNroDocum(String nroDocum) {
-		this.nroDocum = nroDocum;
-	}
-
-
-	public String getTg1TpDoc() {
-		return tg1TpDoc;
-	}
-
-
-	public void setTg1TpDoc(String tg1TpDoc) {
-		this.tg1TpDoc = tg1TpDoc;
-	}
-	
-	
-
-	 
+ 
 	
 }
