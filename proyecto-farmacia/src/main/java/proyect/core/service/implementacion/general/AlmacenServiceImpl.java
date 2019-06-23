@@ -1,4 +1,4 @@
-package proyect.core.service.implementacion.farmacia.general;
+package proyect.core.service.implementacion.general;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.AlmacenDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
  
 

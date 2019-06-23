@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import proyect.base.service.ServiceException;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.catalogo.Catalogo1DAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.core.repository.interfaces.catalogo.Catalogo1DAO; 
 import proyect.core.service.interfaces.catalogo.Catalogo1Service; 
 
  

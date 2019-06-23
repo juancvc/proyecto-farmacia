@@ -3,7 +3,7 @@ package proyect.core.service.interfaces;
 
 import java.util.List;
 
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 
 
 

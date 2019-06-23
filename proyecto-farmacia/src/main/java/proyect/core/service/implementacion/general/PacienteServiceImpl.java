@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.PacienteBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.PacienteDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PacienteService;
 
 

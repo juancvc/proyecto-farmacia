@@ -5,23 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-/*
-import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AuditoriaAccesoBean;
-import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AuditoriaBean;
-import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AuditoriaDetalleBean;
-import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AuditoriaTablaBean;
-import pe.gob.procalidad.natigu.core.repository.exception.DAOException;
-import pe.gob.procalidad.natigu.core.repository.repository.interfaces.seguridad.AuditoriaDAO;
-import pe.gob.procalidad.natigu.core.service.exception.ServiceException;
-import pe.gob.procalidad.natigu.core.service.service.interfaces.seguridad.AuditoriaService;*/
-
 import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
 import proyect.core.bean.seguridad.AuditoriaTablaBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.AuditoriaDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.seguridad.AuditoriaService;
 
 @Service("auditoriaService")

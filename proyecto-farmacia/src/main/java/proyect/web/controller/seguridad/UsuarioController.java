@@ -28,7 +28,7 @@ import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
 import proyect.core.bean.seguridad.UsuarioRenaesBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
@@ -36,7 +36,6 @@ import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;
 import proyect.core.service.interfaces.seguridad.PerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
-import proyect.core.service.interfaces.seguridad.UsuarioRenaesService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
 import proyect.web.controller.base.BaseController;
 import proyect.web.utilitarios.VO;
@@ -50,9 +49,6 @@ public class UsuarioController extends BaseController{
 	
 	@Autowired
 	UsuarioService usuarioService;
-	
-	@Autowired
-	UsuarioRenaesService usuarioRenaesService;
 	
 	@Autowired
 	UsuarioPerfilService usuarioPerfilService;
@@ -265,49 +261,7 @@ public class UsuarioController extends BaseController{
 	
 		return lstRenaesBean;
 	}
-	
-	@RequestMapping(value = "/listUsuarioRenaesBean", method = RequestMethod.GET)
-	public @ResponseBody List<UsuarioRenaesBean> listUsuarioRenaesBean(@RequestParam("codigoUsuario") String codigoUsuario)throws Exception {
-		  
-		List<UsuarioRenaesBean> lstUsuarioRenaesBean = null;
-		UsuarioBean prmUsuarioBean = new UsuarioBean();
-		prmUsuarioBean.setCodigo(codigoUsuario);  
-		
-		try {
-			lstUsuarioRenaesBean = usuarioRenaesService.buscarxcodigousua(prmUsuarioBean); 
-			 
-		} catch (Exception e) { 
-			
-		} 
-	
-		return lstUsuarioRenaesBean;
-	}
-	@RequestMapping(value = "/doGrabarUsuarioRenaes", method = RequestMethod.GET)
-	public @ResponseBody String doGrabarUsuarioRenaes(@RequestParam("codigoUsuario") String codigoUsuario,
-										@RequestParam("codigoRenaes") String codigoRenaes,
-										@RequestParam("codigoPersona") String codigoPersona,
-			HttpServletRequest request) {
-		System.out.println("doGrabarUsuarioRenaes");
-		UsuarioRenaesBean usuarioRenaesBean = new UsuarioRenaesBean();
-		usuarioRenaesBean.getUsuario().setCodigo(codigoUsuario);
-		usuarioRenaesBean.getUsuario().getPersona().setCodigo(codigoPersona);
-		usuarioRenaesBean.getRenaes().setCodigo(codigoRenaes);
-		String codigo = "";
-		
-		boolean sw = false;
-		try {
-			this.setAuditoria(usuarioRenaesBean, request, true);
-			sw = this.usuarioRenaesService.insertar(usuarioRenaesBean);
-			if(sw){
-				codigo = usuarioRenaesBean.getCodigo();
-			}
-		} catch (ServiceException e) { 
-			e.printStackTrace();
-		}
-		
-		return codigo;
-	}
-	
+ 
 	@RequestMapping(value = "/doGrabar", method = RequestMethod.POST)
 	public ModelAndView doGrabar(@ModelAttribute("usuarioBean") UsuarioBean usuarioBean, HttpServletRequest request) {
 		
@@ -601,27 +555,7 @@ public static String stripAccents(String str) {
 		  usuarioBean = new UsuarioBean() ;
 			return this.getLista(usuarioBean,request); 
 	}
-	
-	@RequestMapping(value = "/eliminarRenaes", method = RequestMethod.GET)
-	public @ResponseBody String eliminarRenaes(@RequestParam("codigo") String codigo,
-			 HttpServletRequest request) {
-		
-		String valida ="";
-		System.out.println("codigo eliminarPerfil:: " + codigo);
-		boolean sw = true; 
-		UsuarioRenaesBean usuarioBean = new UsuarioRenaesBean();
-		usuarioBean.setCodigo(codigo);
-		try {
-			this.setAuditoria(usuarioBean, request, false);  
-			 sw = (usuarioRenaesService.eliminar(usuarioBean));
-			 
-
-		} catch (Exception e) { 
-			e.printStackTrace();
-		}  
-		return valida;
-	}
-	
+ 
 	
 	@RequestMapping(value = "/listarUsuario", method = RequestMethod.GET)
 	public @ResponseBody List<UsuarioBean> refrescarListaPerfil()throws Exception { 
@@ -702,12 +636,7 @@ public static String stripAccents(String str) {
 					System.out.println(" usuarioBean codigoUser::: "  + usuarioBean.getCodigoUsuario());
 					System.out.println(" usuarioBean obj::: "  + usuarioBean);
 					this.setPersonaBean(usuarioBean.getPersona());					
-					try {
-						lstUsuarioRenaesBean = usuarioRenaesService.buscarxcodigousua(ousuarioBean); 
-						 
-					} catch (Exception e) { 
-						
-					}
+					 
 				}else{
 					System.out.println("usuario es null");
 					usuarioBean = new UsuarioBean();
@@ -746,12 +675,7 @@ public static String stripAccents(String str) {
 					System.out.println(" usuarioBean codigoUser::: "  + usuarioBean.getCodigoUsuario());
 					System.out.println(" usuarioBean obj::: "  + usuarioBean);
 					this.setPersonaBean(usuarioBean.getPersona());					
-					try {
-						lstUsuarioRenaesBean = usuarioRenaesService.buscarxcodigousua(ousuarioBean); 
-						 
-					} catch (Exception e) { 
-						
-					}
+					 
 				}else{
 					System.out.println("usuario es null");
 					usuarioBean = new UsuarioBean();

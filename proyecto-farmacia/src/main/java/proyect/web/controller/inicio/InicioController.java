@@ -27,7 +27,7 @@ import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
 import proyect.core.service.interfaces.seguridad.AccesoService;

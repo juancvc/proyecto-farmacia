@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import proyect.core.bean.general.AlmacenBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
 import proyect.web.utilitarios.acceso.LoginVo;
 

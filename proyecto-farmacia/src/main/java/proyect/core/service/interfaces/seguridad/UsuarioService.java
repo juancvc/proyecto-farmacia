@@ -1,7 +1,7 @@
 package proyect.core.service.interfaces.seguridad;
 
 import proyect.core.bean.seguridad.UsuarioBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.BaseService;
 
 

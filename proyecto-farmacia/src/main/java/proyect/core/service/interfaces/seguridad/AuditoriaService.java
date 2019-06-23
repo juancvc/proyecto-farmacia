@@ -6,7 +6,7 @@ import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
 import proyect.core.bean.seguridad.AuditoriaTablaBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.BaseService;
 
 

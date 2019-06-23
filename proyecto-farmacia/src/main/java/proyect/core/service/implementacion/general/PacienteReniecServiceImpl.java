@@ -74,12 +74,12 @@ public class PacienteReniecServiceImpl implements PacienteReniecService {
 	public List<PacienteReniec> pacienteReniecVerificacion(
 			PacienteReniec pacienteReniec) 
 					
-					throws proyect.core.service.exception.ServiceException {
+					throws ServiceException {
 		List<PacienteReniec> lstPaciente=null;
 		try {
 			lstPaciente=this.getPacienteDAO().pacienteReniecVerificacion(pacienteReniec);
 		} catch (DAOException e) {
-			throw new proyect.core.service.exception.ServiceException(e);
+			throw new ServiceException(e);
 		}
 		return lstPaciente;
 	}

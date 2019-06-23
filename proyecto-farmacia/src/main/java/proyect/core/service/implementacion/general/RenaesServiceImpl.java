@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.RenaesBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.RenaesDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;
 

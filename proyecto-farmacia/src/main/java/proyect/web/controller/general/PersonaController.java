@@ -40,7 +40,7 @@ import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.entity.general.PacienteReniec;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.general.PacienteReniecService;
 import proyect.core.service.interfaces.general.PersonaService;

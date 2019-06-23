@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.catalogo.Catalogo2DAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service; 
  
 @Service("maestra2Service")

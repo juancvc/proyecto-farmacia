@@ -2,7 +2,7 @@
 package proyect.core.service.interfaces.general;
 
 import proyect.core.bean.general.PersonaBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.BaseService;
 
 /*

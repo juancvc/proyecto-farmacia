@@ -30,7 +30,7 @@ import proyect.core.bean.general.PacienteBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.entity.general.PacienteReniec;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PacienteReniecService;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.UbigeoService;

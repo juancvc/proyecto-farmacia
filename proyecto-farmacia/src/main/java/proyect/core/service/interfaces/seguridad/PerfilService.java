@@ -3,7 +3,7 @@ package proyect.core.service.interfaces.seguridad;
 import java.util.List;
 
 import proyect.core.bean.seguridad.PerfilBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.BaseService;
 
 public interface PerfilService extends BaseService<PerfilBean>{

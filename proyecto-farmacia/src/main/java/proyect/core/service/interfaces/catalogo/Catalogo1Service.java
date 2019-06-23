@@ -3,8 +3,8 @@ package proyect.core.service.interfaces.catalogo;
   
 import java.util.List;
 
+import proyect.base.service.ServiceException;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.service.exception.ServiceException;
 import proyect.core.service.interfaces.BaseService;
   
 

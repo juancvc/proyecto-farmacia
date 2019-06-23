@@ -22,7 +22,7 @@ import proyect.core.bean.general.PersonalBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.seguridad.PerfilBean;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.PersonaService;

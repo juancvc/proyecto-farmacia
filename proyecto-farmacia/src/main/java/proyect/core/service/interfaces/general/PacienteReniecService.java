@@ -4,7 +4,7 @@ import java.util.List;
 
 import proyect.base.service.interfaces.GenericService;
 import proyect.core.entity.general.PacienteReniec;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 
 public interface PacienteReniecService extends GenericService<PacienteReniec> {
 	

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.PersonalBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.PersonalDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PersonalService;
 
 

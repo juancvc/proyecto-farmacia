@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.repository.interfaces.general.UbigeoDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.UbigeoService;
 
 @Service("ubigeoService")

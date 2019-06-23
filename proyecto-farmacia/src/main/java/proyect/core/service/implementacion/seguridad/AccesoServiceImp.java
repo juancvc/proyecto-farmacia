@@ -7,17 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-/*
-import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AccesoBean;
-import pe.gob.procalidad.natigu.core.repository.exception.DAOException;
-import pe.gob.procalidad.natigu.core.repository.repository.interfaces.seguridad.AccesoDAO;
-import pe.gob.procalidad.natigu.core.service.exception.ServiceException;
-import pe.gob.procalidad.natigu.core.service.service.interfaces.seguridad.AccesoService;*/
-
 import proyect.core.bean.seguridad.AccesoBean;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.AccesoDAO;
-import proyect.core.service.exception.ServiceException;
+import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 
 @Service("accesoService")
