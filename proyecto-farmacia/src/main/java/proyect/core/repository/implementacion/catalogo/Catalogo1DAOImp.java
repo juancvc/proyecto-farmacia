@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.entity.maestras.Catalogo01;
+import proyect.core.entity.catalogo.Catalogo01;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.Maestra1DAO;
 

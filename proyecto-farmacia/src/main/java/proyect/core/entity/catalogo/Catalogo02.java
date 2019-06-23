@@ -1,4 +1,4 @@
-package proyect.core.entity.maestras;
+package proyect.core.entity.catalogo;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,12 +6,12 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the Catalogo01 database table.
+ * The persistent class for the Catalogo02 database table.
  * 
  */
 @Entity
-@NamedQuery(name="Catalogo01.findAll", query="SELECT c FROM Catalogo01 c")
-public class Catalogo01 implements Serializable {
+@NamedQuery(name="Catalogo02.findAll", query="SELECT c FROM Catalogo02 c")
+public class Catalogo02 implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="DescripcionCorta")
@@ -35,7 +35,6 @@ public class Catalogo01 implements Serializable {
 
 	private int nroOrden;
 
-	@Id
 	@Column(name="NroRegistro")
 	private String nroRegistro;
 
@@ -45,7 +44,7 @@ public class Catalogo01 implements Serializable {
 
 	private String usuarioRegistro;
 
-	public Catalogo01() {
+	public Catalogo02() {
 	}
 
 	public String getDescripcionCorta() {
