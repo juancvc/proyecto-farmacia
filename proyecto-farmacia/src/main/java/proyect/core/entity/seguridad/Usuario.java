@@ -114,18 +114,12 @@ import javax.persistence.StoredProcedureParameter;
 				),
 				@NamedStoredProcedureQuery(
 						name="usuario.validarAccesoAlmacen", 
-						procedureName="SP_USUARIO_VALIDAR_ACCESO_ALMACEN",
+						procedureName="[usp_login_validaAcceso]",
 						resultClasses= Usuario.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CLAVE", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=String.class),
-									//@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=Integer.class),
-									/*	@StoredProcedureParameter(mode=ParameterMode.OUT,  name="RESPUESTA", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )*/
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreUsuario", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", type=String.class)
 							}					
 					),
 					@NamedStoredProcedureQuery(
@@ -171,9 +165,6 @@ public class Usuario  {
 
 	@Column(name="clave")
 	private String clave;
-	
-	@Column(name="descripcion")
-	private String nombre; 
 	  
 	@Column(name = "idPerfil")
 	private String idPerfil; 
@@ -190,6 +181,7 @@ public class Usuario  {
 	private String apellidoPaterno; 
 	private String apellidoMaterno; 
 	private String nombres;  
+	private String idAlmacen; 
 	
 	
 	public Usuario() { 
@@ -225,14 +217,13 @@ public class Usuario  {
 		this.clave = clave;
 	}
 
-
-	public String getNombre() {
-		return nombre;
+	public String getIdAlmacen() {
+		return idAlmacen;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setIdAlmacen(String idAlmacen) {
+		this.idAlmacen = idAlmacen;
 	}
 
 

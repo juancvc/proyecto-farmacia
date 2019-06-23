@@ -24,11 +24,11 @@ import javax.persistence.Table;
 					),
 				@NamedStoredProcedureQuery(
 						name="almacen.buscarPorFiltros", 
-						procedureName="SP_ALMACEN_BUSCAR_X_CRITERIOS",
+						procedureName="[usp_Almacen_buscarxCriterios]",
 						resultClasses= Almacen.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class) 
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreAlmacen", type=String.class) 
 							}	
 				),
 				
@@ -120,132 +120,20 @@ import javax.persistence.Table;
 public class Almacen  {
 	
 	@Id
-	@Column(name="ID_ALMACEN")
+	@Column(name="idAlmacen")
 	private String idAlmacen;
 
-	@Column(name="NOMBRE_CORTO")
-	private String nombreCorto;
-
-	@Column(name="NOMBRE_LARGO")
-	private String nombreLargo;
+	@Column(name="nombreAlmacen")
+	private String nombreAlmacen;
 	
-	@Column(name="ALIAS")
+	@Column(name="alias")
 	private String alias;
-
-	@Column(name="ID_ORGANIZACION_ALMACEN")
-	private int idOrganizacionAlmacen;
 	
-	@Column(name="ID_INSTITUCION_ALMACEN")
-	private int idInstitucionAlmacen;
-	
-	@Column(name="ID_SEDE_ALMACEN")
-	private int idSedeAlmacen;
-	
-	@Column(name="NRO_VERSION_ALMACEN")
-	private int nroVersionAlmacen;
-	
-	@Column(name="NRO_PERIODO_ALMACEN")
-	private int nroPeriodoAlmacen;
-	
-	@Column(name="AUD_OBSERVACION")
-	private String aud_Observacion;
-	
-	@Column(name="CODIGO_MINSA")
+	@Column(name="codigoMinsa")
 	private String codigoMinsa;
 	
 	public Almacen() { 
 	}
- 
-	public String getNombreCorto() {
-		return nombreCorto;
-	}
-
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
-	}
-
-	public String getNombreLargo() {
-		return nombreLargo;
-	}
-
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
-	}
-
-	public int getIdOrganizacionAlmacen() {
-		return idOrganizacionAlmacen;
-	}
-
-
-	public void setIdOrganizacionAlmacen(int idOrganizacionAlmacen) {
-		this.idOrganizacionAlmacen = idOrganizacionAlmacen;
-	}
-
-
-	public int getIdInstitucionAlmacen() {
-		return idInstitucionAlmacen;
-	}
-
-
-	public void setIdInstitucionAlmacen(int idInstitucionAlmacen) {
-		this.idInstitucionAlmacen = idInstitucionAlmacen;
-	}
-
-
-	public int getIdSedeAlmacen() {
-		return idSedeAlmacen;
-	}
-
-
-	public void setIdSedeAlmacen(int idSedeAlmacen) {
-		this.idSedeAlmacen = idSedeAlmacen;
-	}
-
-
-	public int getNroVersionAlmacen() {
-		return nroVersionAlmacen;
-	}
-
-	public void setNroVersionAlmacen(int nroVersionAlmacen) {
-		this.nroVersionAlmacen = nroVersionAlmacen;
-	}
-
-	public int getNroPeriodoAlmacen() {
-		return nroPeriodoAlmacen;
-	}
-
-	public void setNroPeriodoAlmacen(int nroPeriodoAlmacen) {
-		this.nroPeriodoAlmacen = nroPeriodoAlmacen;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-
-	public String getAud_Observacion() {
-		return aud_Observacion;
-	}
-
-
-	public void setAud_Observacion(String aud_Observacion) {
-		this.aud_Observacion = aud_Observacion;
-	}
-
-	public String getCodigoMinsa() {
-		return codigoMinsa;
-	}
-
-
-	public void setCodigoMinsa(String codigoMinsa) {
-		this.codigoMinsa = codigoMinsa;
-	}
-
 
 	public String getIdAlmacen() {
 		return idAlmacen;
@@ -255,14 +143,35 @@ public class Almacen  {
 		this.idAlmacen = idAlmacen;
 	}
 
-	@Override
-	public String toString() {
-		return "Almacen [idAlmacen=" + idAlmacen + ", nombreCorto=" + nombreCorto + ", nombreLargo=" + nombreLargo
-				+ ", alias=" + alias + ", idOrganizacionAlmacen=" + idOrganizacionAlmacen + ", idInstitucionAlmacen="
-				+ idInstitucionAlmacen + ", idSedeAlmacen=" + idSedeAlmacen + ", nroVersionAlmacen=" + nroVersionAlmacen
-				+ ", nroPeriodoAlmacen=" + nroPeriodoAlmacen + ", aud_Observacion=" + aud_Observacion + "]";
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
 	}
 
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
+	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public String getCodigoMinsa() {
+		return codigoMinsa;
+	}
+
+	public void setCodigoMinsa(String codigoMinsa) {
+		this.codigoMinsa = codigoMinsa;
+	}
+
+	@Override
+	public String toString() {
+		return "Almacen [idAlmacen=" + idAlmacen + ", nombreAlmacen=" + nombreAlmacen + ", alias=" + alias
+				+ ", codigoMinsa=" + codigoMinsa + "]";
+	}
+ 
 	
 }

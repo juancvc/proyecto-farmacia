@@ -186,9 +186,9 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.validarAccesoAlmacen");
-			spq.setParameter("USUARIO", prmUsuarioBean.getNombreUsuario());
-			spq.setParameter("CLAVE", prmUsuarioBean.getPasswordUsuario());
-			spq.setParameter("ID_ALMACEN", prmUsuarioBean.getAlmacen().getCodigo());
+			spq.setParameter("nombreUsuario", prmUsuarioBean.getNombreUsuario());
+			spq.setParameter("clave", prmUsuarioBean.getPasswordUsuario());
+			spq.setParameter("idAlmacen", prmUsuarioBean.getAlmacen().getCodigo());
 			
 			if (spq.execute()) {
 				lstLeotbcUsuario = spq.getResultList();			
@@ -214,42 +214,18 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	private UsuarioBean deSigehoUsuarioToUsuarioBean(Usuario entity){
 		UsuarioBean bean = new UsuarioBean();
 		if(entity!=null){
-			bean.setCodigo(entity.getIdUsuario());//codigo Usuario
-			/*bean.setCodigoOrganizacion(entity.getCodOrgan());
-			bean.setCodigoInstitucion(entity.getCodInsti());
-			bean.setCodigoSede(entity.getCodSedei());
-			bean.setNumeroPeriodo(entity.getNroPerio());
-			bean.setNumeroVersion(entity.getNroVersi());
-			*/
+			bean.setCodigo(entity.getIdUsuario());
 			bean.setCodigoUsuario(entity.getIdUsuario()); 
-			bean.setEstado(entity.getvFlgest());
-			bean.setNombreUsuario(entity.getvNomusuari());
-			bean.setPasswordUsuario(entity.getvPassusuar());
-			
+			bean.setNombreUsuario(entity.getUsuario());
+			bean.setPasswordUsuario(entity.getClave());
+			bean.setEstado(entity.getFglgest());
+			bean.setFlgRestPass(entity.getvFlgrestpas());
 			bean.setPersona(new PersonaBean()); 
-			bean.getPersona().setCodigo(entity.getnCodperso()); 
-			bean.getPersona().setApellidoMaterno(entity.getApeMater());
-			bean.getPersona().setApellidoPaterno(entity.getApePater());
-			bean.getPersona().setPrimerNombre(entity.getPriNombr());
-			bean.getPersona().setSegundoNombre(entity.getSegNombr());
-			bean.getPersona().setTipoDocumento(new TablaBean());
-			bean.getPersona().getTipoDocumento().setCodReg(entity.getTg1TpDoc());
-			bean.getPersona().setNroDocumento(entity.getNroDocum()); 
-			bean.setCorreo(entity.getCorreo());
-			bean.setNroCelular(entity.getNroCelular());
-			bean.setPerfil(new PerfilBean());
-			bean.getPerfil().setCodigo(entity.getCodperfil());
-			bean.getPerfil().setNombrePerfil(entity.getNomPerfil());
-			bean.setNombrePerfiles(entity.getNomPerfil());
+			bean.getPersona().setCodigo(entity.getIdPersona()); 
+			bean.getPersona().setApellidoMaterno(entity.getApellidoMaterno());
+			bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
+			bean.getPersona().setNombres(entity.getNombres()); 
 			bean.setFlgRestPass(entity.getvFlgrestpas()); 
-		 	if(entity.getnTm1situsu()!=""){
-
-			 	if(entity.getnTm1situsu()!=null){
-
-				bean.setSituacion(new TablaBean());
-				bean.getSituacion().setCodReg(entity.getnTm1situsu()); 
-			}
-		  }
 		}
 		return bean;
 	}

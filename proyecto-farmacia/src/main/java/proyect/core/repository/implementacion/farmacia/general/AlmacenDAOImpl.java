@@ -149,7 +149,7 @@ public class AlmacenDAOImpl implements AlmacenDAO {
 		List<AlmacenBean> lstAlmacenBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.buscarPorFiltros");  
-			spq.setParameter("NOMBRE_CORTO", almacen.getNombreAlmacen()); 
+			spq.setParameter("nombreAlmacen", almacen.getNombreAlmacen()); 
 			
 			 if (spq.execute()) {
 				 lstAlmacen =  spq.getResultList(); 
@@ -192,9 +192,8 @@ private List<AlmacenBean> deListaObjetoAListaObjetoBean(List<Almacen> lstAlmacen
 			
 			bean = new AlmacenBean();
 			bean.setCodigo(entity.getIdAlmacen());   
-			
-			bean.setNombreAlmacen(entity.getNombreCorto());
-			 
+			bean.setNombreAlmacen(entity.getNombreAlmacen());
+			bean.setAlias(entity.getAlias());
 	 	}
 		
 		return bean;

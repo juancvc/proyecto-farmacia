@@ -181,7 +181,7 @@ public class UsuarioController extends BaseController{
 						System.out.println("personaBean reniec no es null " + perso.getApSegundo());
 						personaBean.setApellidoMaterno(perso.getApSegundo());
 						personaBean.setApellidoPaterno(perso.getApPrimer());
-						personaBean.setPrimerNombre(perso.getPrenomInscrito());
+						personaBean.setNombres(perso.getPrenomInscrito());
 						personaBean.setNroDocumento(perso.getNuDNI());
 						personaBean.getTipoDocumento().setCodReg("000001");
 						SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyyMMdd");
@@ -351,7 +351,7 @@ public class UsuarioController extends BaseController{
 				
 			} else {
 				
-				nombreUsuario= getPersonaBean().getPrimerNombre()+"."+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
+				nombreUsuario= getPersonaBean().getNombres()+"."+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
 				usuarioBean.setNombreUsuario(nombreUsuario);
 				System.out.println("nombreUsuario " + nombreUsuario);
 				
@@ -428,7 +428,7 @@ public class UsuarioController extends BaseController{
 						ousuarioBean.getPersona().setCodigo(getPersonaBean().getCodigo());
 					}
 				}
-				nombreUsuario= getPersonaBean().getPrimerNombre()+"."+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
+				nombreUsuario= getPersonaBean().getNombres()+"."+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
 				 
 				System.out.println("método usuarioBean insertar " + ousuarioBean);
 				ousuarioBean.setNombreUsuario(stripAccents(nombreUsuario));

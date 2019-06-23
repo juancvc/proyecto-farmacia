@@ -8,8 +8,7 @@ public class PersonaBean extends BaseBean {
 
 	private String apellidoPaterno = ""; // Apellido Paterno
 	private String apellidoMaterno = ""; // Apellido Materno
-	private String primerNombre = "";
-	private String segundoNombre = "";
+	private String nombres = "";
 
 	private String nombreCompleto = "";
 	private String codigoPersonaSigeho = "";
@@ -121,30 +120,23 @@ public class PersonaBean extends BaseBean {
 	public void setApellidoMaterno(String apellidoMaterno) {
 		this.apellidoMaterno = apellidoMaterno;
 	}
-	public String getPrimerNombre() {
-		if(primerNombre == null){
-			primerNombre = "";
+	
+	public String getNombres() {
+		if(nombres == null){
+			nombres = "";
 		} 
-		return primerNombre;
+		return nombres;
 	}
-	public void setPrimerNombre(String primerNombre) {
-		this.primerNombre = primerNombre;
+	
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
-	public String getSegundoNombre() {
-		if (segundoNombre == null) {
-			segundoNombre = "";
-		}
-		return segundoNombre;
-	}
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
+	
 	public String getNombreCompleto() { 
 			if(!this.getApellidoPaterno().equals("")){
 				this.nombreCompleto = 	this.getApellidoPaterno().trim()
 						+" "+ this.getApellidoMaterno().trim()
-						+" "+ this.getPrimerNombre().trim()
-						+" "+ this.getSegundoNombre().trim(); 
+						+" "+ this.getNombres().trim();
 			}else{
 				nombreCompleto = "";
 			} 
