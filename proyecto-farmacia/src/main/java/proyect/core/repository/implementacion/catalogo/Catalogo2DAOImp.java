@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.entity.catalogo.Catalogo01;
 import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.general.Maestra2DAO;
+import proyect.core.repository.interfaces.catalogo.Catalogo2DAO;
 
  
 @Transactional
 @Repository("Maestra2DAO")
-public class Catalogo2DAOImp implements Maestra2DAO {
+public class Catalogo2DAOImp implements Catalogo2DAO {
 	
 	
 	@PersistenceContext//(unitName="emf")

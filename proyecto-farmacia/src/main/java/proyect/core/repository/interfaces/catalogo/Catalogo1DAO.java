@@ -1,5 +1,5 @@
 
- package proyect.core.repository.interfaces.general;
+ package proyect.core.repository.interfaces.catalogo;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import pe.gob.procalidad.natigu.core.bean.bean.generico.TablaBean;
 import pe.gob.procalidad.natigu.core.repository.exception.DAOException;
 import pe.gob.procalidad.natigu.core.repository.repository.interfaces.BaseDAO;*/
 
-public interface Maestra1DAO  extends BaseDAO<CatalogoBean>  {
+public interface Catalogo1DAO  extends BaseDAO<CatalogoBean>  {
 	
 	public List<CatalogoBean> listarPorCodigoTabla(String codTabla,int tipo) throws DAOException;
 	

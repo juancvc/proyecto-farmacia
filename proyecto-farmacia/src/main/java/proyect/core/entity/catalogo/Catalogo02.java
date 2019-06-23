@@ -35,6 +35,7 @@ public class Catalogo02 implements Serializable {
 
 	private int nroOrden;
 
+	@Id
 	@Column(name="NroRegistro")
 	private String nroRegistro;
 

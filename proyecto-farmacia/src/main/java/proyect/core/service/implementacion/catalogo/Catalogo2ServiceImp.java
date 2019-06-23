@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.general.Maestra2DAO;
+import proyect.core.repository.interfaces.catalogo.Catalogo2DAO;
 import proyect.core.service.exception.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service; 
  
@@ -18,7 +18,7 @@ import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 public class Catalogo2ServiceImp implements Catalogo2Service {
 	
 	@Autowired
-	private Maestra2DAO maestra2DAO; 
+	private Catalogo2DAO maestra2DAO; 
 	
 
 	@Override

@@ -1,4 +1,4 @@
-package proyect.core.repository.interfaces.general;
+package proyect.core.repository.interfaces.catalogo;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import proyect.core.repository.interfaces.BaseDAO;
 
 
 
-public interface Maestra2DAO  extends BaseDAO<CatalogoBean>  {
+public interface Catalogo2DAO  extends BaseDAO<CatalogoBean>  {
 	 
    public List<CatalogoBean> listarPorCodigoTabla(String codTabla,int tipo) throws DAOException;
 	

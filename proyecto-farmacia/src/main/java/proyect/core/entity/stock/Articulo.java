@@ -217,76 +217,58 @@ import javax.persistence.StoredProcedureParameter;
 				
 	)
 @Entity
-public class Articulo  {
-	private static final long serialVersionUID = 1L;
+public class Articulo  { 
 	@Id
-	@Column(name="ID_ARTICULO")
-	private Long idArticulo;
+	private String idArticulo;
 
-	@Column(name="NOMBRE_CORTO")
-	private String nombreCorto;
+	private boolean activo;
 
-	@Column(name="NOMBRE_LARGO")
-	private String nombreLargo;
-	
-	@Column(name="COD_GENERICO")
-	private String codGenerico;
+	private String codigoSiga;
 
-	@Column(name="CONCENTRACION")
+	private String codigoSismed;
+
 	private String concentracion;
-	
-	@Column(name="VOLUMEN")
+
+	private Timestamp fechaModificacion;
+
+	private Timestamp fechaRegistro;
+
+	private String idClase;
+
+	private String idGenerico;
+
+	private String idLaboratorio;
+
+	private String idTipoArticuloCat01;
+
+	private String idTipoPresentacionCat01;
+
+	private String ipModificacion;
+
+	private String ipRegistro;
+
+	private String nombreArticulo;
+
+	private String posologia;
+
+	private int stockAlerta;
+
+	private int stockOptimo;
+
+	private String usuarioModificacion;
+
+	private String usuarioRegistro;
+
 	private String volumen;
 	
-	@Column(name="POSOLOGIA")
-	private String posologia;
-	
-	@Column(name="STOCK_ALERTA")
-	private double stockAlerta;
-	
-	@Column(name="STOCK_OPTIMO")
-	private double stockOptimo;
-	
-	@Column (name="CODIGO_SISMED")
-	private String codigoSismed;
-	
-	@Column (name="CODIGO_SIGA")
-	private String codigoSiga;
-	
-	@Column(name="ID_ORGANIZACION_ARTICULO")
-	private int idOrganizacionArticulo;
-	
-	@Column(name="ID_INSTITUCION_ARTICULO")
-	private int idInstitucionArticulo;
-	
-	@Column(name="ID_SEDE_ARTICULO")
-	private int idSedeArticulo;
-	
-	@Column(name="NRO_VERSION_ARTICULO")
-	private int nroVersionArticulo;
-	
-	@Column(name="NRO_PERIODO_ARTICULO")
-	private int nroPeriodoArticulo;
-	
-	@Column (name="PETITORIO")
-	private String petitorio;
-	
-	@Column (name="ESTRATEGICO")
-	private String estrategico;
-	
-	@Column (name="ESTADO_SISMED")
-	private String estadoSismed;
-	
-	@Column (name="ID_CATEGORIA")
-	private int idCategoria;
-	
+	/***
 	private  int  anio;
 	private  int  tipo;
 	private  int  idReceta;
 	private String cadenaCodigoSISMED;
 	
 	/** Variables para el reporte **/
-	private  int PAGANTE;
+/*	private  int PAGANTE;
 	private  int TRABAJADOR;
 	private  int SIS;
 	private  int SOAT;
@@ -299,8 +281,6 @@ public class Articulo  {
 	private  String NOMBRE_CORTO_TIPO_ARTICULO;
 	private  String PRECIO_VENTA;
 	
-
-	private  int Stock;
 	
 	private	int ENERO;
 	private	int FEBRERO;
@@ -314,402 +294,138 @@ public class Articulo  {
 	private	int OCTUBRE;
 	private	int NOVIEMBRE;
 	private	int DICIEMBRE;
-	
+	*/
 	 
 	
 	public Articulo() { 
 	}
-
-	public String getCodigoSismed() {
-		return codigoSismed;
+	public String getIdArticulo() {
+		return idArticulo;
 	}
-
-	public void setCodigoSismed(String codigoSismed) {
-		this.codigoSismed = codigoSismed;
+	public void setIdArticulo(String idArticulo) {
+		this.idArticulo = idArticulo;
 	}
-
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	public String getCodigoSiga() {
 		return codigoSiga;
 	}
-
 	public void setCodigoSiga(String codigoSiga) {
 		this.codigoSiga = codigoSiga;
 	}
-
-	public Long getIdArticulo() {
-		if (idArticulo == null) {
-			idArticulo = 0L;
-		}
-		return idArticulo;
+	public String getCodigoSismed() {
+		return codigoSismed;
 	}
-
-	public void setIdArticulo(Long idArticulo) {
-		this.idArticulo = idArticulo;
+	public void setCodigoSismed(String codigoSismed) {
+		this.codigoSismed = codigoSismed;
 	}
-
-	public String getNombreCorto() {
-		return nombreCorto;
-	}
-
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
-	}
-
-	public String getNombreLargo() {
-		return nombreLargo;
-	}
-
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
-	}
-
-	public String getCodGenerico() {
-		return codGenerico;
-	}
-
-	public void setCodGenerico(String codGenerico) {
-		this.codGenerico = codGenerico;
-	}
-
-
 	public String getConcentracion() {
 		return concentracion;
 	}
-
 	public void setConcentracion(String concentracion) {
 		this.concentracion = concentracion;
 	}
-
-
+	public Timestamp getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public Timestamp getFechaRegistro() {
+		return fechaRegistro;
+	}
+	public void setFechaRegistro(Timestamp fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+	public String getIdClase() {
+		return idClase;
+	}
+	public void setIdClase(String idClase) {
+		this.idClase = idClase;
+	}
+	public String getIdGenerico() {
+		return idGenerico;
+	}
+	public void setIdGenerico(String idGenerico) {
+		this.idGenerico = idGenerico;
+	}
+	public String getIdLaboratorio() {
+		return idLaboratorio;
+	}
+	public void setIdLaboratorio(String idLaboratorio) {
+		this.idLaboratorio = idLaboratorio;
+	}
+	public String getIdTipoArticuloCat01() {
+		return idTipoArticuloCat01;
+	}
+	public void setIdTipoArticuloCat01(String idTipoArticuloCat01) {
+		this.idTipoArticuloCat01 = idTipoArticuloCat01;
+	}
+	public String getIdTipoPresentacionCat01() {
+		return idTipoPresentacionCat01;
+	}
+	public void setIdTipoPresentacionCat01(String idTipoPresentacionCat01) {
+		this.idTipoPresentacionCat01 = idTipoPresentacionCat01;
+	}
+	public String getIpModificacion() {
+		return ipModificacion;
+	}
+	public void setIpModificacion(String ipModificacion) {
+		this.ipModificacion = ipModificacion;
+	}
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
+	}
+	public String getNombreArticulo() {
+		return nombreArticulo;
+	}
+	public void setNombreArticulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
+	}
+	public String getPosologia() {
+		return posologia;
+	}
+	public void setPosologia(String posologia) {
+		this.posologia = posologia;
+	}
+	public int getStockAlerta() {
+		return stockAlerta;
+	}
+	public void setStockAlerta(int stockAlerta) {
+		this.stockAlerta = stockAlerta;
+	}
+	public int getStockOptimo() {
+		return stockOptimo;
+	}
+	public void setStockOptimo(int stockOptimo) {
+		this.stockOptimo = stockOptimo;
+	}
+	public String getUsuarioModificacion() {
+		return usuarioModificacion;
+	}
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
+	}
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
 	public String getVolumen() {
 		return volumen;
 	}
-
 	public void setVolumen(String volumen) {
 		this.volumen = volumen;
 	}
 
-	public String getPosologia() {
-		return posologia;
-	}
 
-	public void setPosologia(String posologia) {
-		this.posologia = posologia;
-	}
-
-	public double getStockAlerta() {
-		return stockAlerta;
-	}
-
-	public void setStockAlerta(double stockAlerta) {
-		this.stockAlerta = stockAlerta;
-	}
-
-	public double getStockOptimo() {
-		return stockOptimo;
-	}
-
-	public void setStockOptimo(double stockOptimo) {
-		this.stockOptimo = stockOptimo;
-	}
- 
-	public int getIdOrganizacionArticulo() {
-		return idOrganizacionArticulo;
-	}
-
-	public void setIdOrganizacionArticulo(int idOrganizacionArticulo) {
-		this.idOrganizacionArticulo = idOrganizacionArticulo;
-	}
-
-	public int getIdInstitucionArticulo() {
-		return idInstitucionArticulo;
-	}
-
-	public void setIdInstitucionArticulo(int idInstitucionArticulo) {
-		this.idInstitucionArticulo = idInstitucionArticulo;
-	}
-
-	public int getIdSedeArticulo() {
-		return idSedeArticulo;
-	}
-
-	public void setIdSedeArticulo(int idSedeArticulo) {
-		this.idSedeArticulo = idSedeArticulo;
-	}
-
-	public int getNroVersionArticulo() {
-		return nroVersionArticulo;
-	}
-
-	public void setNroVersionArticulo(int nroVersionArticulo) {
-		this.nroVersionArticulo = nroVersionArticulo;
-	}
-
-	public int getNroPeriodoArticulo() {
-		return nroPeriodoArticulo;
-	}
-
-	public void setNroPeriodoArticulo(int nroPeriodoArticulo) {
-		this.nroPeriodoArticulo = nroPeriodoArticulo;
-	}
- 
-	public int getAnio() {
-		return anio;
-	}
-
-	public void setAnio(int anio) {
-		this.anio = anio;
-	}
-
-	public int getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-
-	public int getIdReceta() {
-		return idReceta;
-	}
-
-	public void setIdReceta(int idReceta) {
-		this.idReceta = idReceta;
-	}
-
-	public String getPetitorio() {
-		return petitorio;
-	}
-
-	public void setPetitorio(String petitorio) {
-		this.petitorio = petitorio;
-	}
-
-	public String getEstrategico() {
-		return estrategico;
-	}
-
-	public void setEstrategico(String estrategico) {
-		this.estrategico = estrategico;
-	}
-
-	public String getEstadoSismed() {
-		return estadoSismed;
-	}
-
-	public void setEstadoSismed(String estadoSismed) {
-		this.estadoSismed = estadoSismed;
-	}
-
-	public String getCadenaCodigoSISMED() {
-		return cadenaCodigoSISMED;
-	}
-
-	public void setCadenaCodigoSISMED(String cadenaCodigoSISMED) {
-		this.cadenaCodigoSISMED = cadenaCodigoSISMED;
-	}
-
-	public int getIdCategoria() {
-		return idCategoria;
-	}
-
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
-	public int getPAGANTE() {
-		return PAGANTE;
-	}
-
-	public void setPAGANTE(int pAGANTE) {
-		PAGANTE = pAGANTE;
-	}
-
-	public int getTRABAJADOR() {
-		return TRABAJADOR;
-	}
-
-	public void setTRABAJADOR(int tRABAJADOR) {
-		TRABAJADOR = tRABAJADOR;
-	}
-
-	public int getSIS() {
-		return SIS;
-	}
-
-	public void setSIS(int sIS) {
-		SIS = sIS;
-	}
-
-	public int getSOAT() {
-		return SOAT;
-	}
-
-	public void setSOAT(int sOAT) {
-		SOAT = sOAT;
-	}
-
-	public int getPRIVADO() {
-		return PRIVADO;
-	}
-
-	public void setPRIVADO(int pRIVADO) {
-		PRIVADO = pRIVADO;
-	}
-
-	public int getTOTAL_VENDIDO() {
-		return TOTAL_VENDIDO;
-	}
-
-	public void setTOTAL_VENDIDO(int tOTAL_VENDIDO) {
-		TOTAL_VENDIDO = tOTAL_VENDIDO;
-	}
-
-	public String getNOMBRE_LARGO_PRESENTACION() {
-		return NOMBRE_LARGO_PRESENTACION;
-	}
-
-	public void setNOMBRE_LARGO_PRESENTACION(String nOMBRE_LARGO_PRESENTACION) {
-		NOMBRE_LARGO_PRESENTACION = nOMBRE_LARGO_PRESENTACION;
-	}
-
-	public String getNOMBRE_CORTO_TIPO_ARTICULO() {
-		return NOMBRE_CORTO_TIPO_ARTICULO;
-	}
-
-	public void setNOMBRE_CORTO_TIPO_ARTICULO(String nOMBRE_CORTO_TIPO_ARTICULO) {
-		NOMBRE_CORTO_TIPO_ARTICULO = nOMBRE_CORTO_TIPO_ARTICULO;
-	}
-
-	public String getPRECIO_VENTA() {
-		return PRECIO_VENTA;
-	}
-
-	public void setPRECIO_VENTA(String pRECIO_VENTA) {
-		PRECIO_VENTA = pRECIO_VENTA;
-	}
-
-	public String getINPORTE_TOTAL() {
-		return INPORTE_TOTAL;
-	}
-
-	public void setINPORTE_TOTAL(String iNPORTE_TOTAL) {
-		INPORTE_TOTAL = iNPORTE_TOTAL;
-	}
-
-	public int getEXONERACION() {
-		return EXONERACION;
-	}
-
-	public void setEXONERACION(int eXONERACION) {
-		EXONERACION = eXONERACION;
-	}
-
-	public int getStock() {
-		return Stock;
-	}
-
-	public void setStock(int stock) {
-		Stock = stock;
-	}
-
-	public int getENERO() {
-		return ENERO;
-	}
-
-	public void setENERO(int eNERO) {
-		ENERO = eNERO;
-	}
-
-	public int getFEBRERO() {
-		return FEBRERO;
-	}
-
-	public void setFEBRERO(int fEBRERO) {
-		FEBRERO = fEBRERO;
-	}
-
-	public int getMARZO() {
-		return MARZO;
-	}
-
-	public void setMARZO(int mARZO) {
-		MARZO = mARZO;
-	}
-
-	public int getABRIL() {
-		return ABRIL;
-	}
-
-	public void setABRIL(int aBRIL) {
-		ABRIL = aBRIL;
-	}
-
-	public int getMAYO() {
-		return MAYO;
-	}
-
-	public void setMAYO(int mAYO) {
-		MAYO = mAYO;
-	}
-
-	public int getJUNIO() {
-		return JUNIO;
-	}
-
-	public void setJUNIO(int jUNIO) {
-		JUNIO = jUNIO;
-	}
-
-	public int getJULIO() {
-		return JULIO;
-	}
-
-	public void setJULIO(int jULIO) {
-		JULIO = jULIO;
-	}
-
-	public int getAGOSTO() {
-		return AGOSTO;
-	}
-
-	public void setAGOSTO(int aGOSTO) {
-		AGOSTO = aGOSTO;
-	}
-
-	public int getSETIEMBRE() {
-		return SETIEMBRE;
-	}
-
-	public void setSETIEMBRE(int sETIEMBRE) {
-		SETIEMBRE = sETIEMBRE;
-	}
-
-	public int getOCTUBRE() {
-		return OCTUBRE;
-	}
-
-	public void setOCTUBRE(int oCTUBRE) {
-		OCTUBRE = oCTUBRE;
-	}
-
-	public int getNOVIEMBRE() {
-		return NOVIEMBRE;
-	}
-
-	public void setNOVIEMBRE(int nOVIEMBRE) {
-		NOVIEMBRE = nOVIEMBRE;
-	}
-
-	public int getDICIEMBRE() {
-		return DICIEMBRE;
-	}
-
-	public void setDICIEMBRE(int dICIEMBRE) {
-		DICIEMBRE = dICIEMBRE;
-	}
-
-
-	
 	
 }
