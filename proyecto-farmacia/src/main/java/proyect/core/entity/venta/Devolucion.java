@@ -2,6 +2,7 @@ package proyect.core.entity.venta;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -112,36 +113,29 @@ import javax.persistence.StoredProcedureParameter;
 	)
 @Entity
 public class Devolucion  {
-	private static final int serialVersionUID = 1;
-	@Id
-	@Column(name="ID_DEVOLUCION")
-	private String idDevolucion;
+	
+	@EmbeddedId
+	private DevolucionPK id;
 
-	@Column(name="ID_ORGANIZACION_DEVOLUCION")
-	private String idOrganizacionDevolucion;
+	@Column(name="idVentaItem")
+	private String idVentaItem;
 	
-	@Column(name="ID_INSTITUCION_DEVOLUCION")
-	private String idInstitucionDevolucion;
+	@Column(name="nroPeriodoVentaItem")
+	private String nroPeriodoVentaItem;
 	
-	@Column(name="ID_SEDE_DEVOLUCION")
-	private String idSedeDevolucion;
+	@Column(name="idMotivoDevolucionCat02")
+	private String idMotivoDevolucionCat02;
 	
-	@Column(name="NRO_VERSION_DEVOLUCION")
-	private String nroVersionDevolucion;
+	@Column(name="fechaDevolucion")
+	private  Timestamp 	fechaDevolucion;
 	
-	@Column(name="NRO_PERIODO_DEVOLUCION")
-	private String nroPeriodoDevolucion;
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
 	
+	@Column(name="fechaRegistro")
+	private  Timestamp 	fechaRegistro;
 	
-	@Column(name="AUD_FECHA_OPERACION")
-	private  Timestamp 	aud_fechaOperacion;
-	 
-	private VentaItem ventaItem;
-
-	@Column(name="ID_MOTIVO_DEVOLUCION")
-	private String idMotivoDevolucion;
-	
-	@Column(name="CANTIDAD_DEVUELTA")
+	@Column(name="cantidadDevuelta")
 	private int cantidadDevuelta;
 	
 	
@@ -155,110 +149,86 @@ public class Devolucion  {
 
 
 
-	public String getIdDevolucion() {
-		return idDevolucion;
+	public DevolucionPK getId() {
+		return id;
 	}
 
 
 
-	public void setIdDevolucion(String idDevolucion) {
-		this.idDevolucion = idDevolucion;
+	public void setId(DevolucionPK id) {
+		this.id = id;
 	}
 
 
 
-	public String getIdOrganizacionDevolucion() {
-		return idOrganizacionDevolucion;
+	public String getIdVentaItem() {
+		return idVentaItem;
 	}
 
 
 
-	public void setIdOrganizacionDevolucion(String idOrganizacionDevolucion) {
-		this.idOrganizacionDevolucion = idOrganizacionDevolucion;
+	public void setIdVentaItem(String idVentaItem) {
+		this.idVentaItem = idVentaItem;
 	}
 
 
 
-	public String getIdInstitucionDevolucion() {
-		return idInstitucionDevolucion;
+	public String getNroPeriodoVentaItem() {
+		return nroPeriodoVentaItem;
 	}
 
 
 
-	public void setIdInstitucionDevolucion(String idInstitucionDevolucion) {
-		this.idInstitucionDevolucion = idInstitucionDevolucion;
+	public void setNroPeriodoVentaItem(String nroPeriodoVentaItem) {
+		this.nroPeriodoVentaItem = nroPeriodoVentaItem;
 	}
 
 
 
-	public String getIdSedeDevolucion() {
-		return idSedeDevolucion;
+	public String getIdMotivoDevolucionCat02() {
+		return idMotivoDevolucionCat02;
 	}
 
 
 
-	public void setIdSedeDevolucion(String idSedeDevolucion) {
-		this.idSedeDevolucion = idSedeDevolucion;
+	public void setIdMotivoDevolucionCat02(String idMotivoDevolucionCat02) {
+		this.idMotivoDevolucionCat02 = idMotivoDevolucionCat02;
 	}
 
 
 
-	public String getNroVersionDevolucion() {
-		return nroVersionDevolucion;
+	public Timestamp getFechaDevolucion() {
+		return fechaDevolucion;
 	}
 
 
 
-	public void setNroVersionDevolucion(String nroVersionDevolucion) {
-		this.nroVersionDevolucion = nroVersionDevolucion;
+	public void setFechaDevolucion(Timestamp fechaDevolucion) {
+		this.fechaDevolucion = fechaDevolucion;
 	}
 
 
 
-	public String getNroPeriodoDevolucion() {
-		return nroPeriodoDevolucion;
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
 	}
 
 
 
-	public void setNroPeriodoDevolucion(String nroPeriodoDevolucion) {
-		this.nroPeriodoDevolucion = nroPeriodoDevolucion;
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
 	}
 
 
 
-	public Timestamp getAud_fechaOperacion() {
-		return aud_fechaOperacion;
+	public Timestamp getFechaRegistro() {
+		return fechaRegistro;
 	}
 
 
 
-	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
-		this.aud_fechaOperacion = aud_fechaOperacion;
-	}
-
-
-
-	public VentaItem getVentaItem() {
-		return ventaItem;
-	}
-
-
-
-	public void setVentaItem(VentaItem ventaItem) {
-		this.ventaItem = ventaItem;
-	}
-
-
-
-	public String getIdMotivoDevolucion() {
-		return idMotivoDevolucion;
-	}
-
-
-
-	public void setIdMotivoDevolucion(String idMotivoDevolucion) {
-		this.idMotivoDevolucion = idMotivoDevolucion;
+	public void setFechaRegistro(Timestamp fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 
@@ -297,7 +267,5 @@ public class Devolucion  {
 		this.fechaFin = fechaFin;
 	}
 
-
-	 
 	
 }
