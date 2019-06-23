@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.general.Maestra1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.seguridad.PerfilService;
 import proyect.web.controller.base.BaseController;
 
@@ -29,10 +29,10 @@ public class PerfilController extends BaseController {
 	PerfilService perfilService;
 	
 	@Autowired
-	private Maestra1Service 	maestra1Service;
+	private Catalogo1Service 	maestra1Service;
 	
 	private PerfilBean perfilBean;
-	private List<TablaBean>	lstSituacion;
+	private List<CatalogoBean>	lstSituacion;
 	
 	@PostConstruct
 	public void init(){

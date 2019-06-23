@@ -13,25 +13,25 @@ public class PersonalBean extends BaseBean{
 		private String  		plaza;
 		private	Date			fechaInscripcion;
 		private	String			funcionDesempenia;
-		private	TablaBean       tipoGremio;
-		private	TablaBean		gremio;
+		private	CatalogoBean       tipoGremio;
+		private	CatalogoBean		gremio;
 		private	Date			fechaInscripcionGremio;
 		private	String			actGremio;
 		private String  		nroColegiatura;
-		private TablaBean   	tipoColegio;
-		private	TablaBean   	condicion = new TablaBean();
+		private CatalogoBean   	tipoColegio;
+		private	CatalogoBean   	condicion = new CatalogoBean();
 		private	String			ieds;
-		private	TablaBean		nivel;
-		private TablaBean   	unidadOrg = new TablaBean();
-		private TablaBean   	cargo;
-		private	TablaBean       tipo;   // asistencial, administradtivo , etc
+		private	CatalogoBean		nivel;
+		private CatalogoBean   	unidadOrg = new CatalogoBean();
+		private CatalogoBean   	cargo;
+		private	CatalogoBean       tipo;   // asistencial, administradtivo , etc
 	//	private	Ambiente   	ambienteAsig;
 		private String      	nroSesigra;
 		private	Date			fechaIniSesigra;
 		private Date			fechaTerminoSesigra;
 		private RenaesBean		renaes;
-		private	TablaBean		especialidad = new TablaBean();
-		private	TablaBean		grupoOcupacional;
+		private	CatalogoBean		especialidad = new CatalogoBean();
+		private	CatalogoBean		grupoOcupacional;
 		private String          nroHC;
 	/*	
 	public Ambiente getAmbienteAsig() {
@@ -48,11 +48,11 @@ public class PersonalBean extends BaseBean{
 	public PersonalBean() {
 		super();
 	}
-	public TablaBean getCargo() {
+	public CatalogoBean getCargo() {
 		return cargo;
 	}
 
-	public void setCargo(TablaBean cargo) {
+	public void setCargo(CatalogoBean cargo) {
 		this.cargo = cargo;
 	}
 
@@ -72,7 +72,7 @@ public class PersonalBean extends BaseBean{
 		this.nroColegiatura = nroColegiatura;
 	}
 
-	public TablaBean getCondicion() {
+	public CatalogoBean getCondicion() {
 	/*	if (condicion==null){
 			TablaBean tbl = new TablaBean();
 			tbl.setCodReg("000011");
@@ -83,7 +83,7 @@ public class PersonalBean extends BaseBean{
 		return condicion;
 	}
                     
-	public void setCondicion(TablaBean condicion) {
+	public void setCondicion(CatalogoBean condicion) {
 		this.condicion = condicion;
 	}
 
@@ -119,11 +119,11 @@ public class PersonalBean extends BaseBean{
 	}
 
 
-	public TablaBean getNivel() {
+	public CatalogoBean getNivel() {
 		return nivel;
 	}
 
-	public void setNivel(TablaBean nivel) {
+	public void setNivel(CatalogoBean nivel) {
 		this.nivel = nivel;
 	}
 /*
@@ -131,27 +131,27 @@ public class PersonalBean extends BaseBean{
 		super(codigo);
 	}
 */
-	public TablaBean getUnidadOrg() {
+	public CatalogoBean getUnidadOrg() {
 		return unidadOrg;
 	}
 
-	public void setUnidadOrg(TablaBean unidadOrg) {
+	public void setUnidadOrg(CatalogoBean unidadOrg) {
 		this.unidadOrg = unidadOrg;
 	}
 
-	public TablaBean getTipoColegio() {
+	public CatalogoBean getTipoColegio() {
 		return tipoColegio;
 	}
 
-	public void setTipoColegio(TablaBean tipoColegio) {
+	public void setTipoColegio(CatalogoBean tipoColegio) {
 		this.tipoColegio = tipoColegio;
 	}
 
-	public TablaBean getTipo() {
+	public CatalogoBean getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TablaBean tipo) {
+	public void setTipo(CatalogoBean tipo) {
 		this.tipo = tipo;
 	}
 
@@ -171,19 +171,19 @@ public class PersonalBean extends BaseBean{
 		this.funcionDesempenia = funcionDesempenia;
 	}
 
-	public TablaBean getTipoGremio() {
+	public CatalogoBean getTipoGremio() {
 		return tipoGremio;
 	}
 
-	public void setTipoGremio(TablaBean tipoGremio) {
+	public void setTipoGremio(CatalogoBean tipoGremio) {
 		this.tipoGremio = tipoGremio;
 	}
 
-	public TablaBean getGremio() {
+	public CatalogoBean getGremio() {
 		return gremio;
 	}
 
-	public void setGremio(TablaBean gremio) {
+	public void setGremio(CatalogoBean gremio) {
 		this.gremio = gremio;
 	}
 
@@ -243,19 +243,19 @@ public class PersonalBean extends BaseBean{
 		this.nroHC = nroHC;
 	}
 
-	public TablaBean getEspecialidad() {
+	public CatalogoBean getEspecialidad() {
 		return especialidad;
 	}
 
-	public void setEspecialidad(TablaBean especialidad) {
+	public void setEspecialidad(CatalogoBean especialidad) {
 		this.especialidad = especialidad;
 	}
 
-	public TablaBean getGrupoOcupacional() {
+	public CatalogoBean getGrupoOcupacional() {
 		return grupoOcupacional;
 	}
 
-	public void setGrupoOcupacional(TablaBean grupoOcupacional) {
+	public void setGrupoOcupacional(CatalogoBean grupoOcupacional) {
 		this.grupoOcupacional = grupoOcupacional;
 	}
 	public PersonaBean getPersona() {

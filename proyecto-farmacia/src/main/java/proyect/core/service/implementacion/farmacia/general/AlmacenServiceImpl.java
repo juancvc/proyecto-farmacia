@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import proyect.core.bean.asistencial.farmacia.general.AlmacenBean;
+import proyect.core.bean.general.AlmacenBean;
 import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.farmacia.general.AlmacenDAO;
+import proyect.core.repository.interfaces.general.AlmacenDAO;
 import proyect.core.service.exception.ServiceException;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
  

@@ -29,7 +29,7 @@ import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
 import proyect.core.bean.general.PacienteBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.UbigeoBean;
-import proyect.core.entity.general_.PacienteReniec;
+import proyect.core.entity.general.PacienteReniec;
 import proyect.core.service.exception.ServiceException;
 import proyect.core.service.interfaces.general.PacienteReniecService;
 import proyect.core.service.interfaces.general.PersonaService;
@@ -145,7 +145,7 @@ public class PacienteController {
 		personaBean = new PersonaBean();
 		PersonaBean prmPersona = new PersonaBean();
 		prmPersona.setNroDocumento(numero);
-		prmPersona.getTipoDocumento().setCodReg(tipoDocumento);
+		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
 		try {
 			personaBean = this.getPersonaService().buscarxTipoDocumentoNumeroDocumento(prmPersona); 
 			if(personaBean!=null){
@@ -228,20 +228,7 @@ public class PacienteController {
 								
 								SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 								String strFecha = lstPersona.get(0).getFechaNacimiento();
-								int ind = lstPersona.get(0).getNombres().indexOf(" ");
-								System.out.println("ind " + ind);
-								String primerNombre = "";
-								if (ind > 0) {
-									primerNombre = lstPersona.get(0).getNombres().substring(0, ind);
-									String segundoNombre = lstPersona.get(0).getNombres().substring(ind + 1, lstPersona.get(0).getNombres().length());
-									
-									paciente.getPersona().setPrimerNombre(primerNombre);
-									paciente.getPersona().setSegundoNombre(segundoNombre);
-								}else{
-									paciente.getPersona().setPrimerNombre(lstPersona.get(0).getNombres());
-									paciente.getPersona().setSegundoNombre("");
-								}
-								
+								paciente.getPersona().setNombres(lstPersona.get(0).getNombres());
 								if(lstPersona.get(0).getFotoPaciente() != null){
 									paciente.getPersona().setFoto(lstPersona.get(0).getFotoPaciente());
 								}
@@ -260,9 +247,9 @@ public class PacienteController {
 								System.out.println("personaBean no es null " + paciente.getPersona().getNombreCompleto());
 								System.out.println("personaBean no es null " + paciente.getPersona().getFechaNac());
 								if (lstPersona.get(0).getSexo().equals("1")) {
-									paciente.getPersona().getSexo().setCodReg("000002"); 
+									paciente.getPersona().getSexo().setIdRegistro("000002"); 
 								}else{
-									paciente.getPersona().getSexo().setCodReg("000001"); 
+									paciente.getPersona().getSexo().setIdRegistro("000001"); 
 								}
 								System.out.println("tipoDocumento " + tipoDocumento);
 							}else{
@@ -311,9 +298,9 @@ public class PacienteController {
 						System.out.println("personaBean no es null " + paciente.getPersona().getNombreCompleto());
 						
 						if (perso.getDeGenero().equals("1")) {
-							paciente.getPersona().getSexo().setCodReg("000002"); 
+							paciente.getPersona().getSexo().setIdRegistro("000002"); 
 						}else{
-							paciente.getPersona().getSexo().setCodReg("000001"); 
+							paciente.getPersona().getSexo().setIdRegistro("000001"); 
 						}
 						System.out.println("tipoDocumento " + tipoDocumento);
 						
@@ -329,7 +316,7 @@ public class PacienteController {
 		
 		if (paciente != null) {
 			/*** consulta sis websercive ****/
-		 	 final	PrmConsultaSIS prmConsultaSIS = new PrmConsultaSIS();
+	/***	 	 final	PrmConsultaSIS prmConsultaSIS = new PrmConsultaSIS();
 				prmConsultaSIS.setIntOpcion(1); 
 				prmConsultaSIS.setStrDNI("10201932");
 				if(tipoDocumento.equals("000001")){
@@ -370,7 +357,7 @@ public class PacienteController {
 					System.out.println(resp.toString());
 					if (resp.getIderror().trim().equals("0")) {
 						if (resp.getEstado().trim().equals("ACTIVO")) {
-							paciente.getTipoSeguro().setCodReg("000003");
+							paciente.getTipoSeguro().setIdRegistro("000003");
 							paciente.setCategoriaSeguro(resp.getDesctiposeguro());
 							paciente.setCodigoFiliacion(resp.getContrato()); 
 							System.out.println("paciente SIS" + paciente.toString());
@@ -411,7 +398,7 @@ public class PacienteController {
 					
 				} 
 			
-				System.out.println("paciente getFoto " + paciente.getPersona().getFoto());
+				System.out.println("paciente getFoto " + paciente.getPersona().getFoto());*/
 		}else{
 			System.out.println("el paciente en consulta es null");
 		}

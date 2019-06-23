@@ -33,16 +33,10 @@ public class PersonaDAOImpl implements PersonaDAO {
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.insertar");
-			spq.setParameter("CODORGAN", persona.getCodigoOrganizacion()); 
-			spq.setParameter("CODINSTI", persona.getCodigoInstitucion()); 
-			spq.setParameter("CODSEDEI", persona.getCodigoSede()); 
 			
 			spq.setParameter("APEPATER", persona.getApellidoPaterno());
 			spq.setParameter("APEMATER", persona.getApellidoMaterno());
-			spq.setParameter("PRINOMBR", persona.getPrimerNombre()); 
-			spq.setParameter("SEGNOMBR", persona.getSegundoNombre()); 
-			spq.setParameter("TG1SEXO", persona.getSexo().getCodReg());  
-			spq.setParameter("TG1TPDOC", persona.getTipoDocumento().getCodReg());  
+			spq.setParameter("PRINOMBR", persona.getNombres());  
 			spq.setParameter("NRODOCUM", persona.getNroDocumento()); 
 			
 			spq.setParameter("AUCDUSCR", persona.getCodigoUsuarioCreacion());
@@ -83,15 +77,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 			
 			spq.setParameter("p_codperso", persona.getCodigo());
 			spq.setParameter("p_apepatper", persona.getApellidoPaterno());
-			spq.setParameter("p_apematper", persona.getApellidoMaterno()); 
-			
-			spq.setParameter("p_tm1tpdope", persona.getTipoDocumento().getCodReg());  
-			spq.setParameter("p_tm1sitper", persona.getSituacion().getCodReg());
-			
-			spq.setParameter("p_fechnacim", persona.getFechaNac());
-			spq.setParameter("p_tm2pais", persona.getNacionalidad().getCodReg());
-			spq.setParameter("p_tm2estciv", persona.getEstadoCivil().getCodReg()); 
-			spq.setParameter("p_tm2sexo", persona.getSexo().getCodReg()); 
+			spq.setParameter("p_apematper", persona.getApellidoMaterno());  
 			spq.setParameter("p_correo", persona.getCorreo()); 
 			spq.setParameter("p_codusumod", Integer.valueOf(String.valueOf(persona.getCodigoUsuarioCreacion())));
 			spq.setParameter("p_hostmod", persona.getIpCreacion());
@@ -129,8 +115,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorFiltros");   
 			spq.setParameter("FECDESDE", personaBean.getFechaDesde()); 
-			spq.setParameter("FECHASTA", personaBean.getFechaHasta()); 
-			spq.setParameter("SITUACRG", personaBean.getSituacion().getCodReg()); 
+			spq.setParameter("FECHASTA", personaBean.getFechaHasta());
 			 if (spq.execute()) {
 				 lstPersona =  spq.getResultList(); 
 			 }
@@ -158,8 +143,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 		List<Persona> lstpersona = null;	
 		PersonaBean oPersonaBean = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumento");
-			spq.setParameter("TG1TPDOC", personaBean.getTipoDocumento().getCodReg());  
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumento"); 
 			spq.setParameter("NRODOCUM", personaBean.getNroDocumento());  
 			if (spq.execute()) {
 				lstpersona =  spq.getResultList(); 
@@ -317,7 +301,6 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		PersonaBean oPersonaBean = null;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumentoSigeho");
-			spq.setParameter("TG1TPDOC", personaBean.getTipoDocumento().getCodReg());  
 			spq.setParameter("NRODOCUM", personaBean.getNroDocumento());  
 			spq.setParameter("TIPO", personaBean.getTipo());  
 			if (spq.execute()) {
@@ -356,21 +339,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			
 			spq.setParameter("APEPATER", persona.getApellidoPaterno());
 			spq.setParameter("APEMATER", persona.getApellidoMaterno());
-			spq.setParameter("PRINOMBR", persona.getPrimerNombre()); 
-			spq.setParameter("SEGNOMBR", persona.getSegundoNombre()); 
-			spq.setParameter("TG1SEXOP", persona.getSexo().getCodReg());
-			spq.setParameter("FECHANACI", persona.getFechaNacStr());
-			
-			spq.setParameter("CODTIPOD", persona.getTipoDocumento().getCodReg());  
-			spq.setParameter("NRODOCUM", persona.getNroDocumento()); 
-			
-		
-			spq.setParameter("TG1NACIO", persona.getNacionalidad().getCodReg()); 
-			spq.setParameter("TG1ESCIV", persona.getEstadoCivil().getCodReg()); 
-			spq.setParameter("LUGANACI", persona.getUbigeoNacimiento().getCodigoRegistro());
-			
-			spq.setParameter("TG1NIINS", persona.getNivelInstrucion().getCodReg()); 
-			spq.setParameter("TG1OCUPA", persona.getOcupacion().getCodReg()); 
+		 
 			spq.setParameter("FOTO", persona.getFoto()); 
 			 
 			spq.setParameter("CORREODE", persona.getCorreo()); 
@@ -427,15 +396,6 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.actualizarPersonaBanco");
-			spq.setParameter("CODORGAN", persona.getCodigoOrganizacion()); 
-			spq.setParameter("CODINSTI", persona.getCodigoInstitucion()); 
-			spq.setParameter("CODSEDEI", persona.getCodigoSede()); 
-			spq.setParameter("CODPERSO", persona.getCodigo()); 
-			
-			spq.setParameter("LUGANACI", persona.getUbigeoNacimiento().getCodigoRegistro()); 
-			spq.setParameter("TG1OCUPA", persona.getOcupacion().getCodReg()); 
-			spq.setParameter("TG1NIINS", persona.getNivelInstrucion().getCodReg()); 
-			 
 			spq.setParameter("CODCORXP", persona.getCodigoCorreo()); 
 			spq.setParameter("CORREODE", persona.getCorreo()); 
 			

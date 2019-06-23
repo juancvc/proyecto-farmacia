@@ -3,9 +3,9 @@ package proyect.core.bean.seguridad;
 import java.util.List;
 
 import proyect.base.bean.BaseBean;
-import proyect.core.bean.asistencial.farmacia.general.AlmacenBean;
 import proyect.core.bean.general.PersonaBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.CatalogoBean;
 
 
 
@@ -15,7 +15,7 @@ public class UsuarioBean extends BaseBean {
 
 	private String codigoPerfil;
 
-	private TablaBean situacion;
+	private CatalogoBean situacion;
 
 	private String nombreUsuario;
 
@@ -87,11 +87,11 @@ public class UsuarioBean extends BaseBean {
 		this.codigoPerfil = codigoPerfil;
 	}
 
-	public TablaBean getSituacion() {
+	public CatalogoBean getSituacion() {
 		return situacion;
 	}
 
-	public void setSituacion(TablaBean situacion) {
+	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
 	}
 

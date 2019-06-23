@@ -1,8 +1,8 @@
 //package pe.gob.procalidad.natigu.core.service.service.factory.interfaces;
 package proyect.core.service.factory.interfaces;
  
-import proyect.core.service.interfaces.general.Maestra1Service;
-import proyect.core.service.interfaces.general.Maestra2Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.PersonalService;
 import proyect.core.service.interfaces.general.UbigeoService;
@@ -23,8 +23,8 @@ public interface FactoryService {
 
 	/** GENERAL **/
 	
- 	public Maestra1Service getMaestra1Service();
-	public Maestra2Service getMaestra2Service();
+ 	public Catalogo1Service getMaestra1Service();
+	public Catalogo2Service getMaestra2Service();
  	public PersonalService getPersonalService();
  	public PersonaService getPersonaService();
  	public UbigeoService getUbigeoService(); 

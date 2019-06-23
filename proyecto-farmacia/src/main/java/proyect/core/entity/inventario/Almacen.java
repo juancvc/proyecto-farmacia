@@ -15,11 +15,10 @@ import javax.persistence.Table;
 				
 				@NamedStoredProcedureQuery(
 						name="almacen.buscarPorObjeto", 
-						procedureName="SP_ALMACEN_BUSCAR_X_ID",
+						procedureName="[usp_Almacen_buscarxID]",
 						resultClasses= Almacen.class,
 						parameters={
-									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=Integer.class)
 							}					
 					),
 				@NamedStoredProcedureQuery(
@@ -27,30 +26,20 @@ import javax.persistence.Table;
 						procedureName="[usp_Almacen_buscarxCriterios]",
 						resultClasses= Almacen.class,
 						parameters={
-									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreAlmacen", type=String.class) 
 							}	
 				),
 				
 				@NamedStoredProcedureQuery(
 						name="almacen.insert", 
-						procedureName="SP_ALMACEN_INSERTAR",
+						procedureName="[usp_Almacen_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_ALMACEN", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ALIAS", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_MINSA", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idAlmacen", type=String.class ), 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreAlmacen", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="alias", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class )
 							}					
 				),
 				
@@ -123,6 +112,9 @@ public class Almacen  {
 	@Column(name="idAlmacen")
 	private String idAlmacen;
 
+	@Column(name="descripcion")
+	private String descripcion;
+	
 	@Column(name="nombreAlmacen")
 	private String nombreAlmacen;
 	
@@ -133,6 +125,14 @@ public class Almacen  {
 	private String codigoMinsa;
 	
 	public Almacen() { 
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getIdAlmacen() {

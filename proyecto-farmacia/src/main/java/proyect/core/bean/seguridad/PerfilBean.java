@@ -1,7 +1,7 @@
 package proyect.core.bean.seguridad;
 
 import proyect.base.bean.BaseBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 
 
 
@@ -11,7 +11,7 @@ public class PerfilBean extends BaseBean {
 	
 
 	private String codigoPerfil; 
-	private TablaBean situacion; 
+	private CatalogoBean situacion; 
 	private String nombrePerfil;
 
 	
@@ -35,13 +35,13 @@ public class PerfilBean extends BaseBean {
 
 
 
-	public TablaBean getSituacion() {
+	public CatalogoBean getSituacion() {
 		return situacion;
 	}
 
 
 
-	public void setSituacion(TablaBean situacion) {
+	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
 	}
 

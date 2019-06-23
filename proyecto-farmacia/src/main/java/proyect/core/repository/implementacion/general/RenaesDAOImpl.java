@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.RenaesBean;
-import proyect.core.entity.general_.Renae;
+import proyect.core.entity.general.Renaes;
 import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.RenaesDAO;
 
@@ -32,10 +32,6 @@ public class RenaesDAOImpl implements RenaesDAO {
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("renaes.insertar");
-			 
-			spq.setParameter("CODORGAN",  RenaesBean.getCodigoOrganizacion());
-			spq.setParameter("CODINSTI",  RenaesBean.getCodigoInstitucion());
-			spq.setParameter("CODSEDEI",  RenaesBean.getCodigoSede());
 			  
 			spq.setParameter("AUCDUSCR",  RenaesBean.getCodigoUsuarioCreacion());
 			spq.setParameter("AUPCIPCR",  RenaesBean.getIpCreacion()); 
@@ -85,26 +81,23 @@ public class RenaesDAOImpl implements RenaesDAO {
 
 	@Override
 	public boolean eliminar(RenaesBean t) throws DAOException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public RenaesBean getBuscarPorObjecto(RenaesBean t) throws DAOException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<RenaesBean> getBuscarPorFiltros(RenaesBean renaesBean)
 			throws DAOException {
-		List<Renae> lstRenae = null;
+		List<Renaes> lstRenae = null;
 		List<RenaesBean> lstRenaeBean = null;
 
 		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Renae.listarPorFiltros");
 		spq.setParameter("UBIGEO", renaesBean.getUbiRenaes());
 		spq.setParameter("NOMRENEA", renaesBean.getNomRenaes());
-		spq.setParameter("TG14CATE", renaesBean.getCategoria().getCodReg());
 		spq.setParameter("CODIGO_DISA", renaesBean.getCodigoDisa());
 		
 		if (spq.execute()) {
@@ -121,11 +114,10 @@ public class RenaesDAOImpl implements RenaesDAO {
 
 	@Override
 	public boolean existe(RenaesBean t) throws DAOException {
-		// TODO Auto-generated method stub
 		return false;
 	} 
 	
-	private List<RenaesBean> deListaReferenciaAListaReferenciaBean(List<Renae> lstRenae) {
+	private List<RenaesBean> deListaReferenciaAListaReferenciaBean(List<Renaes> lstRenae) {
 
 		List<RenaesBean> lstReferenciaBean = null;
 
@@ -134,7 +126,7 @@ public class RenaesDAOImpl implements RenaesDAO {
 			lstReferenciaBean = new ArrayList<RenaesBean>();
 
 			for (int i = 0; i < lstRenae.size(); i++) {
-				Renae entity = lstRenae.get(i);
+				Renaes entity = lstRenae.get(i);
 				RenaesBean bean = deRenaeARenaesBean(entity);
 
 				lstReferenciaBean.add(bean);
@@ -144,24 +136,13 @@ public class RenaesDAOImpl implements RenaesDAO {
 		return lstReferenciaBean;
 	}
 	
-	private RenaesBean deRenaeARenaesBean(Renae entity) {
+	private RenaesBean deRenaeARenaesBean(Renaes entity) {
 		
 		RenaesBean bean = null;
 		
 		if (entity != null) {
 			
 			bean = new RenaesBean();
-			 
-			bean.setCodigo(entity.getCodrgren()); 
-			bean.setCodRenaes(entity.getCodrgren()); 
-			bean.setCodigoOrganizacion(entity.getCodorgan());
-			bean.setCodigoInstitucion(entity.getCodinsti());
-			bean.setCodigoSede(entity.getCodsedei()); 
-			bean.setNomRenaes(entity.getNomrenea());
-			bean.setUbiRenaes(entity.getUbigeo());
-			bean.setCodigoRenaes(entity.getCodrenea());
-			bean.getCategoria().setNombreCorto(entity.getCategoria());
-			bean.getCategoria().setCodReg(entity.getTg14Cate());
 			bean.setProvRenaes(entity.getProvincia());
 			bean.setDeptRenaes(entity.getDepartamento());
 			bean.setDistrRenaes(entity.getDistrito());
@@ -172,7 +153,6 @@ public class RenaesDAOImpl implements RenaesDAO {
 
 	@Override
 	public boolean insertarDestinoRenaes(RenaesBean personaBean) throws DAOException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

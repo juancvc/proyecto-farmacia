@@ -14,24 +14,24 @@ public class PersonaBean extends BaseBean {
 	private String codigoPersonaSigeho = "";
 	private String nroPeriodoPersona = "";
 	
-	private TablaBean sexo;
-	private TablaBean nroHijos;
+	private CatalogoBean sexo;
+	private CatalogoBean nroHijos;
 	private UbigeoBean ubigeoNacimiento;
 	private UbigeoBean ubigeoDireccion;
 	private Date fechaNac;
 	private Date fechInsc;
-	private TablaBean tipoDocumento;
+	private CatalogoBean tipoDocumento;
 	private String nroDocumento;
-	private TablaBean nacionalidad;
-	private TablaBean estadoCivil;
-	private TablaBean grupoSanguineo;
-	private TablaBean factorSanguineo;
-	private TablaBean nivelInstrucion;
-	private TablaBean ocupacion;
-	private TablaBean religion;
+	private CatalogoBean nacionalidad;
+	private CatalogoBean estadoCivil;
+	private CatalogoBean grupoSanguineo;
+	private CatalogoBean factorSanguineo;
+	private CatalogoBean nivelInstrucion;
+	private CatalogoBean ocupacion;
+	private CatalogoBean religion;
 	private byte[] foto;
 	private String fotoCadena; 
-	private TablaBean situacion;
+	private CatalogoBean situacion;
 	private String fechaDesde;  
 	private String fechaHasta;  
 	
@@ -47,7 +47,7 @@ public class PersonaBean extends BaseBean {
 	private String origenDeRegistro;
 	/***** VERIFICAR UTILIDADD DE VARIABLE<----- *****/
 	private String validacionReniec = "1";
-	private TablaBean etnia;
+	private CatalogoBean etnia;
 	private String donanteOrg;
 
 	private Boolean swPaciente = false; // 1: Activo, 0:Inactivo;
@@ -146,19 +146,19 @@ public class PersonaBean extends BaseBean {
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 	}
-	public TablaBean getSexo() {
+	public CatalogoBean getSexo() {
 		if (sexo == null) {
-			sexo = new TablaBean();
+			sexo = new CatalogoBean();
 		}
 		return sexo;
 	}
-	public void setSexo(TablaBean sexo) {
+	public void setSexo(CatalogoBean sexo) {
 		this.sexo = sexo;
 	}
-	public TablaBean getNroHijos() {
+	public CatalogoBean getNroHijos() {
 		return nroHijos;
 	}
-	public void setNroHijos(TablaBean nroHijos) {
+	public void setNroHijos(CatalogoBean nroHijos) {
 		this.nroHijos = nroHijos;
 	}
 	 
@@ -189,13 +189,13 @@ public class PersonaBean extends BaseBean {
 	public void setFechInsc(Date fechInsc) {
 		this.fechInsc = fechInsc;
 	}
-	public TablaBean getTipoDocumento() {
+	public CatalogoBean getTipoDocumento() {
 		if (tipoDocumento == null) {
-			tipoDocumento = new TablaBean();
+			tipoDocumento = new CatalogoBean();
 		}
 		return tipoDocumento;
 	}
-	public void setTipoDocumento(TablaBean tipoDocumento) {
+	public void setTipoDocumento(CatalogoBean tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 	public String getNroDocumento() {
@@ -204,58 +204,58 @@ public class PersonaBean extends BaseBean {
 	public void setNroDocumento(String nroDocumento) {
 		this.nroDocumento = nroDocumento;
 	}
-	public TablaBean getNacionalidad() {
+	public CatalogoBean getNacionalidad() {
 		if (nacionalidad == null) {
-			nacionalidad = new TablaBean();
+			nacionalidad = new CatalogoBean();
 		}
 		return nacionalidad;
 	}
-	public void setNacionalidad(TablaBean nacionalidad) {
+	public void setNacionalidad(CatalogoBean nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
-	public TablaBean getEstadoCivil() {
+	public CatalogoBean getEstadoCivil() {
 		if (estadoCivil == null) {
-			estadoCivil = new TablaBean();
+			estadoCivil = new CatalogoBean();
 		}
 		return estadoCivil;
 	}
-	public void setEstadoCivil(TablaBean estadoCivil) {
+	public void setEstadoCivil(CatalogoBean estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
-	public TablaBean getGrupoSanguineo() {
+	public CatalogoBean getGrupoSanguineo() {
 		return grupoSanguineo;
 	}
-	public void setGrupoSanguineo(TablaBean grupoSanguineo) {
+	public void setGrupoSanguineo(CatalogoBean grupoSanguineo) {
 		this.grupoSanguineo = grupoSanguineo;
 	}
-	public TablaBean getFactorSanguineo() {
+	public CatalogoBean getFactorSanguineo() {
 		return factorSanguineo;
 	}
-	public void setFactorSanguineo(TablaBean factorSanguineo) {
+	public void setFactorSanguineo(CatalogoBean factorSanguineo) {
 		this.factorSanguineo = factorSanguineo;
 	}
-	public TablaBean getNivelInstrucion() {
+	public CatalogoBean getNivelInstrucion() {
 		if (nivelInstrucion == null) {
-			nivelInstrucion = new TablaBean();
+			nivelInstrucion = new CatalogoBean();
 		}
 		return nivelInstrucion;
 	}
-	public void setNivelInstrucion(TablaBean nivelInstrucion) {
+	public void setNivelInstrucion(CatalogoBean nivelInstrucion) {
 		this.nivelInstrucion = nivelInstrucion;
 	}
-	public TablaBean getOcupacion() {
+	public CatalogoBean getOcupacion() {
 		if (ocupacion == null) {
-			ocupacion = new TablaBean();
+			ocupacion = new CatalogoBean();
 		}
 		return ocupacion;
 	}
-	public void setOcupacion(TablaBean ocupacion) {
+	public void setOcupacion(CatalogoBean ocupacion) {
 		this.ocupacion = ocupacion;
 	}
-	public TablaBean getReligion() {
+	public CatalogoBean getReligion() {
 		return religion;
 	}
-	public void setReligion(TablaBean religion) {
+	public void setReligion(CatalogoBean religion) {
 		this.religion = religion;
 	}
 	public byte[] getFoto() {
@@ -288,10 +288,10 @@ public class PersonaBean extends BaseBean {
 	public void setValidacionReniec(String validacionReniec) {
 		this.validacionReniec = validacionReniec;
 	}
-	public TablaBean getEtnia() {
+	public CatalogoBean getEtnia() {
 		return etnia;
 	}
-	public void setEtnia(TablaBean etnia) {
+	public void setEtnia(CatalogoBean etnia) {
 		this.etnia = etnia;
 	}
 	public String getDonanteOrg() {
@@ -440,13 +440,13 @@ public class PersonaBean extends BaseBean {
 	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
-	public TablaBean getSituacion() {
+	public CatalogoBean getSituacion() {
 		if (situacion==null) {
-			situacion = new TablaBean();
+			situacion = new CatalogoBean();
 		}
 		return situacion;
 	}
-	public void setSituacion(TablaBean situacion) {
+	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
 	}
 	

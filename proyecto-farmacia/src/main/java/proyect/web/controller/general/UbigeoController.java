@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.service.interfaces.general.UbigeoService;
 import proyect.web.controller.base.BaseController;

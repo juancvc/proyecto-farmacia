@@ -24,7 +24,7 @@ class RenaesBean extends BaseBean {
 	private	String	direcRenaes;
 
 	private String codigoRenaes;
-	private TablaBean categoria;
+	private CatalogoBean categoria;
 	private String red;
 	
 	public String getNomRenaes() {
@@ -59,14 +59,14 @@ class RenaesBean extends BaseBean {
 		this.claRenaes = claRenaes;
 	}
  
-	public TablaBean getCategoria() {
+	public CatalogoBean getCategoria() {
 		if (categoria == null) {
-			categoria = new TablaBean();
+			categoria = new CatalogoBean();
 		}
 		return categoria;
 	}
 
-	public void setCategoria(TablaBean categoria) {
+	public void setCategoria(CatalogoBean categoria) {
 		this.categoria = categoria;
 	}
 

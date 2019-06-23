@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proyect.core.service.factory.interfaces.FactoryService;
-import proyect.core.service.interfaces.general.Maestra1Service;
-import proyect.core.service.interfaces.general.Maestra2Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.PersonalService;
 import proyect.core.service.interfaces.general.UbigeoService;
@@ -30,9 +30,9 @@ public class FactoryServiceImpl implements FactoryService {
 	
 	 
 	@Autowired
-	private Maestra1Service maestra1Service;
+	private Catalogo1Service maestra1Service;
 	@Autowired
-	private Maestra2Service maestra2Service;
+	private Catalogo2Service maestra2Service;
 	@Autowired
 	private PersonalService personalService;
 	@Autowired
@@ -57,11 +57,11 @@ public class FactoryServiceImpl implements FactoryService {
 	 
 	 
 	@Override
-	public Maestra1Service getMaestra1Service() {
+	public Catalogo1Service getMaestra1Service() {
 		return maestra1Service;
 	}
 	@Override
-	public Maestra2Service getMaestra2Service() {
+	public Catalogo2Service getMaestra2Service() {
 		return maestra2Service;
 	} 
 	@Override

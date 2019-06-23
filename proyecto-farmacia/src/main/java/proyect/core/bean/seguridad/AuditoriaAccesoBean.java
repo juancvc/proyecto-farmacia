@@ -4,7 +4,7 @@ package proyect.core.bean.seguridad;
 import java.text.SimpleDateFormat;
 
 import proyect.base.bean.BaseBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 
 
 
@@ -12,14 +12,14 @@ import proyect.core.bean.general.TablaBean;
 
 public class AuditoriaAccesoBean extends BaseBean{
 			
-	private TablaBean     tipoAccion = new TablaBean();
+	private CatalogoBean     tipoAccion = new CatalogoBean();
 	private String			nomUsuario;
 	
 	private String 			nomTabla;
 	private String			strFechaHoraAcc;
 	private Integer			codUsuAcc;
 	private String			nomPersonaUsu;
-	private TablaBean     tipoSistema = new TablaBean();
+	private CatalogoBean     tipoSistema = new CatalogoBean();
 	
 	/** FILTROS EXTRAS - BUSQUEDA  **/
 	private Long			codPerfil;
@@ -31,11 +31,11 @@ public class AuditoriaAccesoBean extends BaseBean{
 		super();
 	}
 
-	public TablaBean getTipoAccion() {
+	public CatalogoBean getTipoAccion() {
 		return tipoAccion;
 	}
 
-	public void setTipoAccion(TablaBean tipoAccion) {
+	public void setTipoAccion(CatalogoBean tipoAccion) {
 		this.tipoAccion = tipoAccion;
 	}
 
@@ -92,11 +92,11 @@ public class AuditoriaAccesoBean extends BaseBean{
 		this.nomPersonaUsu = nomPersonaUsu;
 	}
 
-	public TablaBean getTipoSistema() {
+	public CatalogoBean getTipoSistema() {
 		return tipoSistema;
 	}
 
-	public void setTipoSistema(TablaBean tipoSistema) {
+	public void setTipoSistema(CatalogoBean tipoSistema) {
 		this.tipoSistema = tipoSistema;
 	}
 

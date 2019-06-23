@@ -3,20 +3,17 @@ package proyect.base.bean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
  
  
 
 public class BaseBean {
 
 	protected String codigo;
-	protected String codigoOrganizacion;
-	protected String codigoInstitucion;
-	protected String codigoSede;
 	protected String numeroVersion;
 	protected String numeroPeriodo;
 	
-	protected TablaBean situacion;
+	protected CatalogoBean situacion;
 	protected String estado;
 	protected String audTipo;
 	protected String audSession;
@@ -45,14 +42,14 @@ public class BaseBean {
 	
 	protected boolean valValid;
 
-	public TablaBean getSituacion() {
+	public CatalogoBean getSituacion() {
 		if (situacion == null) {
-			situacion = new TablaBean();
+			situacion = new CatalogoBean();
 		}
 		return situacion;
 	}
 
-	public void setSituacion(TablaBean situacion) {
+	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
 	}
 
@@ -226,39 +223,6 @@ public class BaseBean {
 		this.valValid = valValid;
 	}
 
-	public String getCodigoOrganizacion() {
-		if (codigoOrganizacion == null) {
-			codigoOrganizacion = "01";
-		}
-		return codigoOrganizacion;
-	}
-
-	public void setCodigoOrganizacion(String codigoOrganizacion) {
-		this.codigoOrganizacion = codigoOrganizacion;
-	}
-
-	public String getCodigoInstitucion() {
-		if (codigoInstitucion == null) {
-			codigoInstitucion = "01";
-		}
-		return codigoInstitucion;
-	}
-
-	public void setCodigoInstitucion(String codigoInstitucion) {
-		this.codigoInstitucion = codigoInstitucion;
-	}
-
-	public String getCodigoSede() {
-		if (codigoSede == null) {
-			codigoSede = "01";
-		}
-		return codigoSede;
-	}
-
-	public void setCodigoSede(String codigoSede) {
-		this.codigoSede = codigoSede;
-	}
-
 	public String getNumeroVersion() {
 		if (numeroVersion == null) {
 			numeroVersion = "000";
@@ -302,20 +266,5 @@ public class BaseBean {
 		this.nombreUsuarioCreacion = nombreUsuarioCreacion;
 	}
 
-	@Override
-	public String toString() {
-		return "BaseBean [codigo=" + codigo + ", codigoOrganizacion=" + codigoOrganizacion + ", codigoInstitucion="
-				+ codigoInstitucion + ", codigoSede=" + codigoSede + ", numeroVersion=" + numeroVersion
-				+ ", numeroPeriodo=" + numeroPeriodo + ", situacion=" + situacion + ", estado=" + estado + ", audTipo="
-				+ audTipo + ", audSession=" + audSession + ", audObservacionModificacion=" + audObservacionModificacion
-				+ ", audHostIP=" + audHostIP + ", fechaCreacion=" + fechaCreacion + ", codigoUsuarioCreacion="
-				+ codigoUsuarioCreacion + ", ipCreacion=" + ipCreacion + ", fechaModificacion=" + fechaModificacion
-				+ ", codigoUsuarioModificacion=" + codigoUsuarioModificacion + ", ipModificacion=" + ipModificacion
-				+ ", nombreUsuarioCreacion=" + nombreUsuarioCreacion + ", strFechaCreacion=" + strFechaCreacion
-				+ ", item=" + item + ", valPreguEncrypt=" + valPreguEncrypt + ", valAlterEncrypt=" + valAlterEncrypt
-				+ ", valRelEncrypt=" + valRelEncrypt + ", codigoUsuarioSession=" + codigoUsuarioSession
-				+ ", codigoPerfilUsuarioSession=" + codigoPerfilUsuarioSession + ", valValid=" + valValid + "]";
-	}
-
-	 
+	
 }

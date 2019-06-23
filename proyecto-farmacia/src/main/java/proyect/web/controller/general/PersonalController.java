@@ -19,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.PersonalBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.general.Maestra1Service;
-import proyect.core.service.interfaces.general.Maestra2Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.PersonalService;
 import proyect.core.service.interfaces.general.UbigeoService;
@@ -46,12 +46,12 @@ public class PersonalController extends BaseController {
 	private List<UbigeoBean> lstDistrito;
 
 	List<PersonalBean> lstpersonalBean= new ArrayList<PersonalBean>();
-	private List<TablaBean>	lstSituacion;
-	private List<TablaBean> lstTipoDocumento;
-	private List<TablaBean> lstNacionalidad;
-	private List<TablaBean> lstGrado;
-	private List<TablaBean> lstCargo;
-	private List<TablaBean> lstSexo; 
+	private List<CatalogoBean>	lstSituacion;
+	private List<CatalogoBean> lstTipoDocumento;
+	private List<CatalogoBean> lstNacionalidad;
+	private List<CatalogoBean> lstGrado;
+	private List<CatalogoBean> lstCargo;
+	private List<CatalogoBean> lstSexo; 
 	
 	private List<PerfilBean> 	lstPerfilBean;
 	@Autowired
@@ -62,13 +62,13 @@ public class PersonalController extends BaseController {
 	private UbigeoService ubigeoService;
 	
 	@Autowired
-	private Maestra1Service maestra1Service;
+	private Catalogo1Service maestra1Service;
 	
 	@Autowired 
 	private PersonaService personaService;
 //	
 	@Autowired
-	private Maestra2Service maestra2Service;
+	private Catalogo2Service maestra2Service;
 	
 	@Autowired
 	private PersonalService personalService;
@@ -391,19 +391,19 @@ public void setLstpersonalBean(List<PersonalBean> lstpersonalBean) {
 }
 
 
-public List<TablaBean> getLstSituacion() {
+public List<CatalogoBean> getLstSituacion() {
 	return lstSituacion;
 }
 
-public void setLstSituacion(List<TablaBean> lstSituacion) {
+public void setLstSituacion(List<CatalogoBean> lstSituacion) {
 	this.lstSituacion = lstSituacion;
 }
 
-public List<TablaBean> getLstTipoDocumento() {
+public List<CatalogoBean> getLstTipoDocumento() {
 	return lstTipoDocumento;
 }
 
-public void setLstTipoDocumento(List<TablaBean> lstTipoDocumento) {
+public void setLstTipoDocumento(List<CatalogoBean> lstTipoDocumento) {
 	this.lstTipoDocumento = lstTipoDocumento;
 }
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.PersonaBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.entity.seguridad.SigehoUsuario;
@@ -38,9 +38,6 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.insertar");
-            spq.setParameter("CODORGAN", t.getCodigoOrganizacion());
-            spq.setParameter("CODINSTI", t.getCodigoInstitucion());
-            spq.setParameter("CODSEDEI", t.getCodigoSede());
             spq.setParameter("NOMUSUAR", t.getNombreUsuario());
             spq.setParameter("PSWUSUAR", t.getPasswordUsuario());
             
@@ -79,10 +76,6 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.actualizar");
 			    spq.setParameter("CODUSUAR", t.getCodigo());
-			    spq.setParameter("NROPERIO", t.getNumeroPeriodo());
-			    spq.setParameter("CODORGAN", t.getCodigoOrganizacion());
-	            spq.setParameter("CODINSTI", t.getCodigoInstitucion());
-	            spq.setParameter("CODSEDEI", t.getCodigoSede());
 	            spq.setParameter("NOMUSUAR", t.getNombreUsuario());
 	            spq.setParameter("PSWUSUAR", t.getPasswordUsuario());
 	            
@@ -115,10 +108,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.eliminar");
 			spq.setParameter("CODUSUAR", t.getCodigo());
-		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());
-		    spq.setParameter("CODORGAN", t.getCodigoOrganizacion());
-            spq.setParameter("CODINSTI", t.getCodigoInstitucion());
-            spq.setParameter("CODSEDEI", t.getCodigoSede());         
+		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());        
             spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 	        spq.execute();
@@ -243,10 +233,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.resetpass");
 			spq.setParameter("CODUSUAR", t.getCodigo());
-		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());
-		    spq.setParameter("CODORGAN", t.getCodigoOrganizacion());
-            spq.setParameter("CODINSTI", t.getCodigoInstitucion());
-            spq.setParameter("CODSEDEI", t.getCodigoSede());   
+		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());   
             spq.setParameter("PSWUSUAR", t.getNewPassword()); 
             spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());

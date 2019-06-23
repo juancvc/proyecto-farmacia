@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.base.repository.DAOException;
-import proyect.core.entity.general_.PacienteReniec;
+import proyect.core.entity.general.PacienteReniec;
 import proyect.core.repository.interfaces.general.PacienteReniecDAO;
 
 

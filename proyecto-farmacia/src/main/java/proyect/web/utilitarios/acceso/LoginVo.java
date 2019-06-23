@@ -1,6 +1,6 @@
 package proyect.web.utilitarios.acceso;
  
-import proyect.core.bean.asistencial.farmacia.general.AlmacenBean;
+import proyect.core.bean.general.AlmacenBean;
 
 public class LoginVo {
 	

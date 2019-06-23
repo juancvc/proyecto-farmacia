@@ -60,7 +60,6 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 			spq.setParameter("p_tabla", auditoriaBean.getNomTabla());
 			spq.setParameter("p_nomusuari", auditoriaBean.getNomUsuario());
 			spq.setParameter("p_codperfil", auditoriaBean.getCodPerfil());
-			spq.setParameter("p_codaccion", auditoriaBean.getTipoAccion().getCodReg());
 			spq.setParameter("p_fecinicio", auditoriaBean.getStrFecInicio());
 			spq.setParameter("p_fecfin", auditoriaBean.getStrFecFin());
 			spq.setParameter("p_limite", auditoriaBean.getLimite());
@@ -156,12 +155,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		boolean sw = false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbcauditoriaacceso.insertar");
-	        spq.setParameter("p_tm1accion", prmAuditoriaAccesoBean.getTipoAccion()!=null ? prmAuditoriaAccesoBean.getTipoAccion().getCodReg() : null);
-	        spq.setParameter("p_usuacc", prmAuditoriaAccesoBean.getNomUsuario());
-	        spq.setParameter("p_hostacc", prmAuditoriaAccesoBean.getIpCreacion());
-	        spq.setParameter("p_tm1sistem", prmAuditoriaAccesoBean.getTipoSistema()!=null ? prmAuditoriaAccesoBean.getTipoSistema().getCodReg() : null);
-	        
-	        spq.execute();
+	            spq.execute();
 			
 			id = spq.getOutputParameterValue(1);
 			
@@ -223,7 +217,6 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 			//bean.setCodigo(entity.getnCodaudit());
 			bean.setNomTabla(entity.getvTabla());
 		//	bean.getTipoAccion().setCodigoRegistro(entity.getnTm1accion());
-			bean.getTipoAccion().setNombreCorto(entity.getV_nomacc_aud());
 			bean.setCodRegistroAud(entity.getnCodregaud()!=null ? entity.getnCodregaud() : 0);
 			bean.setFechaCreacion(entity.getdFecaud());
 		//	bean.setCodigoUsuarioCreacion(entity.getnCodusuaud()!=null ? entity.getnCodusuaud() : 0);
@@ -282,17 +275,12 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		
 		if(entity!=null){
 			bean = new AuditoriaAccesoBean();
-		//	bean.setCodigo(entity.getnCodaudacc());
-		//	bean.getTipoAccion().setCodigoRegistro(entity.getnTm1accion());
-			bean.getTipoAccion().setNombreCorto(entity.getV_nomaccion());
 			bean.setFechaCreacion(entity.getdFecacc());
 			bean.setCodUsuAcc(entity.getN_codusuari());
 			bean.setNomUsuario(entity.getVnomUsuacc());
 			bean.setIpCreacion(entity.getvHostacc());
 			bean.setNomTabla(entity.getV_tabla());
 			bean.setNomPersonaUsu(entity.getV_nomperusu());
-		//	bean.getTipoSistema().setCodigoRegistro(entity.getnTm1sistem());
-			bean.getTipoSistema().setNombreCorto(entity.getV_nomsistem());
 		}
 		
 		return bean;

@@ -3,19 +3,11 @@ package proyect.web.controller.seguridad;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,24 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.itextpdf.text.log.SysoCounter;
-
 import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
-import proyect.core.bean.asistencial.farmacia.general.AlmacenBean;
-import proyect.core.bean.general.PacienteBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.RenaesBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
 import proyect.core.bean.seguridad.UsuarioRenaesBean;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.asistencial.maestra.MaestraAsis01Service;
-import proyect.core.service.interfaces.asistencial.maestra.MaestraAsis14Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
-import proyect.core.service.interfaces.general.Maestra1Service;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;
 import proyect.core.service.interfaces.seguridad.PerfilService;
@@ -74,7 +61,7 @@ public class UsuarioController extends BaseController{
 	private PersonaService personaService;
 	
 	@Autowired
-	private MaestraAsis01Service maestraAsis01Service;
+	private Catalogo2Service catalogo2Service;
 	
 	@Autowired
 	PerfilService perfilService;
@@ -82,26 +69,23 @@ public class UsuarioController extends BaseController{
 	
 	@Autowired
 	AlmacenService almacenService;
-	
-	@Autowired
-	private MaestraAsis14Service maestraAsis14Service;
 
 	@Autowired
 	private RenaesService renaesService;
 	
 	@Autowired
-	private Maestra1Service maestraGene01Services;
+	private Catalogo1Service maestraGene01Services;
 	
 	private PersonaBean personaBean; 
 	private UsuarioBean usuarioBean;
 	private PerfilBean perfilBean;
-	private List<TablaBean>	lstSituacion;
-	private List<TablaBean>	lstTipoDocumento;
+	private List<CatalogoBean>	lstSituacion;
+	private List<CatalogoBean>	lstTipoDocumento;
 
 	private List<PerfilBean>	lstPerfiles;
-	List<TablaBean> lstDocumento = new ArrayList<TablaBean>();
-	List<TablaBean> tipoPerfil = new ArrayList<TablaBean>();
-	List<TablaBean> sedes = new ArrayList<TablaBean>();
+	List<CatalogoBean> lstDocumento = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> tipoPerfil = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> sedes = new ArrayList<CatalogoBean>();
 	List<AlmacenBean> lstAlmacenBean;
 	
 	private List<RenaesBean> lstRenaesBean;
@@ -127,7 +111,7 @@ public class UsuarioController extends BaseController{
 		ModelAndView mav = new ModelAndView("seguridad/usuario/registro-usuario", "command",new UsuarioBean());
 		mav.addObject("usuarioBean", new UsuarioBean());
 		try {
-			lstDocumento = maestraAsis01Service.listarPorCodigoTabla("000003", 1);
+			lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);
 			tipoPerfil = maestraGene01Services.listarPorCodigoTabla("000064", 1);
 			sedes = maestraGene01Services.listarPorCodigoTabla("000065", 1);
 		} catch (ServiceException e) {
@@ -149,7 +133,7 @@ public class UsuarioController extends BaseController{
 		personaBean = new PersonaBean();
 		PersonaBean prmPersona = new PersonaBean();
 		prmPersona.setNroDocumento(numero);
-		prmPersona.getTipoDocumento().setCodReg(tipoDocumento);
+		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
 		
 		try {
 			personaBean = this.getPersonaService().buscarxTipoDocumentoNumeroDocumento(prmPersona); 
@@ -183,7 +167,7 @@ public class UsuarioController extends BaseController{
 						personaBean.setApellidoPaterno(perso.getApPrimer());
 						personaBean.setNombres(perso.getPrenomInscrito());
 						personaBean.setNroDocumento(perso.getNuDNI());
-						personaBean.getTipoDocumento().setCodReg("000001");
+						personaBean.getTipoDocumento().setIdRegistro("000001");
 						SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyyMMdd");
 						String strFecha = perso.getFeNacimiento();
 						Date fecha = null;
@@ -201,9 +185,9 @@ public class UsuarioController extends BaseController{
 						System.out.println("persona reniec "+personaBean.getNombreCompleto()); 
 						
 						if (perso.getDeGenero().equals("1")) {
-							personaBean.getSexo().setCodReg("000002"); 
+							personaBean.getSexo().setIdRegistro("000002"); 
 						}else{
-							personaBean.getSexo().setCodReg("000001"); 
+							personaBean.getSexo().setIdRegistro("000001"); 
 						}
 						System.out.println("tipoDocumento " + tipoDocumento); 
 						this.setPersonaBean(personaBean);
@@ -248,10 +232,10 @@ public class UsuarioController extends BaseController{
 		ModelAndView mav = new ModelAndView("seguridad/usuario/listado-establecimiento-modal", "command",
 				new RenaesBean());
 		renaesBean.setCodigoDisa("20");
-		 List<TablaBean> lstCategoria = null;
+		 List<CatalogoBean> lstCategoria = null;
 		
 		try { 
-			lstCategoria = maestraAsis14Service.listarPorCodigoTabla("000010", 1);
+			lstCategoria = catalogo2Service.listarPorCodigoTabla("000010", 1);
 		//	if (lstRenaesBean.size() == 0) {
 				lstRenaesBean = renaesService.getBuscarPorFiltros(renaesBean);
 		//	}
@@ -270,7 +254,7 @@ public class UsuarioController extends BaseController{
 	public @ResponseBody List<RenaesBean> listarEstablecimiento(@ModelAttribute("renaesBean") RenaesBean renaesBean)throws Exception {
 		  
 		 System.out.println("renaesBean nombre " + renaesBean.getNomRenaes());
-		 System.out.println("renaesBean categoria " + renaesBean.getCategoria().getCodReg());
+		 System.out.println("renaesBean categoria " + renaesBean.getCategoria().getIdRegistro());
 		 renaesBean.setCodigoDisa("20");
 		try {
 			lstRenaesBean = renaesService.getBuscarPorFiltros(renaesBean);
@@ -331,8 +315,6 @@ public class UsuarioController extends BaseController{
 		boolean sw = true;
 		String clave ="";
 		String nombreUsuario; 
-		
-		System.out.println("usuarioBean.getCodigoOrganizacion  " + usuarioBean.getCodigoOrganizacion());
 		try {
 			if (usuarioBean.getCodigo()!=null || !usuarioBean.getCodigo().equals("")) {
 				this.setAuditoria(usuarioBean, request, true);
@@ -382,7 +364,7 @@ public class UsuarioController extends BaseController{
 			ModelAndView mav = new ModelAndView("seguridad/usuario/registro-usuario", "command",objUsuarioBean);
 			mav.addObject("usuarioBean", objUsuarioBean);
 			try {
-				lstDocumento = maestraAsis14Service.listarPorCodigoTabla("000003", 1);
+				lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);
 			} catch (ServiceException e) {
 				System.out.println("printStackTrace");
 				e.printStackTrace();
@@ -407,7 +389,6 @@ public class UsuarioController extends BaseController{
 		boolean sw = true;
 		String clave ="";
 		String nombreUsuario;
-		System.out.println("ousuarioBean.getCodigoOrganizacion  " + ousuarioBean.getCodigoOrganizacion());
 		System.out.println("ousuarioBean.codigo " + ousuarioBean.getCodigo().toString());
 		System.out.println("ousuarioBean.getNombreUsuario " + ousuarioBean.getNombreUsuario());
 		System.out.println("ousuarioBean.getPersona " + this.getPersonaBean());
@@ -997,11 +978,11 @@ public static String stripAccents(String str) {
 	private void cargarCombos(ModelAndView mav){ 
  
 			try {
-			//	lstDocumento = maestraAsis14Service.listarPorCodigoTabla("000003", 1);  
+			//	lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);  
 				
-				 tipoPerfil = maestraAsis01Service.listarPorCodigoTabla("000064", 1);
+				 tipoPerfil = catalogo2Service.listarPorCodigoTabla("000064", 1);
 				 
-				 sedes  = maestraAsis01Service.listarPorCodigoTabla("000065", 1);
+				 sedes  = catalogo2Service.listarPorCodigoTabla("000065", 1);
 				
 				
 			} catch (ServiceException e) {

@@ -4,13 +4,13 @@ package proyect.core.bean.seguridad;
 import java.text.SimpleDateFormat;
 
 import proyect.base.bean.BaseBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 
 
 public class AuditoriaBean extends BaseBean{
 			
 	private String 			nomTabla;
-	private TablaBean     tipoAccion = new TablaBean();
+	private CatalogoBean     tipoAccion = new CatalogoBean();
 	private Long			codRegistroAud;
 	private String			nomUsuario;
 	private String			nomPersonaUsu;
@@ -34,11 +34,11 @@ public class AuditoriaBean extends BaseBean{
 		this.nomTabla = nomTabla;
 	}
 
-	public TablaBean getTipoAccion() {
+	public CatalogoBean getTipoAccion() {
 		return tipoAccion;
 	}
 
-	public void setTipoAccion(TablaBean tipoAccion) {
+	public void setTipoAccion(CatalogoBean tipoAccion) {
 		this.tipoAccion = tipoAccion;
 	}
 

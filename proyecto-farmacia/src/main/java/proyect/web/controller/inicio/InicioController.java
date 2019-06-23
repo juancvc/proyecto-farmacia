@@ -20,16 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itextpdf.text.log.SysoCounter;
 
-import proyect.core.bean.asistencial.farmacia.general.AlmacenBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.AccesoBean;
 import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.asistencial.maestra.MaestraAsis01Service;
-import proyect.core.service.interfaces.asistencial.maestra.MaestraAsis14Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.farmacia.general.AlmacenService;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
@@ -60,19 +59,19 @@ public class InicioController extends BaseController{
 	private UsuarioPerfilService usuarioPerfilService;
 	
 	@Autowired
-	private MaestraAsis01Service maestraAsis14Service;
+	private Catalogo2Service Catalogo2Service;
  
 	@Autowired
 	AlmacenService almacenService;
 	
-	List<TablaBean> lstMaestra =(new ArrayList<TablaBean>()); ;
-	List<TablaBean> lstSituacion = new ArrayList<TablaBean>();
-	List<TablaBean> lstTipoPaciente = new ArrayList<TablaBean>(); 
+	List<CatalogoBean> lstMaestra =(new ArrayList<CatalogoBean>()); ;
+	List<CatalogoBean> lstSituacion = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstTipoPaciente = new ArrayList<CatalogoBean>(); 
 	List<AlmacenBean> lstAlmacenBean;
 	
 	@PostConstruct
 	public void init(){
-		this.setLstMaestra(new ArrayList<TablaBean>());  
+		this.setLstMaestra(new ArrayList<CatalogoBean>());  
 	}
 	
 	private void cargarComboAlmacen(ModelAndView mav){
@@ -333,7 +332,7 @@ public class InicioController extends BaseController{
 	 
 	private ModelAndView getLista(UsuarioBean usuario, HttpServletRequest request) { 
 		
-		ModelAndView mav = new ModelAndView("portada", "command", new TablaBean());
+		ModelAndView mav = new ModelAndView("portada", "command", new CatalogoBean());
 		
 	//	ModelAndView mav = new ModelAndView("asistencial/registro-referencia");
 		System.out.println("inicia sistema ");
@@ -365,8 +364,8 @@ public class InicioController extends BaseController{
 			}
 			
 			try {
-				lstSituacion = maestraAsis14Service.listarPorCodigoTabla("000012", 1);
-				lstTipoPaciente = maestraAsis14Service.listarPorCodigoTabla("000007", 1);
+				lstSituacion = Catalogo2Service.listarPorCodigoTabla("000012", 1);
+				lstTipoPaciente = Catalogo2Service.listarPorCodigoTabla("000007", 1);
 			} catch (ServiceException e) {
 				System.out.println("printStackTrace");
 				e.printStackTrace();
@@ -391,8 +390,8 @@ public class InicioController extends BaseController{
 	
 	private void cargarCombos(ModelAndView mav){
 		try {
-			lstSituacion = maestraAsis14Service.listarPorCodigoTabla("000012", 1);
-			lstTipoPaciente = maestraAsis14Service.listarPorCodigoTabla("000007", 1);
+			lstSituacion = Catalogo2Service.listarPorCodigoTabla("000012", 1);
+			lstTipoPaciente = Catalogo2Service.listarPorCodigoTabla("000007", 1);
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
@@ -405,7 +404,7 @@ public class InicioController extends BaseController{
 	@RequestMapping(value = "/portada", method = RequestMethod.GET)
 	public ModelAndView portada(@ModelAttribute("usuarioSesion") UsuarioBean usuario,
 			HttpServletRequest request) throws Exception {
-		return  new ModelAndView("portada", "command", new TablaBean());
+		return  new ModelAndView("portada", "command", new CatalogoBean());
 	}
 	
 	
@@ -582,10 +581,10 @@ public class InicioController extends BaseController{
 	private void registrarAudAcceso(String nomUsuario, String tipoAccion, HttpServletRequest request){
 		try {
 			AuditoriaAccesoBean bean = new AuditoriaAccesoBean();
-			bean.getTipoAccion().setCodReg(tipoAccion);
+			bean.getTipoAccion().setIdRegistro(tipoAccion);
 			bean.setNomUsuario(nomUsuario);
 			bean.setIpCreacion(NetUtil.getClientIpAddr(request));
-			bean.getTipoSistema().setCodReg("000001");
+			bean.getTipoSistema().setIdRegistro("000001");
 			
 			if(!VO.isNull(bean.getIpCreacion()) && !bean.getIpCreacion().equals("0:0:0:0:0:0:0:1")){
 				this.fs.getAuditoriaService().insertarAuditoriaAcceso(bean);
@@ -598,14 +597,14 @@ public class InicioController extends BaseController{
 
 
 
-	public List<TablaBean> getLstMaestra() {
+	public List<CatalogoBean> getLstMaestra() {
 		return lstMaestra;
 	}
 
 
 
 
-	public void setLstMaestra(List<TablaBean> lstMaestra) {
+	public void setLstMaestra(List<CatalogoBean> lstMaestra) {
 		this.lstMaestra = lstMaestra;
 	}
 	

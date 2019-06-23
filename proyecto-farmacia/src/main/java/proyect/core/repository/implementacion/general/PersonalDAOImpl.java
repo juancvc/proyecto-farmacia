@@ -36,7 +36,6 @@ public class PersonalDAOImpl implements PersonalDAO {
 			
 //			spq.setParameter("p_codpersonal", personal.getCodigo());
 			spq.setParameter("p_codpersona", personal.getCodigo());
-			spq.setParameter("p_tm1sitper", personal.getSituacion().getCodReg()); 
 			spq.setParameter("p_codusureg", personal.getCodigoUsuarioCreacion());
 			spq.setParameter("p_hostreg", personal.getIpCreacion());
 		

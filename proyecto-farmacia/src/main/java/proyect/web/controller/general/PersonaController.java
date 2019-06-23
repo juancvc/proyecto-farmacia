@@ -35,16 +35,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
 import proyect.base.bean.BaseBean;
-import proyect.core.bean.asistencial.banco.PostulanteBean;
-import proyect.core.bean.asistencial.laboratorio.OrdenBean;
 import proyect.core.bean.general.PersonaBean;
-import proyect.core.bean.general.TablaBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.seguridad.UsuarioBean;
-import proyect.core.entity.general_.PacienteReniec;
+import proyect.core.entity.general.PacienteReniec;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.asistencial.maestra.MaestraAsis01Service;
-import proyect.core.service.interfaces.general.Maestra1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.general.PacienteReniecService;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.UbigeoService;
@@ -57,25 +54,21 @@ public class PersonaController {
 	
 	
 	
-	PostulanteBean postulanteBean = new PostulanteBean();
 	PersonaBean  opersonaBean = new PersonaBean();
 	PersonaBean personaBean = new PersonaBean(); 
 	
 	String nombreUser = "";
-	List<TablaBean> lstSituacion = new ArrayList<TablaBean>();
-	List<TablaBean> lstDocumento = new ArrayList<TablaBean>();
-	List<TablaBean> lstSexo = new ArrayList<TablaBean>();
-	List<TablaBean> lstEstadoCivil = new ArrayList<TablaBean>();
-	List<TablaBean> lstOcupacion = new ArrayList<TablaBean>();
-	List<TablaBean> lstNacionalidad = new ArrayList<TablaBean>();
-	List<TablaBean> lstNivelInstrucion = new ArrayList<TablaBean>();
+	List<CatalogoBean> lstSituacion = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstDocumento = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstSexo = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstEstadoCivil = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstOcupacion = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstNacionalidad = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstNivelInstrucion = new ArrayList<CatalogoBean>();
 	List<UbigeoBean> lstUbigeoBean = new ArrayList<UbigeoBean>();
-	List<TablaBean> lstTipoExamen = new ArrayList<TablaBean>();
+	List<CatalogoBean> lstTipoExamen = new ArrayList<CatalogoBean>();
 	private List<PersonaBean> lstPersonaBean ;  
 	private List<PersonaBean> lstPersonaBeanRpt ;  
-	
-	@Autowired
-	private MaestraAsis01Service maestraAsis01Service;
 	
 	@Autowired
 	private PacienteReniecService pacienteReniecService; 
@@ -88,19 +81,19 @@ public class PersonaController {
 	
 	
 	@Autowired
-	private Maestra1Service maestraGene01Services;
+	private Catalogo1Service Catalogo1Service;
 	
 	
 
 	private void cargarCombos(ModelAndView mav) {
 		try {
 		//	lstSituacion =maestraBanc01Service.listarPorCodigoTabla("000034", 1);
-			lstDocumento = maestraAsis01Service.listarPorCodigoTabla("000003", 1);
-			lstSexo = maestraAsis01Service.listarPorCodigoTabla("000004", 1);
-			lstEstadoCivil = maestraGene01Services.listarPorCodigoTabla("000005", 0);
-			lstOcupacion = maestraGene01Services.listarPorCodigoTabla("000007", 0);
-			lstNacionalidad = maestraGene01Services.listarPorCodigoTabla("000003", 0);
-			lstNivelInstrucion = maestraGene01Services.listarPorCodigoTabla("000006", 0);
+			lstDocumento = Catalogo1Service.listarPorCodigoTabla("000003", 1);
+			lstSexo = Catalogo1Service.listarPorCodigoTabla("000004", 1);
+			lstEstadoCivil = Catalogo1Service.listarPorCodigoTabla("000005", 0);
+			lstOcupacion = Catalogo1Service.listarPorCodigoTabla("000007", 0);
+			lstNacionalidad = Catalogo1Service.listarPorCodigoTabla("000003", 0);
+			lstNivelInstrucion = Catalogo1Service.listarPorCodigoTabla("000006", 0);
 			
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
@@ -155,12 +148,12 @@ public class PersonaController {
 	}
 	@RequestMapping(value = "/listado", method = RequestMethod.POST)
 	public ModelAndView listadoPost(@ModelAttribute("personaBean") PersonaBean personaBean, HttpServletRequest request) throws Exception {
-	//	personaBean.getSituacion().setCodReg("000001");
+	//	personaBean.getSituacion().setIdRegistro("000001");
 		lstPersonaBean = new ArrayList<PersonaBean>(); 
 		ModelAndView mav = new ModelAndView("asistencial/laboratorio/persona/listado-persona", "command", personaBean); 
 		lstPersonaBean = personaService.getBuscarPorFiltros(personaBean);
 		setLstPersonaBeanRpt(lstPersonaBean);
-		lstSituacion = maestraAsis01Service.listarPorCodigoTabla("000016", 1);
+		lstSituacion = Catalogo1Service.listarPorCodigoTabla("000016", 1);
 		
 		mav.addObject("lstSituacion", lstSituacion);
 		mav.addObject("lstPersonaBean", lstPersonaBean); 
@@ -247,7 +240,7 @@ public class PersonaController {
 		personaBean = new PersonaBean();
 		PersonaBean prmPersona = new PersonaBean();
 		prmPersona.setNroDocumento(numero);
-		prmPersona.getTipoDocumento().setCodReg(tipoDocumento);
+		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
 		try {
 		/*	personaBean = this.getPersonaService().buscarxTipoDocumentoNumeroDocumento(prmPersona); 
 			if(personaBean!=null){ 
@@ -299,23 +292,11 @@ public class PersonaController {
 								System.out.println("personaBean RENIEC no es null " + lstPersona.get(0).getCodigoRespuesta());
 								personaBean.setApellidoMaterno(lstPersona.get(0).getApellidoMaterno());
 								personaBean.setApellidoPaterno(lstPersona.get(0).getApellidoPaterno());
-								personaBean.getNacionalidad().setCodReg("000114");
+								personaBean.getNacionalidad().setIdRegistro("000114");
 								SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 								String strFecha = lstPersona.get(0).getFechaNacimiento();
-								int ind = lstPersona.get(0).getNombres().indexOf(" ");
-								System.out.println("ind " + ind);
-								String primerNombre = "";
-								if (ind > 0) {
-									primerNombre = lstPersona.get(0).getNombres().substring(0, ind);
-									String segundoNombre = lstPersona.get(0).getNombres().substring(ind + 1, lstPersona.get(0).getNombres().length());
-									
-									personaBean.setPrimerNombre(primerNombre);
-									personaBean.setSegundoNombre(segundoNombre);
-								}else{
-									personaBean.setPrimerNombre(lstPersona.get(0).getNombres());
-									personaBean.setSegundoNombre("");
-								}
 								
+								personaBean.setNombres(lstPersona.get(0).getNombres());
 								if(lstPersona.get(0).getFotoPaciente() != null){
 									personaBean.setFoto(lstPersona.get(0).getFotoPaciente());
 								}
@@ -353,19 +334,19 @@ public class PersonaController {
 								System.out.println("personaBean no es null " + personaBean.getNombreCompleto());
 								System.out.println("personaBean no es null " + personaBean.getFechaNac());
 								if (lstPersona.get(0).getSexo().equals("1")) {
-									personaBean.getSexo().setCodReg("000002"); 
+									personaBean.getSexo().setIdRegistro("000002"); 
 								}else{
-									personaBean.getSexo().setCodReg("000001"); 
+									personaBean.getSexo().setIdRegistro("000001"); 
 								}
 								
 								if (lstPersona.get(0).getEstCivil().equals("1")) {
-									personaBean.getEstadoCivil().setCodReg("000002"); 
+									personaBean.getEstadoCivil().setIdRegistro("000002"); 
 								}else if (lstPersona.get(0).getEstCivil().equals("2")){
-									personaBean.getEstadoCivil().setCodReg("000002"); 
+									personaBean.getEstadoCivil().setIdRegistro("000002"); 
 								} else if (lstPersona.get(0).getEstCivil().equals("3")) {
-									personaBean.getEstadoCivil().setCodReg("000003"); 
+									personaBean.getEstadoCivil().setIdRegistro("000003"); 
 								}else{
-									personaBean.getEstadoCivil().setCodReg("000006"); 
+									personaBean.getEstadoCivil().setIdRegistro("000006"); 
 								}
 								
 								System.out.println("tipoDocumento " + tipoDocumento);
@@ -408,7 +389,7 @@ public class PersonaController {
 		personaBean = new PersonaBean();
 		PersonaBean prmPersona = new PersonaBean();
 		prmPersona.setNroDocumento(numero);
-		prmPersona.getTipoDocumento().setCodReg(tipoDocumento);
+		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
 		try {
 		/*	personaBean = this.getPersonaService().buscarxTipoDocumentoNumeroDocumento(prmPersona); 
 			if(personaBean!=null){ 
@@ -418,24 +399,9 @@ public class PersonaController {
 				personaBean = personaService.buscarxTipoDocumentoNumeroDocumento(prmPersona);
 				if(personaBean!=null){  
 					System.out.println("persona existe en sigehov2gene");
-					System.out.println(personaBean.getNombreCompleto());
-				//	personaBean.setOrigenDatos("LABMED");
-					
+					System.out.println(personaBean.getNombreCompleto()); 
 					System.out.println("personaBean.getCodigo() " + personaBean.getCodigo());
-					PostulanteBean postulante = new PostulanteBean();
-					postulante.setPersona(personaBean);
-					setPersonaBean(personaBean);
-					/*
-					try {
-						postulante = postulanteService.buscarUltimaDonacion(postulante);
-						if (postulante != null) {
-							System.out.println("postulante.getUltimaFechaDonacion() "  + postulante.getUltimaFechaDonacion());
-							personaBean.setUltimaFechaDonacion(postulante.getUltimaFechaDonacion());
-						}
-					} catch (Exception e) {
-						 
-					}
-				*/
+		
 					
 					if (tipoDocumento.equals("000002")) {
 						PacienteReniec pacienteReniec = new PacienteReniec();
@@ -458,7 +424,7 @@ public class PersonaController {
 					
 				}else{  
 					personaBean = new PersonaBean();
-					personaBean.getTipoDocumento().setCodReg("000002");
+					personaBean.getTipoDocumento().setIdRegistro("000002");
 					personaBean.setNroDocumento(numero);
 					personaBean.setOrigenDatos("");
 					
@@ -492,7 +458,7 @@ public class PersonaController {
 							if (lstPersona.get(0).getCodigoRespuesta().equals("0000")) {
 								System.out.println("lstPersona size " + lstPersona.size());
 								personaBean = new PersonaBean();
-								personaBean.getTipoDocumento().setCodReg("000002");
+								personaBean.getTipoDocumento().setIdRegistro("000002");
 								personaBean.setNroDocumento(numero);
 								personaBean.setOrigenDatos("RENIEC");
 								personaBean.setSwReniec(true);
@@ -500,23 +466,12 @@ public class PersonaController {
 								System.out.println("personaBean RENIEC no es null " + lstPersona.get(0).getCodigoRespuesta());
 								personaBean.setApellidoMaterno(lstPersona.get(0).getApellidoMaterno());
 								personaBean.setApellidoPaterno(lstPersona.get(0).getApellidoPaterno());
-								personaBean.getNacionalidad().setCodReg("000114");
+								personaBean.getNacionalidad().setIdRegistro("000114");
 								SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 								String strFecha = lstPersona.get(0).getFechaNacimiento();
-								int ind = lstPersona.get(0).getNombres().indexOf(" ");
-								System.out.println("ind " + ind);
-								String primerNombre = "";
-								if (ind > 0) {
-									primerNombre = lstPersona.get(0).getNombres().substring(0, ind);
-									String segundoNombre = lstPersona.get(0).getNombres().substring(ind + 1, lstPersona.get(0).getNombres().length());
-									
-									personaBean.setPrimerNombre(primerNombre);
-									personaBean.setSegundoNombre(segundoNombre);
-								}else{
-									personaBean.setPrimerNombre(lstPersona.get(0).getNombres());
-									personaBean.setSegundoNombre("");
-								}
-								
+							 
+								personaBean.setNombres(lstPersona.get(0).getNombres());
+								 
 								if(lstPersona.get(0).getFotoPaciente() != null){
 									personaBean.setFoto(lstPersona.get(0).getFotoPaciente());
 								}
@@ -555,19 +510,19 @@ public class PersonaController {
 								System.out.println("personaBean no es null " + personaBean.getNombreCompleto());
 								System.out.println("personaBean no es null " + personaBean.getFechaNac());
 								if (lstPersona.get(0).getSexo().equals("1")) {
-									personaBean.getSexo().setCodReg("000002"); 
+									personaBean.getSexo().setIdRegistro("000002"); 
 								}else{
-									personaBean.getSexo().setCodReg("000001"); 
+									personaBean.getSexo().setIdRegistro("000001"); 
 								}
 								
 								if (lstPersona.get(0).getEstCivil().equals("1")) {
-									personaBean.getEstadoCivil().setCodReg("000001"); 
+									personaBean.getEstadoCivil().setIdRegistro("000001"); 
 								}else if (lstPersona.get(0).getEstCivil().equals("2")){
-									personaBean.getEstadoCivil().setCodReg("000002"); 
+									personaBean.getEstadoCivil().setIdRegistro("000002"); 
 								} else if (lstPersona.get(0).getEstCivil().equals("3")) {
-									personaBean.getEstadoCivil().setCodReg("000003"); 
+									personaBean.getEstadoCivil().setIdRegistro("000003"); 
 								}else{
-									personaBean.getEstadoCivil().setCodReg("000006"); 
+									personaBean.getEstadoCivil().setIdRegistro("000006"); 
 								}
 								
 								System.out.println("tipoDocumento " + tipoDocumento);
@@ -605,9 +560,9 @@ public class PersonaController {
 		
 	//	this.getPersonaBean().setOrigenDeRegistro("Sistema Labmed Web");
 	// 	personaBean = new PersonaBean();
-	//	this.getPostulanteBean().getTipoPostulate().setCodReg("000001");
+	//	this.getPostulanteBean().getTipoPostulate().setIdRegistro("000001");
 		if (this.getPersonaBean().getCodigo().equals("")) {
-			if(!obpersonaBean.getTipoDocumento().getCodReg().equals("000002") ){ // extranjero
+			if(!obpersonaBean.getTipoDocumento().getIdRegistro().equals("000002") ){ // extranjero
 				this.setAuditoria(obpersonaBean, request, true); 
 				this.personaService.insertarPersonaLaboratorio(obpersonaBean);
 				setPersonaBean(obpersonaBean);
@@ -615,12 +570,12 @@ public class PersonaController {
 				setPersonaBean(new PersonaBean());
 				if(this.getPersonaBean().getSwReniec()){
 					
-					System.out.println("this.getPostulanteBean().getPersona(). " +this.getPersonaBean().getTipoDocumento().getCodReg());
+					System.out.println("this.getPostulanteBean().getPersona(). " +this.getPersonaBean().getTipoDocumento().getIdRegistro());
 					System.out.println("this.getPostulanteBean().getPersona() ::" + this.getPersonaBean());
 					this.getPersonaBean().setTelefonoNumero(obpersonaBean.getTelefonoNumero());
 					this.getPersonaBean().setCorreo(obpersonaBean.getCorreo());
-					this.getPersonaBean().getNivelInstrucion().setCodReg(obpersonaBean.getNivelInstrucion().getCodReg());
-					this.getPersonaBean().getOcupacion().setCodReg(obpersonaBean.getOcupacion().getCodReg());
+					this.getPersonaBean().getNivelInstrucion().setIdRegistro(obpersonaBean.getNivelInstrucion().getIdRegistro());
+					this.getPersonaBean().getOcupacion().setIdRegistro(obpersonaBean.getOcupacion().getIdRegistro());
 					
 					this.setAuditoria(this.getPersonaBean(), request, true); 
 					this.personaService.insertarPersonaLaboratorio(this.getPersonaBean());
@@ -628,7 +583,7 @@ public class PersonaController {
 				}else{
 					this.getPersonaBean().setTelefonoNumero(obpersonaBean.getTelefonoNumero());
 					this.getPersonaBean().setCorreo(obpersonaBean.getCorreo());
-					this.getPersonaBean().getNivelInstrucion().setCodReg(obpersonaBean.getNivelInstrucion().getCodReg());
+					this.getPersonaBean().getNivelInstrucion().setIdRegistro(obpersonaBean.getNivelInstrucion().getIdRegistro());
 					this.setAuditoria(obpersonaBean, request, true); 
 					this.personaService.insertarPersonaLaboratorio(obpersonaBean);
 					setPersonaBean(obpersonaBean);
@@ -638,20 +593,9 @@ public class PersonaController {
 			System.out.println("persona no existe");
 		//	this.personaService.insertarPersonaBanco(this.getPostulanteBean().getPersona());
 			
-		}else{ 
-			System.out.println("existe persona");
-			 
-				this.setAuditoria(postulanteBean.getPersona(), request, true); 
-				System.out.println("postulanteBean.getCodigoCorreo " + obpersonaBean.getCodigoCorreo());
-				System.out.println("postulanteBean.getCodigoDireccion " + obpersonaBean.getCodigoDireccion());
-				System.out.println("postulanteBean.getCodigoTelefono " + obpersonaBean.getCodigoTelefono());
-				this.personaService.actualizarPersonaLaboratorio(obpersonaBean);
-			//	this.getPostulanteBean().setPersona(postulanteBean.getPersona());
-		 
+		}else{  
 			
 		} 
-		System.out.println("postulanteBean.getCodigo()::" + postulanteBean.getCodigo().trim());
-		
 		if (!personaBean.getCodigo().trim().equals("")) {
 			this.setAuditoria(this.getPersonaBean(), request, false); 
 			System.out.println("actualiza postulanteBean " + obpersonaBean.getCodigo());
@@ -667,7 +611,7 @@ public class PersonaController {
 		//	this.setAuditoria(odDonanteBean, request, true); 
 		//	System.out.println("insert postulanteBean " + postulanteBean.getCodigo());
 			
-		//	odDonanteBean.getTipoRegistro().setCodReg("000003");
+		//	odDonanteBean.getTipoRegistro().setIdRegistro("000003");
 		//	odDonanteBean.setPersona(this.getPostulanteBean().getPersona());
 
 		
@@ -678,16 +622,7 @@ public class PersonaController {
 		return this.getPersonaBean();
 	}
 	
-	
-	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
-	public ModelAndView nuevoPostulante(HttpServletRequest request, PersonaBean personaBean) {
-		OrdenBean objOrdenBean = new OrdenBean();  
-		ModelAndView mav = new ModelAndView("asistencial/laboratorio/orden/registro-orden", "command", personaBean);  
-		this.cargarCombos(mav); 
-		return mav;
-	} 
-	
-	
+	 
 	
 	
 	
@@ -877,7 +812,7 @@ public class PersonaController {
 	            	contentCell.setCellValue(String.valueOf((i+1)));
 	            	contentCell = contentRow.createCell(2);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(personaBean.getCodigoSede());
+	            //	contentCell.setCellValue(personaBean.getCodigoSede());
 	            	contentCell = contentRow.createCell(3);
 	            	contentCell.setCellStyle(bodyStyle);
 	            	contentCell.setCellValue(personaBean.getNombreCompleto());
@@ -892,8 +827,7 @@ public class PersonaController {
 	            	contentCell.setCellValue(personaBean.getNombreUsuarioCreacion());
 
 	            	contentCell = contentRow.createCell(7);
-	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(personaBean.getSituacion().getNombreCorto());
+	            	contentCell.setCellStyle(bodyStyle); 
 	            }
 	            workbook.write(new FileOutputStream("reporteExcel.xls"));
 
@@ -952,27 +886,16 @@ public class PersonaController {
 		return personaService;
 	}
 
-
 	public void setPersonaService(PersonaService personaService) {
 		this.personaService = personaService;
 	}
-
 
 	public PersonaBean getPersonaBean() {
 		return personaBean;
 	}
 
-
 	public void setPersonaBean(PersonaBean personaBean) {
 		this.personaBean = personaBean;
-	}
-
-	public PostulanteBean getPostulanteBean() {
-		return postulanteBean;
-	}
-
-	public void setPostulanteBean(PostulanteBean PostulanteBean) {
-		this.postulanteBean = PostulanteBean;
 	}
 
 	public List<PersonaBean> getLstPersonaBeanRpt() {
@@ -982,8 +905,6 @@ public class PersonaController {
 	public void setLstPersonaBeanRpt(List<PersonaBean> lstPersonaBeanRpt) {
 		this.lstPersonaBeanRpt = lstPersonaBeanRpt;
 	}
-	
-	
 	
 	
 }

@@ -1,5 +1,5 @@
-package proyect.core.service.implementacion.general;
 
+package proyect.core.service.implementacion.catalogo;
 
 import java.util.List;
 
@@ -9,23 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.general.Maestra6DAO;
+import proyect.core.repository.interfaces.general.Maestra1DAO;
 import proyect.core.service.exception.ServiceException;
-import proyect.core.service.interfaces.general.Maestra6Service; 
+import proyect.core.service.interfaces.catalogo.Catalogo1Service; 
+
  
-@Service("maestra6Service")
+@Service("maestra1Service")
 @Transactional (readOnly = true)
-public class Maestra6ServiceImp implements Maestra6Service {
+public class Catalogo1ServiceImp implements Catalogo1Service {
 	
 	@Autowired
-	private Maestra6DAO maestra6DAO; 
+	private Maestra1DAO maestra1DAO; 
 	
 
 	@Override
 	public boolean insertar(CatalogoBean TablaBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra6DAO.insertar(TablaBean);
+			sw =  maestra1DAO.insertar(TablaBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -37,7 +38,7 @@ public class Maestra6ServiceImp implements Maestra6Service {
 	public boolean actualizar(CatalogoBean TablaBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra6DAO.actualizar(TablaBean);
+			sw =  maestra1DAO.actualizar(TablaBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -49,7 +50,7 @@ public class Maestra6ServiceImp implements Maestra6Service {
 	public boolean eliminar(CatalogoBean TablaBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra6DAO.eliminar(TablaBean);
+			sw =  maestra1DAO.eliminar(TablaBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -61,22 +62,36 @@ public class Maestra6ServiceImp implements Maestra6Service {
 	public CatalogoBean getBuscarPorObjecto(CatalogoBean TablaBean) throws ServiceException {
 		CatalogoBean oTablaBean = null;
 		try {
-			oTablaBean = maestra6DAO.getBuscarPorObjecto(TablaBean);
+			oTablaBean = maestra1DAO.getBuscarPorObjecto(TablaBean);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 		return oTablaBean;
 	}
+	
+	@Override
+	public CatalogoBean getBuscarPorTablaYRegistro(CatalogoBean TablaBean) throws ServiceException {
+		CatalogoBean oTablaBean = null;
+		try {
+			oTablaBean = maestra1DAO.getBuscarPorTablaYRegistro(TablaBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return oTablaBean;
+	}
+	
 
 	@Override
-	public List<CatalogoBean> getBuscarPorFiltros(CatalogoBean lengua)
+	public List<CatalogoBean> getBuscarPorFiltros(CatalogoBean TablaBean)
 			throws ServiceException {
 		List<CatalogoBean> lstTablaBean=null;
-		try { 
-			lstTablaBean=(List<CatalogoBean>) maestra6DAO.getBuscarPorFiltros(lengua);
+		try {
+			System.out.println("en listado maestra service imp");
+			lstTablaBean=(List<CatalogoBean>) maestra1DAO.getBuscarPorFiltros(TablaBean);
 		} catch (Exception e) {
-			 
-		}  
+			e.printStackTrace(); 	 
+		} 
+		 
 		return lstTablaBean;
 	}
 
@@ -87,40 +102,28 @@ public class Maestra6ServiceImp implements Maestra6Service {
 	}
 
 	@Override
-	public List<CatalogoBean> listarPorCodigoTabla(String codTabla,long tipo)
+	public List<CatalogoBean> listarPorCodigoTabla(String codTabla,int tipo)
 			throws  ServiceException { 
 		List<CatalogoBean> lstTablaBean=null;
 		try { 
-			lstTablaBean=(List<CatalogoBean>) maestra6DAO.listarPorCodigoTabla(codTabla,tipo);
-		} catch (Exception e) {
-			 
-		}  
-		return lstTablaBean;
-	}
-
-	@Override
-	public List<CatalogoBean> listarPorValor1(CatalogoBean TablaBean) throws ServiceException {
-		List<CatalogoBean> lstTablaBean=null;
-		try { 
-			lstTablaBean=(List<CatalogoBean>) maestra6DAO.listarPorValor1(TablaBean);
-		} catch (Exception e) {
-			 
-		}  
-		return lstTablaBean;
-	}
-
-	@Override
-	public List<CatalogoBean> listarPorValor3yNombre(CatalogoBean TablaBean)
-			throws ServiceException {
-		List<CatalogoBean> lstTablaBean=null;
-		try { 
-			lstTablaBean=(List<CatalogoBean>) maestra6DAO.listarPorValor3yNombre(TablaBean);
+			lstTablaBean=(List<CatalogoBean>) maestra1DAO.listarPorCodigoTabla(codTabla,tipo);
 		} catch (Exception e) {
 			 
 		}  
 		return lstTablaBean;
 	}
 	 
+	@Override
+	public List<CatalogoBean> listarComboGeneral(String codTabla)
+			throws  ServiceException { 
+		List<CatalogoBean> lstTablaBean=null;
+		try { 
+			lstTablaBean=(List<CatalogoBean>) maestra1DAO.listarComboGeneral(codTabla);
+		} catch (Exception e) {
+			 
+		}  
+		return lstTablaBean;
+	}
 	
 }
 	

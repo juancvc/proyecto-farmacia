@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Farmacia</title>
 
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/app-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -27,13 +27,10 @@
 
     <!-- Sidebar -->
     
-
-
-		<div  id="navbarResponsive">
+ 
 			<jsp:include
 				page="${pageContext.request.contextPath}/../layout/menu-view.jsp" />
-		</div>
-
+		 
 
 
 

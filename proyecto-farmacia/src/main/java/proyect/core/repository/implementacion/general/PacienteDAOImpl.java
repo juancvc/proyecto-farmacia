@@ -38,33 +38,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("paciente.insertar");
 			 
-			spq.setParameter("CODORGAN",  pacienteBean.getCodigoOrganizacion());
-			spq.setParameter("CODINSTI",  pacienteBean.getCodigoInstitucion());
-			spq.setParameter("CODSEDEI",  pacienteBean.getCodigoSede()); 
-			
-			spq.setParameter("CODPERSO",  pacienteBean.getPersona().getCodigo());
-			spq.setParameter("NROPERPE",  pacienteBean.getPersona().getNumeroPeriodo()); 
-			spq.setParameter("APEPATER",  pacienteBean.getPersona().getApellidoPaterno());
-			spq.setParameter("APEMATER",  pacienteBean.getPersona().getApellidoMaterno());
-			spq.setParameter("PRINOMBR",  pacienteBean.getPersona().getPrimerNombre());
-			spq.setParameter("SEGNOMBR",  pacienteBean.getPersona().getSegundoNombre());
-			
-			spq.setParameter("TG1SEXO",   pacienteBean.getPersona().getSexo().getCodReg());
-			spq.setParameter("TG1TPDOC",  pacienteBean.getPersona().getTipoDocumento().getCodReg());
-			spq.setParameter("NRODOCUM",  pacienteBean.getPersona().getNroDocumento());
-			
-			spq.setParameter("TG14TPSE",  pacienteBean.getTipoSeguro().getCodReg());
-			spq.setParameter("CATEGORI",  pacienteBean.getCategoriaSeguro());
-			spq.setParameter("NROHC",     pacienteBean.getNroHC());
-			
-			spq.setParameter("CDPERSIG",  pacienteBean.getPersona().getCodigoPersonaSigeho());
-			spq.setParameter("FECHANAC",  pacienteBean.getPersona().getFechaNac());
-			
-			spq.setParameter("AUCDUSCR",  pacienteBean.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR",  pacienteBean.getIpCreacion()); 
-			spq.setParameter("NROCELU", pacienteBean.getPersona().getTelfCelu());
-			spq.setParameter("SWRENIEC", pacienteBean.getPersona().getSwReniec()? "1":"0");
-			spq.setParameter("SWVALSIS", pacienteBean.getSwValidaSISwebService()? "1":"0");
+		//	spq.setParameter("SWVALSIS", pacienteBean.getSwValidaSISwebService()? "1":"0");
 			spq.execute();
 			
 			idPersona = spq.getOutputParameterValue(1);
@@ -142,8 +116,6 @@ public class PacienteDAOImpl implements PacienteDAO {
 		PacienteBean oPacienteBean = null;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("pacienteBean.buscar_x_tipodocumento_numero_documento");
-			spq.setParameter("p_tm1tpdope", pacienteBeanBean.getPersona().getTipoDocumento().getCodReg());  
-			
 			if (spq.execute()) {
 				lstpacienteBean =  spq.getResultList(); 
 			} 
