@@ -9,8 +9,8 @@ import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
 import proyect.core.bean.seguridad.AuditoriaTablaBean;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.AuditoriaDAO;
+import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.seguridad.AuditoriaService;
 

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.UsuarioPerfilDAO;
+import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 

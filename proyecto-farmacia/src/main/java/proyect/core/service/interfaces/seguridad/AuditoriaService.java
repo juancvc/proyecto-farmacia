@@ -7,7 +7,7 @@ import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
 import proyect.core.bean.seguridad.AuditoriaTablaBean;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.BaseService;
+import proyect.base.service.interfaces.BaseService;
 
 
 public interface AuditoriaService extends BaseService<AuditoriaBean>{

@@ -12,12 +12,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.PersonaBean;
+import proyect.base.repository.DAOException;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.entity.seguridad.SigehoUsuario;
 import proyect.core.entity.seguridad.Usuario;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.UsuarioDAO;
 
 
@@ -204,6 +204,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.setCodigoUsuario(entity.getIdUsuario()); 
 			bean.setNombreUsuario(entity.getUsuario());
 			bean.setPasswordUsuario(entity.getClave()); 
+			bean.setActivo(entity.getFglgest());
 			bean.setFlgRestPass(entity.getvFlgrestpas());
 			bean.setPersona(new PersonaBean()); 
 			bean.getPersona().setCodigo(entity.getIdPersona()); 

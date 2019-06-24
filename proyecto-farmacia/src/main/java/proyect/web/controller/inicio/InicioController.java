@@ -29,7 +29,7 @@ import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
-import proyect.core.service.interfaces.farmacia.general.AlmacenService;
+import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
@@ -121,7 +121,7 @@ public class InicioController extends BaseController{
 						
 						
 			//		this.registrarAudAcceso(prmLogin.getNombreUsuario(), 5, request);
-					ModelAndView mav = new ModelAndView("seguridad/login/login-admin","command", prmLogin);
+					ModelAndView mav = new ModelAndView("seguridad/login/login","command", prmLogin);
 					mav.addObject("msgErrorLogin","Su usuario no se encuentra activo, "
 							+ "por favor coordine con el administrador del sistema");
 					return mav;
@@ -158,14 +158,14 @@ public class InicioController extends BaseController{
 				this.setUsuarioBean(tmpUsuario);
 				this.registrarAudAcceso(prmLogin.getNombreUsuario(), "1", request);
 				
-				ModelAndView mav = new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+				ModelAndView mav = new ModelAndView("seguridad/login/login", "command",prmLogin);
 				mav.addObject("msgErrorLogin", "El usuario y/o contraseña no coinciden");
 				mav.addObject("usuarioSesion", tmpUsuario);
 				cargarComboAlmacen(mav);
 				return mav;
 			}
 		}else{
-			return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+			return  new ModelAndView("seguridad/login/login", "command",prmLogin);
 		}
 	}
 	
@@ -205,7 +205,7 @@ public class InicioController extends BaseController{
 						
 						
 			//		this.registrarAudAcceso(prmLogin.getNombreUsuario(), 5, request);
-					ModelAndView mav = new ModelAndView("seguridad/login/login-admin","command", prmLogin);
+					ModelAndView mav = new ModelAndView("seguridad/login/login","command", prmLogin);
 					mav.addObject("msgErrorLogin","Su usuario no se encuentra activo, "
 							+ "por favor coordine con el administrador del sistema");
 					return mav;
@@ -241,14 +241,14 @@ public class InicioController extends BaseController{
 				this.setUsuarioBean(tmpUsuario);
 				this.registrarAudAcceso(prmLogin.getNombreUsuario(), "1", request);
 				
-				ModelAndView mav = new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+				ModelAndView mav = new ModelAndView("seguridad/login/login", "command",prmLogin);
 				mav.addObject("msgErrorLogin", "El usuario y/o contraseña no coinciden");
 				mav.addObject("usuarioSesion", tmpUsuario);
 				cargarComboAlmacen(mav);
 				return mav;
 			}
 		}else{
-			return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+			return  new ModelAndView("seguridad/login/login", "command",prmLogin);
 		}
 	}
 
@@ -328,7 +328,7 @@ public class InicioController extends BaseController{
 			}
 		}else{
 			
-			return  new ModelAndView("seguridad/login/login-admin", "command",new LoginVo());
+			return  new ModelAndView("seguridad/login/login", "command",new LoginVo());
 		}
 	}
 	 

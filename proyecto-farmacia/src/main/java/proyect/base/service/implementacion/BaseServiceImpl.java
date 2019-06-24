@@ -1,5 +1,5 @@
 
-package proyect.core.service.implementacion;
+package proyect.base.service.implementacion;
 
 public abstract class BaseServiceImpl{
 

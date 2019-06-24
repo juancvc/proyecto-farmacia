@@ -1,5 +1,5 @@
-
 package proyect.base.repository;
+
 public class DAOException extends Exception {
 
 	private static final long serialVersionUID = 9079208649838776152L;

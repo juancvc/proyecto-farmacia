@@ -3,14 +3,10 @@
 
 import java.util.List;
 
+import proyect.base.repository.DAOException;
+import proyect.base.repository.interfaces.BaseDAO;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.BaseDAO;
-
-/*
-import pe.gob.procalidad.natigu.core.bean.bean.generico.TablaBean;
-import pe.gob.procalidad.natigu.core.repository.exception.DAOException;
-import pe.gob.procalidad.natigu.core.repository.repository.interfaces.BaseDAO;*/
+ 
 
 public interface Catalogo1DAO  extends BaseDAO<CatalogoBean>  {
 	

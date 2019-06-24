@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
 import proyect.core.entity.general.PacienteReniec;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.PacienteReniecDAO;
 import proyect.core.service.interfaces.general.PacienteReniecService; 
 

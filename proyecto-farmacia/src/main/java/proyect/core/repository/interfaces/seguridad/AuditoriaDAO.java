@@ -2,12 +2,12 @@ package proyect.core.repository.interfaces.seguridad;
 
 import java.util.List;
 
+import proyect.base.repository.DAOException;
+import proyect.base.repository.interfaces.BaseDAO;
 import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
 import proyect.core.bean.seguridad.AuditoriaTablaBean;
-import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.BaseDAO;
 
 /*
 import pe.gob.procalidad.natigu.core.bean.bean.seguridad.AuditoriaAccesoBean;

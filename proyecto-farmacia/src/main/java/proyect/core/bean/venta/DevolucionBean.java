@@ -1,5 +1,7 @@
 package proyect.core.bean.venta;
 
-public class DevolucionBean {
+import proyect.base.bean.BaseBean;
+
+public class DevolucionBean extends BaseBean {
 
 }

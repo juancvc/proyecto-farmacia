@@ -160,7 +160,7 @@ public class Usuario  {
 	private String idPersona; 
 
 	@Column(name = "flgEstado")
-	private String fglgest; 
+	private Boolean fglgest; 
 
 	@Column(name = "flgResetClave")
 	private String vFlgrestpas;
@@ -234,12 +234,12 @@ public class Usuario  {
 	}
 
 
-	public String getFglgest() {
+	public Boolean getFglgest() {
 		return fglgest;
 	}
 
 
-	public void setFglgest(String fglgest) {
+	public void setFglgest(Boolean fglgest) {
 		this.fglgest = fglgest;
 	}
 

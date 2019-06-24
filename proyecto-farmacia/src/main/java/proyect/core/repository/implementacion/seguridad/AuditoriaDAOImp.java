@@ -10,6 +10,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import proyect.base.repository.DAOException;
 import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.AuditoriaBean;
 import proyect.core.bean.seguridad.AuditoriaDetalleBean;
@@ -18,7 +19,6 @@ import proyect.core.entity.seguridad.Auditoria;
 import proyect.core.entity.seguridad.AuditoriaAcceso;
 import proyect.core.entity.seguridad.AuditoriaDetalle;
 import proyect.core.entity.seguridad.AuditoriaTabla;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.AuditoriaDAO;
 
 

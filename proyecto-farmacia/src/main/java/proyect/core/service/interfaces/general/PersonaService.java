@@ -3,7 +3,7 @@ package proyect.core.service.interfaces.general;
 
 import proyect.core.bean.general.PersonaBean;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.BaseService;
+import proyect.base.service.interfaces.BaseService;
 
 /*
 import pe.gob.procalidad.natigu.core.bean.bean.generico.PersonaBean;

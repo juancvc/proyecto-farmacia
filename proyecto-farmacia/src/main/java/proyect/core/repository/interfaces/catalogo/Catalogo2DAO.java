@@ -2,9 +2,9 @@ package proyect.core.repository.interfaces.catalogo;
 
 import java.util.List;
 
-import proyect.core.bean.general.CatalogoBean;
-import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.BaseDAO; 
+import proyect.base.repository.DAOException;
+import proyect.base.repository.interfaces.BaseDAO;
+import proyect.core.bean.general.CatalogoBean; 
 
 
 

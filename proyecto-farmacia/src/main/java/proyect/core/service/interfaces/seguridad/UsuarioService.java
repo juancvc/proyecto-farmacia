@@ -2,7 +2,7 @@ package proyect.core.service.interfaces.seguridad;
 
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.BaseService;
+import proyect.base.service.interfaces.BaseService;
 
 
 public interface UsuarioService extends BaseService<UsuarioBean>{

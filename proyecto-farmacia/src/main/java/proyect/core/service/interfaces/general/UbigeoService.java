@@ -3,7 +3,7 @@ import java.util.List;
 
 import proyect.core.bean.general.UbigeoBean;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.BaseService;
+import proyect.base.service.interfaces.BaseService;
 
 
 

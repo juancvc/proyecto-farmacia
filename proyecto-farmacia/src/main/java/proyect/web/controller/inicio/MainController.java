@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import proyect.core.bean.general.AlmacenBean;
+import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.farmacia.general.AlmacenService;
 import proyect.web.utilitarios.acceso.LoginVo;
 
 
@@ -52,9 +52,9 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
 		LoginVo prmLogin = new LoginVo();
-	//	return  new ModelAndView("seguridad/login/login-admin", "command",prmLogin);
+	//	return  new ModelAndView("seguridad/login/login", "command",prmLogin);
 		
-		ModelAndView mav =   new ModelAndView("seguridad/login/login-admin", "command",prmLogin); 
+		ModelAndView mav =   new ModelAndView("seguridad/login/login", "command",prmLogin); 
 		cargarComboAlmacen(mav);
 		
 		return mav;

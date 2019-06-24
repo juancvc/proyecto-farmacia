@@ -4,8 +4,8 @@ package proyect.core.service.interfaces.catalogo;
 import java.util.List;
 
 import proyect.base.service.ServiceException;
+import proyect.base.service.interfaces.BaseService;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.service.interfaces.BaseService;
   
 
 public interface Catalogo1Service extends BaseService<CatalogoBean> {

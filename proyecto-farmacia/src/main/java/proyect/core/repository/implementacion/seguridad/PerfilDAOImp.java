@@ -24,9 +24,9 @@ import javax.persistence.metamodel.Metamodel;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import proyect.base.repository.DAOException;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.entity.seguridad.Perfil;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.PerfilDAO;
 
 @Transactional

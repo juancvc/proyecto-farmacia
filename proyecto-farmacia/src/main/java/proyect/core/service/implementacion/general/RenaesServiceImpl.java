@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.core.bean.general.RenaesBean;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.RenaesDAO;
+import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;

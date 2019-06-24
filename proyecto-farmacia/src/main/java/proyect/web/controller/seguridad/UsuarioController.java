@@ -31,7 +31,7 @@ import proyect.core.bean.seguridad.UsuarioRenaesBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
-import proyect.core.service.interfaces.farmacia.general.AlmacenService;
+import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;
 import proyect.core.service.interfaces.seguridad.PerfilService;

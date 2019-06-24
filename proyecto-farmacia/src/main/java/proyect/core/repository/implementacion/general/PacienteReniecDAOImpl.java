@@ -45,7 +45,7 @@ public class PacienteReniecDAOImpl implements PacienteReniecDAO {
 
 	@Override
 	public List<PacienteReniec> pacienteReniecVerificacion(
-			PacienteReniec pacienteReniec) throws proyect.core.repository.DAOException {
+			PacienteReniec pacienteReniec) throws proyect.base.repository.DAOException {
 	    List<PacienteReniec> lstPaciente = null;	
 		
 		try {

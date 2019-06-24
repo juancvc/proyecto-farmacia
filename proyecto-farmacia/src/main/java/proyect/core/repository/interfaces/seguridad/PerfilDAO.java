@@ -2,9 +2,9 @@ package proyect.core.repository.interfaces.seguridad;
 
 import java.util.List;
 
+import proyect.base.repository.DAOException;
+import proyect.base.repository.interfaces.BaseDAO;
 import proyect.core.bean.seguridad.PerfilBean;
-import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.BaseDAO;
 
 
 

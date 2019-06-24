@@ -11,11 +11,11 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import proyect.base.repository.DAOException;
 import proyect.core.bean.general.PacienteBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.entity.general.Paciente;
 import proyect.core.entity.general.Persona;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.general.PacienteDAO;
 
 

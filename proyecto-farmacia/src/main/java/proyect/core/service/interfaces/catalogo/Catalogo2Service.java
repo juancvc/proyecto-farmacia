@@ -4,7 +4,7 @@ import java.util.List;
 
 import proyect.core.bean.general.CatalogoBean;
 import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.BaseService;
+import proyect.base.service.interfaces.BaseService;
  
 public interface Catalogo2Service extends BaseService<CatalogoBean> {
 	

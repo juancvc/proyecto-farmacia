@@ -1,5 +1,5 @@
 //package pe.gob.procalidad.natigu.core.service.service.interfaces;
-package proyect.core.service.interfaces;
+package proyect.base.service.interfaces;
 
 import java.util.List;
 

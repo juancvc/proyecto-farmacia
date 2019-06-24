@@ -1,5 +1,5 @@
 //package pe.gob.procalidad.natigu.core.repository.repository.implementacion;
-package proyect.core.repository.implementacion;
+package proyect.base.repository.implementacion;
 
 public abstract class BaseDAOImpl{
 

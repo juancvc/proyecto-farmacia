@@ -1,8 +1,8 @@
 //package pe.gob.procalidad.natigu.core.repository.repository.interfaces;
-package proyect.core.repository.interfaces;
+package proyect.base.repository.interfaces;
 import java.util.List;
 
-import proyect.core.repository.DAOException;
+import proyect.base.repository.DAOException;
 
 
 

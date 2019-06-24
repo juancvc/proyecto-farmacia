@@ -1,8 +1,8 @@
 package proyect.core.repository.interfaces.seguridad;
 
+import proyect.base.repository.DAOException;
+import proyect.base.repository.interfaces.BaseDAO;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
-import proyect.core.repository.DAOException;
-import proyect.core.repository.interfaces.BaseDAO;
 
 
 

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import proyect.core.bean.seguridad.AccesoBean;
-import proyect.core.repository.DAOException;
 import proyect.core.repository.interfaces.seguridad.AccesoDAO;
+import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 

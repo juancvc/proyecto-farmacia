@@ -68,7 +68,7 @@
 						<f:select id="almacen"
 							path="almacen.codigo" class="form-control form-control-combo"
 							required="required">
-							<f:option value="" label="Seleccione Almacén" selected="true"
+							<f:option value="" label="-- Seleccione Almacen --" selected="true"
 								disabled="disabled" />
 							<f:options items="${lstAlmacenBean}" itemValue="codigo"
 								itemLabel="nombreAlmacen" />
