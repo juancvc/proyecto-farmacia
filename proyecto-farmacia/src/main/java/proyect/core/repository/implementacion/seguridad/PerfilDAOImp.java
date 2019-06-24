@@ -52,10 +52,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		boolean sw = false;
 		try {
 			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.insertar");
-			spq.setParameter("NOMBPERF", t.getNombrePerfil());
-			spq.setParameter("AUCDUSCR", t.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR", t.getIpCreacion());
-			spq.execute();
+			spq.setParameter("NOMBPERF", t.getNombrePerfil()); 
 
 			id = spq.getOutputParameterValue(1);
 			if (id != null) {
@@ -79,8 +76,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		try {
 			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.actualizar");
 			spq.setParameter("CODIPERF", t.getCodigo());
-			spq.setParameter("NOMBPERF", t.getNombrePerfil());
-			spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
+			spq.setParameter("NOMBPERF", t.getNombrePerfil()); 
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 
 			spq.execute();
@@ -101,8 +97,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		boolean sw = false;
 		try {
 			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.eliminar");
-			spq.setParameter("CODIPERF", t.getCodigo());
-			spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
+			spq.setParameter("CODIPERF", t.getCodigo()); 
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 
 			spq.execute();

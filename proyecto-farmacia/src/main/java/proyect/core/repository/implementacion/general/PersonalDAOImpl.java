@@ -35,9 +35,7 @@ public class PersonalDAOImpl implements PersonalDAO {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Personal.insertar");
 			
 //			spq.setParameter("p_codpersonal", personal.getCodigo());
-			spq.setParameter("p_codpersona", personal.getCodigo());
-			spq.setParameter("p_codusureg", personal.getCodigoUsuarioCreacion());
-			spq.setParameter("p_hostreg", personal.getIpCreacion());
+			spq.setParameter("p_codpersona", personal.getCodigo()); 
 		
 		
 			
@@ -96,9 +94,7 @@ public class PersonalDAOImpl implements PersonalDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Personal.eliminar");
 		
-			spq.setParameter("p_codpersonal", personal.getCodigo());
-			spq.setParameter("p_codusumod", personal.getCodigoUsuarioCreacion());
-			spq.setParameter("p_hostmod", personal.getIpCreacion());
+			spq.setParameter("p_codpersonal", personal.getCodigo()); 
 		
 		
 			

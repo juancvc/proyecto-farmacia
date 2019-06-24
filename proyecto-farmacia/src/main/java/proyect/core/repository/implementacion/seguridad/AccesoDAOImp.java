@@ -162,8 +162,8 @@ public class AccesoDAOImp implements AccesoDAO {
             spq.setParameter("SWEXPORT", bean.isFlgExport()? "1":"0");
             spq.setParameter("CODIPERF", bean.getPerfil().getCodigo());
             spq.setParameter("CODCOMPO", bean.getComponente().getCodigo());
-            spq.setParameter("AUCDUSCR", bean.getCodigoUsuarioCreacion());
-         	spq.setParameter("AUPCIPCR", bean.getIpCreacion());
+            spq.setParameter("AUCDUSCR", bean.getUsuarioRegistro());
+         	spq.setParameter("AUPCIPCR", bean.getIpRegistro());
 	        
 	        spq.execute();
 			

@@ -33,8 +33,8 @@ public class RenaesDAOImpl implements RenaesDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("renaes.insertar");
 			  
-			spq.setParameter("AUCDUSCR",  RenaesBean.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR",  RenaesBean.getIpCreacion()); 
+			spq.setParameter("AUCDUSCR",  RenaesBean.getUsuarioRegistro());
+			spq.setParameter("AUPCIPCR",  RenaesBean.getIpRegistro()); 
 				
 			spq.execute();
 			
@@ -64,7 +64,7 @@ public class RenaesDAOImpl implements RenaesDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("RenaesBean.actualizar");
 			 
-			spq.setParameter("p_hostmod", RenaesBean.getIpCreacion());
+			spq.setParameter("p_hostmod", RenaesBean.getIpRegistro());
 
 			
 			spq.execute();

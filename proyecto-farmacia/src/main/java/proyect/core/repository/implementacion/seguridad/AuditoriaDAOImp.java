@@ -55,8 +55,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		List<AuditoriaBean> lstAuditoriaBean = new ArrayList<AuditoriaBean>();
 		List<Auditoria> lstEntity = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbc_auditoria.listar");
-			spq.setParameter("p_codusuari", auditoriaBean.getCodigoUsuarioCreacion());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbc_auditoria.listar"); 
 			spq.setParameter("p_tabla", auditoriaBean.getNomTabla());
 			spq.setParameter("p_nomusuari", auditoriaBean.getNomUsuario());
 			spq.setParameter("p_codperfil", auditoriaBean.getCodPerfil());
@@ -217,10 +216,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 			//bean.setCodigo(entity.getnCodaudit());
 			bean.setNomTabla(entity.getvTabla());
 		//	bean.getTipoAccion().setCodigoRegistro(entity.getnTm1accion());
-			bean.setCodRegistroAud(entity.getnCodregaud()!=null ? entity.getnCodregaud() : 0);
-			bean.setFechaCreacion(entity.getdFecaud());
-		//	bean.setCodigoUsuarioCreacion(entity.getnCodusuaud()!=null ? entity.getnCodusuaud() : 0);
-			bean.setIpCreacion(entity.getvHostaud());
+			bean.setCodRegistroAud(entity.getnCodregaud()!=null ? entity.getnCodregaud() : 0); 
 			bean.setNomUsuario(entity.getV_nomusu_aud());
 			bean.setNomPersonaUsu(entity.getV_nompers_aud());
 		}
@@ -274,11 +270,9 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		AuditoriaAccesoBean bean = null;
 		
 		if(entity!=null){
-			bean = new AuditoriaAccesoBean();
-			bean.setFechaCreacion(entity.getdFecacc());
+			bean = new AuditoriaAccesoBean(); 
 			bean.setCodUsuAcc(entity.getN_codusuari());
-			bean.setNomUsuario(entity.getVnomUsuacc());
-			bean.setIpCreacion(entity.getvHostacc());
+			bean.setNomUsuario(entity.getVnomUsuacc()); 
 			bean.setNomTabla(entity.getV_tabla());
 			bean.setNomPersonaUsu(entity.getV_nomperusu());
 		}

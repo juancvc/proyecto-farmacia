@@ -492,8 +492,8 @@ public static String stripAccents(String str) {
 			usuarioPerfilBean.getUsuario().setCodigoUsuario(usuarioBean.getCodigoUsuario());
 			usuarioPerfilBean.setPerfil(new PerfilBean());
 			usuarioPerfilBean.getPerfil().setCodigoPerfil(usuarioBean.getCodigoPerfil());
-			usuarioPerfilBean.setCodigoUsuarioCreacion(usuarioBean.getCodigoUsuarioCreacion());
-			usuarioPerfilBean.setAudHostIP(usuarioBean.getAudHostIP());
+			usuarioPerfilBean.setIdUsuarioRegistro(usuarioBean.getIdUsuarioRegistro());
+			usuarioPerfilBean.setIpRegistro(usuarioBean.getIpRegistro());
 			
 			sw = usuarioPerfilService.insertar(usuarioPerfilBean);
 			UsuarioBean bean = new UsuarioBean();

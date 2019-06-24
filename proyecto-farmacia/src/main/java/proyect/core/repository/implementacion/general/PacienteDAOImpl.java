@@ -68,9 +68,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("pacienteBean.actualizar");
-			 
-			spq.setParameter("p_hostmod", pacienteBean.getIpCreacion());
-
+			  
 			
 			spq.execute();
 			
@@ -167,8 +165,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("pacienteBean.actualizaruser");
 			
-			spq.setParameter("p_codperso", pacienteBean.getCodigo());  
-			spq.setParameter("p_codusumod", pacienteBean.getCodigoUsuarioModificacion());
+			spq.setParameter("p_codperso", pacienteBean.getCodigo());   
 			spq.setParameter("p_hostmod", pacienteBean.getIpModificacion());
 
 			
@@ -193,8 +190,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("pacienteBean.actualizarfotouser");
 			
-			spq.setParameter("p_codperso", pacienteBean.getCodigo()); 
-			spq.setParameter("p_codusumod", pacienteBean.getCodigoUsuarioModificacion());
+			spq.setParameter("p_codperso", pacienteBean.getCodigo());  
 			spq.setParameter("p_hostmod", pacienteBean.getIpModificacion());
 
 			

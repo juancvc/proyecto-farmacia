@@ -76,13 +76,13 @@ public class BaseController {
 	
 	private void setAuditoriaLocal(BaseBean baseBean,String iddUsuario,HttpServletRequest request,boolean swInsert){
 		if (swInsert) {
-			baseBean.setCodigoUsuarioCreacion(iddUsuario);
-			baseBean.setNombreUsuarioCreacion(nombreUser);
-			baseBean.setIpCreacion(NetUtil.getClientIpAddr(request));			
+			baseBean.setIdUsuarioRegistro(iddUsuario);
+			baseBean.setUsuarioRegistro(nombreUser);
+			baseBean.setIpRegistro(NetUtil.getClientIpAddr(request));			
 			
 		} else {
-			baseBean.setCodigoUsuarioModificacion(iddUsuario);
-			baseBean.setNombreUsuarioCreacion(nombreUser);
+			baseBean.setIdUsuarioModificacion(iddUsuario);
+			baseBean.setUsuarioModificacion(nombreUser);
 			baseBean.setIpModificacion(NetUtil.getClientIpAddr(request));			
 		}
 

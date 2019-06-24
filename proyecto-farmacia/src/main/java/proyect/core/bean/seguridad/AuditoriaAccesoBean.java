@@ -56,9 +56,9 @@ public class AuditoriaAccesoBean extends BaseBean{
 	}
 
 	public String getStrFechaHoraAcc() {
-		if (this.fechaCreacion!=null) {
+		if (this.fechaRegistro!=null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			this.strFechaHoraAcc = sdf.format(this.fechaCreacion);
+			this.strFechaHoraAcc = sdf.format(this.fechaRegistro);
 		}
 		return strFechaHoraAcc;
 	}
@@ -69,7 +69,7 @@ public class AuditoriaAccesoBean extends BaseBean{
 		try {
 			if ( (this.strFechaHoraAcc != null) && (this.strFechaHoraAcc.trim().length() > 0) ) {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				this.fechaCreacion = sdf.parse(this.strFechaHoraAcc);
+				this.fechaRegistro = sdf.parse(this.strFechaHoraAcc);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

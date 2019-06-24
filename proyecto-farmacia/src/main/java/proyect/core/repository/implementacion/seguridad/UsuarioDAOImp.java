@@ -44,9 +44,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
             spq.setParameter("CODPERSO", t.getPersona()!=null? t.getPersona().getCodigo():null);
             spq.setParameter("CODIPERF", t.getPerfil().getCodigo());
             spq.setParameter("EMAIL", 	 t.getPersona().getCorreo());   
-            spq.setParameter("NUMECELU", t.getPersona().getTelfCelu());   
-            spq.setParameter("AUCDUSCR", t.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR", t.getIpCreacion());
+            spq.setParameter("NUMECELU", t.getPersona().getTelfCelu());    ;
 
 	        
 	        spq.execute();
@@ -83,8 +81,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 	            
 	            spq.setParameter("CODIPERF", t.getPerfil().getCodigo()); 
 	            spq.setParameter("EMAIL", 	 t.getCorreo());   
-	            spq.setParameter("NUMECELU", t.getNroCelular());   
-	            spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
+	            spq.setParameter("NUMECELU", t.getNroCelular());    
 				spq.setParameter("AUPCIPMO", t.getIpModificacion());
 	        
 	        spq.execute();
@@ -108,8 +105,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.eliminar");
 			spq.setParameter("CODUSUAR", t.getCodigo());
-		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());        
-            spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
+		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());         
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 	        spq.execute();
 			sw=true;
@@ -207,8 +203,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.setCodigo(entity.getIdUsuario());
 			bean.setCodigoUsuario(entity.getIdUsuario()); 
 			bean.setNombreUsuario(entity.getUsuario());
-			bean.setPasswordUsuario(entity.getClave());
-			bean.setEstado(entity.getFglgest());
+			bean.setPasswordUsuario(entity.getClave()); 
 			bean.setFlgRestPass(entity.getvFlgrestpas());
 			bean.setPersona(new PersonaBean()); 
 			bean.getPersona().setCodigo(entity.getIdPersona()); 
@@ -235,8 +230,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.resetpass");
 			spq.setParameter("CODUSUAR", t.getCodigo());
 		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());   
-            spq.setParameter("PSWUSUAR", t.getNewPassword()); 
-            spq.setParameter("AUCDUSMO", t.getCodigoUsuarioModificacion());
+            spq.setParameter("PSWUSUAR", t.getNewPassword());  
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 	        
 	        spq.execute();
