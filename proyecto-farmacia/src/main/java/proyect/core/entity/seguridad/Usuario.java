@@ -3,7 +3,6 @@ package proyect.core.entity.seguridad;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
@@ -18,8 +17,8 @@ import javax.persistence.StoredProcedureParameter;
 					resultClasses= Usuario.class,
 					parameters={
 							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CLAVE", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class)
 						}					
 				),
 				@NamedStoredProcedureQuery(
@@ -28,7 +27,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=Long.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario", type=Long.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
@@ -41,7 +40,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=Long.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=Long.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -55,7 +54,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Usuario.class,
 						parameters={
 									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
@@ -65,51 +64,39 @@ import javax.persistence.StoredProcedureParameter;
 				
 				@NamedStoredProcedureQuery(
 						name="usuario.insert", 
-						procedureName="SP_USUARIO_INSERTAR",
+						procedureName="[dbo].[usp_Usuario_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_USUARIO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="USUARIO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CLAVE", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERFIL", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-									
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idUsuario", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=int.class),
+									/*
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class)*/
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="usuario.update", 
-						procedureName="[Farmacia].[dbo].[SP_USUARIO_ACTUALIZAR]",
+						procedureName="[dbo].[usp_Usuario_actualizar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERFIL", type=int.class),
 									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario", 		  type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", 			  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 			  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 		  type=String.class)
 
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="usuario.delete", 
-						procedureName="[Farmacia].[dbo].[SP_USUARIO_ELIMINAR]",
+						procedureName="[dbo].[usp_Usuario_eliminar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class)
+									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion",   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -142,8 +129,8 @@ import javax.persistence.StoredProcedureParameter;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CLAVE", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class),
 									
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
