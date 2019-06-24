@@ -45,49 +45,32 @@ import javax.persistence.Table;
 				
 				@NamedStoredProcedureQuery(
 						name="almacen.update", 
-						procedureName="SP_ALMACEN_ACTUALIZAR",
+						procedureName="[dbo].[usp_Almacen_actualizar]",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ALIAS", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_MINSA", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 		  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreAlmacen", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion",   	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="alias", 			  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
 										
 				),
 				@NamedStoredProcedureQuery(
 						name="almacen.delete", 
-						procedureName="SP_ALMACEN_ELIMINAR",
+						procedureName="[dbo].[usp_Almacen_eliminar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 			 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipModificacion", 	 type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="almacen.buscarTodos", 
-						procedureName="SP_ALMACEN_BUSCAR_TODOS",
+						procedureName="[dbo].[usp_Almacen_buscarTodos]",
 						resultClasses= Almacen.class,
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+							
 							}				
 					),
 				@NamedStoredProcedureQuery(
@@ -95,7 +78,7 @@ import javax.persistence.Table;
 						procedureName="SP_ALMACEN_EXP_DBF",
 						resultClasses= Almacen.class,
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )

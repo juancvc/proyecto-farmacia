@@ -17,56 +17,38 @@ import proyect.core.entity.stock.Stock;
 				
 				@NamedStoredProcedureQuery(
 						name="inventario.insert", 
-						procedureName="SP_INVENTARIO_INSERTAR",
+						procedureName="[dbo].[usp_Inventario_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_INVENTARIO", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_MES", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_FARMACIA", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="CANT_ITEMS", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="CADENA_CANTIDAD", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="COD_PERSONAL_RESPONSABLE", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									//@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_NRO_PERIODO_STOCK", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_STOCK", type=String.class),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idInventario", 			type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idFarmacia",   		    type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems", 		type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersonalResponsable", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fecha", 				type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="inventario.buscarXNroDocumento", 
-						procedureName="SP_INVENTARIO_BUSCAR_X_NRO_DOCUMENTO",
+						procedureName="[dbo].[usp_Inventario_buscarxNroDocumento]",
 						resultClasses = Inventario.class,
 						parameters={
-							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+						
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=Integer.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nroDocumento", type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="inventario.insertHistorico", 
-						procedureName="SP_INVENTARIO_INSERTAR_HISTORICO",
+						procedureName="[dbo].[usp_Inventario_insertarHistorico]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_FARMACIA", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Integer.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idFarmacia", type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipRegistro", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroDocumento", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioRegistro", type=Integer.class )
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -74,7 +56,7 @@ import proyect.core.entity.stock.Stock;
 						procedureName="[dbo].[SP_INVENTARIO_VALIDAR_EXISTE]",
 						resultClasses = Inventario.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -87,7 +69,7 @@ import proyect.core.entity.stock.Stock;
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
 						resultClasses = Inventario.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -101,22 +83,22 @@ import proyect.core.entity.stock.Stock;
 @Entity
 public class Inventario  {
 	@Id
-	@Column(name="ID_INVENTARIO")
+	@Column(name="idInventario")
 	private String idInventario;
 
-	@Column(name="ID_ALMACEN")
+	@Column(name="idAlmacen")
 	private String idAlmacen;
 	 
-	@Column(name="COD_PERSONAL_RESPONSABLE")
+	@Column(name="idPersonalResponsable")
 	private String idPersonalResponsable;
 	 
 	@Column(name="ID_STOCK")
 	private String idStock;
 	
-	@Column(name="FECHA")
+	@Column(name="fecha")
 	private String fecha;
 
-	@Column(name="NRO_DOC")
+	@Column(name="nroDocumento")
 	private String nroDocumento;
 	
 	@Column(name="CANTIDAD")
