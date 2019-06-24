@@ -17,7 +17,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Proveedor.class,
 						parameters={
 					
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", type=Integer.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", type=String.class)
 							}					
 					),
 
@@ -28,7 +28,7 @@ import javax.persistence.StoredProcedureParameter;
 						parameters={
 					
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 	  type=String.class)
 							}	
 				),
 				
@@ -36,7 +36,7 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.insert", 
 						procedureName="SP_PROVEEDOR_INSERTAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idProveedor", type=Integer.class ),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idProveedor", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -56,7 +56,7 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.update", 
 						procedureName="SP_PROVEEDOR_ACTUALIZAR",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=Integer.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -64,7 +64,7 @@ import javax.persistence.StoredProcedureParameter;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
@@ -77,11 +77,11 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.delete", 
 						procedureName="SP_PROVEEDOR_ELIMINAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=Integer.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=int.class),

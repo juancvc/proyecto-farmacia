@@ -16,96 +16,76 @@ import javax.persistence.StoredProcedureParameter;
 				
 				@NamedStoredProcedureQuery(
 						name="devolucion.buscarxid", 
-						procedureName="SP_DEVOLUCION_BUSCAR_X_ID",
+						procedureName="[dbo].[usp_Devolucion_buscarxID]",
 						resultClasses= Devolucion.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_DEVOLUCION", type=Long.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+								
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idDevolucion", type=Long.class)
 							}					
 					),
 				
 				@NamedStoredProcedureQuery(
 						name="devolucion.buscarTodos", 
-						procedureName="SP_DEVOLUCION_BUSCAR_TODOS",
+						procedureName="[dbo].[usp_Devolucion_buscarTodos]",
 						resultClasses= Devolucion.class
 					/*	parameters={
-									@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class )
+								
 							}	*/				
 					),
 					
 				@NamedStoredProcedureQuery(
 						name="devolucion.listar", 
-						procedureName="SP_DEVOLUCION_BUSCAR_X_CRITERIOS",
+						procedureName="[dbo].[usp_Devolucion_buscarxCriterios]",
 						resultClasses= Devolucion.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_INICIO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_FIN", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_MOTIVO", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idMotivoDevolucionCat02", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaInicio", 			 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaFin", 				 type=String.class )
 
 							}	
 				),
 				
 				@NamedStoredProcedureQuery(
 						name="devolucion.insert", 
-						procedureName="SP_DEVOLUCION_INSERTAR",
+						procedureName="[dbo].[usp_Devolucion_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_DEVOLUCION", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idDevolucion", 			  type=String.class ),
 									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVentaItem", 			  type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroPeriodoVentaItem", 	  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDevolucion", 		  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idMotivoDevolucionCat02", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadDevuelta", 		  type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		  type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			  type=String.class)
+									
+									
 							}					
 				),
 				
 				@NamedStoredProcedureQuery(
 						name="devolucion.update", 
-						procedureName="SP_DEVOLUCION_ACTUALIZAR",
+						procedureName="[dbo].[usp_Devolucion_actualizar]",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_DEVOLUCION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_LARGO", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idDevolucion", 				type=String.class ),				
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVentaItem", 				type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroPeriodoVentaItem", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDevolucion", 			type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idMotivoDevolucionCat02",   type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadDevuelta", 			type=int.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 		type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 			type=String.class)
 								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
 						}					
 										
 				),
 				@NamedStoredProcedureQuery(
 						name="devolucion.delete", 
-						procedureName="SP_DEVOLUCION_ELIMINAR",
+						procedureName="[dbo].[usp_Devolucion_eliminar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_DEVOLUCION", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idDevolucion", 		 type=String.class ),						
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipModificacion",      type=String.class)
 							}					
 				)
 		

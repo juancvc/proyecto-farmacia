@@ -17,7 +17,7 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[dbo].[usp_Laboratorio_buscarxID]",
 						resultClasses= Laboratorio.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idLaboratorio", type=Long.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idLaboratorio",    type=String.class)
 							}					
 					),
 				@NamedStoredProcedureQuery(
@@ -26,7 +26,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Laboratorio.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreLaboratorio", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 	    type=String.class)
 							}	
 				),
 				
@@ -44,22 +44,22 @@ import javax.persistence.StoredProcedureParameter;
 						name="laboratorio.insert", 
 						procedureName="[dbo].[usp_Laboratorio_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idLaboratorio", type=Long.class ),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idLaboratorio", 	type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreLaboratorio", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioRegistro", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 	    type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="laboratorio.update", 
 						procedureName="[dbo].[usp_Laboratorio_actualizar]",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="idLaboratorio", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreLaboratorio", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idLaboratorio", 		  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreLaboratorio",   type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 		  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion",  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
 										
 				),
@@ -67,7 +67,7 @@ import javax.persistence.StoredProcedureParameter;
 						name="laboratorio.delete", 
 						procedureName="[dbo].[usp_Laboratorio_eliminar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idLaboratorio", type=Long.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idLaboratorio", type=String.class )
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -75,7 +75,7 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="dbo.SP_PRESENTACION_VALIDAR",
 						resultClasses= Laboratorio.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN,name="idLaboratorio", type=int.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,name="idLaboratorio", 	  type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,name="nombreLaboratorio", type=String.class )
 							}				
 					)				

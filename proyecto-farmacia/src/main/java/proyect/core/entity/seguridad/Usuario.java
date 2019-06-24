@@ -69,7 +69,7 @@ import javax.persistence.StoredProcedureParameter;
 									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idUsuario", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", 	type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=String.class),
 									/*
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class)*/
@@ -105,8 +105,8 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Usuario.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreUsuario", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	type=String.class)
 							}					
 					),
 					@NamedStoredProcedureQuery(
@@ -116,9 +116,9 @@ import javax.persistence.StoredProcedureParameter;
 							parameters={
 									
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),				
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=int.class)
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION",  type=int.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", 		  type=int.class),				
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", 	  type=int.class)
 								}					
 					 ),
 					@NamedStoredProcedureQuery(
