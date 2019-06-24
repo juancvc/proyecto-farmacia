@@ -24,6 +24,12 @@
   <link href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<style>
+.form-control-combo{font-size:13px;border-radius:10rem; padding:0rem 1rem}
+
+
+</style>
+
 
 <body class="bg-gradient-primary">
 
@@ -51,23 +57,38 @@
 					action="${pageContext.request.contextPath}/inicioController/controlAcceso"> 
                     <div class="form-group">
                       <f:input  id="textUsuario"
-							path="nombreUsuario" type="text" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Ingrese usuario..."/>
+							path="nombreUsuario" type="text" class="form-control form-control-user" 
+							aria-describedby="emailHelp" placeholder="Ingrese usuario..."/>
                     </div>
                     <div class="form-group">
                       <f:input type="password" class="form-control form-control-user" id="textPassword" path="contrasena"
 							placeholder="Password"/>
                     </div>
+                   <div class="form-group">
+						<f:select id="almacen"
+							path="almacen.codigo" class="form-control form-control-combo"
+							required="required">
+							<f:option value="" label="Seleccione Almacén" selected="true"
+								disabled="disabled" />
+							<f:options items="${lstAlmacenBean}" itemValue="codigo"
+								itemLabel="nombreAlmacen" />
+						</f:select>
+					</div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
                         <label class="custom-control-label" for="customCheck">Recordarme</label>
                       </div>
                     </div>
+                    <div class="form-group">
+					<input class="form-control" type="text" disabled="true" id="msgErrorLogin" value="${msgErrorLogin}"
+						style="background-color:LightPink ; display: none !important;">
+					</div>	
                    <button id="btnIniciarSesion" type="submit"
 						class="btn btn-primary btn-user btn-block"> Login
 					</button> 
                  	</f:form>
-                  <hr>
+          
                   <!-- 
                   
                    <div class="text-center">
