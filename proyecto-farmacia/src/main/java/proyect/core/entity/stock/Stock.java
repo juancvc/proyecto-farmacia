@@ -171,7 +171,8 @@ import javax.persistence.Table;
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="stock", type=Integer.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaVencimiento", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="REGISTRO_SANITARIO", type=String.class)
-						}					
+						}	
+						
 										
 				),
 				@NamedStoredProcedureQuery(

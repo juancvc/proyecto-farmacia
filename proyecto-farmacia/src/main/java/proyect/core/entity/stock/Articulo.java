@@ -167,7 +167,8 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[dbo].[SP_ARTICULO_A_VENCERSE]",
 						resultClasses = Articulo.class,
 						parameters={
-									
+								
+								
 							}					
 				),
 				@NamedStoredProcedureQuery(

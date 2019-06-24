@@ -27,7 +27,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Usuario.class,
 						parameters={
 								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario", type=Long.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario",  type=Long.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )

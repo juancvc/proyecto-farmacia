@@ -17,6 +17,7 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[dbo].[usp_Laboratorio_buscarxID]",
 						resultClasses= Laboratorio.class,
 						parameters={
+								
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idLaboratorio",    type=String.class)
 							}					
 					),
