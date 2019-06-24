@@ -3,72 +3,35 @@ package proyect.core.entity.venta;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- * The primary key class for the VENTA_ITEM database table.
- * 
- */
 @Embeddable
 public class VentaItemPK implements Serializable {
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="ID_ORGANIZACION_VENTA_ITEM")
-	private int idOrganizacionVentaItem;
+	@Column(name="numeroPeriodo")
+	private int numeroPeriodo;
 
-	@Column(name="ID_INSTITUCION_VENTA_ITEM")
-	private int idInstitucionVentaItem;
-
-	@Column(name="ID_SEDE_VENTA_ITEM")
-	private int idSedeVentaItem;
-
-	@Column(name="NRO_VERSION_VENTA_ITEM")
-	private int nroVersionVentaItem;
-
-	@Column(name="NRO_PERIODO_VENTA_ITEM")
-	private int nroPeriodoVentaItem;
-
-	@Column(name="ID_VENTAITEM")
-	private int idVentaitem;
+	@Column(name="idVentaitem")
+	private String idVentaitem;
  
+
+	public int getNumeroPeriodo() {
+		return numeroPeriodo;
+	}
+
+	public void setNumeroPeriodo(int numeroPeriodo) {
+		this.numeroPeriodo = numeroPeriodo;
+	}
+
+	public String getIdVentaitem() {
+		return this.idVentaitem;
+	}
+	public void setIdVentaitem(String idVentaitem) {
+		this.idVentaitem = idVentaitem;
+	} 
 
 	public VentaItemPK() {
 	}
-	public int getIdOrganizacionVentaItem() {
-		return this.idOrganizacionVentaItem;
-	}
-	public void setIdOrganizacionVentaItem(int idOrganizacionVentaItem) {
-		this.idOrganizacionVentaItem = idOrganizacionVentaItem;
-	}
-	public int getIdInstitucionVentaItem() {
-		return this.idInstitucionVentaItem;
-	}
-	public void setIdInstitucionVentaItem(int idInstitucionVentaItem) {
-		this.idInstitucionVentaItem = idInstitucionVentaItem;
-	}
-	public int getIdSedeVentaItem() {
-		return this.idSedeVentaItem;
-	}
-	public void setIdSedeVentaItem(int idSedeVentaItem) {
-		this.idSedeVentaItem = idSedeVentaItem;
-	}
-	public int getNroVersionVentaItem() {
-		return this.nroVersionVentaItem;
-	}
-	public void setNroVersionVentaItem(int nroVersionVentaItem) {
-		this.nroVersionVentaItem = nroVersionVentaItem;
-	}
-	public int getNroPeriodoVentaItem() {
-		return this.nroPeriodoVentaItem;
-	}
-	public void setNroPeriodoVentaItem(int nroPeriodoVentaItem) {
-		this.nroPeriodoVentaItem = nroPeriodoVentaItem;
-	}
-	public int getIdVentaitem() {
-		return this.idVentaitem;
-	}
-	public void setIdVentaitem(int idVentaitem) {
-		this.idVentaitem = idVentaitem;
-	} 
+	 
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -78,32 +41,22 @@ public class VentaItemPK implements Serializable {
 		}
 		VentaItemPK castOther = (VentaItemPK)other;
 		return 
-			(this.idOrganizacionVentaItem == castOther.idOrganizacionVentaItem)
-			&& (this.idInstitucionVentaItem == castOther.idInstitucionVentaItem)
-			&& (this.idSedeVentaItem == castOther.idSedeVentaItem)
-			&& (this.nroVersionVentaItem == castOther.nroVersionVentaItem)
-			&& (this.nroPeriodoVentaItem == castOther.nroPeriodoVentaItem)
+			 (this.numeroPeriodo == castOther.numeroPeriodo)
 			&& (this.idVentaitem == castOther.idVentaitem); 
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.idOrganizacionVentaItem;
-		hash = hash * prime + this.idInstitucionVentaItem;
-		hash = hash * prime + this.idSedeVentaItem;
-		hash = hash * prime + this.nroVersionVentaItem;
-		hash = hash * prime + this.nroPeriodoVentaItem;
-		hash = hash * prime + this.idVentaitem; 
+		hash = hash * prime + this.numeroPeriodo;
+		hash = hash * prime + this.idVentaitem.hashCode(); 
 		
 		return hash;
 	}
+
 	@Override
 	public String toString() {
-		return "VentaItemPK [idOrganizacionVentaItem=" + idOrganizacionVentaItem + ", idInstitucionVentaItem="
-				+ idInstitucionVentaItem + ", idSedeVentaItem=" + idSedeVentaItem + ", nroVersionVentaItem="
-				+ nroVersionVentaItem + ", nroPeriodoVentaItem=" + nroPeriodoVentaItem + ", idVentaitem=" + idVentaitem
-				+ "]";
+		return "VentaItemPK [numeroPeriodo=" + numeroPeriodo + ", idVentaitem=" + idVentaitem + "]";
 	}
 	
 }

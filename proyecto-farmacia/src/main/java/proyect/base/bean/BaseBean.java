@@ -15,6 +15,7 @@ public class BaseBean {
 	
 	protected CatalogoBean situacion;
 	protected String estado;
+	private boolean activo;
 	protected String audTipo;
 	protected String audSession;
 	
@@ -41,6 +42,19 @@ public class BaseBean {
 	protected String codigoPerfilUsuarioSession;
 	
 	protected boolean valValid;
+
+	private String usuarioModificacion;
+
+	private String usuarioRegistro;
+	
+	
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 
 	public CatalogoBean getSituacion() {
 		if (situacion == null) {

@@ -216,6 +216,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
 			bean.getPersona().setNombres(entity.getNombres()); 
 			bean.setFlgRestPass(entity.getvFlgrestpas()); 
+			
 		}
 		return bean;
 	}

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 						procedureName="[usp_Almacen_buscarxID]",
 						resultClasses= Almacen.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=Integer.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=String.class)
 							}					
 					),
 				@NamedStoredProcedureQuery(

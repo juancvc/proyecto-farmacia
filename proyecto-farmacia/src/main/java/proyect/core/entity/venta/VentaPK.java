@@ -9,63 +9,31 @@ import javax.persistence.*;
  */
 @Embeddable
 public class VentaPK implements Serializable {
-	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="ID_ORGANIZACION_VENTA")
-	private int idOrganizacionVenta;
+	@Column(name="numeroPeriodo")
+	private String numeroPeriodo;
 
-	@Column(name="ID_INSTITUCION_VENTA")
-	private int idInstitucionVenta;
-
-	@Column(name="ID_SEDE_VENTA")
-	private int idSedeVenta;
-
-	@Column(name="NRO_VERSION_VENTA")
-	private int nroVersionVenta;
-
-	@Column(name="NRO_PERIODO_VENTA")
-	private int nroPeriodoVenta;
-
-	@Column(name="ID_VENTA")
-	private int idVenta;
+	@Column(name="idVenta")
+	private String idVenta;
 
 	public VentaPK() {
 	}
-	public int getIdOrganizacionVenta() {
-		return this.idOrganizacionVenta;
+	 
+
+	public String getNumeroPeriodo() {
+		return numeroPeriodo;
 	}
-	public void setIdOrganizacionVenta(int idOrganizacionVenta) {
-		this.idOrganizacionVenta = idOrganizacionVenta;
+
+	public void setNumeroPeriodo(String numeroPeriodo) {
+		this.numeroPeriodo = numeroPeriodo;
 	}
-	public int getIdInstitucionVenta() {
-		return this.idInstitucionVenta;
+
+	public String getIdVenta() {
+		return idVenta;
 	}
-	public void setIdInstitucionVenta(int idInstitucionVenta) {
-		this.idInstitucionVenta = idInstitucionVenta;
-	}
-	public int getIdSedeVenta() {
-		return this.idSedeVenta;
-	}
-	public void setIdSedeVenta(int idSedeVenta) {
-		this.idSedeVenta = idSedeVenta;
-	}
-	public int getNroVersionVenta() {
-		return this.nroVersionVenta;
-	}
-	public void setNroVersionVenta(int nroVersionVenta) {
-		this.nroVersionVenta = nroVersionVenta;
-	}
-	public int getNroPeriodoVenta() {
-		return this.nroPeriodoVenta;
-	}
-	public void setNroPeriodoVenta(int nroPeriodoVenta) {
-		this.nroPeriodoVenta = nroPeriodoVenta;
-	}
-	public int getIdVenta() {
-		return this.idVenta;
-	}
-	public void setIdVenta(int idVenta) {
+
+	public void setIdVenta(String idVenta) {
 		this.idVenta = idVenta;
 	}
 
@@ -78,32 +46,23 @@ public class VentaPK implements Serializable {
 		}
 		VentaPK castOther = (VentaPK)other;
 		return 
-			(this.idOrganizacionVenta == castOther.idOrganizacionVenta)
-			&& (this.idInstitucionVenta == castOther.idInstitucionVenta)
-			&& (this.idSedeVenta == castOther.idSedeVenta)
-			&& (this.nroVersionVenta == castOther.nroVersionVenta)
-			&& (this.nroPeriodoVenta == castOther.nroPeriodoVenta)
+				(this.numeroPeriodo == castOther.numeroPeriodo)
 			&& (this.idVenta == castOther.idVenta);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.idOrganizacionVenta;
-		hash = hash * prime + this.idInstitucionVenta;
-		hash = hash * prime + this.idSedeVenta;
-		hash = hash * prime + this.nroVersionVenta;
-		hash = hash * prime + this.nroPeriodoVenta;
-		hash = hash * prime + this.idVenta;
+		hash = hash * prime + this.numeroPeriodo.hashCode();
+		hash = hash * prime + this.idVenta.hashCode();
 		
 		return hash;
 	}
+
+
 	@Override
 	public String toString() {
-		return "VentaPK [idOrganizacionVenta=" + idOrganizacionVenta + ", idInstitucionVenta=" + idInstitucionVenta
-				+ ", idSedeVenta=" + idSedeVenta + ", nroVersionVenta=" + nroVersionVenta + ", nroPeriodoVenta="
-				+ nroPeriodoVenta + ", idVenta=" + idVenta + "]";
+		return "VentaPK [numeroPeriodo=" + numeroPeriodo + ", idVenta=" + idVenta + "]";
 	}
-	
 	
 }

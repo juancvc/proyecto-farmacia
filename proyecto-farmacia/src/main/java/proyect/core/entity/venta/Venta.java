@@ -1,6 +1,8 @@
 package proyect.core.entity.venta;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList; 
 import java.util.List;
 
@@ -363,299 +365,237 @@ public class Venta  implements Serializable {
 
 	@EmbeddedId
 	private VentaPK id;
+	
+	private boolean activo;
 
-	private Float descimp;
+	private Timestamp fechaAtencion;
 
-	private Float descporc;
+	private Timestamp fechaRegistro;
 
-	private String estado;
+	private String hora;
 
-	@Column(name="FECHA_ATENCION")
-	private String fechaAtencion;
+	private String idAlmacen;
 
-	@Column(name="FECHA_REGISTRO")
-	private String fechaRegistro;
+	private String idEvento;
 
-	private String observacion;
+	private String idModalidadPago;
 
-	private Float subtotal;
-
-	private Float total;
- 
-	@Column(name="ID_PERSONA")
 	private String idPersona;
+
+	private String idRegistroOperacion;
+
+	private String idSituacion;
+
+	private String idTipoMoneda;
+
+	private String idTipoSeguro;
+
+	private String idTurno;
+
+	private float importe;
+
+	private String ipRegistro;
+
+	private String macRegistro;
+
+	private String registroSesion;
+
+	private String usuarioRegistro;
 	
-	@Column(name="ID_TIPO_MONEDA")
-	private String tipoMoneda;
- 
-	@Column(name="ID_TURNO")
-	private String turno;
-	
-	@OneToMany(mappedBy="venta")
-	private List<VentaItem> ventaItems;
-	 
-	@Column(name="ID_ALMACEN")
-	private String almacen;
-	
-	private String fechaInicio;
-	
-	private String fechaTermino;
-	
-//	private EventoPersona eventoPersona;
-	
-	private String mes;
-	private String anio;
-	
-    private 	List<Venta> lstVentasVO ;
-  //  private 	List<Almacen> lstAlmacen ;
-    
-    private 	String		  nroFUA;
-	 
-    private String preescriptor;
-    private String responsable;
-    
-    @Column(name="NRO_RECETA")
-    private String numeroReceta;
-    
-    @Column(name="COD_DIAGNOSTICO")
-    private String  codDiagnostico;
-    
-    @Column(name="TIPO_VENTA")
-    private int tipoVenta;
-    
-    private String idPrograma;
-    private String idSubPrograma;
-    private String tipoPacienteHospitalizado;
     
 	public Venta() { 
 	}
+
 
 	public VentaPK getId() {
 		return id;
 	}
 
+
 	public void setId(VentaPK id) {
 		this.id = id;
 	}
 
-	public Float getDescimp() {
-		return descimp;
+
+	public boolean isActivo() {
+		return activo;
 	}
 
-	public void setDescimp(Float descimp) {
-		this.descimp = descimp;
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 
-	public Float getDescporc() {
-		return descporc;
-	}
 
-	public void setDescporc(Float descporc) {
-		this.descporc = descporc;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getFechaAtencion() {
+	public Timestamp getFechaAtencion() {
 		return fechaAtencion;
 	}
 
-	public void setFechaAtencion(String fechaAtencion) {
+
+	public void setFechaAtencion(Timestamp fechaAtencion) {
 		this.fechaAtencion = fechaAtencion;
 	}
 
-	public String getFechaRegistro() {
+
+	public Timestamp getFechaRegistro() {
 		return fechaRegistro;
 	}
 
-	public void setFechaRegistro(String fechaRegistro) {
+
+	public void setFechaRegistro(Timestamp fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public String getObservacion() {
-		return observacion;
+
+	public String getHora() {
+		return hora;
 	}
 
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
-	public Float getSubtotal() {
-		return subtotal;
+
+	public String getIdAlmacen() {
+		return idAlmacen;
 	}
 
-	public void setSubtotal(Float subtotal) {
-		this.subtotal = subtotal;
+
+	public void setIdAlmacen(String idAlmacen) {
+		this.idAlmacen = idAlmacen;
 	}
 
-	public Float getTotal() {
-		return total;
+
+	public String getIdEvento() {
+		return idEvento;
 	}
 
-	public void setTotal(Float total) {
-		this.total = total;
+
+	public void setIdEvento(String idEvento) {
+		this.idEvento = idEvento;
 	}
+
+
+	public String getIdModalidadPago() {
+		return idModalidadPago;
+	}
+
+
+	public void setIdModalidadPago(String idModalidadPago) {
+		this.idModalidadPago = idModalidadPago;
+	}
+
 
 	public String getIdPersona() {
 		return idPersona;
 	}
 
+
 	public void setIdPersona(String idPersona) {
 		this.idPersona = idPersona;
 	}
 
-	public String getTipoMoneda() {
-		return tipoMoneda;
+
+	public String getIdRegistroOperacion() {
+		return idRegistroOperacion;
 	}
 
-	public void setTipoMoneda(String tipoMoneda) {
-		this.tipoMoneda = tipoMoneda;
+
+	public void setIdRegistroOperacion(String idRegistroOperacion) {
+		this.idRegistroOperacion = idRegistroOperacion;
 	}
 
-	public String getTurno() {
-		return turno;
+
+	public String getIdSituacion() {
+		return idSituacion;
 	}
 
-	public void setTurno(String turno) {
-		this.turno = turno;
+
+	public void setIdSituacion(String idSituacion) {
+		this.idSituacion = idSituacion;
 	}
 
-	public List<VentaItem> getVentaItems() {
-		return ventaItems;
+
+	public String getIdTipoMoneda() {
+		return idTipoMoneda;
 	}
 
-	public void setVentaItems(List<VentaItem> ventaItems) {
-		this.ventaItems = ventaItems;
+
+	public void setIdTipoMoneda(String idTipoMoneda) {
+		this.idTipoMoneda = idTipoMoneda;
 	}
 
-	public String getAlmacen() {
-		return almacen;
+
+	public String getIdTipoSeguro() {
+		return idTipoSeguro;
 	}
 
-	public void setAlmacen(String almacen) {
-		this.almacen = almacen;
+
+	public void setIdTipoSeguro(String idTipoSeguro) {
+		this.idTipoSeguro = idTipoSeguro;
 	}
 
-	public String getFechaInicio() {
-		return fechaInicio;
+
+	public String getIdTurno() {
+		return idTurno;
 	}
 
-	public void setFechaInicio(String fechaInicio) {
-		this.fechaInicio = fechaInicio;
+
+	public void setIdTurno(String idTurno) {
+		this.idTurno = idTurno;
 	}
 
-	public String getFechaTermino() {
-		return fechaTermino;
+
+	public float getImporte() {
+		return importe;
 	}
 
-	public void setFechaTermino(String fechaTermino) {
-		this.fechaTermino = fechaTermino;
+
+	public void setImporte(float importe) {
+		this.importe = importe;
 	}
 
-	public String getMes() {
-		return mes;
+
+	public String getIpRegistro() {
+		return ipRegistro;
 	}
 
-	public void setMes(String mes) {
-		this.mes = mes;
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
 	}
 
-	public String getAnio() {
-		return anio;
+
+	public String getMacRegistro() {
+		return macRegistro;
 	}
 
-	public void setAnio(String anio) {
-		this.anio = anio;
+
+	public void setMacRegistro(String macRegistro) {
+		this.macRegistro = macRegistro;
 	}
 
-	public List<Venta> getLstVentasVO() {
-		return lstVentasVO;
+
+	public String getRegistroSesion() {
+		return registroSesion;
 	}
 
-	public void setLstVentasVO(List<Venta> lstVentasVO) {
-		this.lstVentasVO = lstVentasVO;
+
+	public void setRegistroSesion(String registroSesion) {
+		this.registroSesion = registroSesion;
 	}
 
-	public String getNroFUA() {
-		return nroFUA;
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
 	}
 
-	public void setNroFUA(String nroFUA) {
-		this.nroFUA = nroFUA;
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
 	}
 
-	public String getPreescriptor() {
-		return preescriptor;
-	}
 
-	public void setPreescriptor(String preescriptor) {
-		this.preescriptor = preescriptor;
-	}
-
-	public String getResponsable() {
-		return responsable;
-	}
-
-	public void setResponsable(String responsable) {
-		this.responsable = responsable;
-	}
-
-	public String getNumeroReceta() {
-		return numeroReceta;
-	}
-
-	public void setNumeroReceta(String numeroReceta) {
-		this.numeroReceta = numeroReceta;
-	}
-
-	public String getCodDiagnostico() {
-		return codDiagnostico;
-	}
-
-	public void setCodDiagnostico(String codDiagnostico) {
-		this.codDiagnostico = codDiagnostico;
-	}
-
-	public int getTipoVenta() {
-		return tipoVenta;
-	}
-
-	public void setTipoVenta(int tipoVenta) {
-		this.tipoVenta = tipoVenta;
-	}
-
-	public String getIdPrograma() {
-		return idPrograma;
-	}
-
-	public void setIdPrograma(String idPrograma) {
-		this.idPrograma = idPrograma;
-	}
-
-	public String getIdSubPrograma() {
-		return idSubPrograma;
-	}
-
-	public void setIdSubPrograma(String idSubPrograma) {
-		this.idSubPrograma = idSubPrograma;
-	}
-
-	public String getTipoPacienteHospitalizado() {
-		return tipoPacienteHospitalizado;
-	}
-
-	public void setTipoPacienteHospitalizado(String tipoPacienteHospitalizado) {
-		this.tipoPacienteHospitalizado = tipoPacienteHospitalizado;
-	}
-
- 
-
- 
  
 }

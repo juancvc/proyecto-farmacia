@@ -113,6 +113,7 @@ public class AlmacenDAOImpl implements AlmacenDAO {
 		List<Almacen> lstAlmacen = null;	
 	   AlmacenBean lstAlmacenBean = null;
 		
+	   System.out.println("almacen.getCodigo() " + almacen.getCodigo());
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.buscarPorObjeto");  
 			spq.setParameter("idAlmacen", almacen.getCodigo()); 
 			

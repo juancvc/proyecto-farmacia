@@ -190,12 +190,14 @@ public class InicioController extends BaseController{
 			prmUsuario.setPasswordUsuario(Encrypt.encrypt(prmLogin.getContrasena()));  ; 
 			System.out.println("prmUsuario getPasswordUsuario" + prmUsuario.getPasswordUsuario());
 			prmUsuario.setNombreUsuario(prmLogin.getNombreUsuario());
-			System.out.println("prmLogin.getAlmacen() " + prmLogin.getAlmacen().getCodigo());
+			System.out.println("prmUsuario getAlmacen" + prmLogin.getAlmacen().getCodigo());
+			
 			prmUsuario.setAlmacen(prmLogin.getAlmacen()); 
 			
 			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario);
 			System.out.println("11111");
 			if (oUsuario != null) {
+				oUsuario.setAlmacen(prmLogin.getAlmacen());
 				System.out.println("NombreUsuario "+oUsuario.getNombreUsuario());
 				System.out.println("NombreUsuario persona "+oUsuario.getPersona().getNombreCompleto());
 				System.out.println("Codigo "+oUsuario.getCodigo()); 
@@ -335,7 +337,7 @@ public class InicioController extends BaseController{
 		ModelAndView mav = new ModelAndView("portada", "command", new CatalogoBean());
 		
 	//	ModelAndView mav = new ModelAndView("asistencial/registro-referencia");
-		System.out.println("inicia sistema ");
+		System.out.println("inicia sistema "+ usuario.getAlmacen().getNombreAlmacen());
 		
 		try {
 			
@@ -352,14 +354,13 @@ public class InicioController extends BaseController{
 				filtroAccesoBean.getPerfil().setCodigo(usuario.getCodPerfilUsuSelec()); 
 				
 				 
-				List<AccesoBean> lstAccesoBean =  accesoService.getBuscarPorFiltros(filtroAccesoBean);
+			//	List<AccesoBean> lstAccesoBean =  accesoService.getBuscarPorFiltros(filtroAccesoBean);
 				
 				
-				AccesoMenuVo accesoMenuVo = verificarAccesos(lstAccesoBean);
-				request.getSession().setAttribute("accesoMenu", accesoMenuVo);
-				mav.addObject("accesoMenu", accesoMenuVo);		
-				usuario.setLstAcceso(lstAccesoBean);
-				
+			//	AccesoMenuVo accesoMenuVo = verificarAccesos(lstAccesoBean);
+			//	request.getSession().setAttribute("accesoMenu", accesoMenuVo);
+			//	mav.addObject("accesoMenu", accesoMenuVo);		
+			//	activar usuario.setLstAcceso(lstAccesoBean);
 				
 			}
 			
@@ -370,13 +371,16 @@ public class InicioController extends BaseController{
 				System.out.println("printStackTrace");
 				e.printStackTrace();
 			}
+			AlmacenBean objAlmacen = almacenService.getBuscarPorObjecto(usuario.getAlmacen());
+			usuario.setAlmacen(objAlmacen);
 			this.setUsuarioBean(usuario);	
+			request.getSession().setAttribute("usuarioSesion", usuario);
+			mav.addObject("usuarioSesion", usuario);
 			request.getSession().setAttribute("totalPerfiles", totalPerfiles);
 			mav.addObject("totalPerfiles",totalPerfiles); 
 			mav.addObject("lstSituacion",lstSituacion); 
 			mav.addObject("lstTipoPaciente",lstTipoPaciente);
-			request.getSession().setAttribute("usuarioSesion", usuario);
-			mav.addObject("usuarioSesion", usuario);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
