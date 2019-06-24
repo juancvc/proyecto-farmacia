@@ -7,8 +7,7 @@ public class TurnoBean  extends BaseBean{
 	 
 	private String nombre; 
 	private String horaInicio; 
-	private String horaTermino; 
-	private CatalogoBean tipoTurno;
+	private String horaTermino;  
 	
 	
 	
@@ -30,19 +29,11 @@ public class TurnoBean  extends BaseBean{
 	}
 	public void setHoraTermino(String horaTermino) {
 		this.horaTermino = horaTermino;
-	}
-	public CatalogoBean getTipoTurno() {
-		return tipoTurno;
-	}
-	public void setTipoTurno(CatalogoBean tipoTurno) {
-		this.tipoTurno = tipoTurno;
-	}
+	} 
 	@Override
 	public String toString() {
 		return "TurnoBean [nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaTermino=" + horaTermino
-				+ ", tipoTurno=" + tipoTurno + "]";
-	}
-	 
-	
+				 +"]";
+	} 
 	
 }
