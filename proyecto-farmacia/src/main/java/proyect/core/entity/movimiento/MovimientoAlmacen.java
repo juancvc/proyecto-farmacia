@@ -23,91 +23,52 @@ import proyect.core.entity.stock.Stock;
 		{
 			@NamedStoredProcedureQuery(
 				name="movimientoAlmacen.insert", 
-				procedureName="SP_MOVIMIENTO_ALMACEN_INSERTAR",
+				procedureName="[dbo].[usp_AlmacenMovimiento_insertar]",
 				parameters={
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_MOVIMIENTO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_MOVIMIENTO", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CANTIDAD", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_ALMACEN", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_ALMACEN", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_ALMACEN", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_ALMACEN", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_ALMACEN", type=int.class ),
+							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idMovimiento", 	   		 type=String.class ),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoMovimiento",   	 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidad", 		   		 type=int.class),
 							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_ORIGEN", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_DESTINO", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="NROGUIA", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_NRO_PERIODO_STOCK", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_STOCK", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_CANTIDAD", type=String.class),							
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="VALIDA", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="TIPO_ING_DOCUM", type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_FINANCIADOR", type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_SELECCION", type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_DOCUM_COMPRA", type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="NRO_PERIODO", type=int.class )
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",  		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", 		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 	   		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	   		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroGuia", 		   		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock",    		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",   		 type=String.class),							
+							@StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		   		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoIngresoDocumento",   type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoFinanciadorCat02", type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoSeleccionCat02", 	 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocCompraCat02", 	 type=String.class)
 					}
 					),	
 			@NamedStoredProcedureQuery(
 					name="movimientoAlmacen.insertCompra", 
-					procedureName="[SP_MOVIMIENTO_ALMACEN_INSERTAR_COMPRA]",
+					procedureName="[dbo].[usp_AlmacenMovimiento_insertarCompra]",
 					parameters={
-								@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_MOVIMIENTO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CANTIDAD", type=int.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_ALMACEN", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_ALMACEN", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_ALMACEN", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_ALMACEN", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_ALMACEN", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=int.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NROGUIA", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_ARTICULO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_CANTIDAD", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_LOTE", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_PRECIO_COMPRA", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_PRECIO_VENTA", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_FECHA_VENCIMIENTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_REG_SANITARIO", type=String.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PROVEEDOR", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PROVEEDOR", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PROVEEDOR", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_PROVEEDOR", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_PROVEEDOR", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PROVEEDOR", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_FINANCIADOR", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_SELECCION", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_DOCUM_COMPRA", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=Integer.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="GLOSA", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_ORDEN", type=Timestamp.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALM_ORIGEN", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALM_VIR_ORI", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALM_DESTINO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALM_VIR_DEST", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_CONCEPTO", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idMovimiento", 			 type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidad", 				 type=int.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen",			 	 type=String.class),							
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 			 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroGuia", 				 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdArticulo", 		 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaLote",		     type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPrecioCompra", 	 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPrecioVenta", 	 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaFechaVencimiento", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaRegistroSanitario",type=String.class),
+
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", 			 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoFinanciadorCat02", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoSeleccionCat02",   type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocCompraCat02", 	 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idpersona", 			 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="glosa", 				 type=String.class)
 						}
 						),	
 					@NamedStoredProcedureQuery(
@@ -120,74 +81,53 @@ import proyect.core.entity.stock.Stock;
 					),
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.cargarIngresoTransferencia", 
-							procedureName="SP_MOVIMIENTO_ALMACEN_CARGAR_INGRESO_TRANF",
+							procedureName="[dbo].[usp_AlmacenMovimiento_cargarIngresoTranf]",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_ORIGEN", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_DESTINO", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",  type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento",     type=String.class)
 								}	
 					),
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.buscarXCriterioVO", 
-							procedureName="SP_MOVIMIENTO_ALMACEN_BUSCAR_X_CRITERIOS",
+							procedureName="[dbo].[usp_AlmacenMovimiento_buscarxCriterios]",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_ORIGEN", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_DESTINO", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_MOVIMIENTO", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO", type=int.class )
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 	   type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",  type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoMovimiento", type=String.class)
 								}	
 					),
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listaIngresoTransferencia", 
-							procedureName="SP_MOVIMIENTO_ALMACEN_LISTA_INGRESO_TRANF",
+							procedureName="[dbo].[usp_AlmacenMovimiento_listaIngresoTranf]",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_DESTINO", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", type=String.class)
 								}	
 					),
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.validarExisteNroDocumento", 
-							procedureName="SP_MOVIMIENTO_ALMACEN_VALIDAR_EXITE_NRODOCUM",
+							procedureName="[dbo].[usp_AlmacenMovimiento_validarExisteNroDocumento]",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN_ORIGEN", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_STOCK", type=Integer.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_TIPO_MOVIMIENTO", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 	    type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",   type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idStock", 			type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoMovimiento",  type=String.class)
 								}	
 					),
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listarMovimientoKardexXidStock", 
-							procedureName="SP_MOVIMIENTO_ALMACEN_X_ID_STOCK",
+							procedureName="[dbo].[usp_AlmacenMovimiento_buscarxIdStock]",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_STOCK", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_DESDE", type=Timestamp.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_HASTA", type=Timestamp.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_STOCK", type=int.class )
+							
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idStock", 	 type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde", type=Timestamp.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta", type=Timestamp.class)
 								}	
 					),		
 					@NamedStoredProcedureQuery(
@@ -197,8 +137,8 @@ import proyect.core.entity.stock.Stock;
 							parameters={
 									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="COD_SISMED", type=String.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_DESDE", type=Timestamp.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_HASTA", type=Timestamp.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde", type=Timestamp.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta", type=Timestamp.class),
 										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -222,7 +162,7 @@ import proyect.core.entity.stock.Stock;
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=int.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INVENTARIO", type=int.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_INV_SIG", type=Timestamp.class)
 										}
@@ -238,7 +178,7 @@ import proyect.core.entity.stock.Stock;
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="MES", type=String.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="PERIODO", type=String.class), 
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class)
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=int.class)
 										}
 					)
 		}			
@@ -250,13 +190,13 @@ public class MovimientoAlmacen  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID_MOVIMIENTO")
+	@Column(name="idMovimiento")
 	private long idMovimientoAlmacen;
 
-	@Column(name="CANTIDAD")
+	@Column(name="cantidad")
 	private int cantidad;
 
-	@Column(name="NRO_DOCUMENTO")
+	@Column(name="nroDocumento")
 	private String  nroDocumento;
 
 	@Column(name="MONTO")
@@ -271,16 +211,16 @@ public class MovimientoAlmacen  implements Serializable {
 	@Column(name="PRECIO")
 	private double precio;
 	
-	@Column(name="NROGUIA")
+	@Column(name="nroGuia")
 	private String nroGuia;
 
-	@Column(name="GLOSA")
+	@Column(name="glosa")
 	private String glosa;
 	
 	@Column(name="FECHA_MOVIMIENTO")
 	private String fechaMovimiento;
 	
-	@Column(name="TIPO_ING_DOCUM")
+	@Column(name="tipoIngresoDocumento")
 	private int tipoIngresoDocumento;
 	
  
@@ -288,28 +228,28 @@ public class MovimientoAlmacen  implements Serializable {
 	private String articulo;
 	
 
-	@Column(name="ID_STOCK")
+	@Column(name="idStock")
 	private  String idStock;
 
-	@Column(name="ID_TIPO_MOVIMIENTO")
+	@Column(name="idTipoMovimiento")
 	private  String idTipoMovimiento;
 	
-	@Column(name="ID_ALMACEN_ORIGEN")
+	@Column(name="idAlmacenOrigen")
 	private  String almacenOrigen;
 	
-	@Column(name="ID_ALMACEN_DESTINO")
+	@Column(name="idAlmacenDestino")
 	private  String almacenDestino;
 	
-	@Column(name="ID_TIPO_FINANCIADOR")
+	@Column(name="idTipoFinanciadorCat02")
 	private  String tipoFinanciamiento;
 	
-	@Column(name="ID_TIPO_SELECCION")
+	@Column(name="idTipoSeleccionCat02")
 	private  String tipoProcesoSeleccion;
  
-	@Column(name="ID_PERSONA")
+	@Column(name="idpersona")
 	private  String idPersona;
 	
-	@Column(name="ID_TIPO_DOCUM_COMPRA")
+	@Column(name="idTipoDocCompraCat02")
 	private  String idTipoDocumentoCompra;
 	
 	@Column(name="MES")
