@@ -78,15 +78,15 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+      <li id="navMantenimiento" class="nav-item">
+        <a id="CollMantenimiento"  class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMantenimiento" aria-expanded="true" aria-controls="collapseMantenimiento">
           <i class="fas fa-fw fa-folder"></i>
           <span>Mantenimientos</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseMantenimiento" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
              <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-            <a class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Articulo</a>
+            <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Artículo</a>
             <a class="collapse-item" href="register.html">Register</a>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             <div class="collapse-divider"></div>

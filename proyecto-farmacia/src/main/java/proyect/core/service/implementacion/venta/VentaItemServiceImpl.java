@@ -11,7 +11,7 @@ import proyect.core.bean.venta.VentaItemBean;
 import proyect.core.repository.interfaces.venta.VentaItemDAO;
 import proyect.core.service.interfaces.venta.VentaItemService; 
 
-@Service("ventaService")
+@Service("VentaItemService")
 public class VentaItemServiceImpl implements VentaItemService {
 	
 	

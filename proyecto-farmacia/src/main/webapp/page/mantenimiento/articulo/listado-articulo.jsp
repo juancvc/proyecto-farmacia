@@ -98,7 +98,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src="${pageContext.request.contextPath}/app-assets/js/sb-admin-2.min.js"></script>
+<script>
 
+document.getElementById('navMantenimiento').className = "nav-item active";  
+document.getElementById('enlaceArticulo').className = "collapse-item active";  
+document.getElementById('CollMantenimiento').className = "nav-link";  
+document.getElementById('collapseMantenimiento').className = "collapse show";  
+</script>
+
+
+ 
 </body>
 
 </html>
