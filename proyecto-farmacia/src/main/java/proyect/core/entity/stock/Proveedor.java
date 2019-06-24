@@ -13,25 +13,22 @@ import javax.persistence.StoredProcedureParameter;
 				
 				@NamedStoredProcedureQuery(
 						name="proveedor.findByObject", 
-						procedureName="SP_PROVEEDOR_BUSCAR_X_ID",
+						procedureName="[dbo].[usp_Proveedor_buscarxId]",
 						resultClasses= Proveedor.class,
 						parameters={
-									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PROVEEDOR", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+					
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", type=Integer.class)
 							}					
 					),
 
 				@NamedStoredProcedureQuery(
 						name="proveedor.findByLikeObject", 
-						procedureName="SP_PROVEEDOR_BUSCAR_X_CRITERIOS",
+						procedureName="[dbo].[usp_Proveedor_buscarxCriterios]",
 						resultClasses= Proveedor.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class)
+					
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class)
 							}	
 				),
 				
@@ -39,12 +36,12 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.insert", 
 						procedureName="SP_PROVEEDOR_INSERTAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_PROVEEDOR", type=Integer.class ),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idProveedor", type=Integer.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
@@ -59,12 +56,12 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.update", 
 						procedureName="SP_PROVEEDOR_ACTUALIZAR",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PROVEEDOR", type=Integer.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=Integer.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
@@ -80,7 +77,7 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.delete", 
 						procedureName="SP_PROVEEDOR_ELIMINAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PROVEEDOR", type=Integer.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=Integer.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
@@ -98,13 +95,13 @@ import javax.persistence.StoredProcedureParameter;
 public class Proveedor  {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="ID_PROVEEDOR")
+	@Column(name="idProveedor")
 	private long idProveedor;
 
-	@Column(name="NOMBRE_CORTO")
+	@Column(name="nombreProveedor")
 	private String nombreCorto;
 
-	@Column(name="NOMBRE_LARGO")
+	@Column(name="descripcion")
 	private String nombreLargo;
 	
 	@Column(name="RUC")
