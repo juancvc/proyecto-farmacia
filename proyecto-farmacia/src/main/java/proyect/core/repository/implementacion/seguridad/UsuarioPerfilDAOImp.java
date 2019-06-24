@@ -31,12 +31,7 @@ public class UsuarioPerfilDAOImp implements UsuarioPerfilDAO{
 		Object id= null; 
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbd_usuperfil.insertar");
-	       // spq.setParameter("p_codusuper", t.getp_codacceso());
-            spq.setParameter("p_codperfil", t.getPerfil()!=null? t.getPerfil().getCodigoPerfil():null);
-            spq.setParameter("p_codusuari", t.getUsuario()!=null? t.getUsuario().getCodigoUsuario():null);
-            spq.setParameter("p_codusureg", t.getCodigoUsuarioCreacion());
-            spq.setParameter("p_hostreg", t.getIpCreacion());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbd_usuperfil.insertar"); 
 	        
 	        spq.execute();
 			
@@ -66,8 +61,7 @@ public class UsuarioPerfilDAOImp implements UsuarioPerfilDAO{
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbd_usuperfil.eliminar");
-	        spq.setParameter("p_codusuper", t.getCodigoUsuarioPerfil());
-            spq.setParameter("p_codusumod", t.getCodigoUsuarioModificacion());
+	        spq.setParameter("p_codusuper", t.getCodigoUsuarioPerfil()); 
             spq.setParameter("p_hostmod", t.getIpModificacion());
 	        
 	        spq.execute();
@@ -144,7 +138,7 @@ public class UsuarioPerfilDAOImp implements UsuarioPerfilDAO{
 				bean.getUsuario().setNombreUsuario(entity.getvNomusuari());
 				bean.getUsuario().setPasswordUsuario(entity.getvPassusuar());
 			}
-			bean.setEstado(entity.getVFlgest());
+			//bean.setEstado(entity.getVFlgest());
 			
 			/**/
 			if (entity.getnCodperso()!=null) {

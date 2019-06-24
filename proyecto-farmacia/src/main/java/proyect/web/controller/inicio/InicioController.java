@@ -117,7 +117,7 @@ public class InicioController extends BaseController{
 				System.out.println("NombreUsuario "+oUsuario.getNombreUsuario());
 				System.out.println("NombreUsuario persona "+oUsuario.getPersona().getNombreCompleto());
 				System.out.println("Codigo "+oUsuario.getCodigo()); 
-					if (!oUsuario.getEstado().trim().equals("1")) {//Activo
+					if (!oUsuario.isActivo()) {//Activo
 						
 						
 			//		this.registrarAudAcceso(prmLogin.getNombreUsuario(), 5, request);
@@ -201,7 +201,7 @@ public class InicioController extends BaseController{
 				System.out.println("NombreUsuario "+oUsuario.getNombreUsuario());
 				System.out.println("NombreUsuario persona "+oUsuario.getPersona().getNombreCompleto());
 				System.out.println("Codigo "+oUsuario.getCodigo()); 
-					if (!oUsuario.getEstado().trim().equals("1")) {//Activo
+					if (!oUsuario.isActivo()) {//Activo
 						
 						
 			//		this.registrarAudAcceso(prmLogin.getNombreUsuario(), 5, request);
@@ -587,10 +587,10 @@ public class InicioController extends BaseController{
 			AuditoriaAccesoBean bean = new AuditoriaAccesoBean();
 			bean.getTipoAccion().setIdRegistro(tipoAccion);
 			bean.setNomUsuario(nomUsuario);
-			bean.setIpCreacion(NetUtil.getClientIpAddr(request));
+			bean.setIpRegistro(NetUtil.getClientIpAddr(request));
 			bean.getTipoSistema().setIdRegistro("000001");
 			
-			if(!VO.isNull(bean.getIpCreacion()) && !bean.getIpCreacion().equals("0:0:0:0:0:0:0:1")){
+			if(!VO.isNull(bean.getIpRegistro()) && !bean.getIpRegistro().equals("0:0:0:0:0:0:0:1")){
 				this.fs.getAuditoriaService().insertarAuditoriaAcceso(bean);
 			}
 		} catch (Exception e) {

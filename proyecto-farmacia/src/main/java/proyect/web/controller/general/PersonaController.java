@@ -818,13 +818,13 @@ public class PersonaController {
 	            	contentCell.setCellValue(personaBean.getNombreCompleto());
 	            	contentCell = contentRow.createCell(4);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(personaBean.getStrFechaCreacion());
+	            //	contentCell.setCellValue(personaBean.getStrFechaCreacion());
 	            	contentCell = contentRow.createCell(5);
 	            	contentCell.setCellStyle(bodyStyle);
 	            	contentCell.setCellValue(personaBean.getUbigeoDireccion().getNombreUbigeo());
 	            	contentCell = contentRow.createCell(6);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(personaBean.getNombreUsuarioCreacion());
+	            //	contentCell.setCellValue(personaBean.getNombreUsuarioCreacion());
 
 	            	contentCell = contentRow.createCell(7);
 	            	contentCell.setCellStyle(bodyStyle); 
@@ -869,13 +869,13 @@ public class PersonaController {
 	}
 	private void setAuditoriaLocal(BaseBean baseBean,String iddUsuario,HttpServletRequest request,boolean swInsert){
 		if (swInsert) {
-			baseBean.setCodigoUsuarioCreacion(iddUsuario);
-			baseBean.setNombreUsuarioCreacion(nombreUser);
-			baseBean.setIpCreacion(NetUtil.getClientIpAddr(request));			
+			baseBean.setIdUsuarioRegistro(iddUsuario);
+			baseBean.setUsuarioRegistro(nombreUser);
+			baseBean.setIpRegistro(NetUtil.getClientIpAddr(request));			
 			
 		} else {
-			baseBean.setCodigoUsuarioModificacion(iddUsuario);
-			baseBean.setNombreUsuarioCreacion(nombreUser);
+			baseBean.setIdUsuarioModificacion(iddUsuario);
+			baseBean.setUsuarioModificacion(nombreUser);
 			baseBean.setIpModificacion(NetUtil.getClientIpAddr(request));			
 		}
 

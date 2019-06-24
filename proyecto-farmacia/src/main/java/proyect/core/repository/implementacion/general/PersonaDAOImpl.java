@@ -38,9 +38,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 			spq.setParameter("APEMATER", persona.getApellidoMaterno());
 			spq.setParameter("PRINOMBR", persona.getNombres());  
 			spq.setParameter("NRODOCUM", persona.getNroDocumento()); 
-			
-			spq.setParameter("AUCDUSCR", persona.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR", persona.getIpCreacion());
+			 
 			spq.setParameter("CDPERSIG", persona.getCodigoPersonaSigeho());
 			spq.setParameter("FECHANAC", persona.getFechaNac());
 			spq.setParameter("NROCELU", persona.getTelfCelu());
@@ -78,9 +76,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 			spq.setParameter("p_codperso", persona.getCodigo());
 			spq.setParameter("p_apepatper", persona.getApellidoPaterno());
 			spq.setParameter("p_apematper", persona.getApellidoMaterno());  
-			spq.setParameter("p_correo", persona.getCorreo()); 
-			spq.setParameter("p_codusumod", Integer.valueOf(String.valueOf(persona.getCodigoUsuarioCreacion())));
-			spq.setParameter("p_hostmod", persona.getIpCreacion());
+			spq.setParameter("p_correo", persona.getCorreo());   
 
 			
 			spq.execute();
@@ -252,8 +248,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.actualizaruser");
 			
 			spq.setParameter("p_codperso", persona.getCodigo()); 
-			spq.setParameter("p_correo", persona.getCorreo()); 
-			spq.setParameter("p_codusumod", persona.getCodigoUsuarioModificacion());
+			spq.setParameter("p_correo", persona.getCorreo());  
 			spq.setParameter("p_hostmod", persona.getIpModificacion());
 
 			
@@ -278,8 +273,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.actualizarfotouser");
 			
-			spq.setParameter("p_codperso", persona.getCodigo()); 
-			spq.setParameter("p_codusumod", persona.getCodigoUsuarioModificacion());
+			spq.setParameter("p_codperso", persona.getCodigo());  
 			spq.setParameter("p_hostmod", persona.getIpModificacion());
 
 			
@@ -351,9 +345,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			
 			spq.setParameter("VARENIEC", persona.getSwReniec()? "1":"0");
 			spq.setParameter("ORIGREGI", persona.getOrigenDeRegistro()); 
-			
-			spq.setParameter("AUCDUSCR", persona.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR", persona.getIpCreacion());
+			 
 			
 			
 			spq.execute();
@@ -405,9 +397,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			
 			spq.setParameter("CODTEXPE", persona.getCodigoTelefono());
 			spq.setParameter("TELFNUMR", persona.getTelefonoNumero()); 
-			
-			spq.setParameter("AUCDUSCR", persona.getCodigoUsuarioCreacion());
-			spq.setParameter("AUPCIPCR", persona.getIpCreacion());
+			 
 			
 			
 			spq.execute();
