@@ -22,13 +22,8 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="SP_RECETA_BUSCAR_X_ID",
 						resultClasses= Receta.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="TIPO", type=int.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="tipo", 	   type=String.class )
 							}					
 					),
 				
@@ -46,17 +41,12 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="SP_RECETA_BUSCAR_X_CRITERIOS",
 						resultClasses= Receta.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_MEDICO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_INICIO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_FIN", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="SITUACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", 		type=String.class),									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idMedico", 		type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaInicio", 	type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaFin", 		type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 	type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	type=String.class )
 							}	
 				),
 				
@@ -64,26 +54,18 @@ import javax.persistence.StoredProcedureParameter;
 						name="receta.insert", 
 						procedureName="SP_RECETA_INSERTAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_RECETA", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="NRO_PERIODO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_EVENTO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PACIENTE", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_MEDICO", type=int.class), 
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_ATENCION", type=String.class), 
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_CIE10", type=Long.class ),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CANT_ITEMS", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_ARTICULO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_CANTIDAD", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idReceta", 				type=String.class ),
+								
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", 				type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPaciente", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idMedico", 				type=String.class), 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaAtencion", 		type=String.class), 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idCIE10", 				type=String.class ),									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			type=String.class),							
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems", 		type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdArticulo", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		type=String.class)
 							}					
 				),
 				
@@ -91,26 +73,17 @@ import javax.persistence.StoredProcedureParameter;
 						name="receta.update", 
 						procedureName="SP_RECETA_ACTUALIZAR",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_RECETA", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_EVENTO", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PACIENTE", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_MEDICO", type=int.class),  
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_CIE10", type=Long.class ),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CANT_ITEMS", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_RECETA_DETALLE", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_ID_ARTICULO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CADENA_CANTIDAD", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", 				type=String.class ),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", 				type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPaciente", 			type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idMedico", 				type=String.class),  
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idCIE10", 				type=String.class ),						
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 	type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems", 		type=int.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdRecetaDetalle", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdArticulo", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		type=String.class)
 						}					
 										
 				),
@@ -118,54 +91,37 @@ import javax.persistence.StoredProcedureParameter;
 						name="receta.delete", 
 						procedureName="SP_RECETA_ELIMINAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_RECETA", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idReceta",			 type=String.class ),								
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipModificacion", 	 type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="receta.procesarReceta", 
 						procedureName="[Farmacia].[dbo].[SP_PROCESAR_RECETA]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_RECETA_RECIBIDA", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="TIPO", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idReceta", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="tipo", 				type=String.class )
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="receta.cambiarSituacion", 
 						procedureName="[GISEASISTENCIAL].[ATEN].[SP_RecetaMedica_CambiarSituacion]",
 						parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="CodigoOrganizacionRecetaMedica", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="CodigoInstitucionRecetaMedica", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="CodigoSedeRecetaMedica", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CodigoRecetaMedica", type=long.class)
+
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", 					type=String.class)
 				}					
 				),
 				@NamedStoredProcedureQuery(
 						name="receta.anularReservaPorReceta", 
 						procedureName="[dbo].[SP_RESERVA_CANCELAR_X_IDRECETA]",
 						parameters={ 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_RECETA", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_RECETA", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class ),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_OBSERVACION", type=String.class)
+
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idReceta", 		 type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class ),							
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioRegistro", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ipRegistro", 	 type=String.class)
 				}					
 				)
 		
@@ -178,13 +134,13 @@ public class Receta   {
 	@EmbeddedId
 	private RecetaPK id; 
 	
-	@Column(name="ID_CIE10")
+	@Column(name="idCIE10")
 	private int idCIE10;
 	
-	@Column(name="OBSERVACION")
+	@Column(name="observacion")
 	private String observacion;
 	
-	@Column(name="FECHA_ATENCION")
+	@Column(name="fechaAtencion")
 	private  String  fechaAtencion;
 	
 	@Column(name="AUD_FECHA_OPERACION")
@@ -196,7 +152,7 @@ public class Receta   {
 	@OneToMany(mappedBy="receta")
 	private List<RecetaDetalle> recetaItems;
 	
-	@Column(name="TIPO")
+	@Column(name="tipo")
 	private int tipo;
 	
 	@Column(name="TIPO_PACIENTE")
@@ -205,7 +161,7 @@ public class Receta   {
 	@Column(name="swExonerado")
 	private String swExonerado; 
 	
-	/*@JoinColumn(name="ID_ALMACEN")
+	/*@JoinColumn(name="idAlmacen")
 	private Almacen almacen;
 	*/
 	

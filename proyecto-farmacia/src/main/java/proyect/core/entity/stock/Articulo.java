@@ -95,10 +95,8 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[FARMACIA].[DBO].[SP_VENTA_REPORTE_BALANZA]",
 						resultClasses= Articulo.class,
 						parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ANIO", type=int.class )
+							
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="periodo", type=String.class )
 
 							}	
 				),
@@ -107,48 +105,37 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="SP_LISTAR_ARTICULOS_X_RECETA_X_ID_RECETA",
 						resultClasses= Articulo.class,
 						parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="TIPO", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_RECETA", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CodigoOrganizacionRecetaMedica", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CodigoInstitucionRecetaMedica", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CodigoSedeRecetaMedica", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="NumeroPeriodoRecetaMedica", type=int.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipo", 	   type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", type=String.class)
 							}	
 				),
 				@NamedStoredProcedureQuery(
 						name="articulo.actualizarCatalogo", 
 						procedureName="[dbo].[SP_ARTICULO_ACTUALIZAR_CATALOGO]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idArticulo", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreArticulo", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idClase", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idGenerico", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idArticulo", 		  type=String.class ),
+
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreArticulo", 	  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idClase", 		 	  type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idGenerico", 	 	  type=String.class),
 									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_PRESENTACION", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="concentracion", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_TIPO_ARTICULO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="volumen", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idLaboratorio", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="posologia", type=String.class),								
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="stockAlerta", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="stockOptimo", type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombrePresentacion",   type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="concentracion", 	   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreTipoArticulo",   type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="volumen", 			   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idLaboratorio", 	   type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="posologia", 		   type=String.class),								
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="stockAlerta", 		   type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="stockOptimo", 		   type=Integer.class),
 									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PETITORIO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ESTRATEGICO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ESTADO_SISMED", type=String.class),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=Integer.class),								
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSiga", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="petitorio", 		   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="estrategico", 		   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="estadoSismed", 	       type=String.class),
+
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	   type=String.class),								
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 		   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSiga", 		   type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -156,9 +143,9 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[dbo].[SP_TEM_PRODUCTO_INSERT]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="codigoSismed", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="PRECIO_COMPRA", type=float.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="PRECIO_VENTA", type=float.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="PRECIO_ADQUISICION", type=float.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="precioCompra", type=float.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="precioVenta", type=float.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="precioAdquisicion", type=float.class )
 									
 							}					
 				),
@@ -176,10 +163,10 @@ import javax.persistence.StoredProcedureParameter;
 						procedureName="[dbo].[SP_ARTICULO_DIA]",
 						resultClasses = Articulo.class,
 						parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="TIPO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ALMACEN", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_DESDE", type=Timestamp.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_HASTA", type=Timestamp.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipo", 		  type=String.class ),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen",   type=String.class ),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde",  type=Timestamp.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta",  type=Timestamp.class),
 							}					
 				)
 		}
@@ -248,7 +235,7 @@ public class Articulo  {
 //	private  String concentracion;
 	private  String NOMBRE_LARGO_PRESENTACION;
 	private  String nombreArticulo_TIPO_ARTICULO;
-	private  String PRECIO_VENTA;
+	private  String precioVenta;
 	
 	
 	private	int ENERO;

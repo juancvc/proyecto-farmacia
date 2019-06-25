@@ -15,100 +15,73 @@ import javax.persistence.Table;
 				
 				@NamedStoredProcedureQuery(
 						name="preciosVentaArticulo.buscarxid", 
-						procedureName="SP_PRECIO_VENTA_ART_BUSCAR_X_ID",
+						procedureName="[dbo].[usp_PrecioVenta_buscarxID]",
 						resultClasses= PreciosVentaArticulo.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PRECIO_VENTA_ART", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+						
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
 							}					
 					),
 				
 				@NamedStoredProcedureQuery(
 						name="preciosVentaArticulo.buscarxcriterios", 
-						procedureName="SP_PRECIO_VENTA_ART_BUSCAR_X_CRITERIOS",
+						procedureName="[dbo].[usp_PrecioVenta_buscarxCriterios]",
 						resultClasses= PreciosVentaArticulo.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PRECIO_VENTA_ART", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+								
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
 							}	
 				),
 				
 				@NamedStoredProcedureQuery(
 						name="preciosVentaArticulo.insert", 
-						procedureName="SP_PRECIO_VENTA_ART_INSERTAR",
+						procedureName="[dbo].[usp_PrecioVenta_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_PRECIO_VENTA_ART", type=Integer.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_1", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_2", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_3", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_4", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_5", type=float.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO1", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO2", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO3", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO4", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO5", type=String.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PRECIO_TIPO_CAMBIO", type=float.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Long.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPrecioVenta", 	type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta01", type=float.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta02", type=float.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta03", type=float.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta04", type=float.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta05", type=float.class),									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio01", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio02", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio03", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio04", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio05", 	type=String.class),									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoCambio", 		type=float.class),									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class)
 							}					
 				),
 				
 				@NamedStoredProcedureQuery(
 						name="preciosVentaArticulo.update", 
-						procedureName="SP_PRECIO_VENTA_ART_ACTUALIZAR",
+						procedureName="[dbo].[usp_PrecioVenta_actualizar]",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PRECIO_VENTA_ART", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_1", type=float.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_2", type=float.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_3", type=float.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_4", type=float.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PORC_PRECIO_VENTA_5", type=float.class),							
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO1", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO2", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO3", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO4", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SWACTIVO_PRECIO5", type=String.class),								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PRECIO_TIPO_CAMBIO", type=float.class),								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Long.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPrecioVenta", 	  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta01",   type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta02",   type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta03",   type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta04",   type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta05",   type=float.class),							
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio01", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio02", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio03", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio04", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio05", 	  type=String.class),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoCambio",		  type=float.class),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
 										
 				),
 				@NamedStoredProcedureQuery(
 						name="preciosVentaArticulo.delete", 
-						procedureName="SP_PRECIO_VENTA_ART_ELIMINAR",
+						procedureName="[dbo].[usp_PrecioVenta_eliminar]",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PRECIO_VENTA_ART", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=Long.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPrecioVenta",		  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 							}					
 				)
 		
@@ -119,43 +92,43 @@ import javax.persistence.Table;
 public class PreciosVentaArticulo  {
 	private static final int serialVersionUID = 1;
 	@Id
-	@Column(name="ID_PRECIO_VENTA_ART")
+	@Column(name="idPrecioVenta")
 	private int idPrecioVentaArticulo;
 
-	@Column(name="PORC_PRECIO_VENTA_1")
+	@Column(name="porcPrecioVenta01")
 	private float porcentajePrecioVenta1;
 
-	@Column(name="PORC_PRECIO_VENTA_2")
+	@Column(name="porcPrecioVenta02")
 	private float porcentajePrecioVenta2;
 	
 
-	@Column(name="PORC_PRECIO_VENTA_3")
+	@Column(name="porcPrecioVenta03")
 	private float porcentajePrecioVenta3;
 	
 
-	@Column(name="PORC_PRECIO_VENTA_4")
+	@Column(name="porcPrecioVenta04")
 	private float porcentajePrecioVenta4;
 	
 
-	@Column(name="PORC_PRECIO_VENTA_5")
+	@Column(name="porcPrecioVenta05")
 	private float porcentajePrecioVenta5;
 	
-	@Column(name="PRECIO_TIPO_CAMBIO")
+	@Column(name="tipoCambio")
 	private float precioTipoCambio;
 	
-	@Column(name="SWACTIVO_PRECIO1")
+	@Column(name="activoPrecio01")
 	private String swActivoPrecio1;
 	
-	@Column(name="SWACTIVO_PRECIO2")
+	@Column(name="activoPrecio02")
 	private String swActivoPrecio2;
 	
-	@Column(name="SWACTIVO_PRECIO3")
+	@Column(name="activoPrecio03")
 	private String swActivoPrecio3;
 	
-	@Column(name="SWACTIVO_PRECIO4")
+	@Column(name="activoPrecio04")
 	private String swActivoPrecio4;
 	
-	@Column(name="SWACTIVO_PRECIO5")
+	@Column(name="activoPrecio05")
 	private String swActivoPrecio5;
 	
 	@Column(name="ID_ORGANIZACION_PRECIO_VENTA_ART")

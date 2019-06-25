@@ -135,14 +135,10 @@ import proyect.core.entity.stock.Stock;
 							procedureName="SP_MOVIMIENTO_ALMACEN_X_CODSISMED",
 							resultClasses= MovimientoAlmacen.class,
 							parameters={
-									//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="COD_SISMED", type=String.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde", type=Timestamp.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta", type=Timestamp.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-										@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_STOCK", type=int.class )
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 		type=String.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde", 		type=Timestamp.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta", 		type=Timestamp.class),
+										@StoredProcedureParameter(mode=ParameterMode.IN,  name="periodoStock",  	type=String.class )
 								}	
 					),
 					@NamedStoredProcedureQuery(
@@ -156,15 +152,11 @@ import proyect.core.entity.stock.Stock;
 							procedureName="SP_MOVIMIENTO_ALMACEN_REPORTE_ICI",
 							resultClasses= MovimientoAlmacen.class,
 									parameters={
-											//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-												@StoredProcedureParameter(mode=ParameterMode.IN,  name="MES", type=String.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN,  name="ANIO", type=String.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=int.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INVENTARIO", type=int.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_INV_SIG", type=Timestamp.class)
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes", 			type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 			type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="idInventario",  type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaInvSig",   type=Timestamp.class)
 										}
 					),
 					
@@ -173,12 +165,9 @@ import proyect.core.entity.stock.Stock;
 							procedureName="[SP_VENTA_LISTAR_ABASTECIMIENTO_IME]",
 							resultClasses= MovimientoAlmacen.class,
 									parameters={
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="MES", type=String.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="PERIODO", type=String.class), 
-												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=int.class)
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="mes", 		type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="periodo", 	type=String.class), 
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen",  type=String.class)
 										}
 					)
 		}			
@@ -252,10 +241,10 @@ public class MovimientoAlmacen  implements Serializable {
 	@Column(name="idTipoDocCompraCat02")
 	private  String idTipoDocumentoCompra;
 	
-	@Column(name="MES")
+	@Column(name="mes")
 	private String mes;
 	
-	@Column(name="ANIO")
+	@Column(name="anio")
 	private String anio;
 	
 /**	@Column(name="ID_ORGANIZACION_MOVIMIENTO_ALMACEN")

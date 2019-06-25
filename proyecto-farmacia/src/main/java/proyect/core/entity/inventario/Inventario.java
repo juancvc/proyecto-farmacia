@@ -57,11 +57,8 @@ import proyect.core.entity.stock.Stock;
 						resultClasses = Inventario.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION",  type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", 		 type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO", 	 type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_MES", 		 type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", 		 type=String.class )
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -70,12 +67,9 @@ import proyect.core.entity.stock.Stock;
 						resultClasses = Inventario.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION",  type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", 		 type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO", 	 type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_MES", 		 type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION",    type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", 		 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idSituacion",     type=String.class )
 							}					
 				)
 		}
@@ -113,10 +107,10 @@ public class Inventario  {
 	@Column(name="ID_SEDE_INVENTARIO")
 	private int idSedeInventario;
 	
-	@Column(name="NRO_PERIODO")
+	@Column(name="nroPeriodo")
 	private int nroPeriodo;
 	*/
-	@Column(name="NRO_MES")
+	@Column(name="nroMes")
 	private int nroMes;
 	
 	private int cantidadItems;

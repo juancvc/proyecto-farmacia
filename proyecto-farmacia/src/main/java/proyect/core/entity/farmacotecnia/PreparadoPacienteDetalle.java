@@ -8,83 +8,55 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @NamedStoredProcedureQueries({
-		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.insert", procedureName = "SP_PREPARADO_PACIENTE_DETALLE_INSERTAR", parameters = {
-				@StoredProcedureParameter(mode = ParameterMode.OUT, name = "ID_PREPARADO_PACIENTE_DETALLE", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO_PACIENTE_DETALLE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO_PACIENTE_DETALLE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO_PACIENTE_DETALLE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.OUT, name = "NRO_PERIODO_PREPARADO_PACIENTE_DETALLE", type = int.class),
-
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO_PACIENTE", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO_PACIENTE", type = int.class),
-
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_VERSION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO", type = int.class),
-
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "CANT_PREPARADO", type = int.class),
-
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SITUACION", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_ID_USUARIO", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_IP", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_SESSION", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_MAC", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_OBSERVACION", type = String.class) }),
+		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.insert",
+				procedureName = "SP_PREPARADO_PACIENTE_DETALLE_INSERTAR",
+				parameters = {
+				@StoredProcedureParameter(mode = ParameterMode.OUT, name = "idPreparadoPacienteDetalle", 	type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "idPreparadoPaciente", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "idPreparado", 					type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "cantidadPreparado", 			type = int.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "idSituacion", 					type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "usuarioRegistro", 				type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "ipRegistro", 					type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name =  "observacion", 					type = String.class) }),
 		
-		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.update", procedureName = "SP_PREPARADO_ACTUALIZAR", parameters = {
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSUMO", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_INSUMO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_INSUMO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_INSUMO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_VERSION_INSUMO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_INSUMO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NOMBRE_CORTO", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NOMBRE_LARGO", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODIGO_SISMED", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODIGO_SIGA", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "CONCENTRACION", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SITUACION", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_ID_USUARIO", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_IP", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_SESSION", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_MAC", type = String.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "AUD_OBSERVACION", type = String.class) }
+		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.update",
+				procedureName = "SP_PREPARADO_ACTUALIZAR",
+				parameters = {
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "idInsumo", 				type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "nombreInsumo", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "descripcion", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "codigoSismed", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "codigoSIGA", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "concentracion", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "idSituacion", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "usuarioModificacion", 	type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ipModificacion", 		type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "observacion", 			type = String.class) }
 
-		), @NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.delete", procedureName = "[dbo].[SP_PREPARADO_PACIENTE_DETALLE_ELIMINAR] ",
+		), @NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.delete",
+				procedureName = "[dbo].[SP_PREPARADO_PACIENTE_DETALLE_ELIMINAR] ",
 				parameters = {  
-			    @StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO_PACIENTE", type = Integer.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO_PACIENTE", type = int.class),
-
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO", type = Integer.class), }),
+			    @StoredProcedureParameter(mode = ParameterMode.IN, name = "idPreparadoPaciente", 	type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "idPreparado", 			type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "usuarioModificacion", 	type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ipModificacion", 		type = String.class)}),
 		
 		
 
-		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.findByObjectVO", procedureName = "SP_PREPARADO_BUSCAR_X_ID", resultClasses = PreparadoPaciente.class, parameters = {
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO", type = Integer.class), }),
+		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.findByObjectVO",
+		procedureName = "SP_PREPARADO_BUSCAR_X_ID",
+		resultClasses = PreparadoPaciente.class,
+		parameters = {
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "idPreparado", 			type = String.class) }),
 		
-		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.findByLikeObject", procedureName = "SP_PREPARADO_PACIENTE_DETALLE_BUSCAR_X_IDPREPARADOPACIENTE", resultClasses = PreparadoPacienteDetalle.class, parameters = {
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_ORGANIZACION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_INSTITUCION_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_SEDE_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NRO_PERIODO_PREPARADO_PACIENTE", type = int.class),
-				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ID_PREPARADO_PACIENTE", type = int.class) }) }
+		
+		@NamedStoredProcedureQuery(name = "preparadoPacienteDetalle.findByLikeObject",
+		procedureName = "SP_PREPARADO_PACIENTE_DETALLE_BUSCAR_X_IDPREPARADOPACIENTE",
+		resultClasses = PreparadoPacienteDetalle.class,
+		parameters = {
+
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "idPreparadoPaciente", type = int.class) }) }
 
 )
 
@@ -103,28 +75,28 @@ public class PreparadoPacienteDetalle implements Serializable {
 	@Column(name = "AUD_ID_OPERACION")
 	private int audIdOperacion;
 
-	@Column(name = "AUD_ID_USUARIO")
+	@Column(name = "usuarioRegistro")
 	private int audIdUsuario;
 
-	@Column(name = "AUD_IP")
+	@Column(name = "ipRegistro")
 	private String audIp;
 
 	@Column(name = "AUD_MAC")
 	private String audMac;
 
-	@Column(name = "AUD_OBSERVACION")
+	@Column(name = "observacion")
 	private String audObservacion;
 
 	@Column(name = "AUD_SESSION")
 	private String audSession;
 
-	@Column(name = "CANT_PREPARADO")
+	@Column(name = "cantidadPreparado")
 	private int cantPreparado;
 
 	@Column(name = "ESTADO")
 	private String estado;
 
-	@Column(name="ID_SITUACION") 
+	@Column(name="idSituacion") 
 	private String situacion;
 
 	private PreparadoPaciente preparadoPaciente;

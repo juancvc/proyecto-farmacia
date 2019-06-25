@@ -36,40 +36,24 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.insert", 
 						procedureName="SP_PROVEEDOR_INSERTAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idProveedor", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=Long.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idProveedor", 	    type=String.class ),								
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="nombreProveedor",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="descripcion", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="ruc", 				type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="usuarioRegistro",  type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="ipRegistro", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="proveedor.update", 
 						procedureName="SP_PROVEEDOR_ACTUALIZAR",
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SITUACION", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", 	  	  type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", 	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 	  	  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="RUC", 			      type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
 										
 				),
@@ -77,15 +61,9 @@ import javax.persistence.StoredProcedureParameter;
 						name="proveedor.delete", 
 						procedureName="SP_PROVEEDOR_ELIMINAR",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_MAC", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", 		 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipModificacion", 	 type=String.class)
 							}					
 				)
 		

@@ -13,44 +13,32 @@ import java.sql.Timestamp;
 					name="insumo.insert", 
 					procedureName="SP_INSUMO_INSERTAR",
 					parameters={
-								@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_INSUMO", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_INSUMO", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_SISMED", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_SIGA", type=String.class),   
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="CONCENTRACION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idInsumo", 			type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreInsumo", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSIGA", 		type=String.class),   
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="concentracion", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class), 
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 		type=String.class)
 						}					
 			),
 			@NamedStoredProcedureQuery(
 					name="insumo.update", 
 					procedureName="SP_INSUMO_ACTUALIZAR",
 					parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSUMO", type=Integer.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_SISMED", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CODIGO_SIGA", type=String.class),   
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="CONCENTRACION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idInsumo", 				type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreInsumo", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSIGA", 			type=String.class),   
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="concentracion", 		type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 	type=String.class),								
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class), 
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 			type=String.class)
 					}					
 									
 			),
@@ -58,18 +46,10 @@ import java.sql.Timestamp;
 					name="insumo.delete", 
 					procedureName="SP_INSUMO_ELIMINAR",
 					parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSUMO", type=Integer.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_INSUMO", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_INSUMO", type=int.class ),
-							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idInsumo", 			  	type=String.class),							
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 	type=String.class),								
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class), 
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion",	 		type=String.class)
 						}					
 			),
 	 
@@ -78,12 +58,7 @@ import java.sql.Timestamp;
 						procedureName="SP_INSUMO_BUSCAR_X_ID",
 						resultClasses= Insumo.class,
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSUMO", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_INSUMO", type=int.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idInsumo", 			type=String.class)
 							}					
 					),
 				@NamedStoredProcedureQuery(
@@ -91,10 +66,7 @@ import java.sql.Timestamp;
 						procedureName="SP_INSUMO_BUSCAR_X_CRITERIOS",
 						resultClasses= Insumo.class,
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_INSUMO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="CODIGO_SISMED", type=String.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="codigoSismed", 		type=String.class)
 							}	
 				) 
 		}
@@ -115,40 +87,40 @@ public class Insumo implements Serializable {
 	@Column(name="AUD_ID_OPERACION")
 	private int audIdOperacion;
 
-	@Column(name="AUD_ID_USUARIO")
+	@Column(name="usuarioRegistro")
 	private int audIdUsuario;
 
-	@Column(name="AUD_IP")
+	@Column(name="ipRegistro")
 	private String audIp;
 
 	@Column(name="AUD_MAC")
 	private String audMac;
 
-	@Column(name="AUD_OBSERVACION")
+	@Column(name="observacion")
 	private String audObservacion;
 
 	@Column(name="AUD_SESSION")
 	private String audSession;
 
-	@Column(name="CODIGO_SIGA")
+	@Column(name="codigoSIGA")
 	private String codigoSiga;
 
-	@Column(name="CODIGO_SISMED")
+	@Column(name="codigoSismed")
 	private String codigoSismed;
 
-	@Column(name="CONCENTRACION")
+	@Column(name="concentracion")
 	private String concentracion;
 
 	@Column(name="ESTADO")
 	private String estado;
  
-	@Column(name="ID_SITUACION")
+	@Column(name="idSituacion")
 	private String situacion;
 	
-	@Column(name="NOMBRE_CORTO")
+	@Column(name="nombreInsumo")
 	private String nombreCorto;
 
-	@Column(name="NOMBRE_LARGO")
+	@Column(name="descripcion")
 	private String nombreLargo;
 
 	public Insumo() { 

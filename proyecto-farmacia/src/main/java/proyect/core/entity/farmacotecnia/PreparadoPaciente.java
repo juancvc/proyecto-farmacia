@@ -15,56 +15,26 @@ import java.util.List;
 					name="preparadoPaciente.insert", 
 					procedureName="SP_PREPARADO_PACIENTE_INSERTAR",
 					parameters={
-								@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_PREPARADO_PACIENTE", type=Integer.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO_PACIENTE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO_PACIENTE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PREPARADO_PACIENTE", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.OUT, name="NRO_PERIODO_PREPARADO_PACIENTE", type=int.class ), 
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PERSONA", type=int.class ), 
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_EVENTO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_EVENTO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_EVENTO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_VERSION_EVENTO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_EVENTO_PERSONA", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_EVENTO_PERSONA", type=int.class ),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="OBSERVACION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_ENTREGA", type=Timestamp.class), 
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPreparadoPaciente", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idPersona", 			  type=String.class ), 
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idEventoPersona", 	  type=String.class ),							
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 		  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEntrega", 		  type=Timestamp.class), 						
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 		  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	  type=String.class),								
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		  type=String.class)
 						}					
 			),
 			@NamedStoredProcedureQuery(
 					name="preparadoPaciente.update", 
 					procedureName="[dbo].[SP_PREPARADO_PACIENTE_UPDATE]",
 					parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PREPARADO_PACIENTE", type=Integer.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO_PACIENTE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO_PACIENTE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PREPARADO_PACIENTE", type=int.class ), 
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_PREPARADO_PACIENTE", type=int.class ), 
-							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="OBSERVACION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="FECHA_ENTREGA", type=Timestamp.class), 
-							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idPreparadoPaciente", 	type=String.class ),							
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEntrega",		    type=Timestamp.class), 						
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 			type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 	type=String.class),								
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class)
 					}					
 									
 			),
@@ -72,17 +42,10 @@ import java.util.List;
 					name="preparadoPaciente.delete", 
 					procedureName="[SP_PREPARADO_PACIENTE_DELETE]",
 					parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PREPARADO_PACIENTE", type=Integer.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO_PACIENTE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO_PACIENTE", type=int.class ),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PREPARADO_PACIENTE", type=int.class ), 
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_PREPARADO_PACIENTE", type=int.class ), 
-							 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=Integer.class),								
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class), 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idPreparadoPaciente", 		type=String.class ), 						 
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", 		type=String.class),								
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 			type=String.class), 
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 				type=String.class)
 						}					
 			),
 	 
@@ -91,11 +54,8 @@ import java.util.List;
 						procedureName="SP_PREPARADO_BUSCAR_X_ID",
 						resultClasses= PreparadoPaciente.class,
 						parameters={ 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PREPARADO", type=int.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_PERIODO_PREPARADO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_PREPARADO", type=Integer.class ),
+		
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ipPreparado", 			type=String.class )
 							}					
 					),
 				@NamedStoredProcedureQuery(
@@ -103,12 +63,9 @@ import java.util.List;
 						procedureName="SP_PREPARADO_PACIENTE_BUSCAR_X_CRITERIOS",
 						resultClasses= PreparadoPaciente.class,
 						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION_PREPARADO_PACIENTE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION_PREPARADO_PACIENTE", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE_PREPARADO_PACIENTE", type=int.class ) ,
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_ENTREGA_DESDE", type=Timestamp.class ) ,
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_ENTREGA_HASTA", type=Timestamp.class ) ,
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="TIPO", type=int.class ) 
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaDesde", type=Timestamp.class ) ,
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaHasta", type=Timestamp.class ) ,
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="tipo", 		type=String.class ) 
 							}	
 				) 
 		}
@@ -136,31 +93,31 @@ public class PreparadoPaciente implements Serializable {
 	@Column(name="AUD_ID_OPERACION")
 	private int audIdOperacion;
 
-	@Column(name="AUD_ID_USUARIO")
+	@Column(name="usuarioRegistro")
 	private int audIdUsuario;
 
-	@Column(name="AUD_IP")
+	@Column(name="ipRegistro")
 	private String audIp;
 
 	@Column(name="AUD_MAC")
 	private String audMac;
 
-	@Column(name="AUD_OBSERVACION")
+	@Column(name="observacion")
 	private String audObservacion;
 
 	@Column(name="AUD_SESSION")
 	private String audSession;
 
-	@Column(name="OBSERVACION")
+	@Column(name="observacion")
 	private String observacion;
 
 	@Column(name="ESTADO")
 	private String estado;
 
-	@Column(name="FECHA_ENTREGA")
+	@Column(name="fechaEntrega")
 	private Timestamp fechaEntrega;
      
-	@Column(name="ID_SITUACION")
+	@Column(name="idSituacion")
 	private String situacion;
 
 	private Timestamp fechaEntregaDesde;
