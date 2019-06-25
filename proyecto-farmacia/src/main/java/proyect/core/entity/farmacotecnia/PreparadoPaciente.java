@@ -16,8 +16,8 @@ import java.util.List;
 					procedureName="SP_PREPARADO_PACIENTE_INSERTAR",
 					parameters={
 								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPreparadoPaciente", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="idPersona", 			  type=String.class ), 
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="idEventoPersona", 	  type=String.class ),							
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", 			  type=String.class ), 
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEventoPersona", 	  type=String.class ),							
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="observacion", 		  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEntrega", 		  type=Timestamp.class), 						
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion", 		  type=String.class),
@@ -102,8 +102,7 @@ public class PreparadoPaciente implements Serializable {
 	@Column(name="AUD_MAC")
 	private String audMac;
 
-	@Column(name="observacion")
-	private String audObservacion;
+
 
 	@Column(name="AUD_SESSION")
 	private String audSession;
@@ -178,13 +177,7 @@ public class PreparadoPaciente implements Serializable {
 		this.audMac = audMac;
 	}
 
-	public String getAudObservacion() {
-		return this.audObservacion;
-	}
 
-	public void setAudObservacion(String audObservacion) {
-		this.audObservacion = audObservacion;
-	}
 
 	public String getAudSession() {
 		return this.audSession;
@@ -300,11 +293,13 @@ public class PreparadoPaciente implements Serializable {
 	public String toString() {
 		return "PreparadoPaciente [id=" + id + ", itemPreparadoPacienteDetalle=" + itemPreparadoPacienteDetalle
 				+ ", audFechaOperacion=" + audFechaOperacion + ", audIdOperacion=" + audIdOperacion + ", audIdUsuario="
-				+ audIdUsuario + ", audIp=" + audIp + ", audMac=" + audMac + ", audObservacion=" + audObservacion
-				+ ", audSession=" + audSession + ", observacion=" + observacion + ", estado=" + estado
-				+ ", fechaEntrega=" + fechaEntrega + ", situacion=" + situacion + ", fechaEntregaDesde="
-				+ fechaEntregaDesde + ", fechaEntregaHasta=" + fechaEntregaHasta + ", tipo=" + tipo + "]";
+				+ audIdUsuario + ", audIp=" + audIp + ", audMac=" + audMac + ", audSession=" + audSession
+				+ ", observacion=" + observacion + ", estado=" + estado + ", fechaEntrega=" + fechaEntrega
+				+ ", situacion=" + situacion + ", fechaEntregaDesde=" + fechaEntregaDesde + ", fechaEntregaHasta="
+				+ fechaEntregaHasta + ", tipo=" + tipo + "]";
 	}
+
+
 
 
 
