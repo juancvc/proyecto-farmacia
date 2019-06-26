@@ -92,6 +92,12 @@
 							<div class="row">
 								<div class="form-group col-md-12 text-right"
 									style="margin-top: 15px;">
+									 <a href="#" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Buscar</span>
+                  </a>
 									<button id="btnBuscarPostulantes" class="btn btn-info" type="submit">
 										<i class="ft-search"></i> BUSCAR
 									</button>
@@ -100,6 +106,19 @@
 										type="button" class="btn btn-flat btn-default">
 										<i class="fa fa-eraser"></i> LIMPIAR
 									</button>
+									 <a href="#" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Limpiar</span>
+                  </a>
+                  <a href="${pageContext.request.contextPath}/articuloController/nuevo" 
+                  class="btn btn-primary btn-icon-plus">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-flag"></i>
+                    </span>
+                    <span class="text">NUEVO</span>
+                  </a>
 									<a
 										href="${pageContext.request.contextPath}/bancoController/nuevoPostulante"
 										class="btn btn-secondary" title=""> <i class="icon-plus"></i>
@@ -107,15 +126,7 @@
 									</a>
 								</div>
 							</div>
-							<div class="row">
-								<div class="form-group col-md-12 text-right" style="margin-top: 15px;">
-								<a
-									href="${pageContext.request.contextPath}/bancoController/rptListadoPostulantes?nombreCampania=${postulanteBean.campania.nombre}"
-									class="btn btn-secondary" title=""> <i class="fa fa-print"></i>
-									IMPRIMIR REPORTE
-								</a>
-							</div>
-							</div>
+							 
                   </div>
                 </div>
               </div>

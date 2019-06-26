@@ -34,7 +34,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.buscarXNroDocumento", 
 						procedureName="[dbo].[usp_Inventario_buscarxNroDocumento]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioHistorico.class,
 						parameters={
 						
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	  type=String.class),
@@ -54,7 +54,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.validarExisteInventario", 
 						procedureName="[dbo].[SP_INVENTARIO_VALIDAR_EXISTE]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioHistorico.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
@@ -64,7 +64,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.findByLikeObjectVO", 
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioHistorico.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
@@ -75,7 +75,7 @@ import proyect.core.entity.stock.Stock;
 		}
 	)
 @Entity
-public class Inventario  {
+public class InventarioHistorico  {
 	@Id
 	@Column(name="idInventario")
 	private String idInventario;
@@ -97,7 +97,19 @@ public class Inventario  {
 	
 	@Column(name="CANTIDAD")
 	private int cantidad;
-	 
+	
+	/**@Column(name="ID_ORGANIZACION_INVENTARIO")
+	private int idOrganizacionInventario;
+	
+	@Column(name="ID_INSTITUCION_INVENTARIO")
+	private int idInstitucionInventario;
+	
+	@Column(name="ID_SEDE_INVENTARIO")
+	private int idSedeInventario;
+	
+	@Column(name="nroPeriodo")
+	private int nroPeriodo;
+	*/
 	@Column(name="nroMes")
 	private int nroMes;
 	
@@ -117,7 +129,7 @@ public class Inventario  {
 	
 	private double precio;
 	
-	public Inventario() { 
+	public InventarioHistorico() { 
 	}
 
 	public Stock removeStockItem(Stock stockItem) {

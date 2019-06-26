@@ -34,7 +34,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.buscarXNroDocumento", 
 						procedureName="[dbo].[usp_Inventario_buscarxNroDocumento]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioDetalle.class,
 						parameters={
 						
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	  type=String.class),
@@ -54,7 +54,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.validarExisteInventario", 
 						procedureName="[dbo].[SP_INVENTARIO_VALIDAR_EXISTE]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioDetalle.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
@@ -64,7 +64,7 @@ import proyect.core.entity.stock.Stock;
 				@NamedStoredProcedureQuery(
 						name="inventario.findByLikeObjectVO", 
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
-						resultClasses = Inventario.class,
+						resultClasses = InventarioDetalle.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
@@ -75,181 +75,38 @@ import proyect.core.entity.stock.Stock;
 		}
 	)
 @Entity
-public class Inventario  {
+public class InventarioDetalle  {
 	@Id
+	@Column(name="idInventarioDetalle")
+	private String idInventarioDetalle;
+	
 	@Column(name="idInventario")
 	private String idInventario;
-
-	@Column(name="idAlmacen")
-	private String idAlmacen;
-	 
-	@Column(name="idPersonalResponsable")
-	private String idPersonalResponsable;
-	 
-	@Column(name="ID_STOCK")
+	
+	@Column(name="idStock")
 	private String idStock;
 	
-	@Column(name="fecha")
+	@Column(name="saldoAnterior")
 	private String fecha;
 
 	@Column(name="nroDocumento")
 	private String nroDocumento;
 	
-	@Column(name="CANTIDAD")
+	@Column(name="cantidad")
 	private int cantidad;
-	 
-	@Column(name="nroMes")
-	private int nroMes;
 	
-	private int cantidadItems;
+	@Column(name="saldoAnterior")
+	private int saldoAnterior;
 	
-	private String cadenaNroPeriodoStock;
-	
-	private String cadenaIdStock;
-	
-	private String cadenaCantidad;
-	
-	private List<Stock> stockItems;
-	
-	private double subtotal;
+	@Column(name="saldoActual")
+	private int saldoActual;
 
-	private double total;
-	
-	private double precio;
-	
-	public Inventario() { 
+	public String getIdInventarioDetalle() {
+		return idInventarioDetalle;
 	}
 
-	public Stock removeStockItem(Stock stockItem) {
-		getStockItems().remove(stockItem);
-
-		return stockItem;
-	}
-	public Stock addStockItem(Stock stock) {
-		this.getStockItems().add(stock);
-
-		return stock;
-	}
- 
-
-	 
-
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-
-	public String getNroDocumento() {
-		return nroDocumento;
-	}
-
-
-	public void setNroDocumento(String nroDocumento) {
-		this.nroDocumento = nroDocumento;
-	}
-
-
-	public int getCantidadItems() {
-		return cantidadItems;
-	}
-
-
-	public void setCantidadItems(int cantidadItems) {
-		this.cantidadItems = cantidadItems;
-	}
-
-
-	public String getCadenaIdStock() {
-		return cadenaIdStock;
-	}
-
-
-	public void setCadenaIdStock(String cadenaIdStock) {
-		this.cadenaIdStock = cadenaIdStock;
-	}
-
-
-	public String getCadenaCantidad() {
-		return cadenaCantidad;
-	}
-
-
-	public void setCadenaCantidad(String cadenaCantidad) {
-		this.cadenaCantidad = cadenaCantidad;
-	}
- 
-
-	public List<Stock> getStockItems() {
-		return stockItems;
-	}
-
-
-	public void setStockItems(List<Stock> stockItems) {
-		this.stockItems = stockItems;
-	}
- 
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public double getSubtotal() {
-		return subtotal;
-	}
-
-	public void setSubtotal(double subtotal) {
-		this.subtotal = subtotal;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
- 
-
-	public int getNroMes() {
-		return nroMes;
-	}
-
-	public void setNroMes(int nroMes) {
-		this.nroMes = nroMes;
-	}
-
-	public void ejecutarCalculosSubTotal(){ 
-		//this.setSubtotal(this.getStock().getStock() * this.getPrecio());
-	}
-	
-	public void ejecutarCalculosTotal(){
-		Double tmpImporte=0.0;
-		for (Stock StockItem : stockItems) {
-			tmpImporte+=StockItem.getPrecioVenta();
-		}
-		this.setTotal(tmpImporte);
-	}
-
-	public String getCadenaNroPeriodoStock() {
-		return cadenaNroPeriodoStock;
-	}
-
-	public void setCadenaNroPeriodoStock(String cadenaNroPeriodoStock) {
-		this.cadenaNroPeriodoStock = cadenaNroPeriodoStock;
+	public void setIdInventarioDetalle(String idInventarioDetalle) {
+		this.idInventarioDetalle = idInventarioDetalle;
 	}
 
 	public String getIdInventario() {
@@ -258,22 +115,6 @@ public class Inventario  {
 
 	public void setIdInventario(String idInventario) {
 		this.idInventario = idInventario;
-	}
-
-	public String getIdAlmacen() {
-		return idAlmacen;
-	}
-
-	public void setIdAlmacen(String idAlmacen) {
-		this.idAlmacen = idAlmacen;
-	}
-
-	public String getIdPersonalResponsable() {
-		return idPersonalResponsable;
-	}
-
-	public void setIdPersonalResponsable(String idPersonalResponsable) {
-		this.idPersonalResponsable = idPersonalResponsable;
 	}
 
 	public String getIdStock() {
@@ -288,5 +129,43 @@ public class Inventario  {
 		return fecha;
 	}
 
-	 
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public int getSaldoAnterior() {
+		return saldoAnterior;
+	}
+
+	public void setSaldoAnterior(int saldoAnterior) {
+		this.saldoAnterior = saldoAnterior;
+	}
+
+	public int getSaldoActual() {
+		return saldoActual;
+	}
+
+	public void setSaldoActual(int saldoActual) {
+		this.saldoActual = saldoActual;
+	}
+	
+	
+	
 }
+

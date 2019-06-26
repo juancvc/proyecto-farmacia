@@ -1,4 +1,4 @@
-package proyect.core.entity.inventario;
+package proyect.core.entity.general;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

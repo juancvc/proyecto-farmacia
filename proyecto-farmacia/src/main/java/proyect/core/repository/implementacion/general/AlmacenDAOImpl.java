@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proyect.base.repository.DAOException;
 import proyect.core.bean.general.AlmacenBean;
-import proyect.core.entity.inventario.Almacen;
+import proyect.core.entity.general.Almacen;
 import proyect.core.repository.interfaces.general.AlmacenDAO;
 import proyect.web.utilitarios.VO; 
 
