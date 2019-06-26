@@ -22,7 +22,7 @@ import proyect.core.entity.stock.Stock;
 @NamedStoredProcedureQueries(
 		{
 			@NamedStoredProcedureQuery(
-				name="movimientoAlmacen.insert", 
+				name="tipoMovimiento.insert", 
 				procedureName="[dbo].[usp_AlmacenMovimiento_insertar]",
 				parameters={
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idMovimiento", 	   		 type=String.class ),
@@ -45,7 +45,7 @@ import proyect.core.entity.stock.Stock;
 					}
 					),	
 			@NamedStoredProcedureQuery(
-					name="movimientoAlmacen.insertCompra", 
+					name="tipoMovimiento.insertCompra", 
 					procedureName="[dbo].[usp_AlmacenMovimiento_insertarCompra]",
 					parameters={
 								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idMovimiento", 			 type=String.class ),
@@ -72,17 +72,17 @@ import proyect.core.entity.stock.Stock;
 						}
 						),	
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.findByLikeObject", 
+							name="tipoMovimiento.findByLikeObject", 
 							procedureName="PKG_MOVIMIENTO_ALMACEN.SP_BUSCAR_X_CRITERIOS",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class )
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.cargarIngresoTransferencia", 
+							name="tipoMovimiento.cargarIngresoTransferencia", 
 							procedureName="[dbo].[usp_AlmacenMovimiento_cargarIngresoTranf]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",  type=String.class),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", type=String.class),
@@ -90,9 +90,9 @@ import proyect.core.entity.stock.Stock;
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.buscarXCriterioVO", 
+							name="tipoMovimiento.buscarXCriterioVO", 
 							procedureName="[dbo].[usp_AlmacenMovimiento_buscarxCriterios]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 	   type=String.class),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",  type=String.class),
@@ -101,17 +101,17 @@ import proyect.core.entity.stock.Stock;
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.listaIngresoTransferencia", 
+							name="tipoMovimiento.listaIngresoTransferencia", 
 							procedureName="[dbo].[usp_AlmacenMovimiento_listaIngresoTranf]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenDestino", type=String.class)
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.validarExisteNroDocumento", 
+							name="tipoMovimiento.validarExisteNroDocumento", 
 							procedureName="[dbo].[usp_AlmacenMovimiento_validarExisteNroDocumento]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 	    type=String.class),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacenOrigen",   type=String.class),
@@ -120,9 +120,9 @@ import proyect.core.entity.stock.Stock;
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.listarMovimientoKardexXidStock", 
+							name="tipoMovimiento.listarMovimientoKardexXidStock", 
 							procedureName="[dbo].[usp_AlmacenMovimiento_buscarxIdStock]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 							
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="idStock", 	 type=String.class),
@@ -131,9 +131,9 @@ import proyect.core.entity.stock.Stock;
 								}	
 					),		
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.listarMovimientoKardexXcodsismed", 
+							name="tipoMovimiento.listarMovimientoKardexXcodsismed", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_X_CODSISMED",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 							parameters={
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 		type=String.class),
 										@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde", 		type=Timestamp.class),
@@ -142,15 +142,15 @@ import proyect.core.entity.stock.Stock;
 								}	
 					),
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.generarNroDocumento", 
+							name="tipoMovimiento.generarNroDocumento", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_GENERAR_NRO_DOC",
-							resultClasses= MovimientoAlmacen.class
+							resultClasses= TipoMovimiento.class
 					),
 					
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.reporteICI", 
+							name="tipoMovimiento.reporteICI", 
 							procedureName="SP_MOVIMIENTO_ALMACEN_REPORTE_ICI",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 									parameters={
 												@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes", 			type=String.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 			type=String.class),
@@ -161,9 +161,9 @@ import proyect.core.entity.stock.Stock;
 					),
 					
 					@NamedStoredProcedureQuery(
-							name="movimientoAlmacen.listarAbastecimiento", 
+							name="tipoMovimiento.listarAbastecimiento", 
 							procedureName="[SP_VENTA_LISTAR_ABASTECIMIENTO_IME]",
-							resultClasses= MovimientoAlmacen.class,
+							resultClasses= TipoMovimiento.class,
 									parameters={
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="mes", 		type=String.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="periodo", 	type=String.class), 
@@ -175,10 +175,12 @@ import proyect.core.entity.stock.Stock;
 
 
 @Entity
-public class MovimientoAlmacen  implements Serializable {
+public class TipoMovimiento  implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="idMovimiento")
-	private String idMovimientoAlmacen;
+	private long idMovimientoAlmacen;
 
 	@Column(name="cantidad")
 	private int cantidad;
@@ -272,7 +274,7 @@ public class MovimientoAlmacen  implements Serializable {
 	
 	private List<Stock> stockItems;
 	
-	private List<MovimientoAlmacen> movimientoAlmacenItems; 
+	private List<TipoMovimiento> movimientoAlmacenItems; 
 	
 	private String cadenaCantdArt;
 	
@@ -294,29 +296,29 @@ public class MovimientoAlmacen  implements Serializable {
 	
 //	private List<VentaVO> atenciones;
 	
-	private List<MovimientoAlmacen> abastecimientos;
+	private List<TipoMovimiento> abastecimientos;
 	
 	
-	public MovimientoAlmacen() { 
+	public TipoMovimiento() { 
 	}
 	
-	public MovimientoAlmacen removeMovimientoAlmacenItem(MovimientoAlmacen movimientoAlmacenItem) {
+	public TipoMovimiento removeMovimientoAlmacenItem(TipoMovimiento movimientoAlmacenItem) {
 		getMovimientoAlmacenItems().remove(movimientoAlmacenItem);
 
 		return movimientoAlmacenItem;
 	}
-	public MovimientoAlmacen addMovimientoAlmacenItem(MovimientoAlmacen movimientoAlmacen) {
+	public TipoMovimiento addMovimientoAlmacenItem(TipoMovimiento movimientoAlmacen) {
 		this.getMovimientoAlmacenItems().add(movimientoAlmacen);
 
 		return movimientoAlmacen;
 	}
 
-	public String getIdMovimientoAlmacen() {
+	public long getIdMovimientoAlmacen() {
 		return idMovimientoAlmacen;
 	}
 
 
-	public void setIdMovimientoAlmacen(String idMovimientoAlmacen) {
+	public void setIdMovimientoAlmacen(long idMovimientoAlmacen) {
 		this.idMovimientoAlmacen = idMovimientoAlmacen;
 	}
 
@@ -519,11 +521,11 @@ public class MovimientoAlmacen  implements Serializable {
 		this.stockItems = stockItems;
 	}
 
-	public List<MovimientoAlmacen> getMovimientoAlmacenItems() {
+	public List<TipoMovimiento> getMovimientoAlmacenItems() {
 		return movimientoAlmacenItems;
 	}
 
-	public void setMovimientoAlmacenItems(List<MovimientoAlmacen> movimientoAlmacenItems) {
+	public void setMovimientoAlmacenItems(List<TipoMovimiento> movimientoAlmacenItems) {
 		this.movimientoAlmacenItems = movimientoAlmacenItems;
 	}
 
@@ -591,11 +593,11 @@ public class MovimientoAlmacen  implements Serializable {
 		this.fechaInventarioSig = fechaInventarioSig;
 	}
 
-	public List<MovimientoAlmacen> getAbastecimientos() {
+	public List<TipoMovimiento> getAbastecimientos() {
 		return abastecimientos;
 	}
 
-	public void setAbastecimientos(List<MovimientoAlmacen> abastecimientos) {
+	public void setAbastecimientos(List<TipoMovimiento> abastecimientos) {
 		this.abastecimientos = abastecimientos;
 	}
 
