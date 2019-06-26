@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import proyect.core.bean.general.CatalogoBean;
+import proyect.core.bean.stock.ArticuloBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.web.controller.base.BaseController; 
@@ -22,7 +23,7 @@ import proyect.web.controller.base.BaseController;
 public class ArticuloController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
-	
+	private ArticuloBean articuloBean;
 	
 	@Autowired
 	private Catalogo1Service Catalogo1Service;
@@ -56,8 +57,8 @@ public class ArticuloController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
-	public ModelAndView doListado(@ModelAttribute("renaesBean") CatalogoBean catalogoBean, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean); 
+	public ModelAndView doListado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", articuloBean); 
 	
 		this.cargarCombos(mav);
 		return mav;
@@ -66,9 +67,9 @@ public class ArticuloController extends BaseController{
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView listado(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request){
+	public ModelAndView listado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request){
 	 
-		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean); 
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", articuloBean); 
 		this.cargarCombos(mav);
 		return mav;
 	}
@@ -124,8 +125,8 @@ public class ArticuloController extends BaseController{
 		}
 		System.out.println("sw " + sw);
 		if (sw) {
-			catalogoBean = new CatalogoBean() ;
-			 return this.listado(catalogoBean, request);
+			articuloBean = new ArticuloBean() ;
+			 return this.listado(articuloBean, request);
 			 
 		}else{
 			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
@@ -171,4 +172,15 @@ public class ArticuloController extends BaseController{
 		 
 			return lstcatalogoBean; 
 	}
+
+	public ArticuloBean getArticuloBean() {
+		return articuloBean;
+	}
+
+	public void setArticuloBean(ArticuloBean articuloBean) {
+		this.articuloBean = articuloBean;
+	}
+	
+	
+	
 }

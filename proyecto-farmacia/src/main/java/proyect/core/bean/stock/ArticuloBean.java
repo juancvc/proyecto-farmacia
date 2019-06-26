@@ -1,12 +1,9 @@
 package proyect.core.bean.stock;
-
-import java.io.Serializable;
-import javax.persistence.*;
+ 
 
 import proyect.base.bean.BaseBean;
 import proyect.core.bean.general.CatalogoBean;
-
-import java.sql.Timestamp;
+ 
 
 
 public class ArticuloBean extends BaseBean{
