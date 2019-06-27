@@ -5,10 +5,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-/**
- * The persistent class for the Catalogo01 database table.
- * 
- */
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(name = "catalogo01.listarPorCodigoTabla", procedureName = "[usp_Catalogo01_listarxCodigoCatalogo]", 
+		resultClasses = Catalogo01.class, parameters = {					
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "CodigoTabla", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "tipo", type = int.class) 
+	})
+	  
+})
+
 @Entity
 @NamedQuery(name="Catalogo01.findAll", query="SELECT c FROM Catalogo01 c")
 public class Catalogo01 implements Serializable {

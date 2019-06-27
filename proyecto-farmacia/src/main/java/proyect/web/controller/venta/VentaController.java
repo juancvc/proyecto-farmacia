@@ -13,31 +13,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import proyect.core.bean.general.CatalogoBean;
+import proyect.core.bean.general.PersonaBean;
+import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.venta.VentaBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
+import proyect.core.service.interfaces.general.UbigeoService;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
 @RequestMapping(value = "ventaController")
 public class VentaController extends BaseController{
 	
-	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstTipoDocumento;
+	List<CatalogoBean> lstTipoFinanciador;
+	List<UbigeoBean> lstUbigeoBean;
+	
 	private VentaBean ventaBean;
+	private UbigeoBean ubigeobean;
 	
 	@Autowired
-	private Catalogo1Service Catalogo1Service;
+	private Catalogo1Service catalogo1Service;
+	
+	@Autowired
+	private Catalogo2Service catalogo2Service;
+	
+	@Autowired
+	private UbigeoService ubigeoService;
 	
 	
 	private void cargarCombos(ModelAndView mav) {
-		/*try {
-			lstcatalogos = Catalogo1Service.listarTodascatalogos(new CatalogoBean());
+		try {
+			lstTipoDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);
+			lstTipoFinanciador = catalogo2Service.listarPorCodigoTabla("000008", 1);
+			
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
 		}
-		*/
-		mav.addObject("lstcatalogos", lstcatalogos);
+		
+		mav.addObject("lstTipoDocumento", lstTipoDocumento);
+		mav.addObject("lstTipoFinanciador", lstTipoFinanciador);
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
@@ -48,7 +65,7 @@ public class VentaController extends BaseController{
 		
 		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean); 
 		
-		lstcatalogosRegistros = Catalogo1Service.getBuscarPorFiltros(catalogoBean);
+		lstcatalogosRegistros = catalogo2Service.getBuscarPorFiltros(catalogoBean);
 		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
 		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
 		this.cargarCombos(mav);
@@ -94,7 +111,7 @@ public class VentaController extends BaseController{
 		CatalogoBean catalogoBean = new CatalogoBean();  
 	
 			try { 
-				catalogoBean = Catalogo1Service.getBuscarPorObjecto(ocatalogoBean);  
+				catalogoBean = catalogo2Service.getBuscarPorObjecto(ocatalogoBean);  
 			 System.out.println("catalogoBean::" + catalogoBean);
 			} catch (ServiceException e) {
 				
@@ -115,9 +132,9 @@ public class VentaController extends BaseController{
 		boolean sw = true;
 		try {
 			if (catalogoBean.getIdRegistro()!=null && !catalogoBean.getIdRegistro().equals("")) { 
-				sw = (Catalogo1Service.actualizar(catalogoBean));
+				sw = (catalogo2Service.actualizar(catalogoBean));
 			} else { 
-				sw =  (Catalogo1Service.insertar(catalogoBean)); 
+				sw =  (catalogo2Service.insertar(catalogoBean)); 
 				
 			} 
 		} catch (Exception e) { 
@@ -146,7 +163,7 @@ public class VentaController extends BaseController{
 		catalogoBean.setIdRegistro(codReg);
 		catalogoBean.setIdCatalogo(catalogo);
 		try { 
-			 if(Catalogo1Service.eliminar(catalogoBean)){
+			 if(catalogo2Service.eliminar(catalogoBean)){
 				 valida = "1";
 			 }
 			 
@@ -163,7 +180,7 @@ public class VentaController extends BaseController{
 		 catalogoBean.setIdCatalogo(catalogo);
 		List<CatalogoBean> lstcatalogoBean =new ArrayList<CatalogoBean>(); 
 		try {
-			lstcatalogoBean = Catalogo1Service.getBuscarPorFiltros(catalogoBean); 
+			lstcatalogoBean = catalogo2Service.getBuscarPorFiltros(catalogoBean); 
 		
 		} catch (ServiceException e) {
 			
@@ -172,8 +189,29 @@ public class VentaController extends BaseController{
 		 
 			return lstcatalogoBean; 
 	}
+	
+	@RequestMapping(value = "/personaModal", method = RequestMethod.POST)
+	public ModelAndView personaModalPost() throws Exception {
+		PersonaBean objPersona = new  PersonaBean(); 
+		ModelAndView mav = new ModelAndView("asistencial/laboratorio/orden/persona-registro-modal", "command",  objPersona); 
+		
+		ubigeobean = new UbigeoBean();
+		ubigeobean.setVariable("");
+		ubigeobean.setInstitucion("000003");
+		ubigeobean.setCategoria("000003");
+		lstUbigeoBean = new ArrayList<UbigeoBean>();
+		try {
+			
+			lstUbigeoBean = ubigeoService.getBuscarPorFiltros(ubigeobean);
+		} catch (Exception e) { 
+		}
+		mav.addObject("ubigeoBean", new UbigeoBean());
+		mav.addObject("lstUbigeoBean", lstUbigeoBean);
+		this.cargarCombos(mav);
+		return mav;
+	} 
 
-	public proyect.core.bean.venta.VentaBean getVentaBean() {
+	public VentaBean getVentaBean() {
 		return ventaBean;
 	}
 

@@ -45,7 +45,7 @@
 
 <img id="imgFotoPaciente"
 										style="width: 100%; height: 100%;"
-										src="${pageContext.request.contextPath}/assets/img/imgPortadaFarmacia.png" />
+										src="${pageContext.request.contextPath}/assets/img/imgPortadaFarmacia.jpg" />
           
         </div>
         <!-- /.container-fluid -->

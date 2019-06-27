@@ -22,10 +22,10 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 	
 
 	@Override
-	public boolean insertar(CatalogoBean TablaBean) throws ServiceException {
+	public boolean insertar(CatalogoBean catalogoBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra2DAO.insertar(TablaBean);
+			sw =  maestra2DAO.insertar(catalogoBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -34,10 +34,10 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 	}
 
 	@Override
-	public boolean actualizar(CatalogoBean TablaBean) throws ServiceException {
+	public boolean actualizar(CatalogoBean catalogoBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra2DAO.actualizar(TablaBean);
+			sw =  maestra2DAO.actualizar(catalogoBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -46,10 +46,10 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 	}
 
 	@Override
-	public boolean eliminar(CatalogoBean TablaBean) throws ServiceException {
+	public boolean eliminar(CatalogoBean catalogoBean) throws ServiceException {
 		Boolean sw = false;
 		try {
-			sw =  maestra2DAO.eliminar(TablaBean);
+			sw =  maestra2DAO.eliminar(catalogoBean);
 			
 		} catch (DAOException e) { 
 			e.printStackTrace();
@@ -58,26 +58,26 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 	}
 
 	@Override
-	public CatalogoBean getBuscarPorObjecto(CatalogoBean TablaBean) throws ServiceException {
-		CatalogoBean oTablaBean = null;
+	public CatalogoBean getBuscarPorObjecto(CatalogoBean catalogoBean) throws ServiceException {
+		CatalogoBean ocatalogoBean = null;
 		try {
-			oTablaBean = maestra2DAO.getBuscarPorObjecto(TablaBean);
+			ocatalogoBean = maestra2DAO.getBuscarPorObjecto(catalogoBean);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		return oTablaBean;
+		return ocatalogoBean;
 	}
 
 	@Override
 	public List<CatalogoBean> getBuscarPorFiltros(CatalogoBean lengua)
 			throws ServiceException {
-		List<CatalogoBean> lstTablaBean=null;
+		List<CatalogoBean> lstcatalogoBean=null;
 		try { 
-			lstTablaBean=(List<CatalogoBean>) maestra2DAO.getBuscarPorFiltros(lengua);
+			lstcatalogoBean=(List<CatalogoBean>) maestra2DAO.getBuscarPorFiltros(lengua);
 		} catch (Exception e) {
 			 
 		}  
-		return lstTablaBean;
+		return lstcatalogoBean;
 	}
 
 	@Override
@@ -87,13 +87,19 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 	}
 
 	@Override
-	public List<CatalogoBean> listarPorCodigoTabla(String codTabla,long tipo)
+	public List<CatalogoBean> listarPorCodigoTabla(String codTabla,int tipo)
 			throws  ServiceException {  
-		return null;
+		List<CatalogoBean> lstcatalogoBean=null;
+		try { 
+			lstcatalogoBean =   maestra2DAO.listarPorCodigoTabla(codTabla,tipo);
+		} catch (Exception e) {
+			 
+		}  
+		return lstcatalogoBean;
 	}
 
 	@Override
-	public List<CatalogoBean> listarPorValor1(CatalogoBean TablaBean) throws ServiceException {
+	public List<CatalogoBean> listarPorValor1(CatalogoBean catalogoBean) throws ServiceException {
 		
 		return null;
 	}

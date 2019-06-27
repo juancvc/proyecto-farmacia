@@ -364,13 +364,16 @@ public class InicioController extends BaseController{
 				
 			}
 			
-			try {
-				lstSituacion = Catalogo2Service.listarPorCodigoTabla("000012", 1);
+			/*try {
+			lstSituacion = Catalogo2Service.listarPorCodigoTabla("000012", 1);
 				lstTipoPaciente = Catalogo2Service.listarPorCodigoTabla("000007", 1);
 			} catch (ServiceException e) {
 				System.out.println("printStackTrace");
 				e.printStackTrace();
 			}
+						mav.addObject("lstSituacion",lstSituacion); 
+			mav.addObject("lstTipoPaciente",lstTipoPaciente);
+			*/
 			AlmacenBean objAlmacen = almacenService.getBuscarPorObjecto(usuario.getAlmacen());
 			usuario.setAlmacen(objAlmacen);
 			this.setUsuarioBean(usuario);	
@@ -378,8 +381,7 @@ public class InicioController extends BaseController{
 			mav.addObject("usuarioSesion", usuario);
 			request.getSession().setAttribute("totalPerfiles", totalPerfiles);
 			mav.addObject("totalPerfiles",totalPerfiles); 
-			mav.addObject("lstSituacion",lstSituacion); 
-			mav.addObject("lstTipoPaciente",lstTipoPaciente);
+
 			
 			
 		} catch (Exception e) {

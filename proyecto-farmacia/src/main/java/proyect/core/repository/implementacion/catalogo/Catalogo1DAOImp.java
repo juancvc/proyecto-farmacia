@@ -221,7 +221,7 @@ public class Catalogo1DAOImp implements Catalogo1DAO {
 		List<Catalogo01> lstMaestra1 = null;	
 		List<CatalogoBean> lstCatalogoBean = null;
 		System.out.println("tgemaeGene01 listarPorCodigoTabla  "+ codTabla);
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("tgemaeGene01.listarPorCodigoTabla");  
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo01.listarPorCodigoTabla");  
 			spq.setParameter("CODTABLA", codTabla);   
 			spq.setParameter("TIPO", tipo);   
 			if (spq.execute()) {

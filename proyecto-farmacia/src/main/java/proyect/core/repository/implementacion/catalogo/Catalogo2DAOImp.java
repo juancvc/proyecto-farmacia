@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import proyect.base.repository.DAOException;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.entity.catalogo.Catalogo01;
+import proyect.core.entity.catalogo.Catalogo02;
 import proyect.core.repository.interfaces.catalogo.Catalogo2DAO;
 
  
@@ -35,7 +35,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		Object idMaestra= null; 
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.insertar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.insertar");
 			
 			spq.setParameter("p_codusureg", 1);
 			spq.setParameter("p_hostreg", ""); 
@@ -94,7 +94,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		boolean sw=false;
 		System.out.println("CatalogoBean actualizar " + CatalogoBean );
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.actualizar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.actualizar");
 			  
 			spq.setParameter("p_codregis", CatalogoBean.getIdRegistro()); 
 			spq.execute();   
@@ -120,9 +120,9 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	@Override
 	public CatalogoBean getBuscarPorTablaYRegistro(CatalogoBean CatalogoBean) throws DAOException {
 		CatalogoBean oCatalogoBean = null;
-		List<Catalogo01> lstLeotbcMaestra = null;
+		List<Catalogo02> lstLeotbcMaestra = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.buscarXcod_Tabla_Registro");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.buscarXcod_Tabla_Registro");
 			spq.setParameter("p_codregis", CatalogoBean.getIdRegistro());
 		
 			if (spq.execute()) {
@@ -149,7 +149,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 //	public boolean eliminar(CatalogoBean Maestra2Bean) throws DAOException { 
 //		boolean sw=false;
 //		try {
-//			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.eliminar");
+//			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.eliminar");
 //			spq.setParameter("p_codMaestra2", Maestra2Bean.getId()); 
 //			
 //			spq.execute();  
@@ -169,19 +169,19 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	@Override
 	public CatalogoBean getBuscarPorObjecto(CatalogoBean Maestra2Bean) throws DAOException {
 		CatalogoBean oCatalogoBean = null;
-		List<Catalogo01> lstCatalogo01 = null;
+		List<Catalogo02> lstCatalogo02 = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.buscar_por_codigo");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.buscar_por_codigo");
 			
 		
 			if (spq.execute()) {
-				lstCatalogo01 = spq.getResultList();			
+				lstCatalogo02 = spq.getResultList();			
 			}
 			
-			if (	lstCatalogo01 != null
-				&&	lstCatalogo01.size() > 0) {
+			if (	lstCatalogo02 != null
+				&&	lstCatalogo02.size() > 0) {
 				
-				oCatalogoBean = deCatalogoACatalogoBean(lstCatalogo01.get(0));
+				oCatalogoBean = deCatalogoACatalogoBean(lstCatalogo02.get(0));
 			} 
 
 		} catch (Exception e) {
@@ -198,10 +198,10 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	@Override
 	public List<CatalogoBean> getBuscarPorFiltros(CatalogoBean CatalogoBean) throws DAOException { 
 		System.out.println("em " + em);
-		List<Catalogo01> lstmaestra = null;	
+		List<Catalogo02> lstmaestra = null;	
 		List<CatalogoBean> lstCatalogoBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.listar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.listar");
 			 
 			lstmaestra =  spq.getResultList(); 
 			 
@@ -218,12 +218,12 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CatalogoBean> listarPorCodigoTabla(String codTabla, int tipo) throws DAOException {
-		List<Catalogo01> lstMaestra2 = null;	
+		List<Catalogo02> lstMaestra2 = null;	
 		List<CatalogoBean> lstCatalogoBean = null;
-		System.out.println("tgemaeGene01 listarPorCodigoTabla  "+ codTabla);
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("tgemaeGene01.listarPorCodigoTabla");  
-			spq.setParameter("CODTABLA", codTabla);   
-			spq.setParameter("TIPO", tipo);   
+		System.out.println("catalogo02 listarPorCodigoTabla  "+ codTabla);
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.listarPorCodigoTabla");  
+			spq.setParameter("CodigoTabla", codTabla);   
+			spq.setParameter("tipo", tipo);   
 			if (spq.execute()) {
 				lstMaestra2 =  spq.getResultList(); 
 			} 
@@ -240,10 +240,10 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CatalogoBean> listarComboGeneral(String codTabla) throws DAOException {
-		List<Catalogo01> lstMaestra2 = null;	
+		List<Catalogo02> lstMaestra2 = null;	
 		List<CatalogoBean> lstCatalogoBean = null;
 //		System.out.println("listarPorCodigoTabla  "+ codTabla);
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo01.listarComboGeneral");   
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.listarComboGeneral");   
 			spq.setParameter("p_codregis", codTabla); 
 			if (spq.execute()) {
 				lstMaestra2 =  spq.getResultList(); 
@@ -263,7 +263,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		return false;
 	}
 	
-	private List<CatalogoBean> deListaMaestra2AListaCatalogoBean(List<Catalogo01> lstHorarioExcepcion) {
+	private List<CatalogoBean> deListaMaestra2AListaCatalogoBean(List<Catalogo02> lstHorarioExcepcion) {
 		
 		List<CatalogoBean> lstHorarioExcepcionBean = null;
 		
@@ -272,7 +272,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 			lstHorarioExcepcionBean = new ArrayList<CatalogoBean>();
 			
 			for (int i = 0; i < lstHorarioExcepcion.size(); i++) { 
-				Catalogo01 entity = lstHorarioExcepcion.get(i);
+				Catalogo02 entity = lstHorarioExcepcion.get(i);
 				CatalogoBean bean = deCatalogoACatalogoBean(entity);
 				
 				lstHorarioExcepcionBean.add(bean);
@@ -282,7 +282,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		return lstHorarioExcepcionBean;
 	}
 	
-	private CatalogoBean deCatalogoACatalogoBean(Catalogo01 entity) {
+	private CatalogoBean deCatalogoACatalogoBean(Catalogo02 entity) {
 		
 		CatalogoBean bean = null;
 		

@@ -78,6 +78,27 @@
           </div>
         </div>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Transferencia Inst.</span></a>
+      </li>
+       
+      <!-- <li id ="navVentas" class="nav-item">
+        <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Transferencia</span>
+        </a> 
+        <div id="collapseVentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+        
+            <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Transferencia Inst</a>
+            <a class="collapse-item" href="#">Anular</a>
+            <a class="collapse-item" href="#">Devoluciones</a>
+          </div>
+        </div>
+      </li>-->
+      
       <!-- Nav Item - Utilities Collapse Menu 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">

@@ -178,7 +178,6 @@ private List<AlmacenBean> deListaObjetoAListaObjetoBean(List<Almacen> lstAlmacen
 
 	@Override
 	public boolean existe(AlmacenBean t) throws DAOException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
