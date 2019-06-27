@@ -208,7 +208,7 @@ public class MovimientoAlmacen  implements Serializable {
 	private String fechaMovimiento;
 	
 	@Column(name="tipoIngresoDocumento")
-	private int tipoIngresoDocumento;
+	private String tipoIngresoDocumento;
 	
  
 	@Column(name="ID_ARTICULO")
@@ -399,11 +399,11 @@ public class MovimientoAlmacen  implements Serializable {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 
-	public int getTipoIngresoDocumento() {
+	public String getTipoIngresoDocumento() {
 		return tipoIngresoDocumento;
 	}
 
-	public void setTipoIngresoDocumento(int tipoIngresoDocumento) {
+	public void setTipoIngresoDocumento(String tipoIngresoDocumento) {
 		this.tipoIngresoDocumento = tipoIngresoDocumento;
 	}
 

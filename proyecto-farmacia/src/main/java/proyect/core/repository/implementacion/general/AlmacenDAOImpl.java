@@ -27,11 +27,13 @@ public class AlmacenDAOImpl implements AlmacenDAO {
 		Object idAlmacen= null;
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.insertar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.insert");
 		 
 			spq.setParameter("nombreAlmacen", almacen.getNombreAlmacen());
 			spq.setParameter("descripcion", almacen.getDescripcion());
-			spq.setParameter("ALIAS", almacen.getAlias());
+			spq.setParameter("alias", almacen.getAlias());
+			spq.setParameter("usuarioRegistro", almacen.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", almacen.getIpRegistro());
 			spq.execute();
 			
 			idAlmacen = spq.getOutputParameterValue(1);
@@ -55,22 +57,13 @@ public class AlmacenDAOImpl implements AlmacenDAO {
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.update");
 			
-		/*	spq.setParameter("ID_ALMACEN", almacen.getIdAlmacen());	
-			spq.setParameter("ID_ORGANIZACION", almacen.getIdOrganizacionAlmacen());
-			spq.setParameter("ID_INSTITUCION", almacen.getIdInstitucionAlmacen());
-			spq.setParameter("ID_SEDE", almacen.getIdSedeAlmacen());
-			spq.setParameter("NOMBRE_CORTO", almacen.getNombreCorto());
-			spq.setParameter("NOMBRE_LARGO", almacen.getNombreLargo());
-			spq.setParameter("ALIAS", almacen.getAlias());
-			spq.setParameter("ID_SITUACION", almacen.getSituacion().getIdSituacion());
-			spq.setParameter("AUD_ID_USUARIO", almacen.getAud_usuario().getIdUsuario());
-			spq.setParameter("AUD_IP", almacen.getAud_ip());
-			spq.setParameter("AUD_SESSION", almacen.getAud_session());
-			spq.setParameter("AUD_ID_OPERACION", 2);
-			spq.setParameter("AUD_MAC", almacen.getAud_pc_mac());
-			spq.setParameter("AUD_OBSERVACION", almacen.getAud_Observacion());
-			spq.setParameter("CODIGO_MINSA", almacen.getCodigoMinsa());
-			*/
+			spq.setParameter("idAlmacen",    		almacen.getCodigo());
+			spq.setParameter("nombreAlmacen", 		almacen.getNombreAlmacen());
+			spq.setParameter("descripcion",   		almacen.getDescripcion());
+			spq.setParameter("alias",         		almacen.getAlias());
+			spq.setParameter("usuarioModificacion", almacen.getUsuarioRegistro());
+			spq.setParameter("ipModificacion",      almacen.getIpRegistro());
+	
 			spq.execute();
 			
 			em.close();
@@ -87,18 +80,11 @@ public class AlmacenDAOImpl implements AlmacenDAO {
 		boolean sw=true;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("almacen.delete");
-			
-	/*		spq.setParameter("ID_ALMACEN", almacen.getIdAlmacen());	
-			spq.setParameter("ID_ORGANIZACION", almacen.getIdOrganizacionAlmacen());
-			spq.setParameter("ID_INSTITUCION", almacen.getIdInstitucionAlmacen());
-			spq.setParameter("ID_SEDE", almacen.getIdSedeAlmacen());
-			spq.setParameter("AUD_ID_USUARIO", almacen.getAud_usuario().getIdUsuario());
-			spq.setParameter("AUD_IP", almacen.getAud_ip());
-			spq.setParameter("AUD_SESSION", almacen.getAud_session());
-			spq.setParameter("AUD_ID_OPERACION", 3);
-			spq.setParameter("AUD_MAC", almacen.getAud_pc_mac());
+			spq.setParameter("idAlmacen",    		almacen.getCodigo());
+			spq.setParameter("usuarioModificacion", almacen.getUsuarioRegistro());
+			spq.setParameter("ipModificacion",      almacen.getIpRegistro());
 			spq.execute();
-			*/
+
 			em.close();
 			
 		} catch (Exception e) {
