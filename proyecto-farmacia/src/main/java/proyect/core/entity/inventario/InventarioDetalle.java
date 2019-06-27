@@ -66,7 +66,7 @@ import proyect.core.entity.stock.Stock;
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
 						resultClasses = InventarioDetalle.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=Integer.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", 		 type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idSituacion",     type=String.class )

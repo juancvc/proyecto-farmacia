@@ -107,6 +107,13 @@ public class Almacen  {
 	@Column(name="codigoMinsa")
 	private String codigoMinsa;
 	
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
+	
+	@Column(name="ipRegistro")
+	private String ipRegistro;
+	
+	
 	public Almacen() { 
 	}
 
@@ -148,6 +155,24 @@ public class Almacen  {
 
 	public void setCodigoMinsa(String codigoMinsa) {
 		this.codigoMinsa = codigoMinsa;
+	}
+	
+	
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
+
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
 	}
 
 	@Override

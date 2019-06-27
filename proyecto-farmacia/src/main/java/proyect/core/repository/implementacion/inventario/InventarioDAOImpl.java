@@ -22,18 +22,25 @@ public class InventarioDAOImpl implements InventarioDAO {
 	private EntityManager em;
 
 	@Override
-	public boolean insertar(InventarioBean Inventario) throws DAOException {
+	public boolean insertar(InventarioBean inventario) throws DAOException {
 		Object idInventario= null;
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Inventario.insertar");
-		 
-			
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.insert");
+			spq.setParameter("idFarmacia", inventario.getAlmacen().getCodigo());
+			spq.setParameter("cantidadItems", inventario.getCantidadItems());
+			spq.setParameter("cadenaCantidad", inventario.getCadenaCantidad());
+			spq.setParameter("nroDocumento", inventario.getNroDocumento());
+			spq.setParameter("idPersonalResponsable", inventario.getPersonalResponsable().getCodigo());
+			spq.setParameter("fecha", inventario.getFecha());
+			spq.setParameter("usuarioRegistro", inventario.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", inventario.getIpRegistro());
+			spq.setParameter("cadenaIdStock", inventario.getCadenaIdStock());
 			spq.execute();
 			
 			idInventario = spq.getOutputParameterValue(1);
 			if (VO.isNotNull(idInventario)) {
-				Inventario.setCodigo(idInventario.toString());
+				inventario.setCodigo(idInventario.toString());
 				sw=true;
 			}
 			em.close();
@@ -50,7 +57,7 @@ public class InventarioDAOImpl implements InventarioDAO {
 	public boolean actualizar(InventarioBean Inventario) throws DAOException {
 		boolean sw=true;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Inventario.update");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.update");
 			
 		/*	spq.setParameter("ID_Inventario", Inventario.getIdInventario());	
 			spq.setParameter("ID_ORGANIZACION", Inventario.getIdOrganizacionInventario());
@@ -83,7 +90,7 @@ public class InventarioDAOImpl implements InventarioDAO {
 	public boolean eliminar(InventarioBean Inventario) throws DAOException {
 		boolean sw=true;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Inventario.delete");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.delete");
 			
 	/*		spq.setParameter("ID_Inventario", Inventario.getIdInventario());	
 			spq.setParameter("ID_ORGANIZACION", Inventario.getIdOrganizacionInventario());
@@ -111,7 +118,7 @@ public class InventarioDAOImpl implements InventarioDAO {
 	   InventarioBean lstInventarioBean = null;
 		
 	   System.out.println("Inventario.getCodigo() " + Inventario.getCodigo());
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Inventario.buscarPorObjeto");  
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.buscarPorObjeto");  
 			spq.setParameter("idInventario", Inventario.getCodigo()); 
 			
 			 if (spq.execute()) {
@@ -136,7 +143,7 @@ public class InventarioDAOImpl implements InventarioDAO {
 		List<Inventario> lstInventario = null;	
 		List<InventarioBean> lstInventarioBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Inventario.buscarPorFiltros");  
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.buscarPorFiltros");  
 		//	spq.setParameter("nombreInventario", Inventario.getNombreInventario()); 
 			
 			 if (spq.execute()) {
@@ -180,6 +187,10 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 			
 			bean = new InventarioBean();
 			bean.setCodigo(entity.getIdInventario());   
+			bean.setNroDocumento(entity.getNroDocumento()); 
+			bean.getAlmacen().setCodigo(entity.getIdAlmacen()); 
+			bean.setUsuarioRegistro(entity.getUsuarioRegistro()); 
+			bean.setIpRegistro(entity.getIpRegistro()); 
 	 	}
 		
 		return bean;
@@ -189,6 +200,55 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 	public boolean existe(InventarioBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<InventarioBean> listarBuscarxNroDocumento(InventarioBean inventarioBean) {
+		List<Inventario> lstInventario = null;	
+		List<InventarioBean> lstInventarioBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.buscarXNroDocumento");  
+			spq.setParameter("idAlmacen", inventarioBean.getAlmacen().getCodigo()); 
+			spq.setParameter("nroDocumento", inventarioBean.getNroDocumento()); 
+			 if (spq.execute()) {
+				 lstInventario =  spq.getResultList(); 
+			 }
+			 
+			if (lstInventario != null && lstInventario.size() > 0) {
+				lstInventarioBean = deListaObjetoAListaObjetoBean(lstInventario);
+			 }
+			
+			em.close();
+			
+		   
+		return lstInventarioBean;
+	}
+
+	@Override
+	public boolean insertarHistorico(InventarioBean inventario) throws DAOException {
+		Object idInventario= null;
+		boolean sw=false;
+		try {
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.insertHistorico");
+			spq.setParameter("idFarmacia", inventario.getAlmacen().getCodigo());
+			spq.setParameter("nroDocumento", inventario.getNroDocumento());
+			spq.setParameter("usuarioRegistro", inventario.getUsuarioRegistro());
+
+			spq.execute();
+			
+			idInventario = spq.getOutputParameterValue(1);
+			if (VO.isNotNull(idInventario)) {
+				inventario.setCodigo(idInventario.toString());
+				sw=true;
+			}
+			em.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			sw=false;
+			throw new DAOException(e);
+		}
+		return sw;
 	}
 
 

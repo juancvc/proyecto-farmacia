@@ -101,6 +101,12 @@ public class Inventario  {
 	@Column(name="nroMes")
 	private int nroMes;
 	
+	@Column(name="ipRegistro")
+	private String ipRegistro;
+
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
+	
 	private int cantidadItems;
 	
 	private String cadenaNroPeriodoStock;
@@ -287,6 +293,25 @@ public class Inventario  {
 	public String getFecha() {
 		return fecha;
 	}
+
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
+	}
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
+	
+	
+	
 
 	 
 }

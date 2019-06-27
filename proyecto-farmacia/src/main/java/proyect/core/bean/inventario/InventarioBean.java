@@ -13,7 +13,9 @@ public class InventarioBean  extends BaseBean{
 	private Date fecha;
 	private String nroDocumento;
 	private int nroMes;
-	
+	private int cantidadItems;
+	private String cadenaCantidad;
+	private String cadenaIdStock;
 	public AlmacenBean getAlmacen() {
 		return almacen;
 	}
@@ -43,6 +45,27 @@ public class InventarioBean  extends BaseBean{
 	}
 	public void setNroMes(int nroMes) {
 		this.nroMes = nroMes;
+	}
+	
+	
+	
+	public int getCantidadItems() {
+		return cantidadItems;
+	}
+	public void setCantidadItems(int cantidadItems) {
+		this.cantidadItems = cantidadItems;
+	}
+	public String getCadenaCantidad() {
+		return cadenaCantidad;
+	}
+	public void setCadenaCantidad(String cadenaCantidad) {
+		this.cadenaCantidad = cadenaCantidad;
+	}
+	public String getCadenaIdStock() {
+		return cadenaIdStock;
+	}
+	public void setCadenaIdStock(String cadenaIdStock) {
+		this.cadenaIdStock = cadenaIdStock;
 	}
 	@Override
 	public String toString() {

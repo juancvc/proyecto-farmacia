@@ -111,7 +111,7 @@ import javax.persistence.Table;
 		}
 	)
 @Entity
-@Table(name="EVENTO_PERSONA")
+@Table(name="EventoPersona")
 public class EventoPersona {
 	private static final long serialVersionUID = 1L;
 	
