@@ -77,8 +77,8 @@ public class VentaController extends BaseController{
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
-		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command", catalogoBean); 
+		VentaBean ventaBean = new VentaBean(); 
+		ModelAndView mav = new ModelAndView("ventas/generar-venta", "command", ventaBean); 
 		this.cargarCombos(mav);
 		return mav;
 	}

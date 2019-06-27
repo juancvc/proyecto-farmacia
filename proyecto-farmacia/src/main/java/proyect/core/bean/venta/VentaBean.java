@@ -19,7 +19,16 @@ public class VentaBean  extends BaseBean {
 	private CatalogoBean tipoSeguro;
 	private TurnoBean turno;
 	private float importe;
+	private String sImporte;
 	
+	
+	
+	public String getsImporte() {
+		return sImporte;
+	}
+	public void setsImporte(String sImporte) {
+		this.sImporte = sImporte;
+	}
 	public Date getFechaAtencion() {
 		return fechaAtencion;
 	}
