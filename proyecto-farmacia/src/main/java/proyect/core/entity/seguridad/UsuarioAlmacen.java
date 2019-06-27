@@ -12,18 +12,11 @@ import java.sql.Timestamp;
 					name="usuarioAlmacen.insertar", 
 					procedureName="[Farmacia].[dbo].[SP_USUARIO_ALMACEN_INSERTAR]",					
 					parameters={
-							
-								@StoredProcedureParameter(mode=ParameterMode.OUT,  name="ID_USUARIO_ALMACEN", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_USUARIO", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idUsuarioAlmacen", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,   name="idUsuario", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,   name="idAlmacen", 		type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,   name="usuarioRegistro", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,   name="ipRegistro", 		type=String.class)
 						}					
 				)
 		}
@@ -42,16 +35,16 @@ public class UsuarioAlmacen implements Serializable {
 	@Column(name="AUD_ID_OPERACION")
 	private int audIdOperacion;
 
-	@Column(name="AUD_ID_USUARIO")
-	private int audIdUsuario;
+	@Column(name="usuarioRegistro")
+	private String audIdUsuario;
 
-	@Column(name="AUD_IP")
+	@Column(name="ipRegistro")
 	private String audIp;
 
 	@Column(name="AUD_MAC")
 	private String audMac;
 
-	@Column(name="AUD_OBSERVACION")
+	@Column(name="observacion")
 	private String audObservacion;
 
 	@Column(name="AUD_SESSION")
@@ -60,11 +53,11 @@ public class UsuarioAlmacen implements Serializable {
 	@Column(name="ESTADO")
 	private String estado;
 
-	@Column(name="ID_ALMACEN")
-	private int idAlmacen;
+	@Column(name="idAlmacen")
+	private String idAlmacen;
 
-	@Column(name="ID_USUARIO")
-	private int idUsuario;
+	@Column(name="idUsuario")
+	private String idUsuario;
 
 	public UsuarioAlmacen() {
 		setId(new UsuarioAlmacenPK());
@@ -94,11 +87,11 @@ public class UsuarioAlmacen implements Serializable {
 		this.audIdOperacion = audIdOperacion;
 	}
 
-	public int getAudIdUsuario() {
+	public String getAudIdUsuario() {
 		return this.audIdUsuario;
 	}
 
-	public void setAudIdUsuario(int audIdUsuario) {
+	public void setAudIdUsuario(String audIdUsuario) {
 		this.audIdUsuario = audIdUsuario;
 	}
 
@@ -142,19 +135,19 @@ public class UsuarioAlmacen implements Serializable {
 		this.estado = estado;
 	}
 
-	public int getIdAlmacen() {
+	public String getIdAlmacen() {
 		return this.idAlmacen;
 	}
 
-	public void setIdAlmacen(int idAlmacen) {
+	public void setIdAlmacen(String idAlmacen) {
 		this.idAlmacen = idAlmacen;
 	}
 
-	public int getIdUsuario() {
+	public String getIdUsuario() {
 		return this.idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(String idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

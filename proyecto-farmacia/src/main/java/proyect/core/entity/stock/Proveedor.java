@@ -34,24 +34,22 @@ import javax.persistence.StoredProcedureParameter;
 				
 				@NamedStoredProcedureQuery(
 						name="proveedor.insert", 
-						procedureName="SP_PROVEEDOR_INSERTAR",
+						procedureName="[dbo].[usp_Proveedor_insertar]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idProveedor", 	    type=String.class ),								
 									@StoredProcedureParameter(mode=ParameterMode.IN,   name="nombreProveedor",  type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,   name="descripcion", 		type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,   name="ruc", 				type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,   name="usuarioRegistro",  type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,   name="ipRegistro", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
 						name="proveedor.update", 
-						procedureName="SP_PROVEEDOR_ACTUALIZAR",
+						procedureName="[dbo].[usp_Proveedor_actualizar]",
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", 	  	  type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreProveedor", 	  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", 	  	  type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="RUC", 			      type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
@@ -59,7 +57,7 @@ import javax.persistence.StoredProcedureParameter;
 				),
 				@NamedStoredProcedureQuery(
 						name="proveedor.delete", 
-						procedureName="SP_PROVEEDOR_ELIMINAR",
+						procedureName="[dbo].[usp_Proveedor_eliminar]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idProveedor", 		 type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
@@ -75,7 +73,7 @@ public class Proveedor  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="idProveedor")
-	private long idProveedor;
+	private String idProveedor;
 
 	@Column(name="nombreProveedor")
 	private String nombreCorto;
@@ -105,12 +103,12 @@ public class Proveedor  {
 	}
 
 
-	public long getIdProveedor() {
+	public String getIdProveedor() {
 		return idProveedor;
 	}
 
 
-	public void setIdProveedor(long idProveedor) {
+	public void setIdProveedor(String idProveedor) {
 		this.idProveedor = idProveedor;
 	}
 

@@ -86,7 +86,7 @@ public class InventarioDetalle  {
 	@Column(name="idStock")
 	private String idStock;
 	
-	@Column(name="saldoAnterior")
+	@Column(name="fecha")
 	private String fecha;
 
 	@Column(name="nroDocumento")

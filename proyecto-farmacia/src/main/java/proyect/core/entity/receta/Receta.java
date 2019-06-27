@@ -23,7 +23,7 @@ import javax.persistence.StoredProcedureParameter;
 						resultClasses= Receta.class,
 						parameters={
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idReceta", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="tipo", 	   type=String.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipo", 	   type=String.class )
 							}					
 					),
 				
@@ -135,7 +135,7 @@ public class Receta   {
 	private RecetaPK id; 
 	
 	@Column(name="idCIE10")
-	private int idCIE10;
+	private String idCIE10;
 	
 	@Column(name="observacion")
 	private String observacion;
@@ -156,7 +156,7 @@ public class Receta   {
 	private int tipo;
 	
 	@Column(name="TIPO_PACIENTE")
-	private int tipoPaciente;
+	private  String tipoPaciente;
 	
 	@Column(name="swExonerado")
 	private String swExonerado; 
@@ -166,7 +166,7 @@ public class Receta   {
 	*/
 	
 	private String descripcionTipoSis;
-	private int    idTipoSis;
+	private String    idTipoSis;
 	
 	public RecetaDetalle removeRecetaDetalle(RecetaDetalle recetaDetalle) {
 		getRecetaItems().remove(recetaDetalle);
@@ -185,7 +185,7 @@ public class Receta   {
 	private String fechaDesde;
 	private String fechaHasta;
 	
-	private int   idAlmacen;
+	private String   idAlmacen;
 	
 	public Receta() { 
 	}
@@ -218,12 +218,12 @@ public class Receta   {
 	}
  
 
-	public int getIdCIE10() {
+	public String getIdCIE10() {
 		return idCIE10;
 	}
 
 
-	public void setIdCIE10(int idCIE10) {
+	public void setIdCIE10(String idCIE10) {
 		this.idCIE10 = idCIE10;
 	}
 
@@ -318,10 +318,10 @@ public class Receta   {
 	public void setCadenaDosis(String cadenaDosis) {
 		this.cadenaDosis = cadenaDosis;
 	}
-	public int getIdAlmacen() {
+	public String getIdAlmacen() {
 		return idAlmacen;
 	}
-	public void setIdAlmacen(int idAlmacen) {
+	public void setIdAlmacen(String idAlmacen) {
 		this.idAlmacen = idAlmacen;
 	}
 	public String getNumeroHC() {
@@ -336,10 +336,10 @@ public class Receta   {
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
-	public int getTipoPaciente() {
+	public String getTipoPaciente() {
 		return tipoPaciente;
 	}
-	public void setTipoPaciente(int tipoPaciente) {
+	public void setTipoPaciente(String tipoPaciente) {
 		this.tipoPaciente = tipoPaciente;
 	}
 
@@ -350,10 +350,10 @@ public class Receta   {
 		this.descripcionTipoSis = descripcionTipoSis;
 	}
 	
-	public int getIdTipoSis() {
+	public String getIdTipoSis() {
 		return idTipoSis;
 	}
-	public void setIdTipoSis(int idTipoSis) {
+	public void setIdTipoSis(String idTipoSis) {
 		this.idTipoSis = idTipoSis;
 	} 
 	

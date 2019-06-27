@@ -43,40 +43,34 @@ import java.util.Date;
 		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "p_codusumod", type = Long.class),
 		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "p_hostmod", type = String.class)
 	}),
-	/*@NamedStoredProcedureQuery(name = "leotbc_acceso.listar", 
-	procedureName = "segu.fun_leotbcacceso_listar", 
-	resultClasses = LeotbcAcceso.class,
-	parameters = {
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_nomperfil", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "p_codperfil", type = Long.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN,  name = "p_tm1sitprf", type = Integer.class)
-	}),*/
+	
+
 	@NamedStoredProcedureQuery(name = "acceso.listar", 
-		procedureName = "SEGU.USP_ACCESO_LISTADO", 
+		procedureName = "[dbo].[usp_Accesos_lista]", 
 		resultClasses = Acceso.class,
 		parameters = {
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODIPERF", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "CODCOMPA", type = String.class)
+			@StoredProcedureParameter(mode = ParameterMode.IN, name = "idPerfil", 			type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN, name = "idComponentePadre",  type = String.class)
 	}),
 	@NamedStoredProcedureQuery(name = "acceso.asignar", 
-		procedureName = "SEGU.USP_ACCESO_ASIGNAR", 
+		procedureName = "[dbo].[usp_Accesos_asignar]", 
 		parameters = {
-			@StoredProcedureParameter(mode = ParameterMode.INOUT, name = "CODACCES", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "SWASIGNA", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "SWLECTUR", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "SWESCRIT", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "SWELIMIN", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "SWEXPORT", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "CODIPERF", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "CODCOMPO", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUCDUSCR", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "AUPCIPCR", type = String.class)
+			@StoredProcedureParameter(mode = ParameterMode.OUT, name = "idAcceso", 		  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "flagAsignar", 	  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "flagLectura", 	  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "flagEscritura",   type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "flagEliminar", 	  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "flagExportar", 	  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "idPerfil", 		  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "idComponente", 	  type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "usuarioRegistro", type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN,  name = "ipRegistro", 	  type = String.class)
 	})
 		
 })
 
 @Entity
-@Table(name="acceso", schema="REC")
+@Table(name="acceso", schema="dbo")
 public class Acceso implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -85,28 +79,28 @@ public class Acceso implements Serializable {
 	@Column(name="NRORDEN")
 	private Integer nroOrden;
 	
-	@Column(name="CODACCES")
+	@Column(name="idAcceso")
 	private String codacceso;
 
-	@Column(name="CODCOMPO")
+	@Column(name="idComponente")
 	private String codcompo;
 
-	@Column(name="CODIPERF")
+	@Column(name="idPerfil")
 	private String codperfil;
 
-	@Column(name="SWASIGNA")
+	@Column(name="flagAsignar")
 	private String swAsignado;
 
-	@Column(name="SWLECTUR")
+	@Column(name="flagLectura")
 	private String swLectura;
 	
-	@Column(name="SWESCRIT")
+	@Column(name="flagEscritura")
 	private String swEscrito;
 	
-	@Column(name="SWELIMIN")
+	@Column(name="flagEliminar")
 	private String swEliminar;
 	
-	@Column(name="SWEXPORT")
+	@Column(name="flagExportar")
 	private String swExportar;
 	
 	@Column(name="ESTADORG")
@@ -119,10 +113,10 @@ public class Acceso implements Serializable {
 	@Column(name="AUFECHCR")
 	private Date auFechReg;
 
-	@Column(name="AUPCIPCR")
+	@Column(name="ipRegistro")
 	private String auPCIPcr;
 	
-	@Column(name="AUCDUSCR")
+	@Column(name="usuarioRegistro")
 	private String aucdUScr;
 	
 	@Column(name="nomcompo")

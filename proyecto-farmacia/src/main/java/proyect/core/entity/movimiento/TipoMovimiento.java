@@ -180,7 +180,7 @@ public class TipoMovimiento  implements Serializable {
 
 	@Id
 	@Column(name="idMovimiento")
-	private long idMovimientoAlmacen;
+	private String idMovimientoAlmacen;
 
 	@Column(name="cantidad")
 	private int cantidad;
@@ -210,7 +210,7 @@ public class TipoMovimiento  implements Serializable {
 	private String fechaMovimiento;
 	
 	@Column(name="tipoIngresoDocumento")
-	private int tipoIngresoDocumento;
+	private String tipoIngresoDocumento;
 	
  
 	@Column(name="ID_ARTICULO")
@@ -313,12 +313,12 @@ public class TipoMovimiento  implements Serializable {
 		return movimientoAlmacen;
 	}
 
-	public long getIdMovimientoAlmacen() {
+	public String getIdMovimientoAlmacen() {
 		return idMovimientoAlmacen;
 	}
 
 
-	public void setIdMovimientoAlmacen(long idMovimientoAlmacen) {
+	public void setIdMovimientoAlmacen(String idMovimientoAlmacen) {
 		this.idMovimientoAlmacen = idMovimientoAlmacen;
 	}
 
@@ -401,11 +401,11 @@ public class TipoMovimiento  implements Serializable {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 
-	public int getTipoIngresoDocumento() {
+	public String getTipoIngresoDocumento() {
 		return tipoIngresoDocumento;
 	}
 
-	public void setTipoIngresoDocumento(int tipoIngresoDocumento) {
+	public void setTipoIngresoDocumento(String tipoIngresoDocumento) {
 		this.tipoIngresoDocumento = tipoIngresoDocumento;
 	}
 

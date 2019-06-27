@@ -88,7 +88,7 @@ public class Laboratorio  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="idLaboratorio")
-	private long idLaboratorio;
+	private int idLaboratorio;
 
 	@Column(name="nombreLaboratorio")
 	private String nombreCorto;
@@ -168,11 +168,11 @@ public class Laboratorio  {
 	}
 
 
-	public long getIdLaboratorio() {
+	public int getIdLaboratorio() {
 		return idLaboratorio;
 	}
 
-	public void setIdLaboratorio(long idLaboratorio) {
+	public void setIdLaboratorio(int idLaboratorio) {
 		this.idLaboratorio = idLaboratorio;
 	}
 
