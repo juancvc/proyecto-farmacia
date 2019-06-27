@@ -22,7 +22,7 @@
 
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="${pageContext.request.contextPath}/app-assets/css/estilos.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
@@ -53,17 +53,19 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h5 class="h5 mb-2 text-gray-800">Listado Artículo</h5>
+        <div class="tituloForm"> LISTADO DE ARTICULOS</div>
+          
+        
  <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
                 <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
+              <span class="label_filtro">FILTROS</span>
                 </a>
                 <!-- Card Content - Collapse -->
                 <div class="collapse show" id="collapseCardExample">
                   <div class="card-body">
                     <div class="row">
-								<div class="col-md-3 mb-2">
+								<div class="col-md-6 mb-2">
 									<label for="nombreCompleto"  class="label_control">NOMBRE ARTICULO
 									</label>
 									<div class="controls">
@@ -85,21 +87,21 @@
 										</f:select>
 									</div>
 								</div>
-								 
+								 <div class="col-md-3 mb-1">
+									<label for="lbltipoSeguroPaciente" class="label_control">CODIGO SISMED</label>
+									<div class="controls">
+										<f:input type="text" class="form-control" required="required"
+											id="txtnombre" path="nombre" /> 
+									</div>
+								</div>
 							</div>
 							
 							
 							<div class="row">
 								<div class="form-group col-md-12 text-right"
 									style="margin-top: 15px;">
-									 <a href="#" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">Buscar</span>
-                  </a>
-									<button id="btnBuscarPostulantes" class="btn btn-info" type="submit">
-										<i class="ft-search"></i> BUSCAR
+									<button id="btnBuscar"  class="btn btn-info btn-icon-search" type="submit">
+										<i class="ft-search"></i> Buscar
 									</button>
 									<button
 										onclick="limpiarForm();$('#dataTable').dataTable().fnClearTable();"

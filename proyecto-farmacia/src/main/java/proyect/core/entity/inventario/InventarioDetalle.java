@@ -16,7 +16,7 @@ import proyect.core.entity.stock.Stock;
 		{
 				
 				@NamedStoredProcedureQuery(
-						name="inventario.insert", 
+						name="inventarioDetalle.insert", 
 						procedureName="[dbo].[usp_Inventario_insertar]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idInventario", 			type=String.class ),
@@ -32,7 +32,7 @@ import proyect.core.entity.stock.Stock;
 							}					
 				),
 				@NamedStoredProcedureQuery(
-						name="inventario.buscarXNroDocumento", 
+						name="inventarioDetalle.buscarXNroDocumento", 
 						procedureName="[dbo].[usp_Inventario_buscarxNroDocumento]",
 						resultClasses = InventarioDetalle.class,
 						parameters={
@@ -42,7 +42,7 @@ import proyect.core.entity.stock.Stock;
 							}					
 				),
 				@NamedStoredProcedureQuery(
-						name="inventario.insertHistorico", 
+						name="inventarioDetalle.insertHistorico", 
 						procedureName="[dbo].[usp_Inventario_insertarHistorico]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idFarmacia", 	 type=String.class),
@@ -52,7 +52,7 @@ import proyect.core.entity.stock.Stock;
 							}					
 				),
 				@NamedStoredProcedureQuery(
-						name="inventario.validarExisteInventario", 
+						name="inventarioDetalle.validarExisteInventario", 
 						procedureName="[dbo].[SP_INVENTARIO_VALIDAR_EXISTE]",
 						resultClasses = InventarioDetalle.class,
 						parameters={
@@ -62,7 +62,7 @@ import proyect.core.entity.stock.Stock;
 							}					
 				),
 				@NamedStoredProcedureQuery(
-						name="inventario.findByLikeObjectVO", 
+						name="inventarioDetalle.findByLikeObjectVO", 
 						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
 						resultClasses = InventarioDetalle.class,
 						parameters={
@@ -86,7 +86,7 @@ public class InventarioDetalle  {
 	@Column(name="idStock")
 	private String idStock;
 	
-	@Column(name="saldoAnterior")
+	@Column(name="fecha")
 	private String fecha;
 
 	@Column(name="nroDocumento")
