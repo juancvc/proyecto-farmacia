@@ -46,9 +46,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="buttons.html">Generar</a>
-            <a class="collapse-item" href="cards.html">Anular</a>
-            <a class="collapse-item" href="cards.html">Devoluciones</a>
+            <a class="collapse-item" href="#">Generar</a>
+            <a class="collapse-item" href="#">Anular</a>
+            <a class="collapse-item" href="#">Devoluciones</a>
           </div>
         </div>
       </li>
@@ -61,7 +61,7 @@
         <div id="collapseInventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="buttons.html">Generar</a>
+            <a class="collapse-item" href="#">Generar</a>
           </div>
         </div>
       </li>
@@ -74,7 +74,7 @@
         <div id="collapseMovimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="buttons.html">Kárdex</a>
+            <a class="collapse-item" href="#">Kárdex</a>
           </div>
         </div>
       </li>
@@ -113,13 +113,13 @@
           <div class="bg-white py-2 collapse-inner rounded">
              <!-- <h6 class="collapse-header">Login Screens:</h6> -->
             <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Artículo</a>
-            <a class="collapse-item" href="register.html">Almacén</a>
-            <a class="collapse-item" href="404.html">Personal</a>
-            <a class="collapse-item" href="forgot-password.html">Stock</a>
+            <a class="collapse-item" href="#">Almacén</a>
+            <a class="collapse-item" href="#">Personal</a>
+            <a class="collapse-item" href="#">Stock</a>
           
-            <a class="collapse-item" href="blank.html">Laboratorios</a>
-             <a class="collapse-item" href="blank.html">Tipo Movimientos</a>
-              <a class="collapse-item" href="blank.html">Catálogos</a>
+            <a class="collapse-item" href="#">Laboratorios</a>
+             <a class="collapse-item" href="#">Tipo Movimientos</a>
+              <a class="collapse-item" href="#">Catálogos</a>
           </div>
         </div>
       </li>
@@ -139,9 +139,9 @@
           <div class="bg-white py-2 collapse-inner rounded">
              <!-- <h6 class="collapse-header">Login Screens:</h6> -->
             <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Ventas diarias</a>
-            <a class="collapse-item" href="register.html">Anuladas</a>
-            <a class="collapse-item" href="404.html">Por tipo de paciente</a>
-            <a class="collapse-item" href="forgot-password.html">Devoluciones</a>
+            <a class="collapse-item" href="#">Anuladas</a>
+            <a class="collapse-item" href="#">Por tipo de paciente</a>
+            <a class="collapse-item" href="#">Devoluciones</a>
           </div>
         </div>
       </li>
@@ -153,8 +153,8 @@
         <div id="collapseReporteIci" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="buttons.html">Diario</a>
-             <a class="collapse-item" href="buttons.html">Mensual</a>
+            <a class="collapse-item" href="#">Diario</a>
+             <a class="collapse-item" href="#">Mensual</a>
           </div>
         </div>
       </li>
@@ -166,8 +166,8 @@
         <div id="collapseReporteArticulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="buttons.html">Por vencer</a>
-             <a class="collapse-item" href="buttons.html">Vencidos</a>
+            <a class="collapse-item" href="#">Por vencer</a>
+             <a class="collapse-item" href="#">Vencidos</a>
           </div>
         </div>
       </li>
