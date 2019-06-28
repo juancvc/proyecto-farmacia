@@ -80,7 +80,7 @@ public class Acceso implements Serializable {
 	private Integer nroOrden;
 	
 	@Column(name="idAcceso")
-	private String codacceso;
+	private String idAcceso;
 
 	@Column(name="idComponente")
 	private String codcompo;
@@ -132,12 +132,12 @@ public class Acceso implements Serializable {
 	
 	}
 
-	public String getCodacceso() {
-		return codacceso;
+	public String getIdAcceso() {
+		return idAcceso;
 	}
 
-	public void setCodacceso(String codacceso) {
-		this.codacceso = codacceso;
+	public void setIdAcceso(String idAcceso) {
+		this.idAcceso = idAcceso;
 	}
 
 	public String getCodcompo() {
