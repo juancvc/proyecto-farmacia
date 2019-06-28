@@ -13,6 +13,7 @@ public class UbigeoBean extends BaseBean{
 	private String codigoUbigeo;
 	private String codigoRegistro; 
 	private String detalle;
+	private String descripcion;
 	private int    codigoPais;
 	
 	private String categoria;
@@ -112,6 +113,16 @@ public class UbigeoBean extends BaseBean{
 
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
+	}
+	
+	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	@Override

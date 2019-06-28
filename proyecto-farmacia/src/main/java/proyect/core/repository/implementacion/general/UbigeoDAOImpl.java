@@ -54,9 +54,9 @@ public  class UbigeoDAOImpl implements UbigeoDAO {
 		List<UbigeoBean> lstUbigeoBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("ubigeo.listaUbigeo");
-			spq.setParameter("INSTITUC", t.getInstitucion());  
-			spq.setParameter("CATEGORI", t.getCategoria()); 
-			spq.setParameter("VARIABLE", t.getVariable());   
+			spq.setParameter("institucion", t.getInstitucion());  
+			spq.setParameter("categoria", t.getCategoria()); 
+			spq.setParameter("descripcion", t.getDescripcion());   
 			if (spq.execute()) {
 				lstUbigeo =  spq.getResultList(); 
 			} 
@@ -122,7 +122,7 @@ public  class UbigeoDAOImpl implements UbigeoDAO {
 			
 			bean = new UbigeoBean(); 
 			//bean.setCodigo(entity.getnCodubigre());
-			bean.setNombreUbigeo(entity.getNomLargo()); 
+			bean.setDescripcion(entity.getDescripcion()); 
 			bean.setCodigoProvincia(entity.getCodprovin());
 			bean.setCodigoDistrito(entity.getCoddistrito());
 			bean.setCodigoUbigeo(entity.getCodUbige());

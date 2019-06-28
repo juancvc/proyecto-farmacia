@@ -22,8 +22,8 @@ import javax.persistence.StoredProcedureParameter;
 			resultClasses = Ubigeo.class, 
 			parameters = {			
 					@StoredProcedureParameter(mode = ParameterMode.IN, name = "institucion", type = String.class),
-					@StoredProcedureParameter(mode = ParameterMode.IN, name = "categoria", type = String.class),
-					@StoredProcedureParameter(mode = ParameterMode.IN, name = "variable", type = String.class),
+					@StoredProcedureParameter(mode = ParameterMode.IN, name = "categoria",   type = String.class),
+					@StoredProcedureParameter(mode = ParameterMode.IN, name = "descripcion", type = String.class),
 		}), 
 })
 
@@ -36,8 +36,8 @@ public class Ubigeo implements Serializable{
 	@Column(name = "codUbige")
 	private String codUbige;
 	
-	@Column(name = "NOMLARGO")
-	private String nomLargo;
+	@Column(name = "descripcion")
+	private String descripcion;
 	 
 	
 	@Column(name = "codprovin")
@@ -74,12 +74,12 @@ public class Ubigeo implements Serializable{
 		this.codUbige = codUbige;
 	}
 
-	public String getNomLargo() {
-		return nomLargo;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setNomLargo(String nomLargo) {
-		this.nomLargo = nomLargo;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getCodprovin() {
