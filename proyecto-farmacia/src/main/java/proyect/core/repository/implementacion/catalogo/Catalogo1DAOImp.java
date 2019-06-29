@@ -222,15 +222,15 @@ public class Catalogo1DAOImp implements Catalogo1DAO {
 		List<CatalogoBean> lstCatalogoBean = null;
 		System.out.println("tgemaeGene01 listarPorCodigoTabla  "+ codTabla);
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo01.listarPorCodigoTabla");  
-			spq.setParameter("CODTABLA", codTabla);   
-			spq.setParameter("TIPO", tipo);   
+			spq.setParameter("CodigoTabla", codTabla);   
+			spq.setParameter("tipo", tipo);   
 			if (spq.execute()) {
 				lstMaestra1 =  spq.getResultList(); 
 			} 
 			if (lstMaestra1 != null && lstMaestra1.size() > 0) {
 				
 				lstCatalogoBean = deListaMaestra1AListaCatalogoBean(lstMaestra1);
-				System.out.println("lstCatalogoBean dao :: " + lstCatalogoBean.size());
+				System.out.println("lstCatalogoBean01 dao :: " + lstCatalogoBean.size());
 			}
 			em.close();
 		return lstCatalogoBean;

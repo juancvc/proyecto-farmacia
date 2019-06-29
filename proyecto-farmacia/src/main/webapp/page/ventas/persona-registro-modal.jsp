@@ -83,7 +83,7 @@ input[type=text] {
 
 			<f:input type="hidden" class="form-control" id="personaCodigo"
 				path="codigo" />
-			<f:input type="hidden" class="form-control" id="txtCodRegUbigeo"
+			<f:input type="hidden" class="form-control" id="txtidRegistroUbigeo"
 				path="ubigeoDireccion.codigoRegistro" />
 			 
 			
@@ -100,7 +100,7 @@ input[type=text] {
 						<div class="controls">
 							<f:select id="tipoDocumentoPersona" path="tipoDocumento.idRegistro"
 								required="required" class="form-control">
-								<f:options items="${lstDocumento}" itemValue="codReg"
+								<f:options items="${lstTipoDocumento}" itemValue="idRegistro"
 									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
@@ -150,7 +150,7 @@ input[type=text] {
 								class="form-control" required="required">
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
-								<f:options items="${lstSexo}" itemValue="codReg"
+								<f:options items="${lstSexo}" itemValue="idRegistro"
 									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
@@ -196,7 +196,7 @@ input[type=text] {
 								class="form-control" required="required">
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
-								<f:options items="${lstNacionalidad}" itemValue="codReg"
+								<f:options items="${lstNacionalidad}" itemValue="idRegistro"
 									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
@@ -211,7 +211,7 @@ input[type=text] {
 								class="form-control" required="required">
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
-								<f:options items="${lstEstadoCivil}" itemValue="codReg"
+								<f:options items="${lstEstadoCivil}" itemValue="idRegistro"
 									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
@@ -409,14 +409,14 @@ input[type=text] {
 														"click",
 														function(e) {
 															 
-															$("#txtCodRegUbigeo").val(this
+															$("#txtidRegistroUbigeo").val(this
 																	.getElementsByTagName("input")[0].id)
 															inp.value = this
 																	.getElementsByTagName("input")[0].value;
 															/*close the list of autocompleted values,
 															(or any other open lists of autocompleted values:*/
 																	
-															//$("#txtCodRegUbigeo").val(arr[i].codigoRegistro);
+															//$("#txtidRegistroUbigeo").val(arr[i].codigoRegistro);
 															closeAllLists();
 														});
 										a.appendChild(b);

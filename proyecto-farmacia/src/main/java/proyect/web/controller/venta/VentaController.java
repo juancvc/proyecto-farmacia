@@ -28,6 +28,10 @@ public class VentaController extends BaseController{
 	
 	List<CatalogoBean> lstTipoDocumento;
 	List<CatalogoBean> lstTipoFinanciador;
+	List<CatalogoBean> lstSexo;
+	List<CatalogoBean> lstEstadoCivil;
+	List<CatalogoBean> lstNacionalidad;
+	
 	List<UbigeoBean> lstUbigeoBean;
 	
 	private VentaBean ventaBean;
@@ -47,7 +51,8 @@ public class VentaController extends BaseController{
 		try {
 			lstTipoDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);
 			lstTipoFinanciador = catalogo2Service.listarPorCodigoTabla("000008", 1);
-			
+			lstNacionalidad = catalogo1Service.listarPorCodigoTabla("000003", 1);
+			lstSexo = catalogo1Service.listarPorCodigoTabla("000009", 1);
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
@@ -55,6 +60,8 @@ public class VentaController extends BaseController{
 		
 		mav.addObject("lstTipoDocumento", lstTipoDocumento);
 		mav.addObject("lstTipoFinanciador", lstTipoFinanciador);
+		mav.addObject("lstNacionalidad", lstNacionalidad);
+		mav.addObject("lstSexo", lstSexo);
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
