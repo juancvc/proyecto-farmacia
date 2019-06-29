@@ -194,7 +194,7 @@ public class VentaController extends BaseController{
 	public ModelAndView personaModalPost() throws Exception {
 		PersonaBean objPersona = new  PersonaBean(); 
 		ModelAndView mav = new ModelAndView("ventas/persona-registro-modal", "command",  objPersona); 
-		
+
 		ubigeobean = new UbigeoBean();
 		ubigeobean.setVariable("");
 		ubigeobean.setInstitucion("000003");
