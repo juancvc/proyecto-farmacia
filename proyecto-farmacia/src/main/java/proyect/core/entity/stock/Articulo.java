@@ -80,7 +80,7 @@ import javax.persistence.StoredProcedureParameter;
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="articulo.findByLikeObjectVO", 
+						name="articulo.buscarPorFiltros", 
 						procedureName="[dbo].[usp_Articulo_buscarxCriterios]",
 						resultClasses= Articulo.class,
 						parameters={
@@ -216,6 +216,14 @@ public class Articulo  {
 	private String usuarioRegistro;
 
 	private String volumen;
+	
+	private String nombreLaboratorio;
+	
+	private String nombreTipoArticulo;
+	
+	private String nombreClase;
+	
+	private String nombreTipoPresentacion;
 	
 	/***
 	private  int  anio;
@@ -380,6 +388,30 @@ public class Articulo  {
 	}
 	public void setVolumen(String volumen) {
 		this.volumen = volumen;
+	}
+	public String getNombreLaboratorio() {
+		return nombreLaboratorio;
+	}
+	public void setNombreLaboratorio(String nombreLaboratorio) {
+		this.nombreLaboratorio = nombreLaboratorio;
+	}
+	public String getNombreTipoArticulo() {
+		return nombreTipoArticulo;
+	}
+	public void setNombreTipoArticulo(String nombreTipoArticulo) {
+		this.nombreTipoArticulo = nombreTipoArticulo;
+	}
+	public String getNombreClase() {
+		return nombreClase;
+	}
+	public void setNombreClase(String nombreClase) {
+		this.nombreClase = nombreClase;
+	}
+	public String getNombreTipoPresentacion() {
+		return nombreTipoPresentacion;
+	}
+	public void setNombreTipoPresentacion(String nombreTipoPresentacion) {
+		this.nombreTipoPresentacion = nombreTipoPresentacion;
 	}
 
 

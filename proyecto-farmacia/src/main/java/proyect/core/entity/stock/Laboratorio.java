@@ -22,7 +22,7 @@ import javax.persistence.StoredProcedureParameter;
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="laboratorio.findByLikeObject", 
+						name="laboratorio.buscarPorFiltros", 
 						procedureName="[dbo].[usp_Laboratorio_buscarxCriterios]",
 						resultClasses= Laboratorio.class,
 						parameters={
@@ -88,13 +88,23 @@ public class Laboratorio  {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="idLaboratorio")
-	private int idLaboratorio;
+	private String idLaboratorio;
 
 	@Column(name="nombreLaboratorio")
-	private String nombreCorto;
+	private String nombreLaboratorio;
 
 	@Column(name="descripcion")
-	private String nombreLargo;
+	private String descripcion;
+	
+	@Column(name="direccion")
+	private String direccion;
+	
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
+	
+	
+	@Column(name="ipRegistro")
+	private String ipRegistro;
 	
 	@Column(name="ID_ORGANIZACION_LABORATORIO")
 	private int idOrganizacionLaboratorio;
@@ -168,28 +178,28 @@ public class Laboratorio  {
 	}
 
 
-	public int getIdLaboratorio() {
+	public String getIdLaboratorio() {
 		return idLaboratorio;
 	}
 
-	public void setIdLaboratorio(int idLaboratorio) {
+	public void setIdLaboratorio(String idLaboratorio) {
 		this.idLaboratorio = idLaboratorio;
 	}
 
-	public String getNombreCorto() {
-		return nombreCorto;
+	public String getNombreLaboratorio() {
+		return nombreLaboratorio;
 	}
 
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
+	public void setNombreLaboratorio(String nombreLaboratorio) {
+		this.nombreLaboratorio = nombreLaboratorio;
 	}
 
-	public String getNombreLargo() {
-		return nombreLargo;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	
@@ -201,6 +211,39 @@ public class Laboratorio  {
 	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
 		this.aud_fechaOperacion = aud_fechaOperacion;
 	}
+
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
+
+
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
+	}
+	
+	
+	
 
  
 	

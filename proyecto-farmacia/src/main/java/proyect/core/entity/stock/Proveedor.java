@@ -22,7 +22,7 @@ import javax.persistence.StoredProcedureParameter;
 					),
 
 				@NamedStoredProcedureQuery(
-						name="proveedor.findByLikeObject", 
+						name="proveedor.buscarPorFiltros", 
 						procedureName="[dbo].[usp_Proveedor_buscarxCriterios]",
 						resultClasses= Proveedor.class,
 						parameters={
@@ -76,13 +76,21 @@ public class Proveedor  {
 	private String idProveedor;
 
 	@Column(name="nombreProveedor")
-	private String nombreCorto;
+	private String nombreProveedor;
 
 	@Column(name="descripcion")
-	private String nombreLargo;
+	private String descripcion;
 	
 	@Column(name="RUC")
 	private String ruc;
+	
+	
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
+	
+	
+	@Column(name="ipRegistro")
+	private String ipRegistro;
 
 	@Column(name="ID_ORGANIZACION_PROVEEDOR")
 	private int idOrganizacionProveedor;
@@ -123,20 +131,20 @@ public class Proveedor  {
 	}
 
 
-	public String getNombreCorto() {
-		return nombreCorto;
+	public String getNombreProveedor() {
+		return nombreProveedor;
 	}
 
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
+	public void setNombreProveedor(String nombreProveedor) {
+		this.nombreProveedor = nombreProveedor;
 	}
 
-	public String getNombreLargo() {
-		return nombreLargo;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public int getIdOrganizacionProveedor() {
@@ -187,6 +195,27 @@ public class Proveedor  {
 	public void setNroPeriodoProveedor(int nroPeriodoProveedor) {
 		this.nroPeriodoProveedor = nroPeriodoProveedor;
 	}
+
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
+
+
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
+	}
  
+	
 	
 }
