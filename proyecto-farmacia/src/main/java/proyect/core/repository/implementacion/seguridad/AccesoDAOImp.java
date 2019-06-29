@@ -118,8 +118,8 @@ public class AccesoDAOImp implements AccesoDAO {
 		List<Acceso> lstEntity = null;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("acceso.listar");
-			spq.setParameter("CODIPERF", accesoBean.getPerfil().getCodigo());
-	        spq.setParameter("CODCOMPA", accesoBean.getComponente().getCodigoComponentePadre()); 
+			spq.setParameter("idPerfil", 		  accesoBean.getPerfil().getCodigo());
+	        spq.setParameter("idComponentePadre", accesoBean.getComponente().getCodigoComponentePadre()); 
 		
 			if (spq.execute()) {
 				lstEntity = spq.getResultList();			
@@ -154,16 +154,16 @@ public class AccesoDAOImp implements AccesoDAO {
 		boolean sw = false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("acceso.asignar");
-	        spq.setParameter("CODACCES", bean.getCodigo());
-            spq.setParameter("SWASIGNA", bean.getFlgAsignado());
-            spq.setParameter("SWLECTUR", bean.isFlgRead()? "1":"0");
-            spq.setParameter("SWESCRIT", bean.isFlgWrite()? "1":"0");
-            spq.setParameter("SWELIMIN", bean.isFlgDelete()? "1":"0");
-            spq.setParameter("SWEXPORT", bean.isFlgExport()? "1":"0");
-            spq.setParameter("CODIPERF", bean.getPerfil().getCodigo());
-            spq.setParameter("CODCOMPO", bean.getComponente().getCodigo());
-            spq.setParameter("AUCDUSCR", bean.getUsuarioRegistro());
-         	spq.setParameter("AUPCIPCR", bean.getIpRegistro());
+	    //    spq.setParameter("idAcceso", bean.getCodigo());
+            spq.setParameter("flagAsignar", 	bean.getFlgAsignado());
+            spq.setParameter("flagLectura", 	bean.isFlgRead()? "1":"0");
+            spq.setParameter("flagEscritura", 	bean.isFlgWrite()? "1":"0");
+            spq.setParameter("flagEliminar", 	bean.isFlgDelete()? "1":"0");
+            spq.setParameter("flagExportar", 	bean.isFlgExport()? "1":"0");
+            spq.setParameter("idPerfil", 		bean.getPerfil().getCodigo());
+            spq.setParameter("idComponente",	bean.getComponente().getCodigo());
+            spq.setParameter("usuarioRegistro", bean.getUsuarioRegistro());
+         	spq.setParameter("ipRegistro", 		bean.getIpRegistro());
 	        
 	        spq.execute();
 			
@@ -187,7 +187,7 @@ public class AccesoDAOImp implements AccesoDAO {
 		if(entity!=null){
 			bean = new AccesoBean();
 			bean.setItem(entity.getNroOrden()); 
-			bean.setCodigo(entity.getCodacceso()); 
+			bean.setCodigo(entity.getIdAcceso()); 
 			bean.getComponente().setNombreComponente(entity.getNomcompo());
 			bean.getComponente().setDescripcion(entity.getDescompo());
 			bean.getComponente().setCodigo(entity.getCodcompo());

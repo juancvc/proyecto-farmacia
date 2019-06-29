@@ -19,7 +19,7 @@ import javax.persistence.Table;
 						resultClasses= PreciosVentaArticulo.class,
 						parameters={
 						
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
 							}					
 					),
 				
@@ -29,7 +29,7 @@ import javax.persistence.Table;
 						resultClasses= PreciosVentaArticulo.class,
 						parameters={
 								
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idPrecioVenta", type=String.class )
 							}	
 				),
 				
@@ -37,20 +37,20 @@ import javax.persistence.Table;
 						name="preciosVentaArticulo.insert", 
 						procedureName="[dbo].[usp_PrecioVenta_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPrecioVenta", 	type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta01", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta02", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta03", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta04", type=float.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta05", type=float.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio01", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio02", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio03", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio04", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio05", 	type=String.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoCambio", 		type=float.class),									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPrecioVenta", 	type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta01", type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta02", type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta03", type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta04", type=float.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="porcPrecioVenta05", type=float.class),									
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio01", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio02", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio03", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio04", 	type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="activoPrecio05", 	type=String.class),									
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoCambio", 		type=float.class),									
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class)
 							}					
 				),
 				
@@ -88,12 +88,12 @@ import javax.persistence.Table;
 		}
 	)
 @Entity
-@Table(name="PRECIOS_VENTA_ART")
+@Table(name="PrecioVenta")
 public class PreciosVentaArticulo  {
 	private static final int serialVersionUID = 1;
 	@Id
 	@Column(name="idPrecioVenta")
-	private int idPrecioVentaArticulo;
+	private String idPrecioVentaArticulo;
 
 	@Column(name="porcPrecioVenta01")
 	private float porcentajePrecioVenta1;
@@ -146,14 +146,27 @@ public class PreciosVentaArticulo  {
 	@Column(name="NRO_PERIODO_PRECIO_VENTA_ART")
 	private int nroPeriodoPrecioVentaArticulo;
 	
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
+	
+	@Column(name="ipRegistro")
+	private String ipRegistro;
+	
+	@Column(name="usuarioModificacion")
+	private String usuarioModificacion;
+	
+	@Column(name="ipModificacion")
+	private String ipModificacion;
+	
+	
 	@Column(name="AUD_FECHA_OPERACION")
 	private  Timestamp 	aud_fechaOperacion;
-	public int getIdPrecioVentaArticulo() {
+	public String getIdPrecioVentaArticulo() {
 		return idPrecioVentaArticulo;
 	}
 
 
-	public void setIdPrecioVentaArticulo(int idPrecioVentaArticulo) {
+	public void setIdPrecioVentaArticulo(String idPrecioVentaArticulo) {
 		this.idPrecioVentaArticulo = idPrecioVentaArticulo;
 	}
 
@@ -333,6 +346,50 @@ public class PreciosVentaArticulo  {
 
 	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
 		this.aud_fechaOperacion = aud_fechaOperacion;
+	}
+	
+	
+	
+	
+
+
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
+	}
+
+
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
+	}
+
+
+	public String getIpRegistro() {
+		return ipRegistro;
+	}
+
+
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
+	}
+
+
+	public String getUsuarioModificacion() {
+		return usuarioModificacion;
+	}
+
+
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
+	}
+
+
+	public String getIpModificacion() {
+		return ipModificacion;
+	}
+
+
+	public void setIpModificacion(String ipModificacion) {
+		this.ipModificacion = ipModificacion;
 	}
 
 
