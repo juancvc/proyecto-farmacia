@@ -101,7 +101,7 @@ input[type=text] {
 							<f:select id="tipoDocumentoPersona" path="tipoDocumento.idRegistro"
 								required="required" class="form-control">
 								<f:options items="${lstDocumento}" itemValue="codReg"
-									itemLabel="nombreCorto" />
+									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
 					</div>
@@ -151,7 +151,7 @@ input[type=text] {
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
 								<f:options items="${lstSexo}" itemValue="codReg"
-									itemLabel="nombreCorto" />
+									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
 					</div>
@@ -164,7 +164,7 @@ input[type=text] {
 						<div class="controls">
 							<f:input type="text" class="form-control" required="required"
 								onkeyup="javascript:this.value=this.value.toUpperCase();"
-								id="personaPrimerNombre" path="primerNombre" />
+								id="personanombres" path="nombres" />
 
 						</div>
 					</div>
@@ -174,7 +174,7 @@ input[type=text] {
 						<div class="controls">
 							<f:input type="text" class="form-control"
 								onkeyup="javascript:this.value=this.value.toUpperCase();"
-								id="personaSegundoNombre" path="segundoNombre" />
+								id="personanombres" path="nombres" />
 
 						</div>
 					</div>
@@ -197,7 +197,7 @@ input[type=text] {
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
 								<f:options items="${lstNacionalidad}" itemValue="codReg"
-									itemLabel="nombreCorto" />
+									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
 					</div>
@@ -212,7 +212,7 @@ input[type=text] {
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
 								<f:options items="${lstEstadoCivil}" itemValue="codReg"
-									itemLabel="nombreCorto" />
+									itemLabel="descripcionCorta" />
 							</f:select>
 						</div>
 					</div>
@@ -328,8 +328,8 @@ input[type=text] {
 			document.getElementById('personaApellidoPaterno').disabled = true;
 			document.getElementById('personaApellidoMaterno').disabled = true;
 			document.getElementById('sexoPaciente').disabled = true;
-			document.getElementById('personaPrimerNombre').disabled = true;
-			document.getElementById('personaSegundoNombre').disabled = true;
+			document.getElementById('personanombres').disabled = true;
+			document.getElementById('personanombres').disabled = true;
 			document.getElementById('personaFechaNac').disabled = true;
 
 			$("#nroDocumentoPaciente").focus();
@@ -341,8 +341,8 @@ input[type=text] {
 			$('#personaApellidoPaterno').val("");
 			$('#personaApellidoMaterno').val("");
 			$('#sexoPaciente').val("");
-			$('#personaPrimerNombre').val("");
-			$('#personaSegundoNombre').val("");
+			$('#personanombres').val("");
+			$('#personanombres').val("");
 			$('#personaFechaNac').val("");
 			$("#nroDocumentoPaciente").focus();
 		}

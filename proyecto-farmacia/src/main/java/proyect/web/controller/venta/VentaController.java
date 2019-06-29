@@ -193,7 +193,7 @@ public class VentaController extends BaseController{
 	@RequestMapping(value = "/personaModal", method = RequestMethod.POST)
 	public ModelAndView personaModalPost() throws Exception {
 		PersonaBean objPersona = new  PersonaBean(); 
-		ModelAndView mav = new ModelAndView("asistencial/laboratorio/orden/persona-registro-modal", "command",  objPersona); 
+		ModelAndView mav = new ModelAndView("ventas/persona-registro-modal", "command",  objPersona); 
 		
 		ubigeobean = new UbigeoBean();
 		ubigeobean.setVariable("");
