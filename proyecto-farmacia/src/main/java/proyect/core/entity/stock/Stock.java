@@ -37,7 +37,7 @@ import javax.persistence.Table;
 								}					
 						),
 				@NamedStoredProcedureQuery(
-						name="stock.findByLikeObjectVO", 
+						name="stock.buscarPorFiltros", 
 						procedureName="[dbo].[usp_Stock_buscarxCriterios]",
 						resultClasses= Stock.class,
 						parameters={
@@ -172,7 +172,7 @@ public class Stock
 	
 	@Id
 	@Column(name="idStock")
-	private int idStock;
+	private String idStock;
 
 	@Column(name="lote")
 	private String lote;
@@ -181,16 +181,19 @@ public class Stock
 	private int Stock;
 	
 	@Column(name="precioVenta")
-	private double precioVenta;
+	private float precioVenta;
 
 	@Column(name="precioCompra")
-	private double precioCompra;
+	private float precioCompra;
 	
 	@Column(name="fechaVencimiento")
 	private Timestamp fechaVencimiento;
 	
 	@Column(name="idAlmacen")
 	private String idAlmacen;
+	
+	@Column(name="nombreAlmacen")
+	private String nombreAlmacen;
 	
  
 	@Column(name="idArticulo")
@@ -199,7 +202,10 @@ public class Stock
 	private String tipoLlamada;
 	
 	@Column(name="idModalidadAdquisicion")
-	private int idModalidaAquisicion;
+	private String idModalidaAquisicion;
+	
+	@Column(name="nombreModalidadAdquisicion")
+	private String nombreModalidadAdquisicion;
 	
  
 	@Column(name="tipoFinanciador")
@@ -266,12 +272,12 @@ public class Stock
 	}
 
 
-	public int getIdStock() {
+	public String getIdStock() {
 		return idStock;
 	}
 
 
-	public void setIdStock(int idStock) {
+	public void setIdStock(String idStock) {
 		this.idStock = idStock;
 	}
 
@@ -306,12 +312,12 @@ public class Stock
 	}
 
 
-	public double getPrecioCompra() {
+	public float getPrecioCompra() {
 		return precioCompra;
 	}
 
 
-	public void setPrecioCompra(double precioCompra) {
+	public void setPrecioCompra(float precioCompra) {
 		this.precioCompra = precioCompra;
 	}
 
@@ -377,11 +383,11 @@ public class Stock
 	}
 
 
-	public double getPrecioVenta() {
+	public float getPrecioVenta() {
 		return this.precioVenta;
 	}
 
-	public void setPrecioVenta(double precioVenta) {
+	public void setPrecioVenta(float precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 	
@@ -395,12 +401,12 @@ public class Stock
 	}
 
 
-	public int getIdModalidaAquisicion() {
+	public String getIdModalidaAquisicion() {
 		return idModalidaAquisicion;
 	}
 
 
-	public void setIdModalidaAquisicion(int idModalidaAquisicion) {
+	public void setIdModalidaAquisicion(String idModalidaAquisicion) {
 		this.idModalidaAquisicion = idModalidaAquisicion;
 	}
  
@@ -528,5 +534,27 @@ public class Stock
 	public void setCantidadItems(int cantidadItems) {
 		this.cantidadItems = cantidadItems;
 	}
+
+
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
+	}
+
+
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
+	}
+
+
+	public String getNombreModalidadAdquisicion() {
+		return nombreModalidadAdquisicion;
+	}
+
+
+	public void setNombreModalidadAdquisicion(String nombreModalidadAdquisicion) {
+		this.nombreModalidadAdquisicion = nombreModalidadAdquisicion;
+	}
+	
+	
 
 }
