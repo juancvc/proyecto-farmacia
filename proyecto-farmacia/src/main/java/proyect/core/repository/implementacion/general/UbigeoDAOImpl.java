@@ -61,7 +61,7 @@ public  class UbigeoDAOImpl implements UbigeoDAO {
 				lstUbigeo =  spq.getResultList(); 
 			} 
 			if (lstUbigeo != null && lstUbigeo.size() > 0) {
-				
+				System.out.println("lstUbigeo " + lstUbigeo.size());
 				lstUbigeoBean = deListaUbigeoAListaUbigeoBean(lstUbigeo);
 			}
 			em.close();
@@ -127,7 +127,8 @@ public  class UbigeoDAOImpl implements UbigeoDAO {
 			bean.setCodigoDistrito(entity.getCoddistrito());
 			bean.setCodigoUbigeo(entity.getCodUbige());
 			bean.setCodigoPais(entity.getCodpais());
-			bean.setDetalle(entity.getDetalle());
+			bean.setDetalle(entity.getDescripcion());
+			bean.setDescripcion(entity.getDescripcion());
 			bean.setCodigoRegistro(entity.getCodRegis());
 		}
 		

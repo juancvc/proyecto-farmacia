@@ -21,7 +21,8 @@ public class ArticuloBean extends BaseBean{
 	private int stockAlerta;
 	private int stockOptimo;
 	private String volumen;
-
+	
+	
 	public ArticuloBean() {
 	}
 
@@ -90,6 +91,9 @@ public class ArticuloBean extends BaseBean{
 	}
 
 	public CatalogoBean getTipoPresentacion() {
+		if (tipoPresentacion == null) {
+			tipoPresentacion = new CatalogoBean();
+		}
 		return tipoPresentacion;
 	}
 

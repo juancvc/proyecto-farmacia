@@ -33,38 +33,29 @@ public class Ubigeo implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "codUbige")
+	@Column(name = "idUbigeo")
 	private String codUbige;
 	
 	@Column(name = "descripcion")
 	private String descripcion;
 	 
 	
-	@Column(name = "codprovin")
+	@Column(name = "idProvin")
 	private String codprovin;
 	
-	@Column(name = "coddistrito")
+	@Column(name = "idDistrito")
 	private String coddistrito;
 	
-	@Column(name = "CODREGIS")
+	@Column(name = "idRegistro")
 	private String codRegis;
 	
-	@Column(name = "codpais")
+	@Column(name = "idPais")
 	private int codpais;
  
-	private String detalle;
 	
 	public Ubigeo() {
 		super();
-	}
-
-	public String getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
-	}
+	} 
 
 	public String getCodUbige() {
 		return codUbige;

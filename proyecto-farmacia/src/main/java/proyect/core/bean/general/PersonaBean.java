@@ -34,17 +34,13 @@ public class PersonaBean extends BaseBean {
 	private CatalogoBean situacion;
 	private String fechaDesde;  
 	private String fechaHasta;  
-	
-	public String getFotoCadena() {
-		return fotoCadena;
-	}
-	public void setFotoCadena(String fotoCadena) {
-		this.fotoCadena = fotoCadena;
-	}
+	private String ruc;
+	private CatalogoBean tipoFinanciador;
 
 	private String RutaFoto;
 	private String observacion;
 	private String origenDeRegistro;
+	
 	/***** VERIFICAR UTILIDADD DE VARIABLE<----- *****/
 	private String validacionReniec = "1";
 	private CatalogoBean etnia;
@@ -448,6 +444,27 @@ public class PersonaBean extends BaseBean {
 	}
 	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
+	}
+	public String getRuc() {
+		return ruc;
+	}
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
+	public String getFotoCadena() {
+		return fotoCadena;
+	}
+	public void setFotoCadena(String fotoCadena) {
+		this.fotoCadena = fotoCadena;
+	}
+	public CatalogoBean getTipoFinanciador() {
+		return tipoFinanciador;
+	}
+	public void setTipoFinanciador(CatalogoBean tipoFinanciador) {
+		if (tipoFinanciador==null) {
+			tipoFinanciador = new CatalogoBean();
+		}
+		this.tipoFinanciador = tipoFinanciador;
 	}
 	
  

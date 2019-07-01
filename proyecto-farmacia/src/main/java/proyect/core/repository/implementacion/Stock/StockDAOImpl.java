@@ -1,5 +1,6 @@
 package proyect.core.repository.implementacion.Stock;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class StockDAOImpl implements StockDAO{
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("stock.insert");
 		 
 			
-			spq.setParameter("idAlmacen",     			stockBean.getAlmacenBean().getCodigo());
-			spq.setParameter("idArticulo", 		   	 	stockBean.getArticuloBean().getCodigo());
+			spq.setParameter("idAlmacen",     			stockBean.getAlmacen().getCodigo());
+			spq.setParameter("idArticulo", 		   	 	stockBean.getArticulo().getCodigo());
 			spq.setParameter("stock", 		    		stockBean.getStock());
 			spq.setParameter("lote", 		    		stockBean.getLote());
 			spq.setParameter("usuarioRegistro", 		stockBean.getUsuarioRegistro());
@@ -43,9 +44,9 @@ public class StockDAOImpl implements StockDAO{
 			spq.setParameter("precioCompra", 		    stockBean.getPrecioCompra());
 			spq.setParameter("precioVenta", 		    stockBean.getPrecioVenta());
 			spq.setParameter("fechaVencimiento", 		stockBean.getFechaVencimiento());
-			spq.setParameter("idModalidadAdquisicion",  stockBean.getModalidadAdquision().getNroRegistro());
-			spq.setParameter("tipoFinanciador", 		stockBean.getTipoFinanciador().getNroRegistro());
-			spq.setParameter("tipoSeleccion", 		    stockBean.getTipoSeleccion().getNroRegistro());
+			spq.setParameter("idModalidadAdquisicion",  stockBean.getModalidadAdquision().getIdRegistro());
+			spq.setParameter("tipoFinanciador", 		stockBean.getTipoFinanciador().getIdRegistro());
+			spq.setParameter("tipoSeleccion", 		    stockBean.getTipoSeleccion().getIdRegistro());
 			spq.setParameter("nroRegistroSanitario",    stockBean.getNroRegistroSanitario());
 			spq.setParameter("idProveedor", 		    stockBean.getProveedorBean().getCodigo());
 			spq.execute();
@@ -107,14 +108,15 @@ public class StockDAOImpl implements StockDAO{
 		List<StockBean> lstStockBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("stock.buscarPorFiltros");  
-			spq.setParameter("nombreArticulo", stockBean.getArticuloBean().getNombre()); 
-			spq.setParameter("idArticulo", 	   stockBean.getArticuloBean().getCodigo()); 
+			spq.setParameter("nombreArticulo", stockBean.getArticulo().getNombre()); 
+			spq.setParameter("idArticulo", 	   stockBean.getArticulo().getCodigo()); 
 			spq.setParameter("tipoLlamada",	   stockBean.getTipoLlamada()); 
-			spq.setParameter("idAlmacen", 	   stockBean.getAlmacenBean().getCodigo()); 			
+			spq.setParameter("idAlmacen", 	   stockBean.getAlmacen().getCodigo()); 			
 			 if (spq.execute()) {
 				 lstStock =  spq.getResultList(); 
 			 }		 
 			if (lstStock != null && lstStock.size() > 0) {
+				System.out.println("lstStock.size() " + lstStock.size());
 				lstStockBean = deListaObjetoAListaObjetoBean(lstStock);
 			 }
 			
@@ -137,22 +139,30 @@ public class StockDAOImpl implements StockDAO{
 			
 			bean = new StockBean();
 			bean.setCodigo(entity.getIdStock());   
-			bean.getAlmacenBean().setCodigo(entity.getIdAlmacen());
-			bean.getAlmacenBean().setNombreAlmacen(entity.getNombreAlmacen());
+			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
+			bean.getAlmacen().setNombreAlmacen(entity.getNombreAlmacen());
 			bean.setLote(entity.getLote());
 			bean.setStock(entity.getStock());
+			bean.getArticulo().setCodigo(entity.getIdArticulo());
+			bean.getArticulo().setConcentracion(entity.getConcentracion());
+			bean.getArticulo().getTipoPresentacion().setDescripcionLarga(entity.getDescripcionLargaPresentacion());
+			bean.getArticulo().setNombre(entity.getNombreArticulo());
 			bean.setPrecioCompra(entity.getPrecioCompra());
 			bean.setPrecioVenta(entity.getPrecioVenta());
-			bean.setStock(entity.getStock());
 			bean.setFechaVencimiento(entity.getFechaVencimiento());
 			bean.getTipoFinanciador().setDescripcionCorta(entity.getTipoFinanciamiento());
 			bean.getTipoSeleccion().setDescripcionCorta(entity.getTipoProcesoSeleccion());
 			bean.getModalidadAdquision().setDescripcionCorta(entity.getNombreModalidadAdquisicion());
+			bean.setsPrecio((getTwoDecimals(entity.getPrecioVenta()).replace(",", "."))); 
 	 	}
 		
 		return bean;
 	}
-
+	private static String getTwoDecimals(double value){
+	      DecimalFormat df = new DecimalFormat("0.00"); 
+	      return df.format(value);
+	    }
+	
 private List<StockBean> deListaObjetoAListaObjetoBean(List<Stock> lstStock) {
 		
 		List<StockBean> lstStockBean = null;

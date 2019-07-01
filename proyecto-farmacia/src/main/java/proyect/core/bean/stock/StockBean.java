@@ -4,37 +4,50 @@ import java.util.Date;
 
 import proyect.base.bean.BaseBean;
 import proyect.core.bean.general.AlmacenBean;
-import proyect.core.entity.catalogo.Catalogo02;
+import proyect.core.bean.general.CatalogoBean;
 
 public class StockBean extends BaseBean {
 	
-private AlmacenBean   almacenBean;
-private ArticuloBean  articuloBean;
+private AlmacenBean   almacen;
+private ArticuloBean  articulo;
 private int 		  stock;
 private String 		  lote;
 private float   	  precioCompra;
 private float  		  precioVenta;
 private Date 		  fechaVencimiento;
-private Catalogo02    modalidadAdquision;
-private Catalogo02    tipoFinanciador;
-private Catalogo02    tipoSeleccion;	
+private CatalogoBean    modalidadAdquision;
+private CatalogoBean    tipoFinanciador;
+private CatalogoBean    tipoSeleccion;	
 private String 		  nroRegistroSanitario;
 private ProveedorBean proveedorBean;
 private String 		  tipoLlamada;
+private String sPrecio;  
 
 
 
-public AlmacenBean getAlmacenBean() {
-	return almacenBean;
+public AlmacenBean getAlmacen() {
+	if (almacen == null) {
+		almacen = new AlmacenBean();
+	}
+	return almacen;
 }
-public void setAlmacenBean(AlmacenBean almacenBean) {
-	this.almacenBean = almacenBean;
+public void setAlmacen(AlmacenBean almacenBean) {
+	this.almacen = almacenBean;
 }
-public ArticuloBean getArticuloBean() {
-	return articuloBean;
+public String getsPrecio() {
+	return sPrecio;
 }
-public void setArticuloBean(ArticuloBean articuloBean) {
-	this.articuloBean = articuloBean;
+public void setsPrecio(String sPrecio) {
+	this.sPrecio = sPrecio;
+}
+public ArticuloBean getArticulo() {
+	if (articulo == null) {
+		articulo = new ArticuloBean();
+	}
+	return articulo;
+}
+public void setArticulo(ArticuloBean articuloBean) {
+	this.articulo = articuloBean;
 }
 public int getStock() {
 	return stock;
@@ -66,22 +79,31 @@ public Date getFechaVencimiento() {
 public Date setFechaVencimiento(Date fechaVencimiento) {
 	return this.fechaVencimiento = fechaVencimiento;
 }
-public Catalogo02 getModalidadAdquision() {
+public CatalogoBean getModalidadAdquision() {
+	if (modalidadAdquision == null) {
+		modalidadAdquision = new CatalogoBean();
+	}
 	return modalidadAdquision;
 }
-public void setModalidadAdquision(Catalogo02 modalidadAdquision) {
+public void setModalidadAdquision(CatalogoBean modalidadAdquision) {
 	this.modalidadAdquision = modalidadAdquision;
 }
-public Catalogo02 getTipoFinanciador() {
+public CatalogoBean getTipoFinanciador() {
+	if (tipoFinanciador == null) {
+		tipoFinanciador = new CatalogoBean();
+	}
 	return tipoFinanciador;
 }
-public void setTipoFinanciador(Catalogo02 tipoFinanciador) {
+public void setTipoFinanciador(CatalogoBean tipoFinanciador) {
 	this.tipoFinanciador = tipoFinanciador;
 }
-public Catalogo02 getTipoSeleccion() {
+public CatalogoBean getTipoSeleccion() {
+	if (tipoSeleccion == null) {
+		tipoSeleccion = new CatalogoBean();
+	}
 	return tipoSeleccion;
 }
-public void setTipoSeleccion(Catalogo02 tipoSeleccion) {
+public void setTipoSeleccion(CatalogoBean tipoSeleccion) {
 	this.tipoSeleccion = tipoSeleccion;
 }
 public String getNroRegistroSanitario() {

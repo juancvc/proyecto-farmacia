@@ -13,8 +13,25 @@ public class VentaItemBean extends BaseBean {
 	private StockBean stock;
 	private float precio;
 	private float subtotal;
+	private String sImporte; 
+	private int cantidadFaltante;
 	
 	
+	public int getCantidadFaltante() {
+		return cantidadFaltante;
+	}
+	public void setCantidadFaltante(int cantidadFaltante) {
+		this.cantidadFaltante = cantidadFaltante;
+	}
+	public void ejecutarImporte(){   
+		this.setSubtotal(this.getCantidad() * this.getStock().getPrecioVenta()); 
+	}
+	public String getsImporte() {
+		return sImporte;
+	}
+	public void setsImporte(String sImporte) {
+		this.sImporte = sImporte;
+	}
 	public VentaBean getVenta() {
 		return venta;
 	}

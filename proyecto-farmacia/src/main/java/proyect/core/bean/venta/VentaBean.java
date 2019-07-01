@@ -21,7 +21,9 @@ public class VentaBean  extends BaseBean {
 	private float importe;
 	private String sImporte;
 	
-	
+	private String cadenaCantidad;
+	private String cadenaCodigoStock;
+	private int cantidadItems;
 	
 	public String getsImporte() {
 		return sImporte;
@@ -84,6 +86,24 @@ public class VentaBean  extends BaseBean {
 		this.importe = importe;
 	}
 	
+	public String getCadenaCantidad() {
+		return cadenaCantidad;
+	}
+	public void setCadenaCantidad(String cadenaCantidad) {
+		this.cadenaCantidad = cadenaCantidad;
+	}
+	public String getCadenaCodigoStock() {
+		return cadenaCodigoStock;
+	}
+	public void setCadenaCodigoStock(String cadenaCodigoStock) {
+		this.cadenaCodigoStock = cadenaCodigoStock;
+	}
+	public int getCantidadItems() {
+		return cantidadItems;
+	}
+	public void setCantidadItems(int cantidadItems) {
+		this.cantidadItems = cantidadItems;
+	}
 	@Override
 	public String toString() {
 		return "VentaBean [fechaAtencion=" + fechaAtencion + ", hora=" + hora + ", almacen=" + almacen

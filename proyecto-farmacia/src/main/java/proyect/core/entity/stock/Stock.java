@@ -195,7 +195,6 @@ public class Stock
 	@Column(name="nombreAlmacen")
 	private String nombreAlmacen;
 	
- 
 	@Column(name="idArticulo")
 	private String idArticulo;
 	
@@ -216,52 +215,29 @@ public class Stock
 	
 	@Column(name="nroRegistroSanitario")
 	private String nroRegistroSanitario;
-	
-	@Column(name="ID_ORGANIZACION_stock")
-	private int idOrganizacionStock;
-	
-	@Column(name="ID_INSTITUCION_stock")
-	private int idInstitucionStock;
-	
-	@Column(name="ID_SEDE_stock")
-	private int idSedeStock;
-	
-	@Column(name="NRO_VERSION_stock")
-	private int nroVersionStock;
-	
-	@Column(name="NRO_PERIODO_stock")
-	private int nroPeriodoStock;
-	
  
 	@Column(name="idProveedor")
 	private String proveedor;
 	
+	private String nombreArticulo;
+	private String concentracion;
+	private String descripcionLargaPresentacion;
+	
 	private String cadenaIdArticulo;
-	
 	private String cadenaLote;
-	
 	private String cadenaFechaVencimiento;
-	 
 	private String cadenaRegSanitario;
-	
 	private String cadenaPrecioVenta;
-	
 	private String cadenaPrecioCompra;
-	
 	private String cadenaPrecioAdquisicion;
-	
 	private String cadenaIdProveedor;
-	
 	private int  cantidadDias;
-	
 	private String cadenaStock;
-	
 	private int cantidadItems;
 	
 	public Stock() { 
 	}
-
-    
+ 
 	public String getCadenaPrecioAdquisicion() {
 		return cadenaPrecioAdquisicion;
 	}
@@ -271,6 +247,14 @@ public class Stock
 		this.cadenaPrecioAdquisicion = cadenaPrecioAdquisicion;
 	}
 
+
+	public String getDescripcionLargaPresentacion() {
+		return descripcionLargaPresentacion;
+	}
+
+	public void setDescripcionLargaPresentacion(String descripcionLargaPresentacion) {
+		this.descripcionLargaPresentacion = descripcionLargaPresentacion;
+	}
 
 	public String getIdStock() {
 		return idStock;
@@ -466,55 +450,7 @@ public class Stock
 	public void setCadenaIdProveedor(String cadenaIdProveedor) {
 		this.cadenaIdProveedor = cadenaIdProveedor;
 	}
-
-	public int getIdOrganizacionStock() {
-		return idOrganizacionStock;
-	}
-
-	public void setIdOrganizacionStock(int idOrganizacionStock) {
-		this.idOrganizacionStock = idOrganizacionStock;
-	}
-
-
-	public int getIdInstitucionStock() {
-		return idInstitucionStock;
-	}
-
-
-	public void setIdInstitucionStock(int idInstitucionStock) {
-		this.idInstitucionStock = idInstitucionStock;
-	}
-
-
-	public int getIdSedeStock() {
-		return idSedeStock;
-	}
-
-
-	public void setIdSedeStock(int idSedeStock) {
-		this.idSedeStock = idSedeStock;
-	}
-
-
-	public int getNroVersionStock() {
-		return nroVersionStock;
-	}
-
-
-	public void setNroVersionStock(int nroVersionStock) {
-		this.nroVersionStock = nroVersionStock;
-	}
-
-
-	public int getNroPeriodoStock() {
-		return nroPeriodoStock;
-	}
-
-
-	public void setNroPeriodoStock(int nroPeriodoStock) {
-		this.nroPeriodoStock = nroPeriodoStock;
-	}
-
+ 
 
 	public int getCantidadDias() {
 		return cantidadDias;
@@ -553,6 +489,26 @@ public class Stock
 
 	public void setNombreModalidadAdquisicion(String nombreModalidadAdquisicion) {
 		this.nombreModalidadAdquisicion = nombreModalidadAdquisicion;
+	}
+
+
+	public String getNombreArticulo() {
+		return nombreArticulo;
+	}
+
+
+	public void setNombreArticulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
+	}
+
+
+	public String getConcentracion() {
+		return concentracion;
+	}
+
+
+	public void setConcentracion(String concentracion) {
+		this.concentracion = concentracion;
 	}
 	
 	

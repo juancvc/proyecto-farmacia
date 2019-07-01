@@ -18,8 +18,4 @@ public interface PersonaDAO  extends BaseDAO<PersonaBean>  {
 	
 	public boolean actualizardatosfotouser(PersonaBean personaBean)throws DAOException;
 	
-	public boolean insertarPersonaLaboratorio(PersonaBean persona) throws DAOException ;
-	
-	public boolean actualizarPersonaLaboratorio(PersonaBean persona) throws DAOException ;
-	
 }

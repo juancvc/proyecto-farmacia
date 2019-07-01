@@ -1,11 +1,13 @@
 package proyect.core.entity.general;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
@@ -19,13 +21,11 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 @NamedStoredProcedureQueries(
 		{
 				@NamedStoredProcedureQuery(
-					name="persona.buscarXTipoYNroDocumento", 
-					procedureName="PKG_PERSONA.SP_BUSCAR_X_TIPO_NRO_DOCUMENTO",
+					name="persona.buscarPorDocumento", 
+					procedureName="[usp_Persona_buscarxNroDocumento]",
 					resultClasses= Persona.class,
 					parameters={
-							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="P_C_CURSOR", type=void.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_ID_TIPO_DOCUMENTO_PER", type=Long.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_NRO_DOCUMENTO", type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class)
 						}					
 				),
 				
@@ -50,33 +50,25 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 				),
 				@NamedStoredProcedureQuery(
 						name="persona.insertar", 
-						procedureName="[Farmacia].[dbo].[SP_PERSONAL_INSERTAR]",
+						procedureName="usp_Persona_insertar",
 						parameters={
-//									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_PERSONA", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="APELLIDO_PATERNO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="APELLIDO_MATERNO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PRIMER_NOMBRE", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="SEGUNDO_NOMBRE", type=String.class),
-									
-
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_NACIMIENTO", type=Date.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEXO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="DIRECCION", type=String.class),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOCUMENTO", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_COLEGIATURA", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idPersona", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="apellidoPaterno", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="apellidoMaterno", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombres", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="direccion", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaNacimiento", type=Date.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocumentoCat02", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="ruc", type=String.class ), 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idRegUbigeoDireccion", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="telefono", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="correo", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idSexoCat02", type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idNacionalidadCat01", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEstadoCivilCat01", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class)
 							}					
 				),
 				
@@ -156,76 +148,153 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 public class Persona   implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PersonaPK id;
-
-	@Column(name="DIRECCION")
-	private String direccion;
-
-	@Column(name="APELLIDO_PATERNO")
-	private String apellido_paterno;
-
-	@Column(name="APELLIDO_MATERNO")
-	private String apellido_materno;
+	//@EmbeddedId
+	//private PersonaPK id;
+	@Id
+	@Column(name="idPersona")
+	private String idPersona;
 	
-	@Column(name="PRIMER_NOMBRE")
-	private String primer_nombre;
+	@Column(name="apellidoPaterno")
+	private String apellidoPaterno;
+
+	@Column(name="apellidoMaterno")
+	private String apellidoMaterno;
+
+	@Column(name="nombres")
+	private String nombres;
 	
-	@Column(name="SEGUNDO_NOMBRE")
-	private String segundo_nombre;
+	@Column(name="idTipoDocumentoCat02")
+	private String idTipoDocumento;
 	
-	@Column(name="NRO_DOCUMENTO")
-	private String numeroDocumento;
+	@Column(name="nroDocumento")
+	private String nroDocumento;
+	
+	@Column(name="idSexoCat02")
+	private String idSexo;
 	 
-	@Column(name="FECHA_NACIMIENTO")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaNacimiento;
+	@Column(name="fechaNacimiento")
+	private Timestamp fechaNacimiento;
 	
-	@Column(name="RUC")
+	@Column(name="idNacionalidadCat01")
+	private String idNacionalidad;
+	
+	@Column(name="idEstadoCivilCat01")
+	private String idEstadoCivil;
+	
+	@Column(name="ruc")
 	private String ruc;
 	
-	@Column(name="ID_TIPO_PERSONA")
-	private int tipoPersona;
+	@Column(name="idRegUbigeoDireccion")
+	private String idRegUbigeoDireccion;
 	
-	//Bib-directional many-to-one association to document
-/*	@ManyToOne
-	@JoinColumn(name="ID_DOCUMENTO_PERSONA")
-	private DocumentoPersona documentoPersona;
-	*/	
-
-	//private 
-
-	@Column(name="ID_SEXO")
-	private int idSexo;
+	@Column(name="direccion")
+	private String direccion;
 	
-	@Column(name="ID_SITUACION")
-	private int idSituacion;
-
+	@Column(name="telefono")
+	private String telefono;
 	
-	@Column(name="AUD_ID_USUARIO")
-	private int audIdUsuario;
+	@Column(name="correo")
+	private String correo;
 	
+	@Column(name="usuarioRegistro")
+	private String usuarioRegistro;
 	
-	private int idTipoDocumento;
-	
-	/*@Column(name="NRO_COLEGIATURA")
-	private String nroColegiatura;
-	*/	
-	public Persona() {
-		//this.setDocumento_Persona(new DocumentoPersona());
-	}
-   public String getNombreCompleto(){
-	   String nombreCompleto = null;	
-		if (nombreCompleto == null) {
-			nombreCompleto = 	this.getApellido_paterno()+ "  "+
-					   this.getApellido_materno()+ ",  "+
-					   this.getPrimer_nombre()+ "  "+
-					   this.getSegundo_nombre(); 
-		}
-		return nombreCompleto;
+	public String getIdEstadoCivil() {
+		return idEstadoCivil;
 	}
 
- 
+	public void setIdEstadoCivil(String idEstadoCivil) {
+		this.idEstadoCivil = idEstadoCivil;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getIdTipoDocumento() {
+		return idTipoDocumento;
+	}
+
+	public void setIdTipoDocumento(String idTipoDocumento) {
+		this.idTipoDocumento = idTipoDocumento;
+	}
+
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
+	public String getIdSexo() {
+		return idSexo;
+	}
+
+	public void setIdSexo(String idSexo) {
+		this.idSexo = idSexo;
+	}
+
+	public Timestamp getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Timestamp fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getIdNacionalidad() {
+		return idNacionalidad;
+	}
+
+	public void setIdNacionalidad(String idNacionalidad) {
+		this.idNacionalidad = idNacionalidad;
+	}
+
+	public String getRuc() {
+		return ruc;
+	}
+
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
+
+	public String getIdRegUbigeoDireccion() {
+		return idRegUbigeoDireccion;
+	}
+
+	public void setIdRegUbigeoDireccion(String idRegUbigeoDireccion) {
+		this.idRegUbigeoDireccion = idRegUbigeoDireccion;
+	}
+
 	public String getDireccion() {
 		return direccion;
 	}
@@ -234,117 +303,30 @@ public class Persona   implements Serializable {
 		this.direccion = direccion;
 	}
 
-
-	public String getApellido_paterno() {
-		return apellido_paterno;
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setApellido_paterno(String apellido_paterno) {
-		this.apellido_paterno = apellido_paterno;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
-	public String getApellido_materno() {
-		return apellido_materno;
+	public String getCorreo() {
+		return correo;
 	}
 
-	public void setApellido_materno(String apellido_materno) {
-		this.apellido_materno = apellido_materno;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
-	public String getPrimer_nombre() {
-		return primer_nombre;
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
 	}
 
-	public void setPrimer_nombre(String primer_nombre) {
-		this.primer_nombre = primer_nombre;
-	}
-
-	public String getSegundo_nombre() {
-		return segundo_nombre;
-	}
-
-	public void setSegundo_nombre(String segundo_nombre) {
-		this.segundo_nombre = segundo_nombre;
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
 	}
 	
-	public String getNumeroDocumento() {
-		return numeroDocumento;
-	}
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	} 
-	 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	
-	public String getRuc() {
-		return ruc;
-	}
-	public void setRuc(String ruc) {
-		this.ruc = ruc;
-	}
-	 
-	public int getAudIdUsuario() {
-		return audIdUsuario;
-	}
-	public void setAudIdUsuario(int audIdUsuario) {
-		this.audIdUsuario = audIdUsuario;
-	}
-		
-	/*public String getNroColegiatura() {
-		return nroColegiatura;
-	}
-	public void setNroColegiatura(String nroColegiatura) {
-		this.nroColegiatura = nroColegiatura;
-	}
-	*/	
-	public int getIdSexo() {
-		return idSexo;
-	}
-	public void setIdSexo(int idSexo) {
-		this.idSexo = idSexo;
-	}
 
-	public int getIdSituacion() {
-		return idSituacion;
-	}
-	public void setIdSituacion(int idSituacion) {
-		this.idSituacion = idSituacion;
-	}
-	
-	public int getTipoPersona() {
-		return tipoPersona;
-	}
-	public void setTipoPersona(int tipoPersona) {
-		this.tipoPersona = tipoPersona;
-	}
-	public PersonaPK getId() {
-		if (id == null) {
-			id = new PersonaPK();
-		}
-		return id;
-	}
-	public void setId(PersonaPK id) {
-		this.id = id;
-	}
-	
-	public int getIdTipoDocumento() {
-		return idTipoDocumento;
-	}
-	public void setIdTipoDocumento(int idTipoDocumento) {
-		this.idTipoDocumento = idTipoDocumento;
-	}
-	@Override
-	public String toString() {
-		return "Persona [id=" + id + ", direccion=" + direccion + ", apellido_paterno=" + apellido_paterno
-				+ ", apellido_materno=" + apellido_materno + ", primer_nombre=" + primer_nombre + ", segundo_nombre="
-				+ segundo_nombre + ", numeroDocumento=" + numeroDocumento + ", fechaNacimiento=" + fechaNacimiento
-				+ ", ruc=" + ruc + ", tipoPersona=" + tipoPersona + ", idSexo=" + idSexo + ", idSituacion="
-				+ idSituacion + ", audIdUsuario=" + audIdUsuario  + "]";
-	}
 	 
 }

@@ -137,29 +137,6 @@ public class PersonaServiceImpl implements PersonaService {
 		 
 		return oPersonaBean;
 	}
-
-	@Override
-	public boolean insertarPersonaLaboratorio(PersonaBean persona) throws ServiceException {
-		Boolean sw = false;
-		try {
-			sw =  personaDAO.insertarPersonaLaboratorio(persona);
-			
-		} catch (DAOException e) { 
-			e.printStackTrace();
-		}
-		return sw;
-	}
-
-	@Override
-	public boolean actualizarPersonaLaboratorio(PersonaBean persona) throws ServiceException {
-		Boolean sw = false;
-		try {
-			sw =  personaDAO.actualizarPersonaLaboratorio(persona);
-			
-		} catch (DAOException e) { 
-			e.printStackTrace();
-		}
-		return sw;
-	}
+ 
 
 }

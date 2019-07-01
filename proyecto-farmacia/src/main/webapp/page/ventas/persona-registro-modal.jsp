@@ -58,11 +58,15 @@ input[type=text] {
 	color: #ffffff;
 }
 </style>
-	
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/app-assets/vendors/css/extensions/toastr.css">
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/datepicker.css">	
 <div class="modal-dialog modal-lg" role="document">
 	<div class="modal-content">
+	
 		<div class="modal-header">
 			<label class="modal-title text-text-bold-600" id="myModalLabel35"><b>REGISTRO
 					DE PERSONA</b></label>
@@ -76,7 +80,8 @@ input[type=text] {
 			method="post" action="" onsubmit="return false">
 			<input id="contextPath" type="hidden"
 				value="${pageContext.request.contextPath}">
-
+				 
+				
 			<f:input class="form-control" type="hidden"
 				id="pacienteNombreCompleto" path="nombreCompleto" />
 
@@ -142,6 +147,19 @@ input[type=text] {
 
 						</div>
 					</div>
+					<div class="form-group col-md-4 mb-2">
+						<label for="nombreCompleto" class="label_control">NOMBRES <span class="required">*</span>
+						</label>
+						<div class="controls">
+							<f:input type="text" class="form-control" required="required"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								id="personanombres" path="nombres" />
+
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
 					<div class="col-md-4 mb-2">
 						<label for="situacion" class="label_control">SEXO <span
 							class="required">*</span></label>
@@ -151,31 +169,8 @@ input[type=text] {
 								<f:option value="" label="Seleccionar" selected="true"
 									disabled="disabled" />
 								<f:options items="${lstSexo}" itemValue="idRegistro"
-									itemLabel="descripcionCorta" />
+									itemLabel="descripcionLarga" />
 							</f:select>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-4 mb-2">
-						<label for="nombreCompleto" class="label_control">PRIMER
-							NOMBRE <span class="required">*</span>
-						</label>
-						<div class="controls">
-							<f:input type="text" class="form-control" required="required"
-								onkeyup="javascript:this.value=this.value.toUpperCase();"
-								id="personanombres" path="nombres" />
-
-						</div>
-					</div>
-					<div class="form-group col-md-4 mb-2">
-						<label for="nombreCompleto" class="label_control">SEGUNDO
-							NOMBRE </label>
-						<div class="controls">
-							<f:input type="text" class="form-control"
-								onkeyup="javascript:this.value=this.value.toUpperCase();"
-								id="personanombres" path="nombres" />
-
 						</div>
 					</div>
 					<div class="col-md-4 mb-2">
@@ -185,6 +180,16 @@ input[type=text] {
 						<f:input class="form-control" id="date" name="date" maxlength="10" 
 							required="required" placeholder="DD/MM/YYYY" type="text"
 							path="fechaNacStr" onkeyup="this.value=formateafechaNacimiento(this.value);"/> 
+					</div>
+					<div class="form-group col-md-4 mb-2">
+						<label for="nombreCompleto" class="label_control">TELEFONO
+						</label>
+						<div class="controls">
+							<f:input type="text" class="form-control"
+								onKeyPress="return soloNumeros(event)" maxlength="9"
+								id="telefono" path="telefonoNumero" />
+
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -216,17 +221,6 @@ input[type=text] {
 							</f:select>
 						</div>
 					</div>
-					<div class="form-group col-md-4 mb-2">
-						<label for="nombreCompleto" class="label_control">TELEFONO
-							<span class="required">*</span>
-						</label>
-						<div class="controls">
-							<f:input type="text" class="form-control" required="required"
-								onKeyPress="return soloNumeros(event)" maxlength="9"
-								id="telefono" path="telefonoNumero" />
-
-						</div>
-					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-7 mb-1">
@@ -236,7 +230,7 @@ input[type=text] {
 							<div class="autocomplete" style="width:100%;">   
 								<f:input type="text" value="" placeholder="Buscar..."
 									class="form-control" required="required"
-									id="myInput" name="myCountry"
+									id="myInput" name="myCountry" autocomplete="off"
 									path="ubigeoDireccion.nombreUbigeo" />
 							</div>
 
@@ -268,7 +262,7 @@ input[type=text] {
 
 				<button type="submit" onclick="grabarPersona()"
 					class="btn btn-primary">
-					<i class="fa fa-floppy-o"></i> GRABAR
+					<i class="fa fa-save"></i> GRABAR
 				</button>
 			</div>
 
@@ -281,6 +275,10 @@ input[type=text] {
 			type="text/javascript" charset="utf-8"></script>
 			
 		<script
+			src="${pageContext.request.contextPath}/assets/js/page/util/block.js"
+			type="text/javascript" charset="utf-8"></script>
+				
+		<script
 			src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.es.min.js"
 			type="text/javascript" charset="utf-8"></script>	
 			
@@ -288,6 +286,18 @@ input[type=text] {
 			src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
 			type="text/javascript" charset="utf-8"></script>
 			
+		<script
+			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js"
+			type="text/javascript"></script>
+
+		<script
+			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/sweetalert.min.js"
+			type="text/javascript"></script>
+		<script
+			src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
+			type="text/javascript"></script>	
+		<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
+			type="text/javascript"></script>
 	<script>
 		$(document).ready(
 				function() {

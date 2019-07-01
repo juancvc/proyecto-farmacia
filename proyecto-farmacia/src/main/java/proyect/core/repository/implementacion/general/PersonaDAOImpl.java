@@ -29,31 +29,39 @@ public class PersonaDAOImpl implements PersonaDAO {
 	public boolean insertar(PersonaBean persona) throws DAOException {
   
 		Object idPersona= null; 
-		Object nroPeriodo= null; 
+		//Object nroPeriodo= null; 
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.insertar");
 			
-			spq.setParameter("APEPATER", persona.getApellidoPaterno());
-			spq.setParameter("APEMATER", persona.getApellidoMaterno());
-			spq.setParameter("PRINOMBR", persona.getNombres());  
-			spq.setParameter("NRODOCUM", persona.getNroDocumento()); 
+			spq.setParameter("apellidoPaterno", persona.getApellidoPaterno());
+			spq.setParameter("apellidoMaterno", persona.getApellidoMaterno());
+			spq.setParameter("nombres", persona.getNombres());  
+			spq.setParameter("direccion", persona.getNroDocumento()); 
 			 
-			spq.setParameter("CDPERSIG", persona.getCodigoPersonaSigeho());
-			spq.setParameter("FECHANAC", persona.getFechaNac());
-			spq.setParameter("NROCELU", persona.getTelfCelu());
-			//spq.setParameter("SWRENIEC","0");
-			spq.setParameter("SWRENIEC", persona.getSwReniec()? "1":"0");
+			spq.setParameter("fechaNacimiento", persona.getFechaNacStr());
+			spq.setParameter("idTipoDocumentoCat02", persona.getTipoDocumento().getIdRegistro());
+			spq.setParameter("nroDocumento", persona.getNroDocumento());
+			spq.setParameter("ruc",persona.getRuc());
+			spq.setParameter("idRegUbigeoDireccion",persona.getUbigeoDireccion().getCodigoRegistro());
+			spq.setParameter("telefono",persona.getTelefonoNumero());
+			spq.setParameter("correo",persona.getCorreo());
+			spq.setParameter("idSexoCat02",persona.getSexo().getIdRegistro());
+			spq.setParameter("idNacionalidadCat01",persona.getNacionalidad().getIdRegistro());
+			spq.setParameter("idEstadoCivilCat01",persona.getEstadoCivil().getIdRegistro());
+			spq.setParameter("usuarioRegistro",persona.getUsuarioRegistro());
+			spq.setParameter("ipRegistro",persona.getIpRegistro());
+		//	spq.setParameter("SWRENIEC", persona.getSwReniec()? "1":"0");
 			
-		/*	spq.execute();
+			spq.execute();
 			
 			idPersona = spq.getOutputParameterValue(1);
-			nroPeriodo = spq.getOutputParameterValue(16);
+			//nroPeriodo = spq.getOutputParameterValue(16);
 			if (idPersona != null) {
 				persona.setCodigo(idPersona.toString());
-				persona.setNumeroPeriodo(nroPeriodo.toString());
+				//persona.setNumeroPeriodo(nroPeriodo.toString());
 				sw=true;
-			}*/
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			sw=false; 
@@ -140,7 +148,7 @@ public class PersonaDAOImpl implements PersonaDAO {
 		PersonaBean oPersonaBean = null;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumento"); 
-			spq.setParameter("NRODOCUM", personaBean.getNroDocumento());  
+			spq.setParameter("nroDocumento", personaBean.getNroDocumento());  
 			if (spq.execute()) {
 				lstpersona =  spq.getResultList(); 
 			} 
@@ -188,36 +196,25 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		if (entity != null) {
 			
 			bean = new PersonaBean(); 
-		/**	bean.setCodigo(entity.getId().getCodperso());
-			bean.setCodigoPersonaSigeho(entity.getCodPersoSigeho());
-			bean.setNroPeriodoPersona(""+entity.getId().getNroperio());
-			bean.setNumeroPeriodo(""+entity.getId().getNroperio());
-			bean.setCodigoOrganizacion(entity.getId().getCodorgan());
-			bean.setCodigoInstitucion(entity.getId().getCodinsti());
-			bean.setCodigoSede(entity.getId().getCodsedei());
-			bean.setPrimerNombre(entity.getPrinombr());
-			bean.setSegundoNombre(entity.getSegnombr());
-			bean.setApellidoPaterno(entity.getApepater());
-			bean.setApellidoMaterno(entity.getApemater());
-			bean.getTipoDocumento().setCodReg(entity.getTg1TpDoc());
-			bean.getTipoDocumento().setNombreCorto(entity.getNOMBTPDO());
-			bean.setStrFechaCreacion(entity.getSFECHREG());
-			bean.setNroDocumento(entity.getNroDocum()); 
-			bean.getSexo().setCodReg(entity.getTg1sexop());
-			bean.getSexo().setNombreCorto(entity.getNOMBTPSX());
-			
+			bean.setCodigo(entity.getIdPersona());
+			bean.setNombres(entity.getNombres());
+			bean.setApellidoPaterno(entity.getApellidoPaterno());
+			bean.setApellidoMaterno(entity.getApellidoMaterno());
+			bean.getTipoDocumento().setIdRegistro(entity.getIdTipoDocumento());;
+			bean.setNroDocumento(entity.getNroDocumento()); 
+			bean.getSexo().setIdRegistro(entity.getIdSexo()); 
+			bean.setTelefonoNumero(entity.getTelefono());
+			bean.setCorreo(entity.getCorreo());
+			bean.setDireccion(entity.getDireccion());
+			bean.getEstadoCivil().setIdRegistro(entity.getIdEstadoCivil());
+			bean.getNacionalidad().setIdRegistro(entity.getIdNacionalidad());
+			bean.getUbigeoDireccion().setCodigoRegistro(entity.getIdRegUbigeoDireccion());
+			/**
 			bean.setFechaNac(entity.getFechanac());
 			bean.setFoto(entity.getFotoDeta()); 
-			bean.setDireccion(entity.getDesDirec());
-			bean.getEstadoCivil().setCodReg(entity.getTg1esciv());
-			bean.getNacionalidad().setCodReg(entity.getTg1nacio());
+			
 			bean.getNacionalidad().setNombreCorto(entity.getNOMBTPNA());
 			bean.getSituacion().setNombreCorto(entity.getNOMBSITU());
-			bean.getOcupacion().setCodReg(entity.getTg1ocupa());
-			bean.getOcupacion().setNombreCorto(entity.getNOMBTPOC());
-			bean.getNivelInstrucion().setCodReg(entity.getTg1niins());
-			
-			bean.getUbigeoDireccion().setCodigoRegistro(entity.getUBIDIREG());
 			bean.getUbigeoDireccion().setCodigoUbigeo(entity.getTgUbigeo());
 			bean.getUbigeoDireccion().setNombreUbigeo(entity.getNOMLARGO());
 			bean.setNombreUsuarioCreacion(entity.getNOMUSUAR());
@@ -225,13 +222,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			bean.getUbigeoNacimiento().setNombreUbigeo(entity.getNOMLUGNAC());
 			bean.getUbigeoNacimiento().setCodigoUbigeo(entity.getCODUBINA());
 			
-			bean.setTelefonoNumero(entity.getTELFNUMR());
-			bean.setCorreo(entity.getCORDESCR());
-			bean.setCodigoCorreo(entity.getCODCORXP());
-			bean.setCodigoDireccion(entity.getCODDIXPE());
-			bean.setCodigoTelefono(entity.getCODTEXPE());
-			bean.setCorreo(entity.getCorreope());
-			bean.setTelfCelu(entity.getTelfcelu());*/
+			*/
 			
 		}
 		
@@ -294,7 +285,7 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		List<Persona> lstpersona = null;	
 		PersonaBean oPersonaBean = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumentoSigeho");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumento");
 			spq.setParameter("NRODOCUM", personaBean.getNroDocumento());  
 			spq.setParameter("TIPO", personaBean.getTipo());  
 			if (spq.execute()) {
@@ -312,121 +303,6 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		} 
 		return oPersonaBean;
 	}
-
-	@Override
-	public boolean insertarPersonaLaboratorio(PersonaBean persona) throws DAOException {
-		Object idPersona= null; 
-		//Object nroPeriodo= null; 
-		Object nroVersi = null;
-		
-		Object codigoCorreo = null;
-		Object codigoDireccion = null;
-		Object codigoTelefono = null;
-		
-		boolean sw=false;
-		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.insertarPersonaLaboratorio");
-			/*
-			spq.setParameter("CODORGAN", persona.getCodigoOrganizacion()); 
-			spq.setParameter("CODINSTI", persona.getCodigoInstitucion()); 
-			spq.setParameter("CODSEDEI", persona.getCodigoSede()); */
-			
-			spq.setParameter("APEPATER", persona.getApellidoPaterno());
-			spq.setParameter("APEMATER", persona.getApellidoMaterno());
-		 
-			spq.setParameter("FOTO", persona.getFoto()); 
-			 
-			spq.setParameter("CORREODE", persona.getCorreo()); 
-			
-			spq.setParameter("DIRECCIO", persona.getDireccion()); 
-			spq.setParameter("CODRGUBI", persona.getUbigeoDireccion().getCodigoRegistro());  
-			
-			spq.setParameter("TELFNUMR", persona.getTelefonoNumero()); 
-			
-			spq.setParameter("VARENIEC", persona.getSwReniec()? "1":"0");
-			spq.setParameter("ORIGREGI", persona.getOrigenDeRegistro()); 
-			 
-			
-			
-			spq.execute();
-			
-			idPersona = spq.getOutputParameterValue(1);
-		//	nroVersi = spq.getOutputParameterValue(5);
-		//	codigoCorreo = spq.getOutputParameterValue(16);
-			codigoDireccion = spq.getOutputParameterValue(17);
-		//	codigoTelefono = spq.getOutputParameterValue(21);
-			
-			if (idPersona != null) { 
-				persona.setCodigo(idPersona.toString());
-				//persona.setNumeroVersion(nroVersi.toString());
-				//persona.setCodigoCorreo(codigoCorreo.toString());
-				persona.setCodigoDireccion(codigoDireccion.toString());
-				//persona.setCodigoTelefono(codigoTelefono.toString());
-				sw=true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			sw=false; 
-		}finally{
-			em.close();
-		}
-		return sw;
-	}
-
-	@Override
-	public boolean actualizarPersonaLaboratorio(PersonaBean persona) throws DAOException {
-		Object idPersona= null; 
-		//Object nroPeriodo= null; 
-		Object nroVersi = null;
-		
-		Object codigoCorreo = null;
-		Object codigoDireccion = null;
-		Object codigoTelefono = null;
-		
-	
-		
-		boolean sw=false;
-		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.actualizarPersonaBanco");
-			spq.setParameter("CODCORXP", persona.getCodigoCorreo()); 
-			spq.setParameter("CORREODE", persona.getCorreo()); 
-			
-			spq.setParameter("CODDIXPE", persona.getCodigoDireccion());
-			spq.setParameter("DIRECCIO", persona.getDireccion()); 
-			spq.setParameter("CODRGUBI", persona.getUbigeoDireccion().getCodigoRegistro());  
-			
-			spq.setParameter("CODTEXPE", persona.getCodigoTelefono());
-			spq.setParameter("TELFNUMR", persona.getTelefonoNumero()); 
-			 
-			
-			
-			spq.execute();
-			
-		//	idPersona = spq.getOutputParameterValue(4);
-			nroVersi = spq.getOutputParameterValue(5);
-			codigoCorreo = spq.getOutputParameterValue(9);
-			codigoDireccion = spq.getOutputParameterValue(11);
-			codigoTelefono = spq.getOutputParameterValue(14);
-			
-		/*	if (idPersona != null) { 
-				persona.setCodigo(idPersona.toString());
-				
-			}*/
-			
-		//	persona.setNumeroVersion(nroVersi.toString());
-			persona.setCodigoCorreo(codigoCorreo.toString());
-			persona.setCodigoDireccion(codigoDireccion.toString());
-			persona.setCodigoTelefono(codigoTelefono.toString());
-			sw=true;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			sw=false; 
-		}finally{
-			em.close();
-		}
-		return sw;
-	}
-
+ 
 
 }

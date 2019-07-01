@@ -26,6 +26,10 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/app-assets/vendors/css/extensions/toastr.css">
+	
 <link
 	href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css"
 	rel="stylesheet">
@@ -33,11 +37,82 @@
 	href="${pageContext.request.contextPath}/app-assets/css/estilos.css"
 	rel="stylesheet">
 <!-- Custom styles for this page -->
-<link
-	href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
+ 
 </head>
 
+
+<style>
+
+body {
+font-family: Cambria;
+font-size: 13px;  
+}
+
+#datepicker {
+	width: 180px;
+	margin: 0 20px 20px 20px;
+}
+
+#datepicker>span:hover {
+	cursor: pointer;
+}
+
+#txtCajaImporteTotal:disabled {
+	font-color: #0A0A0A;
+	font-weight: plain;
+	font-family: Cambria;
+	font-size: 16px;
+	background-color: #DCE8EC;
+	text-align: right;
+	valign: center;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+	/*position: relative;*/
+	display: inline-block;
+}
+
+
+input {
+	border: 1px solid transparent; 
+	font-size: 13px;
+}
+
+input[type=text] {
+	width: 100%;
+}
+
+.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+	background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -58,7 +133,7 @@
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmListadoArticulo" role="form"
+				<f:form id="frmGenerarVenta" role="form"
 					action="${pageContext.request.contextPath}/articuloontroller/buscar">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -76,7 +151,7 @@
 									<div class="form-group">
 										<div class="label_title">DATOS DEL PACIENTE :</div>
 										<div class="row">
-											<div class="form-group col-md-3 mb-1">
+											<div class="form-group col-md-3 mb-2">
 												<label for="situacion" class="label_control">TIPO
 													DOCUMENTO <span class="required">*</span>
 												</label>
@@ -85,8 +160,6 @@
 														path="persona.tipoDocumento.idRegistro"
 														required="required" class="form-control"
 														onchange="limpiarPorTipo()">
-														<f:option value="" label="Seleccionar" selected="true"
-															disabled="disabled" />
 														<f:options items="${lstTipoDocumento}"
 															itemValue="idRegistro" itemLabel="descripcionCorta" />
 													</f:select>
@@ -160,7 +233,7 @@
 													<f:input type="text" class="form-control"
 														required="required"
 														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaPrimerNombre" disabled="true"
+														id="personaNombres" disabled="true"
 														path="persona.nombres" />
 
 												</div>
@@ -170,10 +243,10 @@
 													FINANCIAMIENTO<span class="required">*</span>
 												</label>
 												<div class="controls">
-													<f:select id="tipoDocumentoPaciente"
+													<f:select id="cboTipoFinanciador"
 														path="persona.tipoDocumento.idRegistro"
-														required="required" class="form-control"
-														onchange="limpiarPorTipo()">
+														onchange="cambiarFinanciamiento()"
+														required="required" class="form-control">
 														<f:option value="" label="Seleccionar" selected="true"
 															disabled="disabled" />
 														<f:options items="${lstTipoFinanciador}"
@@ -197,7 +270,7 @@
 															<input type="text" value="" placeholder="Buscar..."
 																class="form-control" required="required"
 																onkeypress="return runIngresarExamen(event)"
-																id="txtExamenNombre" name="txtExamenNombre" />
+																id="txtArticuloNombre" name="txtArticuloNombre" />
 														</div>
 
 
@@ -230,8 +303,8 @@
 																	<th>ACCION</th>
 																</tr>
 															</thead>
-															<tbody id="idbodyCIEXref" class="label_control">
-																<c:forEach var="orden" items="${lstOrdenDetalleBean}"
+															<tbody id="idbodyStock" class="label_control">
+																<c:forEach var="orden" items="${lstOrdennombreBean}"
 																	varStatus="loop">
 																	<tr>
 																		<td>${loop.count}</td>
@@ -281,12 +354,13 @@
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
-												<a href="#" class="btn btn-info"> <i class="fa fa-file"></i>
+												<a href="${pageContext.request.contextPath}/ventaController/nuevo"
+												 class="btn btn-info"> <i class="fa fa-file"></i>
 													<span class="text">NUEVO</span>
 												</a>
 
 
-												<button type="submit" onclick="grabarOrden()"
+												<button type="submit" onclick="grabar()"
 													class="btn btn-primary">
 													<i class="fa fa-save"></i> GUARDAR
 												</button>
@@ -301,16 +375,11 @@
 						<input id="contextPath" type="hidden"
 							value="${pageContext.request.contextPath}">
 						<div class="card-body">
-
-
-
 							<div class="form-group"></div>
 						</div>
-
-
-
-
 					</div>
+					
+					<input type="hidden"  id="txtIndexArticulo"  />
 				</f:form>
 				<!-- /.container-fluid -->
 
@@ -335,28 +404,10 @@
 	</a>
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">Ã</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<jsp:include
+			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
+			
+			
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
@@ -378,20 +429,245 @@
 		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 	<!-- Page level custom scripts -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/js/demo/datatables-demo.js"></script>
+	 
 
 	<!-- scripts  -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"></script>
-		
-		
+			src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+			type="text/javascript" charset="utf-8"></script>
+			
+		<script
+			src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.js"
+			type="text/javascript" charset="utf-8"></script>
+			
+		<script
+			src="${pageContext.request.contextPath}/assets/js/page/util/block.js"
+			type="text/javascript" charset="utf-8"></script>
+				
+		<script
+			src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.es.min.js"
+			type="text/javascript" charset="utf-8"></script>	
+			
+		<script
+			src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
+			type="text/javascript" charset="utf-8"></script>
+			
+		<script
+			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js"
+			type="text/javascript"></script>
+
+		<script
+			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/sweetalert.min.js"
+			type="text/javascript"></script>
+		<script
+			src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
+			type="text/javascript"></script>	
+		<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
+			type="text/javascript"></script>
+			
+			
+			
 	<script>
 		document.getElementById('navVentas').className = "nav-item active";
 		document.getElementById('enlaceGenerarVenta').className = "collapse-item active";
 		document.getElementById('collVentas').className = "nav-link";
 		document.getElementById('collapseVentas').className = "collapse show";
+		
+		function runScript(e) {
+			console.log(${ordenBean.codigo});
+			if (e.keyCode == 13) {
+				<c:if test="${ordenBean.codigo==null || ordenBean.codigo==''}">
+				buscarPersonaNroDoc(); 
+				
+				</c:if>
+				
+				return false;
+			}
+		} 
+		
+		function runIngresarExamen(e) {
+			var index = $('#txtIndexArticulo').val();
+			var examenNombre = $('#txtExamenNombre').val();
+			if (e.keyCode == 13) {
+				if(examenNombre != ''){
+					llenarArticuloIndex(index);
+					return false;
+				} 
+			}
+		}
+
+		function enviarIndex() { 
+			var index = $('#txtIndexArticulo').val();
+			var examenNombre = $('#txtExamenNombre').val();
+				if(examenNombre != ''){
+					llenarArticuloIndex(index);
+					return false;
+				}  
+		}
+
 	</script>
+
+<script>
+		function autocomplete(inp, arr) {
+			/*the autocomplete function takes two arguments,
+			the text field element and an array of possible autocompleted values:*/
+			var currentFocus;
+			var codigoRegistro;
+			/*execute a function when someone writes in the text field:*/
+			inp
+					.addEventListener(
+							"input",
+							function(e) {
+								var a, b, i, val = this.value;
+								/*close any already open lists of autocompleted values*/
+								closeAllLists();
+								if (!val) {
+									return false;
+								}
+								currentFocus = -1;
+								/*create a DIV element that will contain the items (values):*/
+								a = document.createElement("DIV");
+								a.setAttribute("id", this.id
+										+ "autocomplete-list");
+								a.setAttribute("class", "autocomplete-items");
+								/*append the DIV element as a child of the autocomplete container:*/
+								this.parentNode.appendChild(a);
+								/*for each item in the array...*/
+								for (i = 0; i < arr.length; i++) {
+									/**console.log("arr[i].nombre:: " +arr[i].nombre.substr(0, val.length)
+											.toUpperCase());
+									console.log("val.toUpperCase():: " +arr[i].nombre.substr(0, val.length)
+											.toUpperCase());*/
+									/*check if the item starts with the same letters as the text field value:*/
+									if ( arr[i].nombre
+											.toUpperCase().includes(val.toUpperCase()) ) { 
+										/*create a DIV element for each matching element:*/
+										b = document.createElement("DIV");
+										/*make the matching letters bold:*/
+										b.innerHTML = "<strong>"
+												+ arr[i].nombre.substr(0, val.length)
+												+ "</strong>";
+										b.innerHTML += arr[i].nombre
+												.substr(val.length);
+										/*insert a input field that will hold the current array item's value:*/
+										b.innerHTML += "<input type='hidden' id='" + arr[i].codigo + "' value='" + arr[i].nombre + "'>"; 
+									
+										/*execute a function when someone clicks on the item value (DIV element):*/
+										b
+												.addEventListener(
+														"click",
+														function(e) {
+															 
+														
+															console.log("codigo::" +(this
+																	.getElementsByTagName("input")[0].id));	
+																	
+															inp.value = this
+																	.getElementsByTagName("input")[0].value;
+															
+															$("#txtIndexArticulo").val(this
+																	.getElementsByTagName("input")[0].id);
+																	
+															llenarArticuloIndex(this
+																	.getElementsByTagName("input")[0].id);		
+															
+															
+															$('#txtArticuloNombre').val("")
+															/*
+																$("#txtidRegistroUbigeo").val(this
+																	.getElementsByTagName("input")[0].id)
+															close the list of autocompleted values,
+															(or any other open lists of autocompleted values:*/
+																	
+															//$("#txtidRegistroUbigeo").val(arr[i].codigoRegistro);
+															closeAllLists();
+														});
+										a.appendChild(b);
+									}
+								}
+							});
+			/*execute a function presses a key on the keyboard:*/
+			inp.addEventListener("keydown", function(e) {
+				var x = document.getElementById(this.id + "autocomplete-list");
+				if (x)
+					x = x.getElementsByTagName("div");
+				if (e.keyCode == 40) {
+					/*If the arrow DOWN key is pressed,
+					increase the currentFocus variable:*/
+					currentFocus++;
+					/*and and make the current item more visible:*/
+					addActive(x);
+				} else if (e.keyCode == 38) { //up
+					/*If the arrow UP key is pressed,
+					decrease the currentFocus variable:*/
+					currentFocus--;
+					/*and and make the current item more visible:*/
+					addActive(x);
+				} else if (e.keyCode == 13) {
+					/*If the ENTER key is pressed, prevent the form from being submitted,*/
+					e.preventDefault();
+					if (currentFocus > -1) {
+						/*and simulate a click on the "active" item:*/
+						if (x)
+							x[currentFocus].click();
+					}
+				}
+			});
+			function addActive(x) {
+				/*a function to classify an item as "active":*/
+				if (!x)
+					return false;
+				/*start by removing the "active" class on all items:*/
+				removeActive(x);
+				if (currentFocus >= x.length)
+					currentFocus = 0;
+				if (currentFocus < 0)
+					currentFocus = (x.length - 1);
+				/*add class "autocomplete-active":*/
+				x[currentFocus].classList.add("autocomplete-active");
+			}
+			function removeActive(x) {
+				/*a function to remove the "active" class from all autocomplete items:*/
+				for (var i = 0; i < x.length; i++) {
+					x[i].classList.remove("autocomplete-active");
+				}
+			}
+			function closeAllLists(elmnt) {
+				/*close all autocomplete lists in the document,
+				except the one passed as an argument:*/
+				var x = document.getElementsByClassName("autocomplete-items");
+				for (var i = 0; i < x.length; i++) {
+					if (elmnt != x[i] && elmnt != inp) {
+						x[i].parentNode.removeChild(x[i]);
+					}
+				}
+			}
+			/*execute a function when someone clicks in the document:*/
+			document.addEventListener("click", function(e) {
+				closeAllLists(e.target);
+			});
+		}
+		
+		var arrayMenus = [];
+		
+		
+		<c:forEach var="stock" items="${lstStocks}"
+			varStatus="loop">
+		var objArticulo = {
+				codigo : "",
+				nombre		: ""
+		  	}; 
+		objArticulo.codigo ='${loop.index}'; 
+		objArticulo.nombre ='${stock.articulo.nombre}'; 
+		  arrayMenus.push(objArticulo);
+		</c:forEach>
+		
+		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+		autocomplete(document.getElementById("txtArticuloNombre"), arrayMenus);
+	
+		
+		var  listadoArticulo= []; 
+		</script>
 
 
 	<div class="modal fade text-xs-left" id="modalPersona" tabindex="-2"

@@ -564,7 +564,7 @@ public class PersonaController {
 		if (this.getPersonaBean().getCodigo().equals("")) {
 			if(!obpersonaBean.getTipoDocumento().getIdRegistro().equals("000002") ){ // extranjero
 				this.setAuditoria(obpersonaBean, request, true); 
-				this.personaService.insertarPersonaLaboratorio(obpersonaBean);
+				this.personaService.insertar(obpersonaBean);
 				setPersonaBean(obpersonaBean);
 			}else{
 				setPersonaBean(new PersonaBean());
@@ -578,14 +578,14 @@ public class PersonaController {
 					this.getPersonaBean().getOcupacion().setIdRegistro(obpersonaBean.getOcupacion().getIdRegistro());
 					
 					this.setAuditoria(this.getPersonaBean(), request, true); 
-					this.personaService.insertarPersonaLaboratorio(this.getPersonaBean());
+					this.personaService.insertar(this.getPersonaBean());
 					System.out.println("persona reniec");
 				}else{
 					this.getPersonaBean().setTelefonoNumero(obpersonaBean.getTelefonoNumero());
 					this.getPersonaBean().setCorreo(obpersonaBean.getCorreo());
 					this.getPersonaBean().getNivelInstrucion().setIdRegistro(obpersonaBean.getNivelInstrucion().getIdRegistro());
 					this.setAuditoria(obpersonaBean, request, true); 
-					this.personaService.insertarPersonaLaboratorio(obpersonaBean);
+					this.personaService.insertar(obpersonaBean);
 					setPersonaBean(obpersonaBean);
 				}
 			}

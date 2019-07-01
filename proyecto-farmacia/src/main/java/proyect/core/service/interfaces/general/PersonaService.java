@@ -21,9 +21,5 @@ public interface PersonaService extends BaseService<PersonaBean> {
 	
 	public boolean actualizardatosfotouser(PersonaBean personaBean)throws ServiceException;
 	
-	public boolean insertarPersonaLaboratorio(PersonaBean persona) throws  ServiceException;
-	
-	public boolean actualizarPersonaLaboratorio(PersonaBean persona) throws ServiceException;
-	
 }
  
