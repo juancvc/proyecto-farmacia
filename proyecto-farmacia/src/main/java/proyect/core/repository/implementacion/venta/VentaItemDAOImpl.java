@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.base.repository.DAOException;
-import proyect.core.bean.venta.VentaBean;
-import proyect.core.repository.interfaces.venta.VentaDAO; 
+import proyect.core.bean.venta.VentaItemBean;
+import proyect.core.repository.interfaces.venta.VentaItemDAO; 
 
 @Transactional
-@Repository("ventaDAO")
-public class VentaItemDAOImpl implements VentaDAO{
+@Repository("ventaItemDAO")
+public class VentaItemDAOImpl implements VentaItemDAO{
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -24,82 +24,82 @@ public class VentaItemDAOImpl implements VentaDAO{
 	}
 
 	@Override
-	public boolean insertar(VentaBean t) throws DAOException {
+	public boolean insertar(VentaItemBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean actualizar(VentaBean t) throws DAOException {
+	public boolean actualizar(VentaItemBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean eliminar(VentaBean t) throws DAOException {
+	public boolean eliminar(VentaItemBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public VentaBean getBuscarPorObjecto(VentaBean t) throws DAOException {
+	public VentaItemBean getBuscarPorObjecto(VentaItemBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VentaBean> getBuscarPorFiltros(VentaBean t) throws DAOException {
+	public List<VentaItemBean> getBuscarPorFiltros(VentaItemBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean existe(VentaBean t) throws DAOException {
+	public boolean existe(VentaItemBean t) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+/*
+	@Override
+	public List<VentaItemBean> buscarxFechaClienteVO(VentaItemBean VentaItemBean) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean anularVenta(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<VentaBean> buscarxFechaClienteVO(VentaBean VentaBean) throws DAOException {
+	public VentaItemBean findByIdVenta(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean anularVenta(VentaBean venta) throws DAOException {
+	public boolean cierreVentaDiaria(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public VentaBean findByIdVenta(VentaBean venta) throws DAOException {
+	public List<VentaItemBean> listarVentasAnuladasFindByObject(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean cierreVentaDiaria(VentaBean venta) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<VentaBean> listarVentasAnuladasFindByObject(VentaBean venta) throws DAOException {
+	public List<VentaItemBean> listarVentasAnuladasFindByObjectPagante(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<VentaBean> listarVentasAnuladasFindByObjectPagante(VentaBean venta) throws DAOException {
+	public List<VentaItemBean> listarAtencionesIME(VentaItemBean venta) throws DAOException {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public List<VentaBean> listarAtencionesIME(VentaBean venta) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}*/
   
  
 }
