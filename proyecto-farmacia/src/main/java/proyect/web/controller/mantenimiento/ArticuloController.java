@@ -16,6 +16,7 @@ import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.stock.ArticuloBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.stock.ArticuloService;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
@@ -23,10 +24,14 @@ import proyect.web.controller.base.BaseController;
 public class ArticuloController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
+	List<ArticuloBean> lstArticulos;
 	private ArticuloBean articuloBean;
 	
 	@Autowired
 	private Catalogo1Service Catalogo1Service;
+	
+	@Autowired
+	private ArticuloService articuloService;
 	
 	
 	private void cargarCombos(ModelAndView mav) {
@@ -44,10 +49,8 @@ public class ArticuloController extends BaseController{
 	public ModelAndView doBuscar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean,
 			HttpServletRequest request)
 			throws Exception { 
-		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>();
-		
-		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean); 
-		
+		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>(); 
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean);  
 		lstcatalogosRegistros = Catalogo1Service.getBuscarPorFiltros(catalogoBean);
 		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
 		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
@@ -57,20 +60,22 @@ public class ArticuloController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
-	public ModelAndView doListado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", articuloBean); 
-	
-		this.cargarCombos(mav);
-		return mav;
+	public ModelAndView doListado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request) { 
+		return listado(articuloBean, request);
 	}
 
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView listado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request){
-	 
+	public ModelAndView listado(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request){ 
 		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", articuloBean); 
 		this.cargarCombos(mav);
+		try {
+			lstArticulos = articuloService.getBuscarPorFiltros(new ArticuloBean());
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		mav.addObject("lstArticulos", lstArticulos);
 		return mav;
 	}
  

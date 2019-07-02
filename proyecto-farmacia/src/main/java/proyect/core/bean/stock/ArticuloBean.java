@@ -83,6 +83,9 @@ public class ArticuloBean extends BaseBean{
 	}
 
 	public CatalogoBean getTipoArticulo() {
+		if (tipoArticulo == null) {
+			tipoArticulo= new CatalogoBean();
+		}
 		return tipoArticulo;
 	}
 
