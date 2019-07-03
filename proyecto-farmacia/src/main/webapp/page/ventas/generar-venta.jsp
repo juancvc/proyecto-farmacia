@@ -134,7 +134,7 @@ input[type=text] {
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
 				<f:form id="frmGenerarVenta" role="form"
-					action="${pageContext.request.contextPath}/articuloontroller/buscar">
+					action=""  onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
 					<!-- Begin Page Content -->
@@ -244,7 +244,7 @@ input[type=text] {
 												</label>
 												<div class="controls">
 													<f:select id="cboTipoFinanciador"
-														path="persona.tipoDocumento.idRegistro"
+														path="tipoFinanciador"
 														onchange="cambiarFinanciamiento()"
 														required="required" class="form-control">
 														<f:option value="" label="Seleccionar" selected="true"
@@ -268,7 +268,7 @@ input[type=text] {
 													<div class="controls">
 														<div class="autocomplete" style="width: 100%;">
 															<input type="text" value="" placeholder="Buscar..."
-																class="form-control" required="required"
+																class="form-control"  
 																onkeypress="return runIngresarExamen(event)"
 																id="txtArticuloNombre" name="txtArticuloNombre" />
 														</div>

@@ -1,4 +1,4 @@
-package proyect.core.repository.implementacion.Stock;
+package proyect.core.repository.implementacion.stock;
 
 import java.util.ArrayList;
 import java.util.List;

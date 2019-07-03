@@ -23,27 +23,33 @@ import javax.persistence.StoredProcedureParameter;
 @NamedStoredProcedureQueries(
 		{
 			@NamedStoredProcedureQuery(
-				name="venta.insertVenta", 
+				name="venta.insertar", 
 				procedureName="[dbo].[usp_Venta_insertar]",
 				resultClasses= Venta.class,
 				parameters={
 						    @StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		  type=Integer.class),
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="nombreArticulo",  type=String.class ),
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idVenta", 		  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.OUT, name="numeroPeriodo",   type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", 	  type=String.class),
 							 
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", 		  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaAtencion",   type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
+						
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTurno", 		  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idModalidadPago", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoSeguro",	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoFinanciador", type=String.class),
+					
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems",   type=Integer.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPeriodoStock",   type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock",   type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoMoneda", 	  type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidadFaltante",  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoMoneda", 	  type=String.class),
+							
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class)
 					}
 					),
 		

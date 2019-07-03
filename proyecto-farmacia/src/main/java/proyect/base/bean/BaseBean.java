@@ -32,6 +32,9 @@ public class BaseBean {
 	}
 
 	public String getCodigo() {
+		if (codigo == null) {
+			codigo ="";
+		}
 		return codigo;
 	}
 

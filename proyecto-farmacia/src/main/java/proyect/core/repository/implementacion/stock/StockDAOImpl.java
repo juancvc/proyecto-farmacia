@@ -1,4 +1,4 @@
-package proyect.core.repository.implementacion.Stock;
+package proyect.core.repository.implementacion.stock;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

@@ -43,6 +43,15 @@ public class VentaController extends BaseController{
 	List<UbigeoBean> lstUbigeoBean;
 	List<StockBean> lstStocks;
 	
+	private CatalogoBean tipoFinanciador;
+	public CatalogoBean getTipoFinanciador() {
+		return tipoFinanciador;
+	}
+
+	public void setTipoFinanciador(CatalogoBean tipoFinanciador) {
+		this.tipoFinanciador = tipoFinanciador;
+	}
+
 	private VentaBean ventaBean;
 	private UbigeoBean ubigeobean;
 	private PersonaBean personaBean;
@@ -350,15 +359,18 @@ public class VentaController extends BaseController{
 	@ResponseBody
 	public void cambiarFinanciamiento(@RequestParam("financiador") String financiador,
 		HttpServletRequest request) { 
-		 this.getPersonaBean().getTipoFinanciador().setIdRegistro(financiador);
+		 this.getTipoFinanciador().setIdRegistro(financiador);
    	}
 		
-    @RequestMapping(value = "/grabarOrden", method = RequestMethod.POST)
+    @RequestMapping(value = "/grabarVenta", method = RequestMethod.POST)
 	@ResponseBody
 	public String grabarVenta(
 			@RequestBody VentaItemBean[] ventaDetalleArray,  
 			HttpServletRequest request) {
-    		
+    	
+    	UsuarioBean usuario= (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
+		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
+		
     	System.out.println("personaCodigo:: " + this.getPersonaBean().getCodigo());
 		String codigo = "";
 		boolean sw = false;
@@ -366,6 +378,9 @@ public class VentaController extends BaseController{
 		String cadenaCantidad = "@"; 
 		VentaBean ventaBean = new VentaBean();
 		ventaBean.setPersona(this.getPersonaBean());
+		ventaBean.setAlmacen(usuario.getAlmacen());
+		ventaBean.setTipoFinanciador(this.tipoFinanciador);
+		
 		for (VentaItemBean prmVentaItemBeanBean : ventaDetalleArray) {
 			System.out.println("getCodReg == >" + prmVentaItemBeanBean.getStock().getCodigo());
 			

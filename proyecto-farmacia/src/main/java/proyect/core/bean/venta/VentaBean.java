@@ -16,15 +16,47 @@ public class VentaBean  extends BaseBean {
 	private CatalogoBean modalidadPago;
 	private PersonaBean persona; 
 	private CatalogoBean tipoMoneda;
-	private CatalogoBean tipoSeguro;
+	private CatalogoBean tipoFinanciador;
 	private TurnoBean turno;
 	private float importe;
 	private String sImporte;
+	private Boolean   swValida;
 	
 	private String cadenaCantidad;
 	private String cadenaCodigoStock;
+	private String cadenaNroPeriodoStock;
+	private String cadenaCantidadFaltante;
 	private int cantidadItems;
 	
+	
+	
+	public String getCadenaCantidadFaltante() {
+		return cadenaCantidadFaltante;
+	}
+	public void setCadenaCantidadFaltante(String cadenaCantidadFaltante) {
+		this.cadenaCantidadFaltante = cadenaCantidadFaltante;
+	}
+	public CatalogoBean getTipoFinanciador() {
+		if (tipoFinanciador == null) {
+			tipoFinanciador = new CatalogoBean();
+		}
+		return tipoFinanciador;
+	}
+	public void setTipoFinanciador(CatalogoBean tipoFinanciador) {
+		this.tipoFinanciador = tipoFinanciador;
+	}
+	public String getCadenaNroPeriodoStock() {
+		return cadenaNroPeriodoStock;
+	}
+	public void setCadenaNroPeriodoStock(String cadenaNroPeriodoStock) {
+		this.cadenaNroPeriodoStock = cadenaNroPeriodoStock;
+	}
+	public Boolean getSwValida() {
+		return swValida;
+	}
+	public void setSwValida(Boolean swValida) {
+		this.swValida = swValida;
+	}
 	public String getsImporte() {
 		return sImporte;
 	}
@@ -50,6 +82,9 @@ public class VentaBean  extends BaseBean {
 		this.almacen = almacen;
 	}
 	public CatalogoBean getModalidadPago() {
+		if (modalidadPago == null) {
+			modalidadPago = new CatalogoBean();
+		}
 		return modalidadPago;
 	}
 	public void setModalidadPago(CatalogoBean modalidadPago) {
@@ -62,18 +97,18 @@ public class VentaBean  extends BaseBean {
 		this.persona = persona;
 	}
 	public CatalogoBean getTipoMoneda() {
+		if (tipoMoneda == null) {
+			tipoMoneda = new CatalogoBean();
+		}
 		return tipoMoneda;
 	}
 	public void setTipoMoneda(CatalogoBean tipoMoneda) {
 		this.tipoMoneda = tipoMoneda;
-	}
-	public CatalogoBean getTipoSeguro() {
-		return tipoSeguro;
-	}
-	public void setTipoSeguro(CatalogoBean tipoSeguro) {
-		this.tipoSeguro = tipoSeguro;
-	}
+	} 
 	public TurnoBean getTurno() {
+		if (turno == null) {
+			turno = new TurnoBean();
+		}
 		return turno;
 	}
 	public void setTurno(TurnoBean turno) {
@@ -108,7 +143,7 @@ public class VentaBean  extends BaseBean {
 	public String toString() {
 		return "VentaBean [fechaAtencion=" + fechaAtencion + ", hora=" + hora + ", almacen=" + almacen
 				+ ", modalidadPago=" + modalidadPago + ", persona=" + persona + ", tipoMoneda=" + tipoMoneda
-				+ ", tipoSeguro=" + tipoSeguro + ", turno=" + turno + ", importe=" + importe + "]";
+				+ ", tipoFinanciador=" + tipoFinanciador + ", turno=" + turno + ", importe=" + importe + "]";
 	} 
 	 
 }
