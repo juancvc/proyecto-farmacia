@@ -404,7 +404,7 @@ function cambiarCantidad(objeto) {
 	$('#txtCajaImporteTotal').val(importe.toFixed(2));
 	$('#txtCajaImporteTotalHidden').val(importe.toFixed(2));
 }
-
+  
 function grabar() {
 	var personaCodigo = $('#personaCodigo').val();
 	var contextPath = $('#contextPath').val();

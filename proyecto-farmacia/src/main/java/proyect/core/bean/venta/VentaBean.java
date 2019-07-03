@@ -58,7 +58,7 @@ public class VentaBean  extends BaseBean {
 	public PersonaBean getPersona() {
 		return persona;
 	}
-	public void setPersona(PersonaBean persona) {
+	public void  setPersona(PersonaBean persona) {
 		this.persona = persona;
 	}
 	public CatalogoBean getTipoMoneda() {

@@ -320,7 +320,7 @@ public class VentaController extends BaseController{
 			//lstOrdenDetalleBean.add(objOrdenDetalleBean);
 			return objVentaItemBean;
 		}
-	   
+	     
 	   @RequestMapping(value = "/consultarPersonaPorDocumento", method = RequestMethod.GET)
 		public @ResponseBody PersonaBean consultarPorNroDocumento(
 				@RequestParam("tipoDocumento") String tipoDocumento,
