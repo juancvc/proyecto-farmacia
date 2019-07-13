@@ -47,8 +47,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
             <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Generar</a>
-            <a class="collapse-item" href="#">Anular</a>
-            <a class="collapse-item" href="#">Devoluciones</a>
+            <a id ="enlaceAnularVenta" class="collapse-item"  href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
+            <a id ="enlaceDevolucionVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/devolucion">Devoluciones</a>
           </div>
         </div>
       </li>

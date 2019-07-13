@@ -417,6 +417,36 @@ public class VentaController extends BaseController{
 		 
 	}
 	   
+    @RequestMapping(value = "/anular", method = RequestMethod.GET)
+	public ModelAndView anularVenta(HttpServletRequest request) {
+		// cargarComboLeccion();
+		VentaBean ventaBean = new VentaBean(); 
+		StockBean Stock = new StockBean();
+		Stock.setTipoLlamada("1");
+		UsuarioBean usuario= (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
+		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
+		Stock.setAlmacen(usuario.getAlmacen());
+		ModelAndView mav = new ModelAndView("ventas/anular-venta", "command", ventaBean); 
+		this.cargarCombos(mav);
+		
+		return mav;
+	}
+    
+    @RequestMapping(value = "/devolucion", method = RequestMethod.GET)
+  	public ModelAndView devolucion(HttpServletRequest request) {
+  		// cargarComboLeccion();
+  		VentaBean ventaBean = new VentaBean(); 
+  		StockBean Stock = new StockBean();
+  		Stock.setTipoLlamada("1");
+  		UsuarioBean usuario= (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
+  		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
+  		Stock.setAlmacen(usuario.getAlmacen());
+  		ModelAndView mav = new ModelAndView("ventas/devolucion-venta", "command", ventaBean); 
+  		this.cargarCombos(mav);
+  		
+  		return mav;
+  	}
+    
 	public VentaBean getVentaBean() {
 		return ventaBean;
 	}
