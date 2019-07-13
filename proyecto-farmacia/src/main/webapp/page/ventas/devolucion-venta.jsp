@@ -15,7 +15,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Farmacia - Anular venta</title>
+<title>Farmacia - Devolución</title>
 
 <!-- Custom fonts for this template-->
 <link
@@ -77,18 +77,30 @@ font-size: 13px;
 					<div class="container-fluid">
 
 						<!-- Page Heading -->
-						<div class="tituloForm">ANULAR VENTA</div>
-
-
+						<div class="tituloForm">DEVOLUCIÓN</div> 
 						<div class="card shadow mb-4">
 							<!-- Card Content - Collapse -->
 							<div class="collapse show" id="collapseCardExample">
 								<div class="card-body">
 									<div class="form-group">
 									<div class="row">
-											<div class="form-group col-md-4 mb-1">
+											<div class="form-group col-md-2 mb-2">
+												<label for="situacion" class="label_control">TIPO
+													DOCUMENTO <span class="required">*</span>
+												</label>
+												<div class="controls">
+													<f:select id="tipoDocumentoPaciente"
+														path="persona.tipoDocumento.idRegistro"
+														required="required" class="form-control"
+														onchange="limpiarPorTipo()">
+														<f:options items="${lstTipoDocumento}"
+															itemValue="idRegistro" itemLabel="descripcionCorta" />
+													</f:select>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-1">
 												<label for="exampleInputName" class="label_control">N°
-													BOLETA VENTA <span class="required">*</span>
+													DOCUMENTO <span class="required">*</span>
 												</label>
 												<div class="position-relative has-icon-left">
 													<input id="contextPath" type="hidden"
@@ -101,24 +113,27 @@ font-size: 13px;
 													</div>
 												</div>
 											</div>
-												<div class="form-group col-md-3 mb-2">
-												<label for="situacion" class="label_control">PERIODO<span class="required">*</span>
-												</label>
-												<div class="controls"> 
-													<f:select id="tipoDocumentoPaciente"
-														path="persona.tipoDocumento.idRegistro"
-														required="required" class="form-control"
-														onchange="limpiarPorTipo()">
-														<f:option value="" label="2019" selected="true"
-															disabled="disabled" />
-														<f:options items="${lstPeriodo}"
-															itemValue="idRegistro" itemLabel="descripcionCorta" />
-													</f:select>
-												</div>
-											</div> 
+											<div class="col-md-2">
+												<button id="idBtnCargarPaciente" type="button"
+													style="margin-top: 30px;" onclick="buscarPersonaNroDoc()"
+													class="form-control btn btn-outline-success">
+													<i class="fa fa-search"></i> BUSCAR
+												</button>
 											</div>
-										</div>
-										<div class="label_title">DATOS DE LA BOLETA :</div>
+											 <div class="form-group col-md-6 mb-3">
+												<label for="nombreCompleto" class="label_control">APELLIDOS Y NOMBRES </label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														required="required"
+														onkeyup="javascript:this.value=this.value.toUpperCase();"
+														id="personaApellidoPaterno" disabled="true"
+														path="persona.apellidoPaterno" />
+
+												</div>
+											</div>
+											</div> 
+										 
+										<div class="label_title">ARTICULOS OBTENIDOS :</div>
 										
 										<div class="row">
 											<div class="form-group col-md-7 mb-1">
@@ -134,29 +149,10 @@ font-size: 13px;
 											</div> 
 										</div> 
 										<div class="row">
-										<div class="form-group col-md-3 mb-1">
-												<label for="nombreCompleto" class="label_control">USUARIO EMITIO </label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoMaterno" disabled="true"
-														path="persona.apellidoMaterno" />
-
-												</div>
-											</div>
-											<div class="form-group col-md-4 mb-1">
-												<label for="nombreCompleto" class="label_control">FECHA Y HORA EMISION </label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoMaterno" disabled="true"
-														path="persona.apellidoMaterno" />
-
-												</div>
-											</div>
+										 
 										</div>	
 										<div class="row">
-											<div class="form-group col-md-7 text-right"
+											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
 												<a href="${pageContext.request.contextPath}/ventaController/listado"
 												 class="btn btn-secondary "> <i class="fa fa-step-backward"></i>
@@ -165,15 +161,15 @@ font-size: 13px;
 
 
 												<button type="submit" onclick="grabar()"
-													class="btn btn-danger">
-													<i class="fa fa-level-down-alt"></i> ANULAR
+													class="btn btn-success ">
+													<i class="fa fa-check"></i> DEVOLVER
 												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div> 
-
+</div> 
 						<input id="contextPath" type="hidden"
 							value="${pageContext.request.contextPath}">
 						<div class="card-body">
@@ -271,7 +267,7 @@ font-size: 13px;
 			
 	<script>
 		document.getElementById('navVentas').className = "nav-item active";
-		document.getElementById('enlaceAnularVenta').className = "collapse-item active";
+		document.getElementById('enlaceDevolucionVenta').className = "collapse-item active";
 		document.getElementById('collVentas').className = "nav-link";
 		document.getElementById('collapseVentas').className = "collapse show";
 		
