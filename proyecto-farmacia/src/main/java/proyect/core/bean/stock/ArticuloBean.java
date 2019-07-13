@@ -59,6 +59,9 @@ public class ArticuloBean extends BaseBean{
 	}
 
 	public CatalogoBean getClase() {
+		if (clase == null) {
+			clase= new CatalogoBean();
+		}
 		return clase;
 	}
 
@@ -75,6 +78,9 @@ public class ArticuloBean extends BaseBean{
 	}
 
 	public LaboratorioBean getLaboratorio() {
+		if (laboratorio == null) {
+			laboratorio= new LaboratorioBean();
+		}
 		return laboratorio;
 	}
 

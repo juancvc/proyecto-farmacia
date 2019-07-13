@@ -59,15 +59,15 @@
 	font-color: #000000;
 	font-weight: bold;
 	font-family: Cambria;
-	font-size: 12px;
-	background-color: #F9FBFC;
+	font-size: 13px;
+	/*background-color: #F9FBFC;*/
 	text-align: center;
 	valign:center;
 }
 
 .tabla_td{  
 	font-family: Cambria;
-	font-size: 12px;  
+	font-size: 13px;  
 	color: #052236;
 	valign:center;
 }

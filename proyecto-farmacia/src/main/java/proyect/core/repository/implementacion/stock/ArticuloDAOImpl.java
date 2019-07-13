@@ -202,7 +202,8 @@ private ArticuloBean deObjetoAObjetoBean(Articulo entity) {
 			bean.setVolumen(entity.getVolumen());
 			bean.getClase().setIdRegistro(entity.getIdClase());
 			bean.getTipoArticulo().setDescripcionCorta(entity.getNombreTipoArticulo());
-			bean.getTipoPresentacion().setDescripcionCorta(entity.getNombreTipoPresentacion());
+			bean.getTipoPresentacion().setDescripcionCorta(entity.getDescripcionCortaPresentacion());
+			bean.getTipoPresentacion().setDescripcionLarga(entity.getDescripcionLargaPresentacion());
 			bean.getClase().setDescripcionCorta(entity.getNombreClase());
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro());
 			bean.setIpRegistro(entity.getIpRegistro());

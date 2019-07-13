@@ -223,7 +223,9 @@ public class Articulo  {
 	
 	private String nombreClase;
 	
-	private String nombreTipoPresentacion;
+	private String descripcionCortaPresentacion;
+	private String descripcionLargaPresentacion;
+	private String descripcionCortaTipoArticulo;
 	
 	/***
 	private  int  anio;
@@ -407,13 +409,23 @@ public class Articulo  {
 	public void setNombreClase(String nombreClase) {
 		this.nombreClase = nombreClase;
 	}
-	public String getNombreTipoPresentacion() {
-		return nombreTipoPresentacion;
+	public String getDescripcionCortaPresentacion() {
+		return descripcionCortaPresentacion;
 	}
-	public void setNombreTipoPresentacion(String nombreTipoPresentacion) {
-		this.nombreTipoPresentacion = nombreTipoPresentacion;
+	public void setDescripcionCortaPresentacion(String descripcionCortaPresentacion) {
+		this.descripcionCortaPresentacion = descripcionCortaPresentacion;
+	}
+	public String getDescripcionLargaPresentacion() {
+		return descripcionLargaPresentacion;
+	}
+	public void setDescripcionLargaPresentacion(String descripcionLargaPresentacion) {
+		this.descripcionLargaPresentacion = descripcionLargaPresentacion;
+	}
+	public String getDescripcionCortaTipoArticulo() {
+		return descripcionCortaTipoArticulo;
+	}
+	public void setDescripcionCortaTipoArticulo(String descripcionCortaTipoArticulo) {
+		this.descripcionCortaTipoArticulo = descripcionCortaTipoArticulo;
 	}
 
-
-	
 }
