@@ -53,15 +53,15 @@
         </div>
       </li>
   
-  <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario" aria-expanded="true" aria-controls="collapseInventario">
+  <li id ="navInventario" class="nav-item">
+        <a id="collInventario" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario" aria-expanded="true" aria-controls="collapseInventario">
           <i class="fas fa-fw fa-cog"></i>
           <span>Inventario</span>
         </a> 
         <div id="collapseInventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="#">Generar</a>
+            <a id ="enlaceGenerarInventario"  class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Generar</a>
           </div>
         </div>
       </li>
@@ -74,7 +74,7 @@
         <div id="collapseMovimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="#">Kárdex</a>
+            <a class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Kárdex</a>
           </div>
         </div>
       </li>

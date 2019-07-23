@@ -19,7 +19,7 @@ import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
-@RequestMapping(value = "InventarioController")
+@RequestMapping(value = "inventarioController")
 public class InventarioController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
@@ -77,9 +77,9 @@ public class InventarioController extends BaseController{
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
-		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command", catalogoBean); 
-		this.cargarCombos(mav);
+		InventarioBean inventarioBean = new InventarioBean(); 
+		ModelAndView mav = new ModelAndView("inventario/registro-inventario", "command", inventarioBean); 
+		//this.cargarCombos(mav);
 		return mav;
 	}
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
