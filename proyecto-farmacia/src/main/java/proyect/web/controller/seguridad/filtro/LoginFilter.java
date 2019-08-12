@@ -65,11 +65,17 @@ public class LoginFilter implements Filter{
 			String app_assetsURL = path + "/app-assets";
 			String assetsURL = path + "/assets";
 			
+			String distURL = path + "/dist";
+			String bower_componentsURL = path + "/bower_components";
+			
 			boolean accesoRequest = uri.startsWith(accesoURL);
 			boolean resourcesRequest = uri.startsWith(resourcesURL);
 			boolean app_assetsRequest = uri.startsWith(app_assetsURL);
 			boolean assetsRequest = uri.startsWith(assetsURL);
 			
+			boolean distRequest = uri.startsWith(distURL);
+			boolean bower_componentsRequest = uri.startsWith(bower_componentsURL);
+			System.out.println("bower_componentsRequest"+ path);
 			if(usuario != null){
 				if(!VO.isEmpty(usuario.getNombreUsuario())){
 					if(usuario.getNombreUsuario().equals("NV")){
@@ -85,11 +91,13 @@ public class LoginFilter implements Filter{
 					|| resourcesRequest 
 					|| app_assetsRequest 
 					|| assetsRequest
+					|| distRequest
+					|| bower_componentsRequest
 				) {
 					
 					String method = request.getMethod();
 					
-					if(resourcesRequest || app_assetsRequest || assetsRequest){
+					if(resourcesRequest || app_assetsRequest || assetsRequest || distRequest || bower_componentsRequest){
 						chain.doFilter(request, response);
 					}else if(method.equals("GET") && accesoRequest){
 						response.sendRedirect(path+"/");
