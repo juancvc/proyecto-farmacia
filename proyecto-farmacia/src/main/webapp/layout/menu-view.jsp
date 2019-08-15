@@ -6,230 +6,256 @@
 
 	pageEncoding="ISO-8859-1"%>
  
-   
-   
-   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-        
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="${pageContext.request.contextPath}/app-assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
-        <!--   <i class="fas fa-laugh-wink"></i> <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
-        <div class="sidebar-brand-text mx-3">FARMACIA</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard 
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-	-->
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        SALIDAS
+        <div class="pull-left info">
+          <p>${usuarioSesion.persona.nombres} ${usuarioSesion.persona.apellidoPaterno}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
       </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li id ="navVentas" class="nav-item">
-        <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Ventas</span>
-        </a> 
-        <div id="collapseVentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Generar</a>
-            <a id ="enlaceAnularVenta" class="collapse-item"  href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
-            <a id ="enlaceDevolucionVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/devolucion">Devoluciones</a>
-          </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
         </div>
-      </li>
-  
-  <li id ="navInventario" class="nav-item">
-        <a id="collInventario" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario" aria-expanded="true" aria-controls="collapseInventario">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Inventario</span>
-        </a> 
-        <div id="collapseInventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a id ="enlaceGenerarInventario"  class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Generar</a>
-          </div>
-        </div>
-      </li>
-
-  <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMovimiento" aria-expanded="true" aria-controls="collapseMovimiento">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Movimiento</span>
-        </a> 
-        <div id="collapseMovimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Kárdex</a>
-          </div>
-        </div>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Transferencia Inst.</span></a>
-      </li>
-       
-      <!-- <li id ="navVentas" class="nav-item">
-        <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Transferencia</span>
-        </a> 
-        <div id="collapseVentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-        
-            <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Transferencia Inst</a>
-            <a class="collapse-item" href="#">Anular</a>
-            <a class="collapse-item" href="#">Devoluciones</a>
-          </div>
-        </div>
-      </li>-->
-      
-      <!-- Nav Item - Utilities Collapse Menu 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>-->
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        MANTENIMIENTOS
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li id="navMantenimiento" class="nav-item">
-        <a id="CollMantenimiento"  class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMantenimiento" aria-expanded="true" aria-controls="collapseMantenimiento">
-         <i class="fas fa-fw fa-wrench"></i>
-          <span>Mantenimientos</span>
-        </a>
-        <div id="collapseMantenimiento" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-             <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-            <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Artículo</a>
-            <a class="collapse-item" href="#">Almacén</a>
-            <a class="collapse-item" href="#">Personal</a>
-            <a class="collapse-item" href="#">Stock</a>
-          
-            <a class="collapse-item" href="#">Laboratorios</a>
-             <a class="collapse-item" href="#">Tipo Movimientos</a>
-              <a class="collapse-item" href="#">Catálogos</a>
-          </div>
-        </div>
-      </li>
-      
-       <div class="sidebar-heading">
-        REPORTES
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li id="navReporteVenta" class="nav-item">
-        <a id="CollReporteVenta"  class="nav-link collapsed" href="#" data-toggle="collapse" 
-        		data-target="#collapseReporteVenta" aria-expanded="true" aria-controls="collapseReporteVenta">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Ventas</span>
-        </a>
-        <div id="collapseReporteVenta" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-             <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-            <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Ventas diarias</a>
-            <a class="collapse-item" href="#">Anuladas</a>
-            <a class="collapse-item" href="#">Por tipo de paciente</a>
-            <a class="collapse-item" href="#">Devoluciones</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporteIci" aria-expanded="true" aria-controls="collapseReporteIci">
-           <i class="fas fa-fw fa-chart-area"></i>
-          <span>ICI</span>
-        </a> 
-        <div id="collapseReporteIci" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="#">Diario</a>
-             <a class="collapse-item" href="#">Mensual</a>
-          </div>
-        </div>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporteArticulo" aria-expanded="true" aria-controls="collapseReporteArticulo">
-           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Artículos</span>
-        </a> 
-        <div id="collapseReporteArticulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
-            <a class="collapse-item" href="#">Por vencer</a>
-             <a class="collapse-item" href="#">Vencidos</a>
-          </div>
-        </div>
-      </li>
- <div class="sidebar-heading">
-        SEGURIDAD
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-user"></i>
-          <span>Usuarios</span></a>
-      </li>
-		<li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Accesos</span></a>
-      </li>
-
-      <!-- Nav Item - Charts 
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
---> 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-    
-<script type="text/javascript" charset="utf-8">
-	function confirmarSalirSistema(msg, url) {
-
-		window.location.href = url;
-
-	};
-</script>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MENU DE NAVEGACION</li>
+        <li class="active treeview menu-open">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Ventas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="${pageContext.request.contextPath}/ventaController/nuevo"><i class="fa fa-circle-o"></i> Generar</a></li>
+            <li><a href="${pageContext.request.contextPath}/ventaController/anular"><i class="fa fa-circle-o"></i> Anular</a></li>
+            <li><a href="${pageContext.request.contextPath}/ventaController/devolucion"><i class="fa fa-circle-o"></i> Devoluciones</a></li> 
+          </ul>
+        </li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Inventario</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="${pageContext.request.contextPath}/inventarioController/nuevo"><i class="fa fa-circle-o"></i> Generar</a></li> 
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Movimiento</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="${pageContext.request.contextPath}/inventarioController/nuevo"><i class="fa fa-circle-o"></i> Kárdex</a></li> 
+          </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Mantenimientos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Artículo</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Almacén</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Personal</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Stock</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Laboratorios</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Tipo Movimientos</a></li> 
+			<li><a href="${pageContext.request.contextPath}/articuloController/listado"><i class="fa fa-circle-o"></i> Catálogos</a></li> 
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Layout Options</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="pages/widgets.html">
+            <i class="fa fa-th"></i> <span>Widgets</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green">new</small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Charts</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>UI Elements</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
+            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Forms</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Tables</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="pages/calendar.html">
+            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-red">3</small>
+              <small class="label pull-right bg-blue">17</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="pages/mailbox/mailbox.html">
+            <i class="fa fa-envelope"></i> <span>Mailbox</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-yellow">12</small>
+              <small class="label pull-right bg-green">16</small>
+              <small class="label pull-right bg-red">5</small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-folder"></i> <span>Examples</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Level One
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+          </ul>
+        </li>
+        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        <li class="header">LABELS</li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>

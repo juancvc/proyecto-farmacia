@@ -1,334 +1,231 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="proyect.core.bean.seguridad.UsuarioBean"%>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
 	pageEncoding="ISO-8859-1"%>
-
-
-<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-	<c:if test="${accesoMenu.menu_Estadisticos}">
-		<c:set var="menuInicio"
-			value="${pageContext.request.contextPath}/page/inicio.jsp" />
-		<li data-toggle="tooltip" data-placement="right" class="nav-item">
-			<a class="nav-link"
-			href="${pageContext.request.contextPath}/inicioController/portada"><i
-				class="fa fa-home fa-fw"> </i><span
-				class="nav-link-text label_control_barra"> Inicio</span></a>
-		</li>
-	</c:if>
-	<!-- 
-	<c:if test="${accesoMenu.menu_BancoSangre}">
-		<li class="nav-item" data-toggle="tooltip" data-placement="right"
-			title="Banco de Sangre"><a
-			class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-			href="#menuBanco" data-parent="#exampleAccordion"> <i
-				class="fa fa-fw fa-file"></i> <span
-				class="nav-link-text label_control_barra">Banco de Sangre</span>
-		</a>
-			<ul class="sidenav-second-level collapse" id="menuBanco">
-				<c:if test="${accesoMenu.subMenu_banco_postulante.lectura}">
-					<li><a href="#collapseDonante"
-						class="nav-link-collapse collapsed" data-toggle="collapse">Postulante</a>
-						<ul class="sidenav-third-level collapse" id="collapseDonante">
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/nuevoPostulante">Registro</a>
-							</li>
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/listadoPostulante">Listado</a>
-							</li>
-						</ul></li>
-				</c:if>
-				<li><a href="#collapseEstadoFisico"
-					class="nav-link-collapse collapsed" data-toggle="collapse">Estado
-						Físico</a>
-					<ul class="sidenav-third-level collapse" id="collapseEstadoFisico">
-						<li><a
-							href="${pageContext.request.contextPath}/evaluacionController/listaPostulantesEvaluacion">Postulantes</a>
-						</li>
-					 
-					</ul></li>
-				<li><a href="#collapseEntrevista"
-					class="nav-link-collapse collapsed" data-toggle="collapse">Entrevista</a>
-					<ul class="sidenav-third-level collapse" id="collapseEntrevista">
-						<li><a
-							href="${pageContext.request.contextPath}/entrevistaController/listaPreDonantes">Pre-donantes</a>
-						</li>
-						<li><a
-							href="${pageContext.request.contextPath}/entrevistaController/listadoPostulanteEntrevistados">Entrevistados</a>
-						</li>
-					</ul></li>
-				<c:if test="${accesoMenu.subMenu_banco_campania.lectura}">
-					<li><a class="nav-link-collapse collapsed"
-						data-toggle="collapse" href="#collapseCampania">Campañas</a>
-						<ul class="sidenav-third-level collapse" id="collapseCampania">
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/nuevaCampania">Registro</a>
-							</li>
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/listadoCampania">Listado</a>
-							</li>
-						</ul></li>
-				</c:if>
-				<c:if test="${accesoMenu.subMenu_banco_lugarCampania.lectura}">
-					<li><a href="#collapseLugarCampania"
-						class="nav-link-collapse collapsed" data-toggle="collapse">Lugar
-							de Campañas</a>
-						<ul class="sidenav-third-level collapse"
-							id="collapseLugarCampania">
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/nuevoLugarCampania">Registro</a>
-							</li>
-							<li><a
-								href="${pageContext.request.contextPath}/bancoController/listadoLugarCampania">Listado</a>
-							</li>
-						</ul></li>
-				</c:if>
-			</ul></li>
-	</c:if>
-	-->
-
-	<li class="nav-item" data-toggle="tooltip" data-placement="right"
-		title="Paciente"><a
-		class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-		href="#collapsePaciente" data-parent="#exampleAccordion"> <i
-			class="fa fa-user fa-fw"></i> <span
-			class="nav-link-text label_control_barra">Pacientes</span>
-	</a>
-		<ul class="sidenav-third-level collapse" id="collapsePaciente">
-			<li><a
-				href="${pageContext.request.contextPath}/personaController/nuevoPaciente">Registro</a>
-			</li>
-			<li><a
-				href="${pageContext.request.contextPath}/personaController/listado">Listado</a>
-			</li>
-		</ul></li>
-
-	<li class="nav-item" data-toggle="tooltip" data-placement="right"
-		title="Herramientas"><a
-		class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-		href="#collapseLaboratorio" data-parent="#exampleAccordion"> <i
-			class="fa fa-book fa-fw"></i> <span
-			class="nav-link-text label_control_barra"> Orden Lab.</span>
-	</a>
-		<ul class="sidenav-third-level collapse" id="collapseLaboratorio">
-			<li><a
-				href="${pageContext.request.contextPath}/ordenController/nuevo">Registro</a>
-			</li>
-			<li><a
-				href="${pageContext.request.contextPath}/ordenController/listado">Listado</a>
-			</li>
-		</ul></li>
-
-
  
+   
+   
+   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-	<c:if test="${accesoMenu.menu_Herramientas}">
-		<li class="nav-item" data-toggle="tooltip" data-placement="right"
-			title="Herramientas"><a
-			class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-			href="#collapseComponents" data-parent="#exampleAccordion"> <i
-				class="fa fa-fw fa-wrench"></i> <span
-				class="nav-link-text label_control_barra">Herramientas</span>
-		</a>
-			<ul class="sidenav-second-level collapse" id="collapseComponents">
-				
-				 <li><a
-					href="${pageContext.request.contextPath}/tarifarioController/listadoTarifario"><span
-						class="label_control_barra">Tarifario</span></a></li> 
-				 <li><a
-					href="${pageContext.request.contextPath}/laboratorioController/tarifarioGeneralModal"><span
-						class="label_control_barra">Resultados</span></a></li> 	
-						
-					 <li><a
-					href="${pageContext.request.contextPath}/laboratorioController/tarifarioGeneralModal"><span
-						class="label_control_barra">formulas</span></a></li> 					
-			</ul></li>
-	</c:if>
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+        
+        </div>
+        <!--   <i class="fas fa-laugh-wink"></i> <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
+        <div class="sidebar-brand-text mx-3">FARMACIA</div>
+      </a>
 
-	<c:if test="${accesoMenu.menu_Seguridad}">
-		<li class="nav-item" data-toggle="tooltip" data-placement="right"
-			title="Seguridad"><a
-			class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-			href="#collapseExamplePages" data-parent="#exampleAccordion"> <i
-				class="fa fa-lock"></i> <span
-				class="nav-link-text label_control_barra">Seguridad</span>
-		</a>
-			<ul class="sidenav-second-level collapse" id="collapseExamplePages">
-				<li><a href="#collapseUsuer"
-				
-					class="nav-link-collapse collapsed" data-toggle="collapse">Usuario</a>
-					<ul class="sidenav-third-level collapse" id="collapseUsuer">
-						<li>
-						
-      				  
-     
-						<a
-							href="${pageContext.request.contextPath}/usuarioController/nuevo">Registro</a>
-						</li>
-						<li><a
-							href="${pageContext.request.contextPath}/usuarioController/listado">Listado</a>
-						</li>
-					</ul></li>
-				<li><a
-					href="${pageContext.request.contextPath}/accesoController/listado"><span
-						class="label_control_barra">Accesos</span></a></li>
-				<li><a class="nav-link-collapse collapsed"
-					data-toggle="collapse" href="#collapseMulti2">Perfil</a>
-					<ul class="sidenav-third-level collapse" id="collapseMulti2">
-						<li><a
-							href="${pageContext.request.contextPath}/perfilController/nuevo">Registro</a>
-						</li>
-						<li><a
-							href="${pageContext.request.contextPath}/perfilController/listado">Listado</a>
-						</li>
-					</ul></li>
-			</ul></li>
-	</c:if>
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
-	<c:if test="${accesoMenu.menu_Estadisticos}">
-		<li  class="nav-item" data-toggle="tooltip"
-			data-placement="right" title="Menu Levels"><a
-			class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-			href="#collapseMulti" data-parent="#exampleAccordion"> <i
-				class="fa fa-fw fa-sitemap"></i> <span class="nav-link-text">Reportes</span>
-		</a>
-			<ul class="sidenav-second-level collapse" id="collapseMulti">
-				<li><a href="#">Indicadores</a></li>
-				<li><a href="#">Productividad</a></li>
-				<li><a href="#">Campañas</a></li>
-				<li><a class="nav-link-collapse collapsed"
-					data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-					<ul class="sidenav-third-level collapse" id="collapseMulti2">
-						<li><a href="#">Third Level Item</a></li>
-						<li><a href="#">Third Level Item</a></li>
-						<li><a href="#">Third Level Item</a></li>
-					</ul></li>
-			</ul></li>
-	</c:if>
-</ul>
-<ul class="navbar-nav sidenav-toggler">
-	<li class="nav-item"><a class="nav-link text-center"
-		id="sidenavToggler"> <i class="fa fa-fw fa-angle-left"></i>
-	</a></li>
-</ul>
-<ul class="navbar-nav ml-auto">
-	<li class="nav-item dropdown"><a href="#" data-toggle="dropdown"
-		class="dropdown-toggle nav-link dropdown-user-link"> <!--  <span class="avatar avatar-online"><img src="../app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span> -->
-			<span class="user-name">${usuarioSesion.persona.nombreCompleto}</span>
-	</a>
-		<div class="dropdown-menu dropdown-menu-right">
-			<!-- <a href="#" class="dropdown-item"><i class="ft-user"></i> Modificar Perfil</a> -->
-			<a
-				href="${pageContext.request.contextPath}/usuarioController/cambiarPassUsuario"
-				class="dropdown-item"><i class="fa fa-key"></i> Cambiar
-				Contrase&ntilde;a</a>
-			<!--  <a href="#" class="dropdown-item"><i class="fa fa-key"></i> Cambiar Contrase&ntilde;a</a>-->
-			<div class="dropdown-divider"></div>
-			<a
-				onclick="javascript:confirmarSalirSistema('¿Desea cerrar sesión?','${pageContext.request.contextPath}/logoutController/cerrarSesion')"
-				href="#" class="dropdown-item"> <i class="fa fa-fw fa-sign-out"></i>
-				Cerrar Sesi&oacute;n
-			</a>
-			<!-- <a href="login-admin.jsp" class="dropdown-item"><i class="ft-power"></i> Cerrar Sesi&oacute;n</a> -->
-		</div></li>
-</ul>
-<!-- 
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="d-lg-none">Messages
-              <span class="badge badge-pill badge-primary">12 New</span>
-            </span>
-            <span class="indicator text-primary d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-            <h6 class="dropdown-header">New Messages:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>David Miller</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>Jane Smith</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <strong>John Doe</strong>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all messages</a>
+      <!-- Nav Item - Dashboard 
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+	-->
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        SALIDAS
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li id ="navVentas" class="nav-item">
+        <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Ventas</span>
+        </a> 
+        <div id="collapseVentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
+            <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Generar</a>
+            <a id ="enlaceAnularVenta" class="collapse-item"  href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
+            <a id ="enlaceDevolucionVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/devolucion">Devoluciones</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-bell"></i>
-            <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
-            </span>
-            <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle"></i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">New Alerts:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-danger">
-                <strong>
-                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all alerts</a>
+        </div>
+      </li>
+  
+  <li id ="navInventario" class="nav-item">
+        <a id="collInventario" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario" aria-expanded="true" aria-controls="collapseInventario">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Inventario</span>
+        </a> 
+        <div id="collapseInventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
+            <a id ="enlaceGenerarInventario"  class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Generar</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-            <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for...">
-              <span class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </form>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-      -->
+        </div>
+      </li>
 
+  <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMovimiento" aria-expanded="true" aria-controls="collapseMovimiento">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Movimiento</span>
+        </a> 
+        <div id="collapseMovimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
+            <a class="collapse-item" href="${pageContext.request.contextPath}/inventarioController/nuevo">Kárdex</a>
+          </div>
+        </div>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Transferencia Inst.</span></a>
+      </li>
+       
+      <!-- <li id ="navVentas" class="nav-item">
+        <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Transferencia</span>
+        </a> 
+        <div id="collapseVentas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+        
+            <a id ="enlaceGenerarVenta" class="collapse-item" href="${pageContext.request.contextPath}/ventaController/nuevo">Transferencia Inst</a>
+            <a class="collapse-item" href="#">Anular</a>
+            <a class="collapse-item" href="#">Devoluciones</a>
+          </div>
+        </div>
+      </li>-->
+      
+      <!-- Nav Item - Utilities Collapse Menu 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Utilities</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div>
+      </li>-->
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        MANTENIMIENTOS
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li id="navMantenimiento" class="nav-item">
+        <a id="CollMantenimiento"  class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMantenimiento" aria-expanded="true" aria-controls="collapseMantenimiento">
+         <i class="fas fa-fw fa-wrench"></i>
+          <span>Mantenimientos</span>
+        </a>
+        <div id="collapseMantenimiento" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+             <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+            <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Artículo</a>
+            <a class="collapse-item" href="#">Almacén</a>
+            <a class="collapse-item" href="#">Personal</a>
+            <a class="collapse-item" href="#">Stock</a>
+          
+            <a class="collapse-item" href="#">Laboratorios</a>
+             <a class="collapse-item" href="#">Tipo Movimientos</a>
+              <a class="collapse-item" href="#">Catálogos</a>
+          </div>
+        </div>
+      </li>
+      
+       <div class="sidebar-heading">
+        REPORTES
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li id="navReporteVenta" class="nav-item">
+        <a id="CollReporteVenta"  class="nav-link collapsed" href="#" data-toggle="collapse" 
+        		data-target="#collapseReporteVenta" aria-expanded="true" aria-controls="collapseReporteVenta">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ventas</span>
+        </a>
+        <div id="collapseReporteVenta" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+             <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+            <a id="enlaceArticulo" class="collapse-item" href="${pageContext.request.contextPath}/articuloController/listado">Ventas diarias</a>
+            <a class="collapse-item" href="#">Anuladas</a>
+            <a class="collapse-item" href="#">Por tipo de paciente</a>
+            <a class="collapse-item" href="#">Devoluciones</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporteIci" aria-expanded="true" aria-controls="collapseReporteIci">
+           <i class="fas fa-fw fa-chart-area"></i>
+          <span>ICI</span>
+        </a> 
+        <div id="collapseReporteIci" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
+            <a class="collapse-item" href="#">Diario</a>
+             <a class="collapse-item" href="#">Mensual</a>
+          </div>
+        </div>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReporteArticulo" aria-expanded="true" aria-controls="collapseReporteArticulo">
+           <i class="fas fa-fw fa-chart-area"></i>
+          <span>Artículos</span>
+        </a> 
+        <div id="collapseReporteArticulo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6> -->  
+            <a class="collapse-item" href="#">Por vencer</a>
+             <a class="collapse-item" href="#">Vencidos</a>
+          </div>
+        </div>
+      </li>
+ <div class="sidebar-heading">
+        SEGURIDAD
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+     <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Usuarios</span></a>
+      </li>
+		<li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Accesos</span></a>
+      </li>
+
+      <!-- Nav Item - Charts 
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
+--> 
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+    
 <script type="text/javascript" charset="utf-8">
 	function confirmarSalirSistema(msg, url) {
 
