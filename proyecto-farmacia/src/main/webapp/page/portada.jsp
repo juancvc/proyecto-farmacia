@@ -20,10 +20,13 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/app-assets/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Theme style -->
   <link  rel="stylesheet" href="${pageContext.request.contextPath}/app-assets/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+ 
   <link  rel="stylesheet" href="${pageContext.request.contextPath}/app-assets/dist/css/skins/_all-skins.min.css">
 
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/app-assets/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/app-assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -885,13 +888,8 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
+  <jsp:include
+			page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
