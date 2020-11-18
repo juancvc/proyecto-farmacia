@@ -56,6 +56,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
+import proyect.core.bean.cuentaCorriente.CuentaCorrienteBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.EpisodioBean;
@@ -1364,6 +1365,14 @@ public class VentaController extends BaseController{
 
 	        return hssfColor;
 	    }
+	   
+	   private void  listarPacienteCtaCtePendientes2() {
+			 CuentaCorrienteBean  cuentaCorrienteBean= new CuentaCorrienteBean();  
+			 PersonaBean persona= new PersonaBean();
+			 persona.setCodigo(personaBean.getCodigo());
+			// cuentaCorrienteBean.setp
+			   
+		   }
 	public VentaBean getVentaBean() {
 		return ventaBean;
 	}
