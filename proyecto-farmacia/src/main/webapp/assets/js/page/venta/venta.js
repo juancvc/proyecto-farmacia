@@ -1,10 +1,8 @@
 var accionRealizar = "";
 var codigoRegistro = "";
 
-function confirmar_eliminar(codigo, accion) {
+function confirmar_eliminar(codigo) {
 	codigoRegistro = codigo;
-	accionRealizar = accion;
-	// alert(codigoReferencia);
 	$('#md_confirmacion').modal('show');
 
 }
@@ -14,17 +12,8 @@ function agregar_accion() {
 
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
-		// console.log("accionRealizar " + accionRealizar);
-		// console.log("codigoRegistro " + codigoRegistro);
-		if (accionRealizar == "1") {
-			eliminarArticulo(codigoRegistro);
-			$('#md_confirmacion').modal('hide');
-		} else if (accionRealizar == "2") {
-			$('#md_confirmacion').modal('hide');
-		} else if (accionRealizar == "3") {
-			$('#md_confirmacion').modal('hide');
-		}
-
+		anularVenta(codigoRegistro);
+		$('#md_confirmacion').modal('hide');
 	});
 });
 
@@ -140,7 +129,7 @@ function llenarArticuloIndex(index) {
 							}
 						}
 						if (valida == "1") {
-							msg_advertencia("El exámen ya fue ingresado.");
+							msg_advertencia("El artículo ya fue ingresado.");
 						} else {
 							listadoArticulo.push(data);
 							for (var i = 0; i < listadoArticulo.length; i++) {
@@ -171,7 +160,7 @@ function llenarArticuloIndex(index) {
 										+ [ objVentaItem.stock.codigo ]
 										+ "');\" /></td>"
 										+ "<td>"
-										+ objVentaItem.cantidadFaltante
+										+ objVentaItem.stock.articulo.codigoSismed
 										+ "</td>"
 										+ "<td>"
 										+ objVentaItem.stock.sPrecio
@@ -233,10 +222,10 @@ function buscarPersonaNroDoc() {
 	console.log("consultarPersonaPorDocumento tipoDocumentoPaciente "
 			+ tipoDocumentoPaciente);
 	if (tipoDocumento == null || tipoDocumento == "") {
-		msg_advertencia("Seleccione tipo de documento");
+		msg_advertencia("Seleccione tipo de documento.");
 		return;
 	} else if (numeroDocumento == null || numeroDocumento.trim() == "") {
-		msg_advertencia("Ingrese número de documento");
+		msg_advertencia("Ingrese número de documento.");
 		return;
 	} else if (tipoDocumento == '000001' && numeroDocumento.trim().length != 8) {
 		msg_advertencia("Número de dni debe contener 8 dígitos.")
@@ -371,7 +360,7 @@ function cambiarCantidad(objeto) {
 				+ [ objVentaItem.stock.codigo ]
 				+ "');\" /></td>"
 				+ "<td>"
-				+ objVentaItem.cantidadFaltante
+				+ objVentaItem.stock.articulo.codigoSismed
 				+ "</td>"
 				+ "<td>"
 				+ objVentaItem.stock.sPrecio
@@ -405,7 +394,77 @@ function cambiarCantidad(objeto) {
 	$('#txtCajaImporteTotalHidden').val(importe.toFixed(2));
 }
   
-function grabar() {
+function cargarPersona() {
+	var personaCodigo = $('#personaCodigo').val();
+	var contextPath = $('#contextPath').val();
+	var htmlTabla = "";
+	console.log("personaCodigo " + personaCodigo );
+	if (personaCodigo == null || personaCodigo == "") { 
+		return;
+	} else {
+		 
+		//iniciarBloqueo();
+		$
+				.ajax({
+					type : "GET",
+					url : contextPath
+							+ "/ventaController/cargarPersona?codigo="
+							+ personaCodigo,
+
+					success : function() {
+
+					},
+					error : function(xhr, status, er) {
+						console.log("error: " + xhr + " status: " + status
+								+ " er:" + er);
+						if (xhr.status == 500) {
+							console.log(er);
+							// Error_500(er);
+						}
+						if (xhr.status == 901) {
+							console.log(er);
+							// spire_session_901(er);
+						}
+
+					}
+				});
+		//finBloqueo();
+	}
+}
+
+
+function grabar(){  
+		var contextPath = $('#contextPath').val(); 
+		var actionForm = $('#frmGenerarVenta').attr("action");
+		var url =contextPath+"/ventaController/llenarVenta" ;
+		var myFormulario = $('#frmGenerarVenta'); 
+		console.log("actionForm " + actionForm);
+		
+		if(!myFormulario[0].checkValidity()) {
+			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+
+		}else{  
+				$.ajax({
+				type : "GET",
+				url : url,
+				data: $('#frmGenerarVenta').serialize(),
+				success : function(data) { 
+						    grabarDetalle()  
+				},
+				
+				error : function(xhr, status, er) { 
+				        console.log("error: " + xhr + " status: " + status + " er:" + er);
+							//msg_error();
+	
+						},
+			  			complete: function()
+	  			{ 
+				}
+		});
+	}
+}
+
+function grabarDetalle() {
 	var personaCodigo = $('#personaCodigo').val();
 	var contextPath = $('#contextPath').val();
 	var actionForm = $('#frmGenerarVenta').attr("action");
@@ -447,7 +506,8 @@ function grabar() {
 				} else {
 					msg_exito("Éxito al registrar venta");
 					// enviarListado();
-					$("#btnListado").trigger("click");
+					//verTicket();
+					document.getElementById("btnNuevo").click(); 
 				}
 
 			},
@@ -507,7 +567,7 @@ function eliminarArticulo(codigo) {
 				+ [ objVentaItem.stock.codigo ]
 				+ "');\" /></td>"
 				+ "<td>"
-				+ objVentaItem.cantidadFaltante
+				+ objVentaItem.stock.articulo.codigoSismed
 				+ "</td>"
 				+ "<td>"
 				+ objVentaItem.stock.sPrecio
@@ -560,12 +620,159 @@ function cambiarFinanciamiento() {
 	});
 }
 
+function cambiarTipoComprobante() {
+	tipoComprobante = $('#cboTipoComprobante').val();
+	var contextPath = $('#contextPath').val();
+	$.ajax({
+		contentType : "application/json",
+		type : "GET",
+		url : contextPath
+				+ "/ventaController/cambiarTipoComprobante?idTipoComprobante="
+				+ tipoComprobante,
+
+		success : function(data) {
+			$('#cboSerie').empty();
+			for (var i = 0; i < data.length; i++) {
+				 objSerie = data[i];
+				     $('#cboSerie').append($('<option>', { 
+				       	value: objSerie.codigo,
+				       	text : objSerie.nroSerie
+				   	}));
+				 
+		}
+		},
+
+		error : function(xhr, status, er) {
+			console.log("error: " + xhr + " status: " + status + " er:" + er);
+
+		},
+		complete : function() {
+		}
+	});
+}
+
 function limpiarPorTipo(){
 	
 }
+
+
 function limpiarPersona() {
 	$('#personaApellidoPaterno').val("");
 	$('#personaApellidoMaterno').val("");
 	$('#personaNombres').val("");
 	$('#personaCodigo').val("");
+}
+
+/**
+ * Función para imprimir ticket
+ */
+function imprimirIndividual(){
+	var contextPath = $('#contextPath').val();
+	var x = window.open(contextPath+"/"+"ticketVenta.jsp","toolbar=0,width=780,height=550");
+	return true;	
+	 			
+}
+
+function verTicket() {
+
+	$("#txt_confir_Vd").html("Ticket de Venta");
+	$("#dataInfoModal").empty();
+
+	//$('#modalVerdocumento').modal('show');
+
+	var object = "<object type='application/pdf' width='100%' height='450px'>"+"</object>";
+
+	$( "#onshow #dataInfoModal" ).empty();
+	$( "#onshow #dataInfoModal" ).append( object );
+}
+
+function refrescarListadoConsumo() {
+	var contextPath = $('#contextPath').val();
+	var idEpisodio  = $('#cboPacienteVenta').val();
+	console.log("idEpisodio "+ idEpisodio);
+	
+	$.ajax({
+		url : contextPath + "/ventaController/listarDevolucion?idEpisodio="+idEpisodio,
+		type : 'GET',
+	
+		success : function(data) {
+			//console.log("SUCCESS: ", data);
+			$('#idTablaDevolucion').html(data);
+		},
+		error : function() {
+			//console.log("ERROR: ");
+		}
+	});
+}
+
+function buscarDocumento() {
+	var contextPath = $('#contextPath').val();
+	var nroSerie  = $('#nroSerie').val();
+	var idVenta  = $('#idVenta').val();
+	var numeroPeriodo  = $('#numeroPeriodo').val();
+	
+	$.ajax({
+		url : contextPath + "/ventaController/buscarVentaPorNumeroDocumento?nroSerie="+nroSerie
+						  + "&idVenta=" + idVenta + "&numeroPeriodo=" + numeroPeriodo,
+		type : 'GET',	
+		success : function(venta) {
+			var todate = new Date(venta.fechaEmision);
+			var dia = todate.getDate();
+			var mes = todate.getMonth() + 1;
+			var anio = todate.getFullYear(); 
+			
+			if (dia.toString().length == 1) {
+				dia = "0"+dia;
+			}
+			if (mes.toString().length == 1) {
+				mes = "0"+mes;
+			}
+
+			var fecha = dia+"/"+mes+"/"+anio 
+			 $('#personaNombres').val(venta.persona.nombreCompleto);
+			 $('#personaNroDocumento').val(venta.persona.nroDocumento);
+			 $('#txtEpisodio').val(venta.episodio.codigo);
+			 $('#txtTipoSeguro').val(venta.tipoFinanciador.descripcionCorta);
+			 $('#txtFechaEmision').val(fecha+ " "+ venta.hora);
+			 $('#txtUsuarioEmitio').val(venta.usuarioRegistro); 
+			 $('#txtIdVenta').val(venta.codigo);
+			 $('#txtNumeroPeriodo').val(venta.numeroPeriodo);
+			 $('#txtMonto').val("S/. " +venta.importe);
+			 $('#txtNumero').val(venta.serie.nroSerie + "-" + venta.codigo);
+		},
+		error : function() {
+		}
+	});
+}
+
+function anularVenta(codigoRegistro){
+	var contextPath = $('#contextPath').val();
+	var idVenta  = $('#txtIdVenta').val();
+	var numeroPeriodo  = $('#txtNumeroPeriodo').val();
+	var numeroDocu  = $('#txtNumero').val();
+	
+	$.ajax({
+		url : contextPath + "/ventaController/anularVenta?idVenta="+idVenta
+			+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu=" + numeroDocu,
+		type : 'GET',	
+		success : function(data) {
+			if (data == "1") {
+				msg_exito("Éxito al anular venta");
+				 $('#personaNombres').val("");
+				 $('#personaNroDocumento').val("");
+				 $('#txtEpisodio').val("");
+				 $('#txtTipoSeguro').val("");
+				 $('#txtFechaEmision').val("");
+				 $('#txtUsuarioEmitio').val(""); 
+				 $('#txtIdVenta').val("");
+				 $('#txtNumeroPeriodo').val("");
+				 $('#nroSerie').val("");
+				 $('#idVenta').val("");
+			}else{
+				msg_error("Error al anular venta");	
+			}
+		},
+		error : function() {
+		}
+	});
 }

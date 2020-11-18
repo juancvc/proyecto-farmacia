@@ -179,8 +179,44 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 			
 			bean = new MovimientoAlmacenBean();
 			bean.setCodigo(entity.getIdMovimientoAlmacen());   
+			bean.getAlmacenBean().setCodigo(entity.getIdAlmacen());
+		//	bean.getInventarioBean().setCodigo(entity.getIdInventario());
+			bean.setCantidad(entity.getCantidad());
+			bean.setNroDocumento(entity.getNroDocumento());
+			bean.setMonto(entity.getMonto());
+			bean.setSaldo(entity.getSaldo());
+			bean.setOrden(entity.getOrden());
+			bean.setPrecio(entity.getPrecio());
+			bean.setNroGuia(entity.getNroGuia());
+			bean.setGlosa(entity.getGlosa());
+			bean.setFechaMovimiento(entity.getFechaMovimiento());
+			bean.setTipoIngresoDocumento(entity.getTipoIngresoDocumento());
+			bean.getArticuloBean().setCodigo(entity.getArticulo());
+			bean.getStockBean().setCodigo(entity.getIdStock());
+			bean.gettipoMovimiento().setCodigo(entity.getIdTipoMovimiento());
+			bean.gettipoMovimiento().setNombreTipoMovimiento(entity.getTipoMovimiento());
+			bean.gettipoMovimiento().getCategoriaTipoMovimiento().setIdRegistro(entity.getIdCategoriaTipoMovimiento());
+			bean.setAlmacenOrigen(entity.getAlmacenOrigen());
+			bean.setAlmacenDestino(entity.getAlmacenDestino());
+		//	bean.getTipoFinanciador().setIdRegistro(entity.getTipoFinanciamiento());
+		//	bean.getTipoSeleccion().setIdRegistro(entity.getTipoProcesoSeleccion());
+			bean.getPersona().setCodigo(entity.getIdPersona());
+		//	bean.getTipoDocumentoCompra().setIdRegistro(entity.getIdTipoDocumentoCompra());
+		//	bean.setMes(entity.getMes());
+			bean.getMes().setIdRegistro(entity.getMes());
+			bean.getPeriodo().setIdRegistro(entity.getAnio());
+		//	bean.setAnio(entity.getAnio());
+			bean.setFechaOrden(entity.getFechaOrden());
+			bean.setId_concepto(entity.getId_concepto());
+		//	bean.setStockBeanItems(entity.getStockItems());
+			bean.setCadenaCantdArt(entity.getCadenaCantdArt());
+			bean.setCadenaNroPeriodoStock(entity.getCadenaNroPeriodoStock());
+			bean.setCadenaIdStock(entity.getCadenaIdStock());
+			bean.setSubtotal(entity.getSubtotal());
+			bean.setTotal(entity.getTotal());
+			bean.setFechaInventarioSig(entity.getFechaInventarioSig()); 
 	 	}
-		
+		 
 		return bean;
 	}
 
@@ -188,6 +224,51 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 	public boolean existe(MovimientoAlmacenBean t) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<MovimientoAlmacenBean> listarReporteICI(MovimientoAlmacenBean venta) throws DAOException {
+		List<MovimientoAlmacen> lstMovimientoAlmacen = null;	
+		List<MovimientoAlmacenBean> lstMovimientoAlmacenBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.reporteICIv2");  
+			spq.setParameter("mes", venta.getMes().getIdRegistro()); 
+			spq.setParameter("anio", venta.getPeriodo()); 
+			 if (spq.execute()) {
+				 lstMovimientoAlmacen =  spq.getResultList(); 
+			 }
+			 
+			if (lstMovimientoAlmacen != null && lstMovimientoAlmacen.size() > 0) {
+				lstMovimientoAlmacenBean = deListaObjetoAListaObjetoBean(lstMovimientoAlmacen);
+			 }
+			
+			em.close();
+			
+		   
+		return lstMovimientoAlmacenBean;
+	}
+
+	@Override
+	public List<MovimientoAlmacenBean> buscarxArticuloAlmacen(MovimientoAlmacenBean movimientoAlmacenBean)
+			throws DAOException {
+		List<MovimientoAlmacen> lstMovimientoAlmacen = null;	
+		List<MovimientoAlmacenBean> lstMovimientoAlmacenBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.buscarxArticuloAlmacen");  
+			spq.setParameter("idArticulo", movimientoAlmacenBean.getStockBean().getArticulo().getCodigo()); 
+			spq.setParameter("idAlmacen", movimientoAlmacenBean.getAlmacenBean().getCodigo()); 
+			 if (spq.execute()) {
+				 lstMovimientoAlmacen =  spq.getResultList(); 
+			 }
+			 
+			if (lstMovimientoAlmacen != null && lstMovimientoAlmacen.size() > 0) {
+				lstMovimientoAlmacenBean = deListaObjetoAListaObjetoBean(lstMovimientoAlmacen);
+			 }
+			
+			em.close();
+			
+		   
+		return lstMovimientoAlmacenBean;
 	}
 
 

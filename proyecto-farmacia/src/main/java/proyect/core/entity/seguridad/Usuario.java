@@ -111,14 +111,12 @@ import javax.persistence.StoredProcedureParameter;
 					),
 					@NamedStoredProcedureQuery(
 							name="usuario.buscarPorCriterios", 
-							procedureName="[Farmacia].[dbo].[SP_USUARIO_ALMACEN_BUSCAR_X_CRITERIOS] ",
+							procedureName="[dbo].[usp_Usuario_buscarxCriterios]",
 							resultClasses= Usuario.class,
 							parameters={
-									
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION",  type=int.class),
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", 		  type=int.class),				
-										@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ALMACEN", 	  type=int.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombre",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPerfil",type=String.class)
 								}					
 					 ),
 					@NamedStoredProcedureQuery(
@@ -163,12 +161,13 @@ public class Usuario  {
 	private Boolean fglgest; 
 
 	@Column(name = "flgResetClave")
-	private String vFlgrestpas;
+	private String flgResetClave;
  
 	private String apellidoPaterno; 
 	private String apellidoMaterno; 
 	private String nombres;  
 	private String idAlmacen; 
+	private String nombrePerfil; 
 	
 	
 	public Usuario() { 
@@ -242,15 +241,15 @@ public class Usuario  {
 	public void setFglgest(Boolean fglgest) {
 		this.fglgest = fglgest;
 	}
+ 
 
-
-	public String getvFlgrestpas() {
-		return vFlgrestpas;
+	public String getFlgResetClave() {
+		return flgResetClave;
 	}
 
 
-	public void setvFlgrestpas(String vFlgrestpas) {
-		this.vFlgrestpas = vFlgrestpas;
+	public void setFlgResetClave(String flgResetClave) {
+		this.flgResetClave = flgResetClave;
 	}
 
 
@@ -281,6 +280,16 @@ public class Usuario  {
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
+	}
+
+
+	public String getNombrePerfil() {
+		return nombrePerfil;
+	}
+
+
+	public void setNombrePerfil(String nombrePerfil) {
+		this.nombrePerfil = nombrePerfil;
 	}
 
  

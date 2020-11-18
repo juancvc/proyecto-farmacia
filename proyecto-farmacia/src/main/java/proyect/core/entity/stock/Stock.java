@@ -51,6 +51,17 @@ import javax.persistence.Table;
 				),
 				
 				@NamedStoredProcedureQuery(
+						name="stock.buscarPorIdArticulo", 
+						procedureName="[dbo].[usp_Stock_buscarxIdArticulo]",
+						resultClasses= Stock.class,
+						parameters={
+					 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idArticulo", 	 type=String.class)
+									
+							}	
+				),
+				
+				@NamedStoredProcedureQuery(
 						name="stock.insert", 
 						procedureName="[dbo].[usp_Stock_insertar]",
 						parameters={
@@ -234,6 +245,7 @@ public class Stock
 	private int  cantidadDias;
 	private String cadenaStock;
 	private int cantidadItems;
+	private String codigoSismed;
 	
 	public Stock() { 
 	}
@@ -442,7 +454,6 @@ public class Stock
 		this.cadenaLote = cadenaLote;
 	}
  
-
 	public String getCadenaIdProveedor() {
 		return cadenaIdProveedor;
 	}
@@ -451,64 +462,60 @@ public class Stock
 		this.cadenaIdProveedor = cadenaIdProveedor;
 	}
  
-
 	public int getCantidadDias() {
 		return cantidadDias;
 	}
-
 
 	public void setCantidadDias(int cantidadDias) {
 		this.cantidadDias = cantidadDias;
 	}
 
-
 	public int getCantidadItems() {
 		return cantidadItems;
 	}
-
 
 	public void setCantidadItems(int cantidadItems) {
 		this.cantidadItems = cantidadItems;
 	}
 
-
 	public String getNombreAlmacen() {
 		return nombreAlmacen;
 	}
-
 
 	public void setNombreAlmacen(String nombreAlmacen) {
 		this.nombreAlmacen = nombreAlmacen;
 	}
 
-
 	public String getNombreModalidadAdquisicion() {
 		return nombreModalidadAdquisicion;
 	}
-
 
 	public void setNombreModalidadAdquisicion(String nombreModalidadAdquisicion) {
 		this.nombreModalidadAdquisicion = nombreModalidadAdquisicion;
 	}
 
-
 	public String getNombreArticulo() {
 		return nombreArticulo;
 	}
-
 
 	public void setNombreArticulo(String nombreArticulo) {
 		this.nombreArticulo = nombreArticulo;
 	}
 
-
 	public String getConcentracion() {
 		return concentracion;
 	}
 
-
 	public void setConcentracion(String concentracion) {
 		this.concentracion = concentracion;
+	}
+
+	public String getCodigoSismed() {
+		return codigoSismed;
+	}
+
+	public void setCodigoSismed(String codigoSismed) {
+		this.codigoSismed = codigoSismed;
 	}
 	
 	

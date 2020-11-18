@@ -1,109 +1,68 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="es" data-textdirection="ltr" class="loading">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="es">
 
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description"
-	content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+<meta name="description" content="">
 <meta name="author" content="">
-<title>Registro de Usuario</title>
-<!-- Bootstrap core CSS-->
+
+<title>Farmacia - Usuarios</title>
+
+<!-- Custom fonts for this template-->
 <link
-	href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
+	href="${pageContext.request.contextPath}/app-assets/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/fonts/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/css/plugins/forms/validation/form-validation.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/css/plugins/forms/switch.css">
-<link rel="stylesheet" type="text/css"
+
+<!-- Custom styles for this template-->
+
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/app-assets/vendors/css/extensions/toastr.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/css/plugins/forms/extended/form-extended.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js">
+		
 <link
-	href="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Custom fonts for this template-->
-<link
-	href="${pageContext.request.contextPath}/app-assets/vendor/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<!-- Page level plugin CSS-->
-<!-- Custom styles for this template-->
-<link
-	href="${pageContext.request.contextPath}/app-assets/css/sb-admin.css"
+	href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/app-assets/css/estilos-cayetano.css"
+	href="${pageContext.request.contextPath}/app-assets/css/estilos.css"
 	rel="stylesheet">
-
-<link rel="shortcut icon" type="image/x-icon"
-	href="${pageContext.request.contextPath}/app-assets/images/ico/iconHNCH.ico">
-<!-- Custom fonts for this template-->
-<link
-	href="${pageContext.request.contextPath}/app-assets/vendor/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<!-- Page level plugin CSS-->
-<link
-	href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
-
-
+	
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/vendors/css/forms/selects/select2.min.css">
-<!-- Custom styles for this template-->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/fonts/simple-line-icons/style.min.css">
-
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/fonts/feather/style.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/app-assets/fonts/font-awesome/css/font-awesome.min.css">
-
-
+	href="${pageContext.request.contextPath}/assets/css/datepicker.css">	
 
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-		id="mainNav">
-		<a class="navbar-brand label_control_hade" href="#"> HCH WEB </a>
-		<button class="navbar-toggler navbar-toggler-right" type="button"
-			data-toggle="collapse" data-target="#navbarResponsive"
-			aria-controls="navbarResponsive" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+<body id="page-top">
 
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<jsp:include
-				page="${pageContext.request.contextPath}/../layout/menu-view.jsp" />
-		</div>
-	</nav>
+		<jsp:include
+			page="${pageContext.request.contextPath}/../layout/menu-view.jsp" />
 
-	<div class="content-wrapper">
-		<div class="container-fluid">
-			<!-- Breadcrumbs
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="#">Seguridad / Usuario</a></li>
-				<li class="breadcrumb-item active">Registro de Usuario</li>
-			</ol>-->
-			<div class="tituloForm">REGISTRO DE USUARIO</div>
-			<!-- Icon Cards-->
-			<!-- Area Chart Example-->
-			<div class="card mb-3" style="align:center">
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<jsp:include
+					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
+				<!-- End of Topbar -->
 				<f:form id="frmRegistroUsuario" class="form-horizontal" role="form"
 					method="post" onsubmit="return false" action="">
 					<input id="contextPath" type="hidden"
@@ -153,6 +112,7 @@
 										id="personaUsuarioNombreCompleto"
 										path="persona.nombreCompleto" disabled="true" />
 								</div>
+									<!--
 									<div class="col-md-2">
 									<label for="exampleInputName" class="label_control">SEDE
 										<span class="required">*</span>
@@ -167,6 +127,22 @@
 										</f:select>
 									</div>
 								</div>
+									-->
+								<div class="col-md-2">
+									<label for="exampleInputName" class="label_control">PERFIL
+										<span class="required">*</span>
+									</label>
+									<div class="controls">
+										<f:select id="comboPerfil" path="perfil.codigo"
+											required="required" class="form-control">
+											<f:option value="" label="Seleccionar" selected="true"
+												disabled="disabled" />
+											<f:options items="${lstPerfiles}" itemValue="codigo"
+												itemLabel="nombrePerfil" />
+										</f:select>
+									</div>
+								</div>
+									
 							</div>
 						</div>
 						<div class="form-body">
@@ -182,20 +158,7 @@
 									<f:input type="hidden" path="passwordUsuario"
 										id="idpasswordUsuario" val="" />
 								</div>
-								<div class="col-md-2">
-									<label for="exampleInputName" class="label_control">PERFIL
-										<span class="required">*</span>
-									</label>
-									<div class="controls">
-										<f:select id="comboPerfil" path="perfil.codigo"
-											required="required" class="form-control">
-											<f:option value="" label="Seleccionar" selected="true"
-												disabled="disabled" />
-											<f:options items="${tipoPerfil}" itemValue="codReg"
-												itemLabel="nombreCorto" />
-										</f:select>
-									</div>
-								</div>
+								
 							</div>
 						</div>
 						<div class="form-body">
@@ -203,22 +166,14 @@
 								<div class="col-md-4">
 									<label for="exampleInputName" class="label_control">CORREO <span class="required">*</span>
 									</label>
-									<f:input type="text" required="required" class="form-control"
-										id="correoUsuario" path="persona.correo" disabled="true" />
-									<f:input type="hidden" path="persona.correo"
-										id="correoUsuario" val="" />
-									<f:input type="hidden" path="persona.correo" id="correoUsuario" val="" />
-									<f:input type="hidden" path="persona.correo"
-										id="correoUsuario"  disabled="true"  />
+									<f:input type="email" required="required" class="form-control"  maxlength="120"
+										id="correoUsuario" path="correo"/> 
 								</div>
 								<div class="col-md-4">
 									<label for="exampleInputName2" class="label_control"> CELULAR <span class="required">*</span>
 									</label>
 									<f:input type="text" required="required" class="form-control"
-										id="celularUsuario" path="persona.telfCelu" disabled="true" />
-									<f:input type="hidden" path="persona.telfCelu"
-										id="celularUsuario" val="" />
-									<f:input type="hidden" path="persona.telfCelu" id="nroCelular" val="" />
+										id="celularUsuario" path="nroCelular"  maxlength="9" />  
 								
 								</div>
 							</div>
@@ -249,137 +204,107 @@
 						
 					</div>
 				</f:form>
-				<f:form id="frmRegistro" class="form-horizontal" role="form"
-					method="POST"
-					action="${pageContext.request.contextPath}/perfilController/lista">
-					<button type="submit" style="display: none" id="btnListado">Click
-						me</button>
-				</f:form>
-			</div>
+				<!-- /.container-fluid -->
 
-			<!-- Example DataTables Card-->
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<jsp:include
+				page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
+
+			<!-- End of Footer -->
 
 		</div>
-		<div class="modal fade text-xs-left" id="md_confirmacion"
-			tabindex="-1" role="dialog" aria-labelledby="myMo
-			dalLabel19"
-			aria-hidden="true">
-			<div class="modal-dialog modal-sm" role="document">
-				<div class="modal-content">
-					<div class="label_title_modal modal-header">
+		<!-- End of Content Wrapper -->
 
-						<h4 class="label_title" id="myModalLabel19">Confirma
-							Acci&oacute;n</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p id="txt_confir" class="label_control">¿Está seguro de
-							eliminar registro seleccionado?</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn grey btn-outline-secondary"
-							data-dismiss="modal">Cerrar</button>
-						<button id="btnConfirmarGeneric" type="button"
-							class="btn btn-outline-primary">Confirmar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade text-xs-left" id="modalEstablecimiento"
-			tabindex="-1" role="dialog" aria-labelledby="myModalLabel35"
-			data-dismiss="modal" aria-hidden="true" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content" id="modalEstablecimientoContent"></div>
-			</div>
-		</div>
-		<!-- /.container-fluid-->
-		<!-- /.content-wrapper-->
-		<jsp:include
-			page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fa fa-angle-up"></i>
-		</a>
-
-
-
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
-
-
-		<!-- Page level plugin JavaScript-->
-		<!-- Custom scripts for all pages-->
-
-		<!-- Custom scripts for this page-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/js/sb-admin-datatables.min.js"></script>
-		<!-- Custom scripts for this page-->
-
-		<!-- Core plugin JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
-			type="text/javascript" charset="utf-8"></script>
-		<!-- Page level plugin JavaScript-->
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Page level plugin JavaScript-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/datatables/jquery.dataTables.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.js"></script>
-		<!-- Custom scripts for all pages-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/js/sb-admin.min.js"></script>
-		<!-- Custom scripts for this page-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/js/sb-admin-datatables.min.js"></script>
-		<!-- Custom scripts for all pages-->
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js"
-			type="text/javascript"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendors/js/ui/blockUI.min.js"
-			type="text/javascript"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/block-ui.min.js"
-			type="text/javascript"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/sweetalert.min.js"
-			type="text/javascript"></script>
-		<script
-			src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
-			type="text/javascript"></script>
-		<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
-			type="text/javascript"></script>
-		<script
-			src="${pageContext.request.contextPath}/assets/js/page/seguridad/usuario.js"
-			type="text/javascript" charset="utf-8"></script>
-
-
-		<script src="http://malsup.github.io/jquery.blockUI.js"></script>
 	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<jsp:include
+		page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
+
+
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	<!-- Page level custom scripts -->
+
+
+	<!-- scripts  -->
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/block.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.es.min.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js"
+		type="text/javascript"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/sweetalert.min.js"
+		type="text/javascript"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
+		type="text/javascript"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
+		type="text/javascript"></script>
+
+	<script src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/almacen.js"
+		type="text/javascript"></script>
+		
+	<script>
+	document.getElementById('navInventario').className = "nav-item active";
+	document.getElementById('enlaceListaPrecio').className = "collapse-item active";
+	document.getElementById('collInventario').className = "nav-link";
+	document.getElementById('collapseInventario').className = "collapse show";
+		//document.getElementById('navMantenimiento').className = "nav-item active";
+		//document.getElementById('enlaceAlmacen').className = "collapse-item active";
+		//document.getElementById('CollMantenimiento').className = "nav-link";
+		//document.getElementById('collapseMantenimiento').className = "collapse show";
+	</script>
+
+
+	 
 </body>
 
-<script type="text/javascript">
-	ocultarBotones();
-
-	function runScript(e) {
-		//See notes about 'which' and 'key'
-		if (e.keyCode == 13) {
-			buscarPersona();
-			return false;
-		}
-	}
-</script>
 </html>

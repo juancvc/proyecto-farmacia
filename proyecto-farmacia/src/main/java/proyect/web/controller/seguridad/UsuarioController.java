@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
+//import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.RenaesBean;
 import proyect.core.bean.general.AlmacenBean;
@@ -122,7 +122,7 @@ public class UsuarioController extends BaseController{
 	//	this.cargarCombos(mav);
 		return mav;
 	}
-	
+	/***
 	@RequestMapping(value = "/consultarPorDocumentoPersona", method = RequestMethod.GET)
 	public @ResponseBody PersonaBean consultarPorNroDocumento(@RequestParam("tipoDocumento") String tipoDocumento,@RequestParam("numero") String numero)throws Exception {
 		  
@@ -197,7 +197,7 @@ public class UsuarioController extends BaseController{
 	
 		return personaBean;
 	}
-	
+	*/
 	
 	@RequestMapping(value = "/buscarPorCodigoPersona", method = RequestMethod.GET)
 	public @ResponseBody UsuarioBean buscarPorCodigoPersona(@RequestParam("codigoPersona") String codigoPersona)throws Exception {
@@ -869,15 +869,6 @@ public static String stripAccents(String str) {
 		
 		List<UsuarioBean> lstUsuarioBean =new ArrayList<UsuarioBean>(); 
 		try {
-		/**	
-			UsuarioBean userActual = this.getUsuarioSesion(request);
-			
-			if(	!VO.isNull(userActual) 
-				&& !VO.isNull(userActual.getCodPerfilUsuSelec())){ 
-				
-			}*/
-		//	usuarioBean.setAudCodigoUsuario(userActual.getCodigoUsuario());
-		//	usuarioBean.setCodPerfilUsuSelec(userActual.getCodPerfilUsuSelec());
 			lstUsuarioBean =  usuarioService.getBuscarPorFiltros(usuarioBean);
 			System.out.println("getLista size " + lstUsuarioBean.size());
 		} catch (Exception e) {

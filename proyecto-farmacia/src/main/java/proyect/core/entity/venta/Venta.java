@@ -16,6 +16,8 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
+
+import org.bridj.cpp.com.DECIMAL;
   
 
 
@@ -49,7 +51,11 @@ import javax.persistence.StoredProcedureParameter;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoMoneda", 	  type=String.class),
 							
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoComprobanteCat02", type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoOperacionCat02", 	 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie", 	  type=String.class)
 					}
 					),
 		
@@ -95,17 +101,6 @@ import javax.persistence.StoredProcedureParameter;
 					}					
 					),
 					
-					 
-			@NamedStoredProcedureQuery(
-							name="venta.anular", 
-							procedureName="[dbo].[usp_Venta_anularVenta]",
-							resultClasses= Venta.class,
-							parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVenta",    	  type=String.class),								
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro",      type=String.class),					
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class)
-					}					
-					),
 			@NamedStoredProcedureQuery(
 					name="venta.buscarxFechaClienteVO", 
 					procedureName="SP_VENTA_BUSCAR_FECHA_CLIENTE",
@@ -208,14 +203,13 @@ import javax.persistence.StoredProcedureParameter;
 				}					
 				),
 				@NamedStoredProcedureQuery(
-						name="venta.listarVentasDiariasFindByObject", 
-						procedureName="[Farmacia].[dbo].[SP_VENTA_LISTAR_VENTA_DIARIA_FINDBYOBJECT]",
+						name="venta.listarVentaDiaria", 
+						procedureName="[usp_Venta_listarVentaDiaria]",
 						resultClasses= Venta.class,
-						parameters={
-							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaInicio", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaFin", 	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	  type=String.class )
+						parameters={ 
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	  type=String.class ),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmisionDesde", type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmisionHasta", type=String.class),
 				}
 						
 				),
@@ -271,6 +265,48 @@ import javax.persistence.StoredProcedureParameter;
 							@StoredProcedureParameter(mode=ParameterMode.IN, name="idVenta", 	type=String.class), 
 				}					
 				),
+				@NamedStoredProcedureQuery(
+						name="venta.cantidadConLetra", 
+						procedureName="[dbo].[CantidadConLetra]",
+						resultClasses= String.class,
+						parameters={
+
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="Numero", 	type=float.class), 
+				}					
+				),
+				@NamedStoredProcedureQuery(
+						name="venta.listarPacientes", 
+						procedureName="[dbo].[usp_Venta_listarPacientes]",
+						resultClasses= Venta.class,
+						parameters={
+							@StoredProcedureParameter(mode=ParameterMode.IN, name="idSituacion", 	type=String.class), 
+				}					
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="venta.buscarPorNroDocumento", 
+						procedureName="[dbo].[usp_Venta_buscarxNroDocumento]",
+						resultClasses= Venta.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVenta", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroPeriodo", type=String.class)
+				}					
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="venta.anular", 
+						procedureName="[dbo].[usp_Venta_anularVenta]",
+						resultClasses= Venta.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVenta", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroPeriodo", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroDocu",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class),
+									
+				}					
+				),
 		}			
 	)
 
@@ -317,11 +353,52 @@ public class Venta  implements Serializable {
 
 	private String usuarioRegistro;
 	
-    
+	private String nombreAlmacen;
+	
+	private Timestamp fechaEmision;
+	
+	private String apellidoPaterno;
+
+	private String apellidoMaterno;
+	
+	private String nroDocumento;
+
+	private String nombres;
+	
+	private String tipoSeguro;
+	
+	private String nombreBoleta;
+	
+	private String numero;
+	
+	private String montoLetra;
+	
+	private String idEpisodio;
+	
+	private String nroSerie;
+	
 	public Venta() { 
 	}
 
 
+	public String getNroSerie() {
+		return nroSerie;
+	}
+
+
+	public void setNroSerie(String nroSerie) {
+		this.nroSerie = nroSerie;
+	}
+
+
+	public String getIdEpisodio() {
+		return idEpisodio;
+	}
+	
+	public void setIdEpisodio(String idEpisodio) {
+		this.idEpisodio = idEpisodio;
+	}
+	
 	public VentaPK getId() {
 		return id;
 	}
@@ -512,5 +589,92 @@ public class Venta  implements Serializable {
 	}
 
 
- 
+	public Timestamp getFechaEmision() {
+		return fechaEmision;
+	}
+
+
+	public void setFechaEmision(Timestamp fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
+	}
+
+
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
+	}
+
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getTipoSeguro() {
+		return tipoSeguro;
+	}
+
+	public void setTipoSeguro(String tipoSeguro) {
+		this.tipoSeguro = tipoSeguro;
+	}
+
+	public String getNombreBoleta() {
+		return nombreBoleta;
+	}
+
+	public void setNombreBoleta(String nombreBoleta) {
+		this.nombreBoleta = nombreBoleta;
+	}
+
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
+
+	public String getNumero() {
+		return numero;
+	}
+	
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+
+	public String getMontoLetra() {
+		return montoLetra;
+	}
+
+
+	public void setMontoLetra(String montoLetra) {
+		this.montoLetra = montoLetra;
+	}
+	
 }

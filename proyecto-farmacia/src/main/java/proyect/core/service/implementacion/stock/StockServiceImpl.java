@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
+import proyect.core.bean.stock.ArticuloBean;
 import proyect.core.bean.stock.StockBean;
 import proyect.core.repository.interfaces.stock.StockDAO;
 import proyect.core.service.interfaces.stock.StockService;
@@ -90,6 +91,17 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public boolean existe(StockBean t) throws ServiceException { 
 		return false;
+	}
+
+	@Override
+	public List<StockBean> listarPorIdArticulo(ArticuloBean articuloBean) throws ServiceException {
+		List<StockBean> lstPedido=null;
+		try {
+			lstPedido=this.getStockDAO().listarPorIdArticulo(articuloBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
 	}
   
 

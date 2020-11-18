@@ -9,15 +9,5 @@ import proyect.core.bean.stock.ArticuloBean;
 
 
 public interface ArticuloService extends BaseService<ArticuloBean> {
-	  
-	/*
-	public boolean anularVenta(VentaBean venta)throws ServiceException; 
-	 
-	 
-	public boolean cierreVentaDiaria(VentaBean venta)throws ServiceException; 
-	
-	public List<VentaBean > listarVentasAnuladas(VentaBean venta)throws ServiceException; 
- 
-	
-	public List<VentaBean > listarAtencionesIME(VentaBean venta) throws ServiceException;*/
+	    
 }

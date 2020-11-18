@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
+import proyect.core.bean.general.EpisodioBean;
+import proyect.core.bean.venta.VentaBean;
 import proyect.core.bean.venta.VentaItemBean;
 import proyect.core.repository.interfaces.venta.VentaItemDAO;
 import proyect.core.service.interfaces.venta.VentaItemService; 
@@ -16,7 +18,7 @@ public class VentaItemServiceImpl implements VentaItemService {
 	
 	
 	@Autowired
-	private VentaItemDAO VentaItemDAO; 
+	private VentaItemDAO ventaItemDAO; 
 
 	public VentaItemServiceImpl() {
 	}
@@ -47,8 +49,13 @@ public class VentaItemServiceImpl implements VentaItemService {
 
 	@Override
 	public List<VentaItemBean> getBuscarPorFiltros(VentaItemBean t) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		List<VentaItemBean> lstPedido=null;
+		try {
+			lstPedido=ventaItemDAO.getBuscarPorFiltros(t);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
 	}
 
 	@Override
@@ -57,8 +64,28 @@ public class VentaItemServiceImpl implements VentaItemService {
 		return false;
 	}
 
-	 
-	
+	@Override
+	public List<VentaItemBean> listarArtPorEpisodio(EpisodioBean episodio) throws ServiceException {
+		List<VentaItemBean> lstPedido=null;
+		try {
+			lstPedido=ventaItemDAO.listarArtPorEpisodio(episodio);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
+	}
+
+	@Override
+	public List<VentaItemBean> listarConsumoPaciente(VentaBean ventaBean) throws ServiceException {
+		List<VentaItemBean> lstPedido=null;
+		try {
+			lstPedido=ventaItemDAO.listarConsumoPaciente(ventaBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
+	}
+
 }
 
 	

@@ -147,9 +147,9 @@ public class PerfilDAOImp implements PerfilDAO {
 		List<PerfilBean> lstPerfilBean = new ArrayList<PerfilBean>();
 		List<Perfil> lstPerfil = null;
 
-		StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.listar");
+		StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.buscarxcriterios");
 
-		spq.setParameter("NOMBPERF", t.getNombrePerfil());
+		spq.setParameter("nombrePerfil", t.getNombrePerfil());
 
 		if (spq.execute()) {
 			lstPerfil = spq.getResultList();
@@ -157,7 +157,7 @@ public class PerfilDAOImp implements PerfilDAO {
 
 		if (lstPerfil != null && lstPerfil.size() > 0) {
 			for ( Perfil p : lstPerfil ) {
-				System.out.println("perfil.getNombreCorto :: " + p.getNombreCorto());
+				System.out.println("perfil.getNombreCorto :: " + p.getNombrePerfil());
 			}
 			lstPerfilBean = deListaPerfilAListaPerfilBean(lstPerfil);
 		}
@@ -195,7 +195,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		PerfilBean bean = new PerfilBean();
 		if (entity != null) {
 			bean.setCodigo(entity.getIdPerfil());
-			bean.setNombrePerfil(entity.getNombreCorto());
+			bean.setNombrePerfil(entity.getNombrePerfil());
 
 		}
 		return bean;
@@ -208,11 +208,10 @@ public class PerfilDAOImp implements PerfilDAO {
 		System.out.println(" getEntityManager() " +  getEntityManager()); 
 		List<PerfilBean> lstPerfilBean = new ArrayList<PerfilBean>();
 		
-			Query query = getEntityManager().createNativeQuery("SELECT * FROM [SIGEHOV2SEGU].RECO.PERFIL as p  WHERE p.ESTADORG = 1 ",Perfil.class);
+			Query query = getEntityManager().createNativeQuery("SELECT * FROM PERFIL as p  WHERE estado = 1 ",Perfil.class);
 			List<Perfil> resultList = query.getResultList();
 			if (resultList != null && resultList.size() > 0) {
 				for ( Perfil p : resultList ) {
-					System.out.println("perfil.getNombreCorto :: " + p.getNombreCorto());
 				}
 				lstPerfilBean = deListaPerfilAListaPerfilBean(resultList);
 			}

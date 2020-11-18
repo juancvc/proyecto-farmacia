@@ -93,8 +93,7 @@ public class ArticuloServiceImpl implements ArticuloService {
 	public boolean existe(ArticuloBean t) throws ServiceException { 
 		return false;
 	}
-  
-
+ 
 }
 
 	

@@ -9,13 +9,20 @@ public class LaboratorioBean extends BaseBean{
 	private String contacto; 
 	private String ruc; 
 	private String direccion;
+	
 	public String getNombre() {
+		if (nombre == null) {
+			nombre = "";
+		}
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	public String getDescripcion() {
+		if (descripcion == null) {
+			descripcion = "";
+		}
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {

@@ -12,6 +12,7 @@ public interface VentaDAO  extends BaseDAO<VentaBean>{
 	
 	public boolean anularVenta(VentaBean venta)throws DAOException; 
 	 
+	public String cantidadConLetra(float monto)throws DAOException;
 	
 	public VentaBean  findByIdVenta(VentaBean venta)throws DAOException;
 	
@@ -21,7 +22,12 @@ public interface VentaDAO  extends BaseDAO<VentaBean>{
 	
 	public List<VentaBean > listarVentasAnuladasFindByObjectPagante(VentaBean venta)throws DAOException;
  
+	public List<VentaBean > listarVentasDiarias(VentaBean venta)throws DAOException;
 	
 	public List<VentaBean > listarAtencionesIME(VentaBean venta) throws DAOException;
+	
+	public List<VentaBean > listarPacientes(VentaBean venta) throws DAOException;
+	
+	public VentaBean  buscarPorNroDocumento(VentaBean venta)throws DAOException;
 	 
 }

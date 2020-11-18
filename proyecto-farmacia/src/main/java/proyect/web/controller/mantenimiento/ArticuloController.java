@@ -3,6 +3,8 @@ package proyect.web.controller.mantenimiento;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,35 +16,66 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.stock.ArticuloBean;
+import proyect.core.bean.stock.LaboratorioBean;
+import proyect.core.bean.stock.StockBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.stock.ArticuloService;
+import proyect.core.service.interfaces.stock.LaboratorioService;
+import proyect.core.service.interfaces.stock.StockService;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
 @RequestMapping(value = "articuloController")
 public class ArticuloController extends BaseController{
 	
-	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstPresentacion;
+	List<CatalogoBean> lstTipoArticulo;
+	List<CatalogoBean> lstClaseArticulo;
+	List<LaboratorioBean> lstLaboratorios;
 	List<ArticuloBean> lstArticulos;
 	private ArticuloBean articuloBean;
 	
 	@Autowired
-	private Catalogo1Service Catalogo1Service;
+	private Catalogo1Service catalogo1Service;
+	
+	@Autowired
+	private Catalogo2Service catalogo2Service;
 	
 	@Autowired
 	private ArticuloService articuloService;
 	
+	@Autowired
+	private LaboratorioService laboratorioService;
+	
+	@Autowired
+	private StockService stockService;
+	
+	@PostConstruct
+	public void init() { 
+	  this.setArticuloBean(new ArticuloBean());	
+	  this.setLstPresentacion(new ArrayList<CatalogoBean>());
+	  this.setLstTipoArticulo(new ArrayList<CatalogoBean>());
+	  this.setLstClaseArticulo(new ArrayList<CatalogoBean>());
+	  this.setLstLaboratorios(new ArrayList<LaboratorioBean>());
+	}
 	
 	private void cargarCombos(ModelAndView mav) {
-		/*try {
-			lstcatalogos = Catalogo1Service.listarTodascatalogos(new CatalogoBean());
+		try {
+			lstPresentacion = catalogo2Service.listarPorCodigoTabla("000015", 0);
+			lstTipoArticulo = catalogo2Service.listarPorCodigoTabla("000001", 0);
+			lstClaseArticulo = catalogo2Service.listarPorCodigoTabla("000016", 0);
+			lstLaboratorios = laboratorioService.getBuscarPorFiltros(new LaboratorioBean());
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
 		}
-		*/
-		mav.addObject("lstcatalogos", lstcatalogos);
+		
+		mav.addObject("lstTipoArticulo", lstTipoArticulo);
+		mav.addObject("lstPresentacion", lstPresentacion);
+		mav.addObject("lstClaseArticulo", lstClaseArticulo);
+		mav.addObject("lstLaboratorios", lstLaboratorios);
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
@@ -51,7 +84,7 @@ public class ArticuloController extends BaseController{
 			throws Exception { 
 		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>(); 
 		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean);  
-		lstcatalogosRegistros = Catalogo1Service.getBuscarPorFiltros(catalogoBean);
+		lstcatalogosRegistros = catalogo1Service.getBuscarPorFiltros(catalogoBean);
 		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
 		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
 		this.cargarCombos(mav);
@@ -82,34 +115,37 @@ public class ArticuloController extends BaseController{
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
-		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command", catalogoBean); 
+		ArticuloBean articuloBean = new ArticuloBean(); 
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/registro-articulo", "command", articuloBean); 
 		this.cargarCombos(mav);
 		return mav;
 	}
-	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("catalogo") String catalogo,
-								  @RequestParam("codigo") String codigoRegistro){  
-		
-		System.out.println("modificar catalogo " + catalogo);
-		System.out.println("modificar codigoRegistro " + codigoRegistro);
-		CatalogoBean ocatalogoBean = new CatalogoBean(); 
-		ocatalogoBean.setIdCatalogo(catalogo);
-		ocatalogoBean.setIdRegistro(codigoRegistro);
-		CatalogoBean catalogoBean = new CatalogoBean();  
 	
-			try { 
-				catalogoBean = Catalogo1Service.getBuscarPorObjecto(ocatalogoBean);  
-			 System.out.println("catalogoBean::" + catalogoBean);
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
+	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
+	public ModelAndView modificar(@RequestParam("index") int index){  
+		
+		System.out.println("modificar index " + index);  
+		int totalStock = 0;
+		ArticuloBean articuloBean = new ArticuloBean();  
+	    articuloBean = lstArticulos.get(index); 
+		List<StockBean> lstStock = null ;
+		try {
+			lstStock = stockService.listarPorIdArticulo(articuloBean);
+			if (lstStock !=null) {
+				for (StockBean stockBean : lstStock) {
+					totalStock = totalStock + stockBean.getStock();
+				}
 			}
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			this.cargarCombos(mav);
-			mav.addObject("catalogoBean", catalogoBean);
-			mav.addObject("swActivo", "1"); 
-			return mav;
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/registro-articulo", "command", articuloBean); 
+		
+		mav.addObject("totalStock", totalStock);
+		mav.addObject("lstStock", lstStock);
+		this.cargarCombos(mav);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
@@ -120,9 +156,9 @@ public class ArticuloController extends BaseController{
 		boolean sw = true;
 		try {
 			if (catalogoBean.getIdRegistro()!=null && !catalogoBean.getIdRegistro().equals("")) { 
-				sw = (Catalogo1Service.actualizar(catalogoBean));
+				sw = (catalogo1Service.actualizar(catalogoBean));
 			} else { 
-				sw =  (Catalogo1Service.insertar(catalogoBean)); 
+				sw =  (catalogo1Service.insertar(catalogoBean)); 
 				
 			} 
 		} catch (Exception e) { 
@@ -151,11 +187,9 @@ public class ArticuloController extends BaseController{
 		catalogoBean.setIdRegistro(codReg);
 		catalogoBean.setIdCatalogo(catalogo);
 		try { 
-			 if(Catalogo1Service.eliminar(catalogoBean)){
+			 if(catalogo1Service.eliminar(catalogoBean)){
 				 valida = "1";
 			 }
-			 
-
 		} catch (Exception e) { 
 			e.printStackTrace();
 		} 
@@ -168,7 +202,7 @@ public class ArticuloController extends BaseController{
 		 catalogoBean.setIdCatalogo(catalogo);
 		List<CatalogoBean> lstcatalogoBean =new ArrayList<CatalogoBean>(); 
 		try {
-			lstcatalogoBean = Catalogo1Service.getBuscarPorFiltros(catalogoBean); 
+			lstcatalogoBean = catalogo1Service.getBuscarPorFiltros(catalogoBean); 
 		
 		} catch (ServiceException e) {
 			
@@ -185,7 +219,37 @@ public class ArticuloController extends BaseController{
 	public void setArticuloBean(ArticuloBean articuloBean) {
 		this.articuloBean = articuloBean;
 	}
-	
-	
+
+	public List<CatalogoBean> getLstPresentacion() {
+		return lstPresentacion;
+	}
+
+	public void setLstPresentacion(List<CatalogoBean> lstPresentacion) {
+		this.lstPresentacion = lstPresentacion;
+	}
+
+	public List<CatalogoBean> getLstTipoArticulo() {
+		return lstTipoArticulo;
+	}
+
+	public void setLstTipoArticulo(List<CatalogoBean> lstTipoArticulo) {
+		this.lstTipoArticulo = lstTipoArticulo;
+	}
+
+	public List<CatalogoBean> getLstClaseArticulo() {
+		return lstClaseArticulo;
+	}
+
+	public void setLstClaseArticulo(List<CatalogoBean> lstClaseArticulo) {
+		this.lstClaseArticulo = lstClaseArticulo;
+	}
+
+	public List<LaboratorioBean> getLstLaboratorios() {
+		return lstLaboratorios;
+	}
+
+	public void setLstLaboratorios(List<LaboratorioBean> lstLaboratorios) {
+		this.lstLaboratorios = lstLaboratorios;
+	}
 	
 }

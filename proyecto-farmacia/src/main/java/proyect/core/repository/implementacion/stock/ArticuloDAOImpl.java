@@ -195,15 +195,18 @@ private ArticuloBean deObjetoAObjetoBean(Articulo entity) {
 			bean = new ArticuloBean();
 			bean.setCodigo(entity.getIdArticulo());   
 			bean.setNombre(entity.getNombreArticulo());
+			bean.getLaboratorio().setCodigo(entity.getIdLaboratorio());
 			bean.getLaboratorio().setNombre(entity.getNombreLaboratorio());
 			bean.getLaboratorio().setCodigo(entity.getIdLaboratorio());
 			bean.setStockAlerta(entity.getStockAlerta());
 			bean.setStockOptimo(entity.getStockOptimo());
 			bean.setVolumen(entity.getVolumen());
-			bean.getClase().setIdRegistro(entity.getIdClase());
+			bean.getTipoArticulo().setIdRegistro(entity.getIdTipoArticuloCat01());
 			bean.getTipoArticulo().setDescripcionCorta(entity.getNombreTipoArticulo());
+			bean.getTipoPresentacion().setIdRegistro(entity.getIdTipoPresentacionCat01());
 			bean.getTipoPresentacion().setDescripcionCorta(entity.getDescripcionCortaPresentacion());
 			bean.getTipoPresentacion().setDescripcionLarga(entity.getDescripcionLargaPresentacion());
+			bean.getClase().setIdRegistro(entity.getIdClase());
 			bean.getClase().setDescripcionCorta(entity.getNombreClase());
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro());
 			bean.setIpRegistro(entity.getIpRegistro());
@@ -216,7 +219,5 @@ private ArticuloBean deObjetoAObjetoBean(Articulo entity) {
 		
 		return bean;
 	}
- 
-  
- 
+
 }

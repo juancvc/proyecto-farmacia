@@ -86,9 +86,9 @@ font-size: 13px;
 								<div class="card-body">
 									<div class="form-group">
 									<div class="row">
-											<div class="form-group col-md-4 mb-1">
+											<div class="form-group col-md-2 mb-1">
 												<label for="exampleInputName" class="label_control">N°
-													BOLETA VENTA <span class="required">*</span>
+													SERIE <span class="required">*</span>
 												</label>
 												<div class="position-relative has-icon-left">
 													<input id="contextPath" type="hidden"
@@ -96,67 +96,121 @@ font-size: 13px;
 													<div class="controls">
 														<f:input type="text" class="form-control"
 															required="required" maxlength="12"
-															id="nroDocumentoPaciente" path="persona.nroDocumento"
-															onkeypress="return runScript(event)" />
+															id="nroSerie" path="serie.nroSerie"
+															 />
 													</div>
 												</div>
 											</div>
-												<div class="form-group col-md-3 mb-2">
+											<div class="form-group col-md-3 mb-1">
+												<label for="exampleInputName" class="label_control">N°
+													DOCUMENTO VENTA <span class="required">*</span>
+												</label>
+												<div class="position-relative has-icon-left">
+													<input id="contextPath" type="hidden"
+														value="${pageContext.request.contextPath}">
+													<div class="controls">
+														<f:input type="text" class="form-control"
+															required="required" maxlength="12"
+															id="idVenta" path="persona.nroDocumento" />
+													</div>
+												</div>
+											</div>										
+											<div class="form-group col-md-2 mb-2">
 												<label for="situacion" class="label_control">PERIODO<span class="required">*</span>
 												</label>
 												<div class="controls"> 
-													<f:select id="tipoDocumentoPaciente"
-														path="persona.tipoDocumento.idRegistro"
+													<f:select id="numeroPeriodo"
+														path="numeroPeriodo"
 														required="required" class="form-control"
-														onchange="limpiarPorTipo()">
-														<f:option value="" label="2019" selected="true"
-															disabled="disabled" />
+														onchange="limpiarPorTipo()"> 
 														<f:options items="${lstPeriodo}"
 															itemValue="idRegistro" itemLabel="descripcionCorta" />
 													</f:select>
 												</div>
 											</div> 
+											<div class="form-group col-md-2"
+													style="margin-top: 25px;">
+													<button id="btnBuscar" class="btn btn-success"
+													  		onclick="buscarDocumento()" type="submit">
+														<i class="fa fa-search"> </i> BUSCAR
+													</button> 
 											</div>
+										  </div>
 										</div>
-										<div class="label_title">DATOS DE LA BOLETA :</div>
+										<div class="label_title">DATOS DEL DOCUMENTO:</div>
 										
 										<div class="row">
-											<div class="form-group col-md-7 mb-1">
+											<div class="form-group col-md-5 mb-2">
 												<label for="nombreCompleto" class="label_control">NOMBRES Y APELLIDOS</label>
 												<div class="controls">
-													<f:input type="text" class="form-control"
-														required="required"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoPaterno" disabled="true"
-														path="persona.apellidoPaterno" />
+													<f:input type="text" class="form-control" 
+														id="personaNombres" disabled="true"
+														path="persona.nombreCompleto" />
 
 												</div>
 											</div> 
+											<div class="form-group col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">NRO. DOCUMENTO</label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														required="required" id="personaNroDocumento" disabled="true"
+														path="persona.nroDocumento" />
+
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">EPISODIO</label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														required="required" id="txtEpisodio" disabled="true"
+														path="episodio.codigo" />
+
+												</div>
+											</div>
 										</div> 
+										<input type="hidden" id="txtIdVenta" />
+										<input type="hidden" id="txtNumeroPeriodo"/>
+										<input type="hidden" id="txtNumero"/>
 										<div class="row">
-										<div class="form-group col-md-3 mb-1">
-												<label for="nombreCompleto" class="label_control">USUARIO EMITIO </label>
+											<div class="form-group col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">TIPO SEGURO </label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
 														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoMaterno" disabled="true"
+														id="txtTipoSeguro" disabled="true"
 														path="persona.apellidoMaterno" />
 
 												</div>
 											</div>
-											<div class="form-group col-md-4 mb-1">
+											<div class="form-group col-md-3 mb-1">
 												<label for="nombreCompleto" class="label_control">FECHA Y HORA EMISION </label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
 														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoMaterno" disabled="true"
+														id="txtFechaEmision" disabled="true"
 														path="persona.apellidoMaterno" />
-
+												</div>
+											</div>
+											<div class="form-group col-md- mb-1">
+												<label for="nombreCompleto" class="label_control">MONTO </label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														id="txtMonto" disabled="true"
+														path="importe" />
+												</div>
+											</div>
+										<div class="form-group col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">USUARIO EMITIO </label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														onkeyup="javascript:this.value=this.value.toUpperCase();"
+														id="txtUsuarioEmitio" disabled="true"
+														path="persona.apellidoMaterno" />
 												</div>
 											</div>
 										</div>	
 										<div class="row">
-											<div class="form-group col-md-7 text-right"
+											<div class="form-group col-md-9 text-right"
 												style="margin-top: 15px;">
 												<a href="${pageContext.request.contextPath}/ventaController/listado"
 												 class="btn btn-secondary "> <i class="fa fa-step-backward"></i>
@@ -164,7 +218,7 @@ font-size: 13px;
 												</a>
 
 
-												<button type="submit" onclick="grabar()"
+												<button type="submit" onclick="confirmar_eliminar()"
 													class="btn btn-danger">
 													<i class="fa fa-level-down-alt"></i> ANULAR
 												</button>
@@ -277,17 +331,7 @@ font-size: 13px;
 		
 
 	</script>
-
-
-
-
-	<div class="modal fade text-xs-left" id="modalPersona" tabindex="-2"
-		role="dialog" aria-labelledby="myModalLabel35" data-dismiss="modal"
-		aria-hidden="true" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content" id="modalPersonaContent"></div>
-		</div>
-	</div>
 </body>
-
+<jsp:include
+			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
 </html>

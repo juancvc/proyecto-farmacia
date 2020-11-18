@@ -118,14 +118,11 @@ public class PersonaDAOImpl implements PersonaDAO {
 		List<PersonaBean> lstPersonaBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorFiltros");   
-			spq.setParameter("FECDESDE", personaBean.getFechaDesde()); 
-			spq.setParameter("FECHASTA", personaBean.getFechaHasta());
+			spq.setParameter("nroDocumento", personaBean.getNroDocumento());
 			 if (spq.execute()) {
 				 lstPersona =  spq.getResultList(); 
 			 }
-			 System.out.println("pasa 33");
 			if (lstPersona != null && lstPersona.size() > 0) {
-				System.out.println("pasa 0");
 				lstPersonaBean = deListaObjetoAListaObjetoBean(lstPersona);
 			 }
 			

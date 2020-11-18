@@ -37,13 +37,12 @@ import javax.persistence.Table;
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="personal.findByLikeObjectVO", 
-						procedureName="SP_PERSONAL_BUSCAR_X_CRITERIOS",
+						name="personal.buscarxCriterios", 
+						procedureName="usp_Personal_buscarxCriterios",
 						resultClasses= Personal.class,
-						parameters={
-									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="APELLIDO_PATERNO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="PRIMER_NOMBRE", type=String.class)
+						parameters={ 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="apellidoPaterno", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombres", type=String.class)
 							}	
 				),
 				@NamedStoredProcedureQuery(
@@ -103,15 +102,60 @@ public class Personal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID_PERSONAL")
+	@Column(name="idPersonal")
 	private String idPersonal;
 	 
-	@Column(name="ID_PERSONA")
+	@Column(name="idPersona")
 	private String idPersona;
 
- 
+	private String apellidoPaterno;
+
+	private String apellidoMaterno;
+
+	private String nombres;
+	
 		
 	public Personal() { 
+	}
+
+	public String getIdPersonal() {
+		return idPersonal;
+	}
+
+	public void setIdPersonal(String idPersonal) {
+		this.idPersonal = idPersonal;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
   

@@ -15,28 +15,50 @@ import javax.persistence.Table;
 @NamedStoredProcedureQueries(
 		{
 				@NamedStoredProcedureQuery(
-						name="pedidoItem.insert", 
-						procedureName="PKG_PEDIDO.SP_INSERTAR_ITEM",
+						name="ventaItem.buscarPorCriterios", 
+						procedureName="[dbo].[usp_Venta_listaVentaItemxIdVenta]",
+						resultClasses= VentaItem.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="P_ID_PEDIDO_ITEM", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_ID_PEDIDO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_ID_ARTICULO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_CANTIDAD", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_PRECIO", type=Double.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_IMPORTE", type=Double.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_ID_STOCK", type=Double.class)
+								    @StoredProcedureParameter(mode=ParameterMode.IN,  name="idVenta",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroPeriodo", type=String.class)
+							}					
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="ventaItem.buscarPorEpisodio", 
+						procedureName="[dbo].usp_Venta_listarPorIdEpisodio",
+						resultClasses= VentaItem.class,
+						parameters={
+								    @StoredProcedureParameter(mode=ParameterMode.IN,  name="idEpisodio", type=String.class)
+							}					
+				),
+				
+				@NamedStoredProcedureQuery(
+						name="ventaItem.listarConsumoPaciente", 
+						procedureName="[dbo].usp_Venta_listarConsumoPaciente",
+						resultClasses= VentaItem.class,
+						parameters={
+								    @StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", type=String.class)
 							}					
 				) 
 		}
 	)
-@Entity
-@Table(name="VentaItem")
+
+@Entity 
 public class VentaItem implements Serializable {
 	private static final long serialVersionUID = 1L;
  
 	@EmbeddedId
 	private VentaItemPK id;
 
+	private String idVenta;
+	
+	private String idPersona;
+	
+	private String nombreArticulo;
+	
+	private String descripcionCortaPresentacion;
+	
 	private boolean activo;
 
 	private int cantidad;
@@ -72,10 +94,93 @@ public class VentaItem implements Serializable {
 	private String usuarioRegistro;
 	
 	private int restoStockSolicitado;
+	 
+	private String idEpisodio;
+	
+	private Timestamp fechaEmision;
+	
+	private String numero;
+	
+	private String idTipoSeguro;
+	
+	private String tipoSeguro;
 	
 	public VentaItem() { 
 	}
 
+	
+	public String getIdTipoSeguro() {
+		return idTipoSeguro;
+	}
+
+
+	public void setIdTipoSeguro(String idTipoSeguro) {
+		this.idTipoSeguro = idTipoSeguro;
+	}
+
+
+	public String getTipoSeguro() {
+		return tipoSeguro;
+	}
+
+
+	public void setTipoSeguro(String tipoSeguro) {
+		this.tipoSeguro = tipoSeguro;
+	}
+
+
+	public Timestamp getFechaEmision() {
+		return fechaEmision;
+	}
+
+
+	public void setFechaEmision(Timestamp fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+
+	public String getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+
+	public String getIdVenta() {
+		return idVenta;
+	}
+
+	public void setIdVenta(String idVenta) {
+		this.idVenta = idVenta;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public String getNombreArticulo() {
+		return nombreArticulo;
+	}
+
+	public void setNombreArticulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
+	}
+
+	public String getDescripcionCortaPresentacion() {
+		return descripcionCortaPresentacion;
+	}
+
+	public void setDescripcionCortaPresentacion(String descripcionCortaPresentacion) {
+		this.descripcionCortaPresentacion = descripcionCortaPresentacion;
+	}
+ 
 	public VentaItemPK getId() {
 		return id;
 	}
@@ -226,6 +331,14 @@ public class VentaItem implements Serializable {
 
 	public void setRestoStockSolicitado(int restoStockSolicitado) {
 		this.restoStockSolicitado = restoStockSolicitado;
+	}
+
+	public String getIdEpisodio() {
+		return idEpisodio;
+	}
+
+	public void setIdEpisodio(String idEpisodio) {
+		this.idEpisodio = idEpisodio;
 	}
 
 }

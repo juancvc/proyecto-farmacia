@@ -1,5 +1,6 @@
 package proyect.core.repository.implementacion.venta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,8 +9,15 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ibm.icu.text.DecimalFormat;
+
 import proyect.base.repository.DAOException;
+import proyect.core.bean.stock.ArticuloBean;
 import proyect.core.bean.venta.VentaBean;
+import proyect.core.bean.venta.VentaItemBean;
+import proyect.core.entity.stock.Articulo;
+import proyect.core.entity.venta.Venta;
+import proyect.core.entity.venta.VentaItem;
 import proyect.core.repository.interfaces.venta.VentaDAO;
 import proyect.web.utilitarios.VO;
 
@@ -53,33 +61,10 @@ public class VentaDAOImpl implements VentaDAO{
 			spq.setParameter("tipoMoneda", venta.getTipoMoneda().getIdRegistro());
 			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());
 			spq.setParameter("ipRegistro", venta.getIpRegistro()); 
-			
-		//	spq.setParameter("ID_TIPO_MONEDA", venta.getIdTipoMoneda());
-			
-		/*	spq.setParameter("TIPO", venta.getTipo());
-			spq.setParameter("ID_ORGANIZACION_RECETA", venta.getReceta().getId().getIdOrganizacionReceta());
-			spq.setParameter("ID_INSTITUCION_RECETA", venta.getReceta().getId().getIdInstitucionReceta());
-			spq.setParameter("ID_SEDE_RECETA", venta.getReceta().getId().getIdSedeReceta());
-			spq.setParameter("NRO_VERSION_RECETA", venta.getReceta().getId().getNroVersionReceta());
-			spq.setParameter("NRO_PERIODO_RECETA", venta.getReceta().getId().getNroPeriodoReceta());
-			spq.setParameter("ID_RECETA", venta.getReceta().getId().getIdReceta());
-			spq.setParameter("TIPO_PACIENTE", venta.getTipoPaciente());
-			spq.setParameter("SW_EXOGERADO",venta.getReceta().getSwExonerado());
-			//spq.setParameter("NRO_PERIODO", venta.getNroPerido());
-			
-			spq.setParameter("NRO_PERIODO_PREESCRIPTOR",venta.getNroPeriodoPreescriptor());
-			spq.setParameter("ID_PREESCRIPTOR",venta.getIdPreescriptor());
-			spq.setParameter("NRO_RECETA",venta.getNroRecetaVenta());
-			spq.setParameter("COD_DIAGNOSTICO",venta.getCodDiagnostico());
-			spq.setParameter("NRO_PERIODO_RESPONSABLE",venta.getNroPeriodoResponsable());
-			spq.setParameter("ID_RESPONSABLE",venta.getIdResponsable());
-			spq.setParameter("TIPO_VENTA",venta.getTipoVenta());
-			spq.setParameter("CADENA_FALTANTE",venta.getCadenaStockFaltante());
-			
-			spq.setParameter("ID_PROGRAMA",venta.getIdPrograma());
-			spq.setParameter("ID_SUB_PROGRAMA",venta.getIdSubPrograma());
-			spq.setParameter("TIPOPACIENTEHOSPITALIZADO",venta.getTipoPacienteHospitalizado());
-			*/
+			spq.setParameter("fechaEmision", venta.getSfechaEmision());
+			spq.setParameter("idTipoComprobanteCat02", venta.getTipoComprobante().getIdRegistro());
+			spq.setParameter("idTipoOperacionCat02", venta.getTipoOperacion().getIdRegistro());
+			spq.setParameter("nroSerie", venta.getSerie().getNroSerie());
 			spq.execute(); 
 			valida = spq.getOutputParameterValue(1);
 			nombreArticulo = spq.getOutputParameterValue(2);
@@ -140,8 +125,25 @@ public class VentaDAOImpl implements VentaDAO{
 
 	@Override
 	public boolean anularVenta(VentaBean venta) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean sw=true;
+		try {
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.anular");
+			
+			spq.setParameter("idVenta",    		venta.getCodigo());
+			spq.setParameter("numeroPeriodo", 	venta.getNumeroPeriodo());
+			spq.setParameter("numeroDocu", 	   	venta.getNumero());
+			spq.setParameter("ipRegistro", 	   	venta.getIpRegistro());
+			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());	
+	
+			spq.execute();
+			
+			em.close();
+			
+		} catch (Exception e) {
+			sw=false;
+			throw new DAOException(e);
+		}
+		return sw;
 	}
 
 	@Override
@@ -173,7 +175,130 @@ public class VentaDAOImpl implements VentaDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<VentaBean> listarVentasDiarias(VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		List<VentaBean> lstVentaBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.listarVentaDiaria"); 
+			spq.setParameter("idAlmacen", 	      venta.getAlmacen().getCodigo());  	
+			spq.setParameter("fechaEmisionDesde", venta.getFechaEmisionDesde());  			
+			spq.setParameter("fechaEmisionHasta", venta.getFechaEmisionHasta());  	
+			 if (spq.execute()) {
+				 lstVenta =  spq.getResultList(); 
+			 }		 
+			if (lstVenta != null && lstVenta.size() > 0) {
+				System.out.println("lstVenta.size() " + lstVenta.size());
+				lstVentaBean = deListaObjetoAListaObjetoBean(lstVenta);
+			 }
+			
+			em.close();
+				   
+		return lstVentaBean;
+	}
  
-  
- 
+	private List<VentaBean> deListaObjetoAListaObjetoBean(List<Venta> lstVenta) {
+		
+		List<VentaBean> lstVentaBean = null;
+		
+		if (lstVenta != null && lstVenta.size() > 0) {
+			
+		lstVentaBean = new ArrayList<VentaBean>();
+			
+		for (int i = 0; i < lstVenta.size(); i++) { 
+			Venta entity = lstVenta.get(i);
+		VentaBean bean = deObjetoAObjetoBean(entity);
+				
+		lstVentaBean.add(bean);
+		}
+		}	
+		return lstVentaBean;
+	}
+	
+	private VentaBean deObjetoAObjetoBean(Venta entity) {
+		
+		VentaBean bean = null; 
+		if (entity != null) {
+			
+			bean = new VentaBean();
+			bean.setCodigo(entity.getId().getIdVenta());   
+			bean.setNumeroPeriodo(entity.getId().getNumeroPeriodo());
+			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
+			bean.getAlmacen().setNombreAlmacen(entity.getNombreAlmacen());
+			bean.getPersona().setCodigo(entity.getIdPersona());
+			bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
+			bean.getPersona().setApellidoMaterno(entity.getApellidoMaterno());
+			bean.getPersona().setNombres(entity.getNombres());
+			bean.getPersona().setNroDocumento(entity.getNroDocumento());
+			bean.setImporte(entity.getImporte());   
+			bean.setFechaEmision(entity.getFechaEmision());
+			bean.getTipoFinanciador().setIdRegistro(entity.getIdTipoSeguro());
+			bean.getTipoFinanciador().setDescripcionCorta(entity.getTipoSeguro());
+			bean.setNumero(entity.getNombreBoleta());
+			bean.setsImporte((getTwoDecimals(entity.getImporte()).replace(",", ".")));
+			bean.setHora(entity.getHora());
+			bean.setUsuarioRegistro(entity.getUsuarioRegistro());
+			bean.setNumero(entity.getNumero());
+			bean.setMontoLetras(entity.getMontoLetra());
+			bean.getEpisodio().setCodigo(entity.getIdEpisodio());
+			bean.getSerie().setNroSerie(entity.getNroSerie());
+	 	}
+		
+		return bean;
+	}
+	
+	private static String getTwoDecimals(double value){
+	      DecimalFormat df = new DecimalFormat("0.00"); 
+	      return df.format(value);
+	    }
+
+	@Override
+	public String cantidadConLetra(float monto) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<VentaBean> listarPacientes(VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		List<VentaBean> lstVentaBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.listarPacientes"); 
+			spq.setParameter("idSituacion", venta.getSituacion().getIdRegistro()); 	
+			 if (spq.execute()) {
+				 lstVenta =  spq.getResultList(); 
+			 }		 
+			if (lstVenta != null && lstVenta.size() > 0) {
+				lstVentaBean = deListaObjetoAListaObjetoBean(lstVenta);
+			 }
+			
+			em.close();
+				   
+		return lstVentaBean;
+	}
+
+	@Override
+	public VentaBean buscarPorNroDocumento(VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		VentaBean lstVentaBean = null;
+				StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.buscarPorNroDocumento");  
+				spq.setParameter("nroSerie", venta.getSerie().getNroSerie()); 
+				spq.setParameter("idVenta", venta.getCodigo()); 
+				spq.setParameter("numeroPeriodo", venta.getNumeroPeriodo()); 
+				
+				 if (spq.execute()) {
+					 lstVenta =  spq.getResultList(); 
+				 }
+				 
+				if (lstVenta != null && lstVenta.size() > 0) {
+					lstVentaBean = deObjetoAObjetoBean(lstVenta.get(0));
+				 }
+				
+				em.close();
+				
+			   
+			return lstVentaBean;
+	}
+	
 }

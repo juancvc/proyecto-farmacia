@@ -3,6 +3,7 @@ package proyect.core.bean.inventario;
 import java.util.Date;
 import proyect.base.bean.BaseBean;
 import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.stock.StockBean;
 
@@ -12,7 +13,8 @@ public class InventarioBean  extends BaseBean{
 	private PersonaBean personalResponsable;
 	private Date fecha;
 	private String nroDocumento;
-	private int nroMes;
+	private CatalogoBean mes;
+	private CatalogoBean periodo;
 	private int cantidadItems;
 	private String cadenaCantidad;
 	private String cadenaIdStock;
@@ -40,15 +42,18 @@ public class InventarioBean  extends BaseBean{
 	public void setNroDocumento(String nroDocumento) {
 		this.nroDocumento = nroDocumento;
 	}
-	public int getNroMes() {
-		return nroMes;
+	public CatalogoBean getMes() {
+		return mes;
 	}
-	public void setNroMes(int nroMes) {
-		this.nroMes = nroMes;
+	public void setMes(CatalogoBean mes) {
+		this.mes = mes;
 	}
-	
-	
-	
+	public CatalogoBean getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(CatalogoBean periodo) {
+		this.periodo = periodo;
+	}
 	public int getCantidadItems() {
 		return cantidadItems;
 	}
@@ -70,7 +75,7 @@ public class InventarioBean  extends BaseBean{
 	@Override
 	public String toString() {
 		return "InventarioBean [almacen=" + almacen + ", personalResponsable=" + personalResponsable 
-				+", fecha=" + fecha + ", nroDocumento=" + nroDocumento + ", nroMes=" + nroMes + "]";
+				+", fecha=" + fecha + ", nroDocumento=" + nroDocumento + "]";
 	}
 	
 	

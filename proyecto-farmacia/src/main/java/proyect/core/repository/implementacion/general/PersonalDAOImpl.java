@@ -142,8 +142,9 @@ public class PersonalDAOImpl implements PersonalDAO {
 		List<Personal> lstPersonal = null;	
 		List<PersonalBean> lstPersonalBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Personal.buscar_por_filtros");
-			spq.setParameter("p_codpersonal", personal.getCodigo());   
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("personal.buscarxCriterios");
+			spq.setParameter("apellidoPaterno", personal.getPersona().getApellidoPaterno());   
+			spq.setParameter("nombres", personal.getPersona().getNombres());   
 			if (spq.execute()) {
 				lstPersonal =  spq.getResultList(); 
 			} 
@@ -185,38 +186,13 @@ private PersonalBean dePersonalAPersonalBean(Personal entity) {
 	if (entity != null) {
 		
 		bean = new PersonalBean();
-	/**	
-		bean.setCodigo(entity.getnCodPersonal()); 
-		bean.getSituacionPersonal().setCodigoRegistro(entity.getnTm1SitPer());
-		bean.getCargoPersonal().setCodigoRegistro(entity.getnTm2Cargo());
-		bean.getGradoPersonal().setCodigoRegistro(entity.getnTm2Grado());
-//		bean.setNombre(entity.getVNomPersonal()); 
-		
-		bean.getPersonaBean().setCodigo(entity.getnCodPersona());
-		bean.getPersonaBean().setNombrePersona(entity.getvNombrePer());
-		bean.getPersonaBean().setApellidoPaterno(entity.getvApePatPer());
-		bean.getPersonaBean().setApellidoMaterno(entity.getvApeMatPer());
-		bean.getPersonaBean().getTipoDocumento().setCodigoRegistro(entity.getnTm1TpDoPe());
-		bean.getPersonaBean().setNumeroDocumento(entity.getvNumDocum());
-		bean.getPersonaBean().getTipoPersona().setCodigoRegistro(entity.getnTm1TipPer());
-		bean.getPersonaBean().setCodigoUbigeo(entity.getvCodUbigeo());
-		bean.getPersonaBean().setDireccionPersona(entity.getvDirecPers());
-		bean.getPersonaBean().getSituacionPersona().setCodigoRegistro(entity.getnTm1SitPersona());
-		bean.getPersonaBean().setFechaNac(entity.getdFechNacim());
-		bean.getPersonaBean().getNacionalidad().setCodigoRegistro(entity.getnTm2Pais());
-		bean.getPersonaBean().getEstadoCivil().setCodigoRegistro(entity.getnTm2EstCiv());
-		bean.getPersonaBean().getSexo().setCodigoRegistro(entity.getnTm2Sexo());
-		bean.getPersonaBean().getLenguaBean().setCodigo(entity.getvCodLengua());
-		bean.getPersonaBean().setTelefono(entity.getvTelefono());
-		bean.getPersonaBean().setCorreo(entity.getvCorreo());
-		bean.getPersonaBean().getTipoPersona().setNombreCorto(entity.getvNomPerfil());
-		bean.getSituacionPersonal().setNombreCorto(entity.getvNombreTm1SitPer());
-		
-		if (entity.getvCodUbigeo() != null) {
-			bean.getPersonaBean().getUbigeoBean().setCodigoRegion(""+entity.getvCodUbigeo().charAt(0)+entity.getvCodUbigeo().charAt(1));
-			bean.getPersonaBean().getUbigeoBean().setCodigoProvincia(""+entity.getvCodUbigeo().charAt(2)+entity.getvCodUbigeo().charAt(3));
-			bean.getPersonaBean().getUbigeoBean().setCodigoDistrito(""+entity.getvCodUbigeo().charAt(4)+entity.getvCodUbigeo().charAt(5));
-		}*/
+	 	
+		bean.setCodigo(entity.getIdPersonal()); 
+		bean.getPersona().setCodigo(entity.getIdPersona());
+		bean.getPersona().setNombres(entity.getNombres());
+		bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
+		bean.getPersona().setApellidoMaterno(entity.getApellidoMaterno()); 
+	 
 	}
 	
 	return bean;

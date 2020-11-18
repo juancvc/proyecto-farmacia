@@ -133,10 +133,11 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		List<Usuario> lstEntity = null;
 		
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.listar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.buscarPorCriterios");
 			
-			spq.setParameter("NOMUSUAR", t.getNombreUsuario());
-			spq.setParameter("CODIPERF", t.getPerfil().getCodigo()); 
+			spq.setParameter("usuario", t.getNombreUsuario());
+			spq.setParameter("nombre", t.getNombreUsuario());
+			spq.setParameter("idPerfil", t.getPerfil().getCodigo()); 
 			if (spq.execute()) {
 				lstEntity = spq.getResultList();			
 			}
@@ -204,15 +205,15 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.setCodigoUsuario(entity.getIdUsuario()); 
 			bean.setNombreUsuario(entity.getUsuario());
 			bean.setPasswordUsuario(entity.getClave()); 
-			bean.setActivo(entity.getFglgest());
-			bean.setFlgRestPass(entity.getvFlgrestpas());
+			bean.setActivo(entity.getFglgest()); 
 			bean.setPersona(new PersonaBean()); 
 			bean.getPersona().setCodigo(entity.getIdPersona()); 
 			bean.getPersona().setApellidoMaterno(entity.getApellidoMaterno());
 			bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
 			bean.getPersona().setNombres(entity.getNombres()); 
-			bean.setFlgRestPass(entity.getvFlgrestpas()); 
-			
+			bean.setFlgRestPass(entity.getFlgResetClave()); 
+			bean.getPerfil().setCodigo(entity.getIdPerfil());
+			bean.getPerfil().setNombrePerfil(entity.getNombrePerfil());
 		}
 		return bean;
 	}

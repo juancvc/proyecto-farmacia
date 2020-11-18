@@ -27,15 +27,21 @@
 
 <!-- Custom styles for this template-->
 
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/app-assets/vendors/css/extensions/toastr.css">
-	
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js">
+		
 <link
 	href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/app-assets/css/estilos.css"
 	rel="stylesheet">
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/assets/css/datepicker.css">	
 <!-- Custom styles for this page -->
  
 </head>
@@ -44,7 +50,7 @@
 <style>
 
 body {
-/*font-family: Cambria;*/
+font-family: Cambria;
 font-size: 13px;  
 }
 
@@ -112,6 +118,41 @@ input[type=text] {
 	background-color: DodgerBlue !important;
 	color: #ffffff;
 }
+/*the container must be positioned relative:*/
+.autocompletePac {
+	/*position: relative;*/
+	display: inline-block;
+}
+.autocompletePac-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.autocompletePac-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocompletePac-items div:hover {
+	background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocompletePac-active {
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+
 </style>
 <body id="page-top">
 
@@ -149,103 +190,92 @@ input[type=text] {
 							<div class="collapse show" id="collapseCardExample">
 								<div class="card-body">
 									<div class="form-group">
-										<div class="label_title">DATOS DEL PACIENTE :</div>
 										<div class="row">
-											<div class="form-group col-md-3 mb-2">
+										<div class="form-group col-md-2 mb-1">
 												<label for="situacion" class="label_control">TIPO
-													DOCUMENTO <span class="required">*</span>
+													COMPROBANTE<span class="required">*</span>
 												</label>
 												<div class="controls">
-													<f:select id="tipoDocumentoPaciente"
-														path="persona.tipoDocumento.idRegistro"
-														required="required" class="form-control"
-														onchange="limpiarPorTipo()">
-														<f:options items="${lstTipoDocumento}"
+													<f:select id="cboTipoComprobante"
+														path="tipoComprobante.idRegistro"
+														onchange="cambiarTipoComprobante()"
+														required="required" class="form-control"> 
+														<f:options items="${lstTipoComprobante}"
 															itemValue="idRegistro" itemLabel="descripcionCorta" />
 													</f:select>
 												</div>
 											</div>
-											<div class="form-group col-md-3 mb-1">
-												<label for="exampleInputName" class="label_control">N°
-													DOCUMENTO <span class="required">*</span>
+											<div class="form-group col-md-2 mb-1">
+												<label for="situacion" class="label_control">SERIE<span class="required">*</span>
 												</label>
-												<div class="position-relative has-icon-left">
-													<input id="contextPath" type="hidden"
-														value="${pageContext.request.contextPath}">
-													<div class="controls">
-														<f:input type="text" class="form-control"
-															required="required" maxlength="12"
-															id="nroDocumentoPaciente" path="persona.nroDocumento"
-															onkeypress="return runScript(event)" />
-													</div>
+												<div class="controls">
+													<f:select id="cboSerie"
+														path="serie.nroSerie"
+														required="required" class="form-control"> 
+														<f:options items="${lstSerie}"
+															itemValue="nroSerie" itemLabel="nroSerie" />
+													</f:select>
 												</div>
 											</div>
-											<div class="col-md-3">
+											<div class="form-group col-md-4 mb-2">
+												<label for="situacion" class="label_control">PACIENTE <span class="required">*</span>
+												<a href="#" onclick="cargarPersonaModal()">[+ Nuevo]</a>
+												</label>
+													<div class="controls">
+														<div class="autocompletePac" style="width: 100%;">
+															<input type="text" value="" placeholder="Buscar..."
+																class="form-control"  autocomplete="off" 
+																id="txtPacienteNombre" name="txtPacienteNombre" />
+														</div>
+													</div>
+													<f:input type="hidden" class="form-control" id="personaCodigo"
+														path="persona.codigo" />
+												</div>
+											<div class="form-group col-md-2 mb-1">
+												<label for="situacion" class="label_control">TIPO OPERACION<span class="required">*</span>
+												</label>
+												<div class="controls">
+													<f:select id="cboTipoOperacion"
+														path="tipoOperacion.idRegistro"
+														required="required" class="form-control"> 
+														<f:options items="${lstTipoOperacion}"
+															itemValue="idRegistro" itemLabel="descripcionCorta" />
+													</f:select>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-2">
+												<label for="nombreCompleto" class="label_control">ALMACEN </label>
+												<div class="controls">
+													<f:input type="text" class="form-control" disabled="true"
+														id="txtAlias" path="almacen.nombreAlmacen" maxlength="35" />
+												</div>
+											</div>
+											<!-- <div class="col-md-3">
 												<button id="idBtnCargarPaciente" type="button"
 													style="margin-top: 30px;" onclick="buscarPersonaNroDoc()"
 													class="form-control btn btn-outline-success">
 													<i class="fa fa-search"></i> BUSCAR
 												</button>
-											</div>
-											<div class="col-md-3">
-												<button id="idBtnCargarPaciente" type="button"
-													<c:choose>
-									<c:when test="${ordenBean.codigo==null || ordenBean.codigo==''}"> 
-									</c:when>
-									<c:otherwise>
-										disabled ="true"
-									</c:otherwise>
-								</c:choose>
-													style="margin-top: 30px;" onclick="cargarPersonaModal()"
-													class="form-control btn btn-outline-info">
-													<i class="fa fa-plus"></i> NUEVO
-												</button>
-											</div>
+											</div> -->
 										</div>
 										<div class="row">
-											<div class="form-group col-md-3 mb-1">
-												<label for="nombreCompleto" class="label_control">APELLIDO
-													PATERNO </label>
+											<div class="form-group col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">FECHA EMISION <span class="required">*</span></label>
 												<div class="controls">
-													<f:input type="text" class="form-control"
-														required="required"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoPaterno" disabled="true"
-														path="persona.apellidoPaterno" />
+													<f:input class="form-control" id="date" name="date" maxlength="10" 
+														required="required" placeholder="DD/MM/YYYY" type="text"
+														path="sfechaEmision" onkeyup="this.value=formateafechaNacimiento(this.value);"/> 
 
 												</div>
 											</div>
-											<div class="form-group col-md-3 mb-1">
-												<label for="nombreCompleto" class="label_control">APELLIDO
-													MATERNO </label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaApellidoMaterno" disabled="true"
-														path="persona.apellidoMaterno" />
-
-												</div>
-											</div>
-											<div class="form-group col-md-3 mb-1">
-												<label for="nombreCompleto" class="label_control">NOMBRES
-												</label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														required="required"
-														onkeyup="javascript:this.value=this.value.toUpperCase();"
-														id="personaNombres" disabled="true"
-														path="persona.nombres" />
-
-												</div>
-											</div>
-											<div class="form-group col-md-3 mb-1">
+											 
+											<div class="form-group col-md-2 mb-1">
 												<label for="situacion" class="label_control">TIPO
 													FINANCIAMIENTO<span class="required">*</span>
 												</label>
 												<div class="controls">
 													<f:select id="cboTipoFinanciador"
-														path="tipoFinanciador"
-														onchange="cambiarFinanciamiento()"
+														path="tipoFinanciador.idRegistro" 
 														required="required" class="form-control">
 														<f:option value="" label="Seleccionar" selected="true"
 															disabled="disabled" />
@@ -272,8 +302,6 @@ input[type=text] {
 																onkeypress="return runIngresarExamen(event)"
 																id="txtArticuloNombre" name="txtArticuloNombre" />
 														</div>
-
-
 													</div>
 												</div>
 												<div class="col-md-4 mb-3" style="margin-top: 30px;">
@@ -297,7 +325,7 @@ input[type=text] {
 																	<th>PRESENTACION</th>
 																	<th>STOCK</th>
 																	<th width="50">CANTIDAD</th>
-																	<th width="50">FALTANTE</th>
+																	<th width="50">SISMED</th>
 																	<th>PRECIO UNITARIO</th>
 																	<th>IMPORTE</th>
 																	<th>ACCION</th>
@@ -311,6 +339,7 @@ input[type=text] {
 																		<td>${orden.examen.descripcion}</td>
 																		<td>${orden.examen.tipo.descripcionCorta}</td>
 																		<td>${orden.cantidad}</td>
+																		<td>0</td>
 																		<td>${orden.examen.sPrecio}</td>
 																		<td>${orden.sImporte}</td>
 																		<c:choose>
@@ -355,7 +384,7 @@ input[type=text] {
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
 												<a href="${pageContext.request.contextPath}/ventaController/nuevo"
-												 class="btn btn-info"> <i class="fa fa-file"></i>
+												 class="btn btn-info" id="btnNuevo"> <i class="fa fa-file"></i>
 													<span class="text">NUEVO</span>
 												</a>
 
@@ -364,6 +393,17 @@ input[type=text] {
 													class="btn btn-primary">
 													<i class="fa fa-save"></i> GUARDAR
 												</button>
+												<!--
+												<button type="submit" onclick="imprimirIndividual()"
+													class="btn btn-primary">
+													<i class="fa fa-save"></i> IMPRIME
+												</button>
+												
+												<a id="idDescargarPDF" class="btn btn-outline-secondary  mt-2"  
+												target="_Blank" href="<c:url value='/ventaController/descargarPDF'/>">
+												<i class="fa fa-file-pdf-o"></i> Descargar PDF</a></br>
+												  -->
+													
 											</div>
 										</div>
 									</div>
@@ -465,7 +505,23 @@ input[type=text] {
 		<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
 			type="text/javascript"></script>
 			
-			
+	<script>
+		$(document).ready(
+				function() {
+					var date_input = $('input[id="date"]'); //our date input has the name "date"
+					var container = $('.bootstrap-iso form').length > 0 ? $(
+							'.bootstrap-iso form').parent() : "body";
+					date_input.datepicker({
+						format : 'dd/mm/yyyy',
+						container : container,
+						todayHighlight : true,
+						autoclose : true,
+						language : 'es'
+
+					})
+				})
+	</script>
+  		
 			
 	<script>
 		document.getElementById('navVentas').className = "nav-item active";
@@ -495,7 +551,9 @@ input[type=text] {
 				} 
 			}
 		}
-
+		function runIngresarPaciente(e) {
+			cargarPersona();
+		}
 		function enviarIndex() { 
 			var index = $('#txtIndexArticulo').val();
 			var examenNombre = $('#txtExamenNombre').val();
@@ -508,6 +566,106 @@ input[type=text] {
 	</script>
 
 <script>
+function autocompletePac(inp, arr) {
+	/*the autocomplete function takes two arguments,
+	the text field element and an array of possible autocompleted values:*/
+	var currentFocus;
+	var codigoRegistro;
+	/*execute a function when someone writes in the text field:*/
+	inp
+			.addEventListener(
+					"input",
+					function(e) {
+						var a, b, i, val = this.value;
+						closeAllLists();
+						if (!val) {
+							return false;
+						}
+						currentFocus = -1;
+						a = document.createElement("DIV");
+						a.setAttribute("id", this.id
+								+ "autocompletePac-list");
+						a.setAttribute("class", "autocompletePac-items");
+						this.parentNode.appendChild(a);
+						/*for each item in the array...*/
+						for (i = 0; i < arr.length; i++) {
+							if ( arr[i].nombre
+									.toUpperCase().includes(val.toUpperCase()) ) { 
+								b = document.createElement("DIV");
+								b.innerHTML = "<strong>"
+										+ arr[i].nombre.substr(0, val.length)
+										+ "</strong>";
+								b.innerHTML += arr[i].nombre
+										.substr(val.length);
+								b.innerHTML += "<input type='hidden' id='" + arr[i].codigo + "' value='" + arr[i].nombre + "'>"; 
+								b
+										.addEventListener(
+												"click",
+												function(e) {
+													 
+												
+													console.log("codigo persona::" +(this
+															.getElementsByTagName("input")[0].id));	
+															
+													inp.value = this
+															.getElementsByTagName("input")[0].value;
+													
+													$("#personaCodigo").val(this
+															.getElementsByTagName("input")[0].id);
+													cargarPersona();
+													closeAllLists();
+												});
+								a.appendChild(b);
+							}
+						}
+					});
+	inp.addEventListener("keydown", function(e) {
+		var x = document.getElementById(this.id + "autocompletePac-list");
+		if (x)
+			x = x.getElementsByTagName("div");
+		if (e.keyCode == 40) {
+			currentFocus++;
+			addActive(x);
+		} else if (e.keyCode == 38) { //up
+			addActive(x);
+		} else if (e.keyCode == 13) {
+			e.preventDefault();
+			if (currentFocus > -1) {
+				if (x)
+					x[currentFocus].click();
+			}
+		}
+	});
+	function addActive(x) {
+		if (!x)
+			return false;
+		removeActive(x);
+		if (currentFocus >= x.length)
+			currentFocus = 0;
+		if (currentFocus < 0)
+			currentFocus = (x.length - 1);
+		x[currentFocus].classList.add("autocompletePac-active");
+	}
+	function removeActive(x) {
+		for (var i = 0; i < x.length; i++) {
+			x[i].classList.remove("autocompletePac-active");
+		}
+	}
+	function closeAllLists(elmnt) {
+		var x = document.getElementsByClassName("autocompletePac-items");
+		for (var i = 0; i < x.length; i++) {
+			if (elmnt != x[i] && elmnt != inp) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+		}
+	}
+	/*execute a function when someone clicks in the document:*/
+	document.addEventListener("click", function(e) {
+		closeAllLists(e.target);
+	});
+}
+
+
 		function autocomplete(inp, arr) {
 			/*the autocomplete function takes two arguments,
 			the text field element and an array of possible autocompleted values:*/
@@ -649,7 +807,7 @@ input[type=text] {
 		}
 		
 		var arrayMenus = [];
-		
+		var arrayPersonas = [];
 		
 		<c:forEach var="stock" items="${lstStocks}"
 			varStatus="loop">
@@ -658,7 +816,7 @@ input[type=text] {
 				nombre		: ""
 		  	}; 
 		objArticulo.codigo ='${loop.index}'; 
-		objArticulo.nombre ='${stock.articulo.nombre}'; 
+		objArticulo.nombre ='${stock.articulo.nombre} - LOTE:${stock.lote}'; 
 		  arrayMenus.push(objArticulo);
 		</c:forEach>
 		
@@ -667,9 +825,54 @@ input[type=text] {
 	
 		
 		var  listadoArticulo= []; 
+		
+		
+		
+		<c:forEach var="personas" items="${lstPersonas}"
+			varStatus="loop">
+		var objPersona= {
+				index: "",
+				codigo : "",
+				nombre		: ""
+		  	}; 
+		objPersona.index ='${loop.index}'; 
+		objPersona.codigo ='${personas.codigo}'; 
+		objPersona.nombre ='${personas.nroDocumento} - ${personas.nombreCompleto}'; 
+		arrayPersonas.push(objPersona);
+		</c:forEach>
+		
+		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+		autocompletePac(document.getElementById("txtPacienteNombre"), arrayPersonas);
+	
+		
+		var  listadoArticulo= []; 
 		</script>
 
-
+    <div class="modal fade text-xs-left" id="onshow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel21" aria-hidden="true">
+	      <div class="modal-dialog" role="document">
+		     <div class="modal-content">
+		       <div class="modal-header">
+		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <span aria-hidden="true">&times;</span>
+		      </button>
+		      <h4 class="modal-title" id="txt_confir_Vd">Titulo Nro Expediente</h4>
+		       </div>
+		       <div class="modal-body">
+			      <div class="row">
+		               <div id="dataInfoModal" class="form-group col-lg-12">
+		                </div> 
+		              
+		           </div>
+			      
+			      </div>
+		       <div class="modal-footer">
+		      <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+		     
+		       </div>
+		     </div>
+	      </div>
+    </div>
+   
 	<div class="modal fade text-xs-left" id="modalPersona" tabindex="-2"
 		role="dialog" aria-labelledby="myModalLabel35" data-dismiss="modal"
 		aria-hidden="true" aria-hidden="true">

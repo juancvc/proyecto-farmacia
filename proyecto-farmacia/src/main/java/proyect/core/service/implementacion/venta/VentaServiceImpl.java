@@ -135,6 +135,52 @@ public class VentaServiceImpl implements VentaService {
 	public List<VentaBean> listarAtencionesIME(VentaBean venta) throws ServiceException { 
 		return null;
 	}
+
+	@Override
+	public List<VentaBean> listarVentasDiarias(VentaBean venta) throws ServiceException {
+		List<VentaBean> lstVentaVO = null;
+		try {
+			lstVentaVO =  this.getVentaDAO().listarVentasDiarias(venta);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		return lstVentaVO;
+	}
+
+	@Override
+	public String cantidadConLetra(float monto) throws ServiceException {
+		String sw="";
+		try {
+			sw=this.getVentaDAO().cantidadConLetra(monto);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return sw;
+	}
+
+	@Override
+	public List<VentaBean> listarPacientes(VentaBean venta) throws ServiceException {
+		List<VentaBean> lstVentaVO = null;
+		try {
+			lstVentaVO =  this.getVentaDAO().listarPacientes(venta);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		return lstVentaVO;
+	}
+
+	@Override
+	public VentaBean buscarPorNroDocumento(VentaBean venta) throws ServiceException {
+		VentaBean oPedido=null;
+		try {
+			oPedido=this.getVentaDAO().buscarPorNroDocumento(venta);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return oPedido;
+	}
 }
 
 	

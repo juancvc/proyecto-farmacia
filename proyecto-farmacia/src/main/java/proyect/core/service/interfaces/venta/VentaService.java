@@ -12,11 +12,18 @@ public interface VentaService extends BaseService<VentaBean> {
 	
 	public boolean anularVenta(VentaBean venta)throws ServiceException; 
 	 
-	 
+	public String cantidadConLetra(float monto)throws ServiceException; 
+	
 	public boolean cierreVentaDiaria(VentaBean venta)throws ServiceException; 
 	
 	public List<VentaBean > listarVentasAnuladas(VentaBean venta)throws ServiceException; 
  
+	public List<VentaBean > listarVentasDiarias(VentaBean venta)throws ServiceException; 
 	
 	public List<VentaBean > listarAtencionesIME(VentaBean venta) throws ServiceException;
+	
+	public List<VentaBean > listarPacientes(VentaBean venta) throws ServiceException;
+	
+	public VentaBean  buscarPorNroDocumento(VentaBean venta) throws ServiceException;
+	
 }

@@ -10,6 +10,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import proyect.base.repository.DAOException;
+import proyect.core.bean.stock.ArticuloBean;
 import proyect.core.bean.stock.StockBean;
 import proyect.core.entity.stock.Stock;
 import proyect.core.repository.interfaces.stock.StockDAO;
@@ -145,6 +146,7 @@ public class StockDAOImpl implements StockDAO{
 			bean.setStock(entity.getStock());
 			bean.getArticulo().setCodigo(entity.getIdArticulo());
 			bean.getArticulo().setConcentracion(entity.getConcentracion());
+			bean.getArticulo().setCodigoSismed(entity.getCodigoSismed());;
 			bean.getArticulo().getTipoPresentacion().setDescripcionLarga(entity.getDescripcionLargaPresentacion());
 			bean.getArticulo().setNombre(entity.getNombreArticulo());
 			bean.setPrecioCompra(entity.getPrecioCompra());
@@ -180,5 +182,25 @@ private List<StockBean> deListaObjetoAListaObjetoBean(List<Stock> lstStock) {
 		}	
 		return lstStockBean;
 	}
+
+@Override
+public List<StockBean> listarPorIdArticulo(ArticuloBean articuloBean) throws DAOException {
+	List<Stock> lstStock = null;	
+	List<StockBean> lstStockBean = null;
+	
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("stock.buscarPorIdArticulo");   
+		spq.setParameter("idArticulo", 	   articuloBean.getCodigo());  			
+		 if (spq.execute()) {
+			 lstStock =  spq.getResultList(); 
+		 }		 
+		if (lstStock != null && lstStock.size() > 0) {
+			System.out.println("lstStock.size() " + lstStock.size());
+			lstStockBean = deListaObjetoAListaObjetoBean(lstStock);
+		 }
+		
+		em.close();
+			   
+	return lstStockBean;
+}
   
 }

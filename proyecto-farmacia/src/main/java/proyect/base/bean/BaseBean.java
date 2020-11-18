@@ -75,6 +75,9 @@ public class BaseBean {
 	}
 
 	public CatalogoBean getSituacion() {
+		if (situacion ==  null) {
+			situacion = new CatalogoBean();
+		}
 		return situacion;
 	}
 

@@ -8,17 +8,17 @@ public class VentaItemPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="numeroPeriodo")
-	private int numeroPeriodo;
+	private String numeroPeriodo;
 
-	@Column(name="idVentaitem")
+	@Column(name="idVentaItem")
 	private String idVentaitem;
  
 
-	public int getNumeroPeriodo() {
+	public String getNumeroPeriodo() {
 		return numeroPeriodo;
 	}
 
-	public void setNumeroPeriodo(int numeroPeriodo) {
+	public void setNumeroPeriodo(String numeroPeriodo) {
 		this.numeroPeriodo = numeroPeriodo;
 	}
 
@@ -48,7 +48,7 @@ public class VentaItemPK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.numeroPeriodo;
+		hash = hash * prime + this.numeroPeriodo.hashCode();
 		hash = hash * prime + this.idVentaitem.hashCode(); 
 		
 		return hash;

@@ -14,6 +14,7 @@ public class VentaItemBean extends BaseBean {
 	private float precio;
 	private float subtotal;
 	private String sImporte; 
+	private String sSubTotal; 
 	private int cantidadFaltante;
 	
 	
@@ -33,6 +34,9 @@ public class VentaItemBean extends BaseBean {
 		this.sImporte = sImporte;
 	}
 	public VentaBean getVenta() {
+		if (venta == null) {
+			venta = new VentaBean();
+		}
 		return venta;
 	}
 	public void setVenta(VentaBean venta) {
@@ -57,6 +61,9 @@ public class VentaItemBean extends BaseBean {
 		this.modalidadAdquicision = modalidadAdquicision;
 	}
 	public StockBean getStock() {
+		if (stock == null) {
+			stock = new StockBean();
+		}
 		return stock;
 	}
 	public void setStock(StockBean stock) {
@@ -73,6 +80,13 @@ public class VentaItemBean extends BaseBean {
 	}
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
+	}
+	
+	public String getsSubTotal() {
+		return sSubTotal;
+	}
+	public void setsSubTotal(String sSubTotal) {
+		this.sSubTotal = sSubTotal;
 	}
 	@Override
 	public String toString() {

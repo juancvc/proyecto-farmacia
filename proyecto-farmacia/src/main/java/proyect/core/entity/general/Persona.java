@@ -39,13 +39,11 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="persona.findByLikeObject", 
-						procedureName="PKG_PERSONA.SP_BUSCAR_X_CRITERIOS",
+						name="persona.buscarPorFiltros", 
+						procedureName="usp_Persona_buscarxCriterios",
 						resultClasses= Persona.class,
-						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="P_C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_APELLIDO_PATERNO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_PRIMER_NOMBRE", type=String.class)
+						parameters={ 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class)
 							}	
 				),
 				@NamedStoredProcedureQuery(

@@ -4,8 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -14,236 +16,287 @@
 <meta name="author" content="">
 
 <title>Farmacia - Articulo</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
-<!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/bower_components/font-awesome/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/bower_components/Ionicons/css/ionicons.min.css">
-<!-- jvectormap -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/bower_components/jvectormap/jquery-jvectormap.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/dist/css/skins/_all-skins.min.css">
 
-<!-- DataTables -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<!-- Custom styles for this template-->
 
-<!-- Google Font -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/app-assets/vendors/css/extensions/toastr.css">
 
+<!-- Custom fonts for this template-->
+<link
+	href="${pageContext.request.contextPath}/app-assets/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link
+	href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/app-assets/css/estilos.css"
+	rel="stylesheet">
+<!-- Custom styles for this page -->
+<link
+	href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
 
-		<jsp:include
-			page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
 		<jsp:include
 			page="${pageContext.request.contextPath}/../layout/menu-view.jsp" />
 
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">LISTADO DE ARTICULOS</section>
+		<!-- End of Sidebar -->
+		<input id="contextPath" type="hidden"
+			value="${pageContext.request.contextPath}">
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-			<!-- Main content -->
-			<section class="content">
-				<div class="box box-primary">
-					<!-- /.box-header -->
-					<!-- form start -->
-					<f:form id="frmListadoArticulo" role="form"
-						action="${pageContext.request.contextPath}/articuloController/buscar">
-						<!-- Begin Page Content -->
-						<div class="container-fluid">
-							<div class="card shadow mb-2">
-								<div class="collapse show" id="collapseCardExample">
-									<div class="card-body">
-										<div class="row">
-											</br>
-											<div class="col-md-6 mb-2">
-												<label for="nombreCompleto" class="label_control">NOMBRE
-													ARTICULO </label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														required="required" id="txtnombre" path="nombre" />
+			<!-- Main Content -->
+			<div id="content">
 
-												</div>
-											</div>
-											<div class="col-md-3 mb-1">
-												<label for="lbltipoSeguroPaciente" class="label_control">TIPO</label>
-												<div class="controls">
-													<f:select id="cboTipoArticulo"
-														path="tipoArticulo.idRegistro" class="form-control"
-														required="required">
-														<f:option value="" label="Seleccionar" selected="true"
-															disabled="disabled" />
-														<f:options items="${lstTipoArticulo}"
-															itemValue="idRegistro" itemLabel="descripcionCorta" />
-													</f:select>
-												</div>
-											</div>
-											<div class="col-md-3 mb-1">
-												<label for="lbltipoSeguroPaciente" class="label_control">CODIGO
-													SISMED</label>
-												<div class="controls">
-													<f:input type="text" class="form-control"
-														required="required" id="txtnombre" path="nombre" />
-												</div>
-											</div>
-										</div> 
-										<div class="row">
-											<div class="form-group col-md-12 text-right"
-												style="margin-top: 15px;">
-												<button id="btnBuscar" class="btn btn-success" type="submit">
-													<i class="fa fa-search"> </i> BUSCAR
-												</button>
-												<button
-													onclick="limpiarForm();$('#dataTable').dataTable().fnClearTable();"
-													type="button" class="btn btn-default">
-													<i class="fa fa-eraser"></i> LIMPIAR
-												</button>
-												<a
-													href="${pageContext.request.contextPath}/aticuloController/nuevo"
-													class="btn btn-primary"> <i class="fa fa-file"></i> <span
-													class="text"> NUEVO</span>
-												</a>
+				<!-- Topbar -->
+				<jsp:include
+					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
+				<!-- End of Topbar -->
+				<f:form id="frmListadoArticulo" role="form"
+					action="${pageContext.request.contextPath}/articuloController/buscar">
+					<!-- Begin Page Content -->
+					<div class="container-fluid">
+
+						<!-- Page Heading -->
+						<div class="tituloForm">LISTADO DE ARTICULOS</div>
+
+
+						<div class="card shadow mb-2">
+							<!-- Card Header - Accordion -->
+							<a href="#collapseCardExample" class="d-block card-header py-3"
+								data-toggle="collapse" role="button" aria-expanded="true"
+								aria-controls="collapseCardExample"> <span
+								class="label_filtro">FILTROS</span>
+							</a>
+							<!-- Card Content - Collapse -->
+							<div class="collapse show" id="collapseCardExample">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-6 mb-2">
+											<label for="nombreCompleto" class="label_control">NOMBRE
+												ARTICULO </label>
+											<div class="controls">
+												<f:input type="text" class="form-control"
+													required="required" id="txtnombre" path="nombre" />
+
 											</div>
 										</div>
-</br>
+										<div class="col-md-3 mb-1">
+											<label for="lbltipoSeguroPaciente" class="label_control">TIPO</label>
+											<div class="controls">
+												<f:select id="cboTipoArticulo"
+													path="tipoArticulo.idRegistro" class="form-control"
+													required="required">
+													<f:option value="" label="Seleccionar" selected="true"
+														disabled="disabled" />
+													<f:options items="${lstTipoArticulo}"
+														itemValue="idRegistro" itemLabel="descripcionCorta" />
+												</f:select>
+											</div>
+										</div>
+										<div class="col-md-3 mb-1">
+											<label for="lbltipoSeguroPaciente" class="label_control">CODIGO
+												SISMED</label>
+											<div class="controls">
+												<f:input type="text" class="form-control"
+													required="required" id="txtnombre" path="nombre" />
+											</div>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="form-group col-md-12 text-right"
+											style="margin-top: 15px;">
+											<button id="btnBuscar" class="btn btn-success" type="submit">
+												<i class="fa fa-search"> </i> BUSCAR
+											</button>
+											<button
+												onclick="limpiarForm();$('#dataTable').dataTable().fnClearTable();"
+												type="button" class="btn btn-flat btn-secondary ">
+												<i class="fa fa-eraser"></i> LIMPIAR
+											</button>
+											<a
+												href="${pageContext.request.contextPath}/articuloController/nuevo"
+												class="btn btn-info"> <i class="fa fa-file"></i> <span
+												class="text"> NUEVO</span>
+											</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="card shadow mb-4">
+							<!-- Card Content - Collapse -->
+							<div class="collapse show" id="collapseCardExample">
+								<div class="card-body">
+									<div class="form-group">
+
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable"
+												width="100%" cellspacing="0">
+												<thead>
+													<tr class="tabla_th">
+														<th>ITEM</th>
+														<th>DESCRIPCION</th>
+														<th>CONCENTRACION</th>
+														<th>PRESENTACION</th>
+														<th>COD SISMED</th>
+														<th>ACCIONES</th>
+													</tr>
+												</thead>
+												<tfoot>
+												<tbody class="tabla_td">
+													<c:forEach var="articulo" items="${lstArticulos}"
+														varStatus="loop">
+														<tr>
+															<td>${loop.count}</td>
+															<td>${articulo.nombre}</td>
+															<td>${articulo.concentracion}</td>
+															<td>${articulo.tipoPresentacion.descripcionLarga}</td>
+															<td>${articulo.codigoSismed}</td>
+															<td><a title="Modificar" data-placement="top"
+																data-toggle="tooltip"
+																class="btn btn-outline-success btn-sm"
+																onclick="javascript:modificarElementoGenerico('/articuloController/modificar','${loop.index}')"
+																href="#"><i class="fas fa-pencil-alt"></i></a>
+
+																<button type='button'
+																	class='btn btn-outline-danger btn-sm'
+																	data-toggle='tooltip' data-placement='top'
+																	title='Eliminar'
+																	onclick="confirmar_eliminar(${loop.count});"
+																	data-original-title='Eliminar' id='agregarEspecialidad'>
+																	<i class='fas fa-trash'></i>
+																</button></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</f:form>
+				<!-- /.container-fluid -->
 
-						 
-								<!-- /.box-header -->
-								<div class="box-body">
-									<table id="example1" class="table table-bordered table-hover dataTable">
-										<thead>
-											<tr>
-												<th>ITEM</th>
-												<th>DESCRIPCION</th>
-												<th>CONCENTRACION</th>
-												<th>PRESENTACION</th>
-												<th>COD SISMED</th>
-												<th>ACCIONES</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="articulo" items="${lstArticulos}"
-												varStatus="loop">
-												<tr>
-													<td>${loop.count}</td>
-													<td>${articulo.nombre}</td>
-													<td>${articulo.concentracion}</td>
-													<td>${articulo.tipoPresentacion.descripcionLarga}</td>
-													<td>${articulo.codigoSismed}</td>
-													<td><a title="Modificar" data-placement="top"
-														data-toggle="tooltip"
-														class="btn bg-purple btn-sm"
-														onclick="javascript:modificarElementoGenerico('/articuloController/modificar','${loop.index}')"
-														href="#"><i class="fa fa-pencil"></i></a>
+			</div>
+			<!-- End of Main Content -->
 
-														<button type='button'
-															class='btn btn-danger btn-sm'
-															data-toggle='tooltip' data-placement='top'
-															title='Eliminar'
-															onclick="confirmar_eliminar(${loop.count});"
-															data-original-title='Eliminar' id='agregarEspecialidad'>
-															<i class='fa fa-trash'></i>
-														</button></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-								<!-- /.box-body -->
-							</div>
+			<!-- Footer -->
+			<jsp:include
+				page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
 
-					</f:form>
-				</div>
-			</section>
-			<!-- /.content -->
+			<!-- End of Footer -->
+
 		</div>
-		<!-- /.content-wrapper -->
-
-		<jsp:include
-			page="${pageContext.request.contextPath}/../layout/footer-view.jsp" />
-		<!-- Control Sidebar -->
-
-		<!-- /.control-sidebar -->
-		<!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-		<div class="control-sidebar-bg"></div>
+		<!-- End of Content Wrapper -->
 
 	</div>
-	<!-- ./wrapper -->
+	<!-- End of Page Wrapper -->
 
-	<!-- jQuery 3 -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap 3.3.7 -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- FastClick -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/fastclick/lib/fastclick.js"></script>
-	<!-- AdminLTE App -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/dist/js/adminlte.min.js"></script>
-	<!-- Sparkline -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-	<!-- jvectormap  -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/app-assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-	<!-- SlimScroll -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<!-- ChartJS -->
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<!-- AdminLTE for demo purposes -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/dist/js/demo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<!-- FastClick -->
-	<script
-		src="${pageContext.request.contextPath}/app-assets/bower_components/fastclick/lib/fastclick.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">Ã</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script
+		src="${pageContext.request.contextPath}/app-assets/js/demo/datatables-demo.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
+		type="text/javascript" charset="utf-8"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/toastr.min.js"
+		type="text/javascript"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/app-assets/vendors/js/extensions/sweetalert.min.js"
+		type="text/javascript"></script>
+	<script
+		src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
+		type="text/javascript"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
+		type="text/javascript"></script>
+		
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/articulo.js"
+		type="text/javascript" charset="utf-8"></script>
+		
 	<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
+	document.getElementById('navInventario').className = "nav-item active";
+	document.getElementById('enlaceArticulo').className = "collapse-item active";
+	document.getElementById('collInventario').className = "nav-link";
+	document.getElementById('collapseInventario').className = "collapse show";
+	
+	</script>
+
+<jsp:include
+			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
+
 </body>
+
 </html>

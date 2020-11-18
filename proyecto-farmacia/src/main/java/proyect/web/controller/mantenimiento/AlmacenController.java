@@ -17,18 +17,22 @@ import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
-@RequestMapping(value = "AlmacenController")
+@RequestMapping(value = "almacenController")
 public class AlmacenController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
+	List<AlmacenBean> lstAlmacenes = new ArrayList<AlmacenBean>();
 	private AlmacenBean almacenBean;
 	
 	@Autowired
 	private Catalogo1Service Catalogo1Service;
 	
+	@Autowired
+	private AlmacenService almecenService;
 	
 	private void cargarCombos(ModelAndView mav) {
 		/*try {
@@ -42,16 +46,16 @@ public class AlmacenController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
-	public ModelAndView doBuscar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean,
+	public ModelAndView doBuscar(@ModelAttribute("almacenBean") AlmacenBean almacenBean,
 			HttpServletRequest request)
 			throws Exception { 
-		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>();
+		List<AlmacenBean> lstAlmacenes = new ArrayList<AlmacenBean>();
 		
-		ModelAndView mav = new ModelAndView("mantenimiento/Almacen/listado-Almacen", "command", catalogoBean); 
+		ModelAndView mav = new ModelAndView("mantenimiento/almacen/listado-almacen", "command", almacenBean); 
 		
-		lstcatalogosRegistros = Catalogo1Service.getBuscarPorFiltros(catalogoBean);
-		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
-		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
+		lstAlmacenes = almecenService.getBuscarPorFiltros(almacenBean);
+		mav.addObject("lstAlmacenes", lstAlmacenes);
+		System.out.println("lstAlmacenes " + lstAlmacenes.size());
 		this.cargarCombos(mav);
 		return mav;
 		
@@ -59,8 +63,17 @@ public class AlmacenController extends BaseController{
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
 	public ModelAndView doListado(@ModelAttribute("AlmacenBean") AlmacenBean AlmacenBean, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("mantenimiento/Almacen/listado-Almacen", "command", AlmacenBean); 
-	
+		
+		ModelAndView mav = new ModelAndView("mantenimiento/almacen/listado-almacen", "command", AlmacenBean); 
+		lstAlmacenes = new ArrayList<AlmacenBean>();
+		this.setAlmacenBean(new AlmacenBean());
+		almacenBean.setNombreAlmacen("");
+		try {
+			lstAlmacenes = almecenService.getBuscarPorFiltros(almacenBean);
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		mav.addObject("lstAlmacenes", lstAlmacenes);
 		this.cargarCombos(mav);
 		return mav;
 	}
@@ -70,7 +83,16 @@ public class AlmacenController extends BaseController{
 	@ResponseBody
 	public ModelAndView listado(@ModelAttribute("AlmacenBean") AlmacenBean AlmacenBean, HttpServletRequest request){
 	 
-		ModelAndView mav = new ModelAndView("mantenimiento/Almacen/listado-Almacen", "command", AlmacenBean); 
+		ModelAndView mav = new ModelAndView("mantenimiento/almacen/listado-almacen", "command", AlmacenBean); 
+		 lstAlmacenes = new ArrayList<AlmacenBean>();
+		this.setAlmacenBean(new AlmacenBean());
+		almacenBean.setNombreAlmacen("");
+		try {
+			lstAlmacenes = almecenService.getBuscarPorFiltros(almacenBean);
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		mav.addObject("lstAlmacenes", lstAlmacenes);
 		this.cargarCombos(mav);
 		return mav;
 	}
@@ -78,34 +100,22 @@ public class AlmacenController extends BaseController{
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
-		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command", catalogoBean); 
+		AlmacenBean almacenBean = new AlmacenBean(); 
+		ModelAndView mav = new ModelAndView("mantenimiento/almacen/registro-almacen", "command", almacenBean); 
 		this.cargarCombos(mav);
 		return mav;
 	}
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("catalogo") String catalogo,
-								  @RequestParam("codigo") String codigoRegistro){  
-		
-		System.out.println("modificar catalogo " + catalogo);
-		System.out.println("modificar codigoRegistro " + codigoRegistro);
-		CatalogoBean ocatalogoBean = new CatalogoBean(); 
-		ocatalogoBean.setIdCatalogo(catalogo);
-		ocatalogoBean.setIdRegistro(codigoRegistro);
-		CatalogoBean catalogoBean = new CatalogoBean();  
-	
-			try { 
-				catalogoBean = Catalogo1Service.getBuscarPorObjecto(ocatalogoBean);  
-			 System.out.println("catalogoBean::" + catalogoBean);
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
-			}
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			this.cargarCombos(mav);
-			mav.addObject("catalogoBean", catalogoBean);
-			mav.addObject("swActivo", "1"); 
-			return mav;
+	public ModelAndView modificar(@RequestParam("index") int index){  
+		 ;
+		System.out.println("modificar index " + index); 
+		AlmacenBean almacenBean = new AlmacenBean();   
+		almacenBean = lstAlmacenes.get(index);
+		ModelAndView mav = new ModelAndView("mantenimiento/almacen/registro-almacen", "command", almacenBean); 
+		this.cargarCombos(mav);
+		mav.addObject("almacenBean", almacenBean);
+		mav.addObject("swActivo", "1"); 
+		return mav;
 	}
 	
 	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
@@ -172,6 +182,22 @@ public class AlmacenController extends BaseController{
 		}
 		 
 			return lstcatalogoBean; 
+	}
+
+	public AlmacenBean getAlmacenBean() {
+		return almacenBean;
+	}
+
+	public void setAlmacenBean(AlmacenBean almacenBean) {
+		this.almacenBean = almacenBean;
+	}
+
+	public List<AlmacenBean> getLstAlmacenes() {
+		return lstAlmacenes;
+	}
+
+	public void setLstAlmacenes(List<AlmacenBean> lstAlmacenes) {
+		this.lstAlmacenes = lstAlmacenes;
 	}
 
 	

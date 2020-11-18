@@ -82,8 +82,7 @@ public class PersonalServiceImpl implements PersonalService {
 	public List<PersonalBean> getBuscarPorFiltros(PersonalBean personal)
 			throws ServiceException {
 		List<PersonalBean> lstPersonal=null;
-		try {
-			System.out.println("en listado lengua service imp");
+		try { 
 			lstPersonal=(List<PersonalBean>) personalDAO.getBuscarPorFiltros(personal);
 		} catch (Exception e) {
 			 

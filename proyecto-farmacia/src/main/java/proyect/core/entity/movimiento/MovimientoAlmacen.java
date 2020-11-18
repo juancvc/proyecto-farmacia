@@ -161,6 +161,16 @@ import proyect.core.entity.stock.Stock;
 					),
 					
 					@NamedStoredProcedureQuery(
+							name="movimientoAlmacen.reporteICIv2", 
+							procedureName="[dbo].[SP_AlmacenMovimiento_Reporte_ICI]",
+							resultClasses= MovimientoAlmacen.class,
+									parameters={
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes", 			type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 			type=String.class)
+										}
+					),
+					
+					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.listarAbastecimiento", 
 							procedureName="[SP_VENTA_LISTAR_ABASTECIMIENTO_IME]",
 							resultClasses= MovimientoAlmacen.class,
@@ -168,6 +178,16 @@ import proyect.core.entity.stock.Stock;
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="mes", 		type=String.class),
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="periodo", 	type=String.class), 
 												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen",  type=String.class)
+										}
+					),
+					
+					@NamedStoredProcedureQuery(
+							name="movimientoAlmacen.buscarxArticuloAlmacen", 
+							procedureName="[usp_AlmacenMovimiento_buscarxArticuloAlmacen]",
+							resultClasses= MovimientoAlmacen.class,
+									parameters={
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idArticulo", 		type=String.class),
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	type=String.class)
 										}
 					)
 		}			
@@ -204,8 +224,8 @@ public class MovimientoAlmacen  implements Serializable {
 	@Column(name="glosa")
 	private String glosa;
 	
-	@Column(name="FECHA_MOVIMIENTO")
-	private String fechaMovimiento;
+	@Column(name="fechaMovimiento")
+	private Timestamp fechaMovimiento;
 	
 	@Column(name="tipoIngresoDocumento")
 	private String tipoIngresoDocumento;
@@ -245,28 +265,8 @@ public class MovimientoAlmacen  implements Serializable {
 	@Column(name="anio")
 	private String anio;
 	
-/**	@Column(name="ID_ORGANIZACION_MOVIMIENTO_ALMACEN")
-	private int idOrganizacionMovimientoAlmacen;
-	
-	@Column(name="ID_INSTITUCION_MOVIMIENTO_ALMACEN")
-	private int idInstitucionMovimientoAlmacen;
-	
-	@Column(name="ID_SEDE_MOVIMIENTO_ALMACEN")
-	private int idSedeMovimientoAlmacen;
-	
-	@Column(name="NRO_VERSION_MOVIMIENTO_ALMACEN")
-	private int nroVersionMovimientoAlmacen;
-	
-	@Column(name="NRO_PERIODO_MOVIMIENTO_ALMACEN")
-	private int nroPeriodoMovimientoAlmacen;
-*/
-	
 	@Column(name="FECHA_ORDEN")
 	private Timestamp fechaOrden;
-	
-	
-	 
-	 
 	
 	private String id_concepto;
 	
@@ -284,9 +284,9 @@ public class MovimientoAlmacen  implements Serializable {
 
 	private double total;
 	
-	private int idAlmacen;
+	private String idAlmacen;
 	
-	private int idInventario;
+	private String idInventario;
 	
 	private Timestamp fechaInventarioSig;
 	
@@ -296,10 +296,34 @@ public class MovimientoAlmacen  implements Serializable {
 	
 	private List<MovimientoAlmacen> abastecimientos;
 	
+	private String tipoMovimiento;
+	
+	private String idCategoriaTipoMovimiento;
 	
 	public MovimientoAlmacen() { 
 	}
 	
+	
+	public String getIdCategoriaTipoMovimiento() {
+		return idCategoriaTipoMovimiento;
+	}
+
+
+	public void setIdCategoriaTipoMovimiento(String idCategoriaTipoMovimiento) {
+		this.idCategoriaTipoMovimiento = idCategoriaTipoMovimiento;
+	}
+
+
+	public String getTipoMovimiento() {
+		return tipoMovimiento;
+	}
+
+
+	public void setTipoMovimiento(String tipoMovimiento) {
+		this.tipoMovimiento = tipoMovimiento;
+	}
+
+
 	public MovimientoAlmacen removeMovimientoAlmacenItem(MovimientoAlmacen movimientoAlmacenItem) {
 		getMovimientoAlmacenItems().remove(movimientoAlmacenItem);
 
@@ -391,11 +415,11 @@ public class MovimientoAlmacen  implements Serializable {
 		this.glosa = glosa;
 	}
 
-	public String getFechaMovimiento() {
+	public Timestamp getFechaMovimiento() {
 		return fechaMovimiento;
 	}
 
-	public void setFechaMovimiento(String fechaMovimiento) {
+	public void setFechaMovimiento(Timestamp fechaMovimiento) {
 		this.fechaMovimiento = fechaMovimiento;
 	}
 
@@ -567,19 +591,19 @@ public class MovimientoAlmacen  implements Serializable {
 		this.total = total;
 	}
 
-	public int getIdAlmacen() {
+	public String getIdAlmacen() {
 		return idAlmacen;
 	}
 
-	public void setIdAlmacen(int idAlmacen) {
+	public void setIdAlmacen(String idAlmacen) {
 		this.idAlmacen = idAlmacen;
 	}
 
-	public int getIdInventario() {
+	public String getIdInventario() {
 		return idInventario;
 	}
 
-	public void setIdInventario(int idInventario) {
+	public void setIdInventario(String idInventario) {
 		this.idInventario = idInventario;
 	}
 
