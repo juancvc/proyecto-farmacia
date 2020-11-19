@@ -51,6 +51,8 @@ public class MovimientoAlmacenBean extends BaseBean {
 	
 	private List<MovimientoAlmacenBean> abastecimientos;
 	
+	private ReporteICI reporteICI;
+	
 	public String getIdMovimientoAlmacen() {
 		return idMovimientoAlmacen;
 	}
@@ -295,6 +297,21 @@ public class MovimientoAlmacenBean extends BaseBean {
 	}
 	public void setArticuloBean(ArticuloBean articuloBean) {
 		this.articuloBean = articuloBean;
+	}
+	public TipoMovimientoBean getTipoMovimiento() {
+		return tipoMovimiento;
+	}
+	public void setTipoMovimiento(TipoMovimientoBean tipoMovimiento) {
+		this.tipoMovimiento = tipoMovimiento;
+	}
+	public ReporteICI getReporteICI() {
+		if (reporteICI == null) {
+			reporteICI = new ReporteICI();
+		}
+		return reporteICI;
+	}
+	public void setReporteICI(ReporteICI reporteICI) {
+		this.reporteICI = reporteICI;
 	}
 	
 }

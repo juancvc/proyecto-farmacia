@@ -162,11 +162,12 @@ import proyect.core.entity.stock.Stock;
 					
 					@NamedStoredProcedureQuery(
 							name="movimientoAlmacen.reporteICIv2", 
-							procedureName="[dbo].[SP_AlmacenMovimiento_Reporte_ICI]",
+							procedureName="[dbo].[usp_AlmacenMovimiento_Reporte_ICI]",
 							resultClasses= MovimientoAlmacen.class,
 									parameters={
 												@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes", 			type=String.class),
-												@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 			type=String.class)
+												@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 			type=String.class), 
+												@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen",  type=String.class)
 										}
 					),
 					
@@ -300,10 +301,90 @@ public class MovimientoAlmacen  implements Serializable {
 	
 	private String idCategoriaTipoMovimiento;
 	
+	private Timestamp fechaVencimiento;
+	private String nombreArticulo;
+	private String lote;
+	private String codigoSismed;
+	private int stock;
+	
+	/*reporte ici*/
+	private int INGRESO_POR_ANULACION;
+	private int SALIDA_POR_VENTA;
+	
 	public MovimientoAlmacen() { 
 	}
 	
 	
+	public int getINGRESO_POR_ANULACION() {
+		return INGRESO_POR_ANULACION;
+	}
+
+
+	public void setINGRESO_POR_ANULACION(int iNGRESO_POR_ANULACION) {
+		INGRESO_POR_ANULACION = iNGRESO_POR_ANULACION;
+	}
+
+
+	public int getSALIDA_POR_VENTA() {
+		return SALIDA_POR_VENTA;
+	}
+
+
+	public void setSALIDA_POR_VENTA(int sALIDA_POR_VENTA) {
+		SALIDA_POR_VENTA = sALIDA_POR_VENTA;
+	}
+
+
+	public int getStock() {
+		return stock;
+	}
+
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+
+	public String getCodigoSismed() {
+		return codigoSismed;
+	}
+
+
+	public void setCodigoSismed(String codigoSismed) {
+		this.codigoSismed = codigoSismed;
+	}
+
+
+	public String getLote() {
+		return lote;
+	}
+
+
+	public void setLote(String lote) {
+		this.lote = lote;
+	}
+
+
+	public String getNombreArticulo() {
+		return nombreArticulo;
+	}
+
+
+	public void setNombreArticulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
+	}
+
+
+	public Timestamp getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+
+	public void setFechaVencimiento(Timestamp fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
+	}
+
+
 	public String getIdCategoriaTipoMovimiento() {
 		return idCategoriaTipoMovimiento;
 	}

@@ -193,6 +193,11 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 			bean.setTipoIngresoDocumento(entity.getTipoIngresoDocumento());
 			bean.getArticuloBean().setCodigo(entity.getArticulo());
 			bean.getStockBean().setCodigo(entity.getIdStock());
+			bean.getStockBean().getArticulo().setNombre(entity.getNombreArticulo());
+			bean.getStockBean().setLote(entity.getLote());
+			bean.getStockBean().getArticulo().setCodigoSismed(entity.getCodigoSismed());
+			bean.getStockBean().setStock(entity.getStock());
+			bean.getStockBean().setFechaVencimiento(entity.getFechaVencimiento());
 			bean.gettipoMovimiento().setCodigo(entity.getIdTipoMovimiento());
 			bean.gettipoMovimiento().setNombreTipoMovimiento(entity.getTipoMovimiento());
 			bean.gettipoMovimiento().getCategoriaTipoMovimiento().setIdRegistro(entity.getIdCategoriaTipoMovimiento());
@@ -201,7 +206,7 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 		//	bean.getTipoFinanciador().setIdRegistro(entity.getTipoFinanciamiento());
 		//	bean.getTipoSeleccion().setIdRegistro(entity.getTipoProcesoSeleccion());
 			bean.getPersona().setCodigo(entity.getIdPersona());
-		//	bean.getTipoDocumentoCompra().setIdRegistro(entity.getIdTipoDocumentoCompra());
+		//	bean.getTipoDocumentoCompra().setIdRegistro(entity.getIdTipoDocumentoCompra()); 
 		//	bean.setMes(entity.getMes());
 			bean.getMes().setIdRegistro(entity.getMes());
 			bean.getPeriodo().setIdRegistro(entity.getAnio());
@@ -215,6 +220,9 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 			bean.setSubtotal(entity.getSubtotal());
 			bean.setTotal(entity.getTotal());
 			bean.setFechaInventarioSig(entity.getFechaInventarioSig()); 
+			
+			bean.getReporteICI().setINGRESO_POR_ANULACION(entity.getINGRESO_POR_ANULACION());
+			bean.getReporteICI().setSALIDA_POR_VENTA(entity.getSALIDA_POR_VENTA());
 	 	}
 		 
 		return bean;
@@ -233,7 +241,9 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.reporteICIv2");  
 			spq.setParameter("mes", venta.getMes().getIdRegistro()); 
-			spq.setParameter("anio", venta.getPeriodo()); 
+			spq.setParameter("anio", venta.getPeriodo().getIdRegistro());  
+			spq.setParameter("idAlmacen", venta.getAlmacenBean().getCodigo()); 
+			
 			 if (spq.execute()) {
 				 lstMovimientoAlmacen =  spq.getResultList(); 
 			 }

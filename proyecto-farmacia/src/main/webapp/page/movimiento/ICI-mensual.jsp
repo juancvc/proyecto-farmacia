@@ -67,7 +67,7 @@ body {
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmGenerarVenta" role="form" action=""
+				<f:form id="frmReporteICI" role="form" action=""
 					onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -89,7 +89,9 @@ body {
 													<span class="required">*</span>
 												</label>
 												<div class="controls">
-													<f:select id="tipoDocumentoPaciente" path="mes.idRegistro"
+													<f:select id="cboMes" 
+														path="mes.idRegistro"
+														onchange="cambiarMes()"
 														required="required" class="form-control">
 														<f:option value="" label="Seleccione" selected="true"
 															disabled="disabled" />
@@ -97,6 +99,8 @@ body {
 															itemLabel="descripcionCorta" />
 													</f:select>
 												</div>
+												<f:input type="hidden" class="form-control" id="nombreMes"
+														path="mes.descripcionCorta" />
 											</div>
 											<div class="form-group col-md-3 mb-2">
 												<label for="situacion" class="label_control">PERIODO<span
@@ -128,14 +132,15 @@ body {
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;"> 
-												<button type="submit" title='Confirmar' 
-													onclick="${pageContext.request.contextPath}/movimientoAlmacenController/listarReporteICIMensual" 
-													class="btn btn-primary">
-													<i class="fa fa-save"></i>
+												<button type="submit" title='Generar Reporte ICI' 
+													onclick="generarICImensual();" 
+													class="btn btn-info">
+													<i class="fa fa-save">  GENERAR REPORTE </i>
 												</button> 
 											<a
-												href="${pageContext.request.contextPath}/movimientoAlmacenController/listarReporteICIMensual"
-												class="btn btn-info"> <i class="fa fa-file-excel"></i> GENERAR REPORTE
+												href="${pageContext.request.contextPath}/movimientoAlmacenController/descargarExcel"  
+												style="display: none"
+												class="btn btn-info" id="btnGenerar"> <i class="fa fa-file-excel"></i> GENERAR REPORTE
 											</a>
 											</div>
 										</div>
@@ -205,7 +210,7 @@ body {
 
 	<!-- scripts  -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+		src="${pageContext.request.contextPath}/assets/js/page/movimiento/movimiento.js"
 		type="text/javascript" charset="utf-8"></script>
 
 	<script

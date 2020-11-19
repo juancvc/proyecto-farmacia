@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.axis.types.Entities;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -114,9 +115,23 @@ public class MovimientoAlmacenController extends BaseController{
 	
 	@RequestMapping(value = "/listadoICIMensual", method = RequestMethod.GET)
 	public ModelAndView doListadoICIMensual(@ModelAttribute("movimientoAlmacenBean") MovimientoAlmacenBean movimientoAlmacenBean, HttpServletRequest request) {
+		
+		 String nombreMes = new SimpleDateFormat("MMMM").format(new Date());
+		 
+		java.util.Date fecha = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String anio = dateFormat.format(fecha);
+		java.util.Date fechaMes = new Date();
+		SimpleDateFormat dateFormatMes = new SimpleDateFormat("MM");
+		String mes = dateFormatMes.format(fechaMes);
+		movimientoAlmacenBean.getPeriodo().setIdRegistro(anio);
+		movimientoAlmacenBean.getMes().setIdRegistro(mes);
+		movimientoAlmacenBean.getMes().setDescripcionCorta(nombreMes);
 		ModelAndView mav = new ModelAndView("movimiento/ICI-mensual", "command", movimientoAlmacenBean); 
 	
 		this.cargarCombos(mav);
+		
+		mav.addObject("movimientoAlmacenBean", movimientoAlmacenBean);
 		return mav;
 	}
 
@@ -288,12 +303,23 @@ public class MovimientoAlmacenController extends BaseController{
 			return lstcatalogoBean; 
 	}
 	
+	@RequestMapping(value = "/llenarDatosICI", method = RequestMethod.GET)
+	public @ResponseBody String llenarDatosICI(
+    		@ModelAttribute("movimientoAlmacenBean") MovimientoAlmacenBean movimientoAlmacenBean,
+    		HttpServletResponse response)throws Exception { 
+		 String valida = "";
+		 this.setMovimientoAlmacenBean(movimientoAlmacenBean);
+		 try { 
+				lstICImensual = movimientoAlmacenService.listarReporteICI(movimientoAlmacenBean); 
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+		return valida; 
+	}
+	
 	 @RequestMapping(value = "/descargarExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
 	    public @ResponseBody void descargarExcel(
-	    		@ModelAttribute("movimientoAlmacenBean") MovimientoAlmacenBean movimientoAlmacenBean,
-	    		HttpServletResponse response) throws IOException {
-		 
-		 this.setMovimientoAlmacenBean(movimientoAlmacenBean);
+	    		HttpServletResponse response) throws IOException { 
 	    	 try {
 	    		 Workbook wb = generarExcel();
 	    		 response.setHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
@@ -308,7 +334,8 @@ public class MovimientoAlmacenController extends BaseController{
 	        	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 	            HSSFWorkbook workbook = new HSSFWorkbook();
 	            //Hoja
-	            HSSFSheet    sheet    = workbook.createSheet("LISTADO DE VENTAS");
+	            HSSFSheet    sheet    = workbook.createSheet("ICI"+this.getMovimientoAlmacenBean().getMes().getIdRegistro()
+	            		+this.getMovimientoAlmacenBean().getPeriodo().getIdRegistro());
 	            /**** color ***/
 	            HSSFColor lightGray =  setColor(workbook,(byte) 0xE0, (byte)0xE0,(byte) 0xE0);
 	            /**estilos**/
@@ -372,7 +399,7 @@ public class MovimientoAlmacenController extends BaseController{
 	            HSSFRow   headerRow    = sheet.createRow( rowIndex++ );
 	            sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 7));
 	            headerCell = headerRow.createCell(1);
-	            headerCell.setCellValue("REPORTE DE INFORME DE CONSUMO INTEGRADO " + this.getMovimientoAlmacenBean().getMes().getDescripcionCorta() 
+	            headerCell.setCellValue("REPORTE DE INFORME DE CONSUMO INTEGRADO " + this.getMovimientoAlmacenBean().getMes().getDescripcionCorta().toUpperCase() 
 	            		+ " "+ this.getMovimientoAlmacenBean().getPeriodo().getIdRegistro());
 	            headerCell.setCellStyle(titleStyle);
 	            sheet.createRow( rowIndex++ );
@@ -386,23 +413,56 @@ public class MovimientoAlmacenController extends BaseController{
 	            headerCell.setCellValue("N°");
 	            headerCell = bodyRow.createCell(2);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("PACIENTE");
+	            headerCell.setCellValue("NOMBRE ARTICULO");
 	            headerCell = bodyRow.createCell(3);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("Nº DOCUMENTO");
+	            headerCell.setCellValue("LOTE");
 	            headerCell = bodyRow.createCell(4);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("FECHA EMISIÓN");
+	            headerCell.setCellValue("FECHA VENCIMIENTO");
 	            headerCell = bodyRow.createCell(5);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("ALMACEN");
+	            headerCell.setCellValue("CODIGO SISMED");
 	            headerCell = bodyRow.createCell(6);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("NRO BOLETA");
-
+	            headerCell.setCellValue("SALDO"); 
 	            headerCell = bodyRow.createCell(7);
 	            headerCell.setCellStyle(headerStyle);
-	            headerCell.setCellValue("IMPORTE");
+	            headerCell.setCellValue("PRECIO");
+	            
+	            headerCell = bodyRow.createCell(8);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR VENTA");
+	            headerCell = bodyRow.createCell(9);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR VENCIMIENTO");
+	            headerCell = bodyRow.createCell(10);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR FALTANTE INVENTA");
+	            headerCell = bodyRow.createCell(11);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR FALLA O ROTURA");
+	            headerCell = bodyRow.createCell(12);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR ANULACION");
+	            headerCell = bodyRow.createCell(13);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("SALIDA POR TRANSFERENCIA");
+	            headerCell = bodyRow.createCell(14);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("INGRESO POR SOBRANTE INVENT");
+	            headerCell = bodyRow.createCell(15);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("INGRESO POR TRANSFERENCIA");
+	            headerCell = bodyRow.createCell(16);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("INGRESO POR DEVOLUCION");
+	            headerCell = bodyRow.createCell(17);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("INGRESO POR REQUISICION");
+	            headerCell = bodyRow.createCell(18);
+	            headerCell.setCellStyle(headerStyle);
+	            headerCell.setCellValue("IMPORTE TOTAL");
 	            /******************* Contenido *************************/
 	    		HSSFRow  contentRow  = null;
 	    		HSSFCell contentCell = null;
@@ -419,25 +479,59 @@ public class MovimientoAlmacenController extends BaseController{
 	            	contentCell.setCellValue(String.valueOf((i+1)));
 	            	contentCell = contentRow.createCell(2);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getPersona().getNombreCompleto());
+	            	contentCell.setCellValue(movimiento.getStockBean().getArticulo().getNombre());
 	            	contentCell = contentRow.createCell(3);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getPersona().getNroDocumento());
+	            	contentCell.setCellValue(movimiento.getStockBean().getLote());
 	            	contentCell = contentRow.createCell(4);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(dateFormat.format(""));
+	            	contentCell.setCellValue(dateFormat.format(movimiento.getStockBean().getFechaVencimiento()));
 	            	contentCell = contentRow.createCell(5);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getAlmacenBean().getNombreAlmacen());
+	            	contentCell.setCellValue(movimiento.getStockBean().getArticulo().getCodigoSismed());
 	            	contentCell = contentRow.createCell(6);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue("");
+	            	contentCell.setCellValue(movimiento.getStockBean().getStock());
 
 	            	contentCell = contentRow.createCell(7);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue("");
+	            	contentCell.setCellValue(movimiento.getPrecio());
+	            	contentCell = contentRow.createCell(8);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue(movimiento.getReporteICI().getSALIDA_POR_VENTA());
+	            	contentCell = contentRow.createCell(9);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(10);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(11);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(12);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue(movimiento.getReporteICI().getSALIDA_POR_VENTA());
+	            	contentCell = contentRow.createCell(13);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(14);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(15);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(16);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(17);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue("0");
+	            	contentCell = contentRow.createCell(18);
+	            	contentCell.setCellStyle(bodyStyle);
+	            	contentCell.setCellValue(movimiento.getStockBean().getStock() * movimiento.getPrecio());
 	            }
-	            workbook.write(new FileOutputStream("reporteExcel.xls"));
+	            workbook.write(new FileOutputStream("reporteExcel-ICI"+ this.getMovimientoAlmacenBean().getMes().getDescripcionCorta() 
+	            		+ ""+ this.getMovimientoAlmacenBean().getPeriodo().getIdRegistro()+".xls"));
 
 	            //return workbook.getBytes();
 	            return workbook;
