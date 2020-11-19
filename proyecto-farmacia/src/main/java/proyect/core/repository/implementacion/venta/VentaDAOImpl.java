@@ -65,6 +65,13 @@ public class VentaDAOImpl implements VentaDAO{
 			spq.setParameter("idTipoComprobanteCat02", venta.getTipoComprobante().getIdRegistro());
 			spq.setParameter("idTipoOperacionCat02", venta.getTipoOperacion().getIdRegistro());
 			spq.setParameter("nroSerie", venta.getSerie().getNroSerie());
+			
+			spq.setParameter("codctacte", venta.getCuentaCorrienteBean().getCodigo());
+			spq.setParameter("perctacte", venta.getCuentaCorrienteBean().getNumeroPeriodo());
+			spq.setParameter("verctacte", venta.getCuentaCorrienteBean().getNumeroVersion());
+			spq.setParameter("codepicta", venta.getCuentaCorrienteBean().getEpisodio().getCodigo());
+			spq.setParameter("perepicte", venta.getCuentaCorrienteBean().getEpisodio().getNumeroPeriodo());
+			spq.setParameter("verepicte", venta.getCuentaCorrienteBean().getEpisodio().getNumeroVersion());
 			spq.execute(); 
 			valida = spq.getOutputParameterValue(1);
 			nombreArticulo = spq.getOutputParameterValue(2);

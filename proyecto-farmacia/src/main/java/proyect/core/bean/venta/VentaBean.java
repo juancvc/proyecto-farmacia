@@ -3,6 +3,7 @@ package proyect.core.bean.venta;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import proyect.base.bean.BaseBean;
+import proyect.core.bean.cuentaCorriente.CuentaCorrienteBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.EpisodioBean;
@@ -38,6 +39,7 @@ public class VentaBean extends BaseBean {
 	private CatalogoBean tipoOperacion;
 	private SerieBean serie;
 	private String montoLetras;
+	private CuentaCorrienteBean cuentaCorrienteBean;
 	
 	private int cantidadItems;
 	
@@ -307,6 +309,17 @@ public class VentaBean extends BaseBean {
 
 	public void setMontoLetras(String montoLetras) {
 		this.montoLetras = montoLetras;
+	}
+	
+	
+	
+
+	public CuentaCorrienteBean getCuentaCorrienteBean() {
+		return cuentaCorrienteBean;
+	}
+
+	public void setCuentaCorrienteBean(CuentaCorrienteBean cuentaCorrienteBean) {
+		this.cuentaCorrienteBean = cuentaCorrienteBean;
 	}
 
 	@Override

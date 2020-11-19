@@ -55,7 +55,13 @@ import org.bridj.cpp.com.DECIMAL;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 	  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoComprobanteCat02", type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoOperacionCat02", 	 type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie", 	  type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie", 	  	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="codctacte", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perctacte", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verctacte", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="codepicta", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perepicte", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verepicte", 	  type=String.class)
 					}
 					),
 		

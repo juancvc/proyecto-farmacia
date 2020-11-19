@@ -72,6 +72,7 @@ import proyect.core.entity.general.PacienteReniec;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
+import proyect.core.service.interfaces.cuentaCorriente.CuentaCorrienteService;
 import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.general.PacienteService;
 import proyect.core.service.interfaces.general.PersonaService;
@@ -131,13 +132,14 @@ public class VentaController extends BaseController{
 	List<AlmacenBean> lstAlmacen;
 	List<VentaItemBean> lstVentasItemDevolucion;
 	List<VentaItemBean> lstConsumoPaciente;
-	
+	List<CuentaCorrienteBean> lstCuentaCorrienteBean;
 	private CatalogoBean tipoFinanciador;
 	private VentaBean ventaBean;
 	private UbigeoBean ubigeobean;
 	private AlmacenBean almacenBean;
 	private PersonaBean personaBean;
 	private String fechaEmision;
+	private CuentaCorrienteBean cuentaCorrienteBean;
 	
 	@Autowired
 	private Catalogo1Service catalogo1Service;
@@ -168,6 +170,9 @@ public class VentaController extends BaseController{
 	
 	@Autowired
 	private SerieService serieService;
+	
+	@Autowired
+	private CuentaCorrienteService cuentaCorrienteService;
 	
 	private void cargarCombos(ModelAndView mav) {
 		SerieBean serie = new SerieBean();
@@ -603,6 +608,7 @@ public class VentaController extends BaseController{
 		}
 		this.getVentaBean().setCadenaCantidad(cadenaCantidad);
 		this.getVentaBean().setCadenaCodigoStock(cadenaCodigoStock);
+		this.getVentaBean().setCuentaCorrienteBean(this.getCuentaCorrienteBean());
 		this.getVentaBean().setCantidadItems(ventaDetalleArray.length);
 		 
 		try {
@@ -1370,9 +1376,21 @@ public class VentaController extends BaseController{
 	   private void  listarPacienteCtaCtePendientes2() {
 			 CuentaCorrienteBean  cuentaCorrienteBean= new CuentaCorrienteBean();  
 			 PersonaBean persona= new PersonaBean();
-			 persona.setCodigo(personaBean.getCodigo());
+			 persona.setCodigo(this.getPersonaBean().getCodigo());
+			 cuentaCorrienteBean.setPersona(persona);
 			// cuentaCorrienteBean.setp
-			   
+			 try {
+				lstCuentaCorrienteBean = cuentaCorrienteService.listarCtaCtePacientePendientes(cuentaCorrienteBean);
+				if (lstCuentaCorrienteBean.size()==1) {
+					for (CuentaCorrienteBean oCuentaCorrienteBean : lstCuentaCorrienteBean) {
+						setCuentaCorrienteBean(oCuentaCorrienteBean);
+					}	
+				}
+			
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  // te lista los pacientes de ctaCte   
 		   }
 	public VentaBean getVentaBean() {
 		return ventaBean;
@@ -1403,6 +1421,16 @@ public class VentaController extends BaseController{
 	public void setLstAlmacen(List<AlmacenBean> lstAlmacen) {
 		this.lstAlmacen = lstAlmacen;
 	}
+
+	public CuentaCorrienteBean getCuentaCorrienteBean() {
+		return cuentaCorrienteBean;
+	}
+
+	public void setCuentaCorrienteBean(CuentaCorrienteBean cuentaCorrienteBean) {
+		this.cuentaCorrienteBean = cuentaCorrienteBean;
+	}
+	
+	
 
 	
 }
