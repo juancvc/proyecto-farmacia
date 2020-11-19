@@ -61,7 +61,8 @@ import org.bridj.cpp.com.DECIMAL;
 						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verctacte", 	  type=String.class),
 						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="codepicta", 	  type=String.class),
 						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perepicte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verepicte", 	  type=String.class)
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verepicte", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoPaci", 	      type=String.class)
 					}
 					),
 		
