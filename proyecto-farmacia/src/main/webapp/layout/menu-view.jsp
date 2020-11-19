@@ -74,7 +74,10 @@
 					href="${pageContext.request.contextPath}/almacenController/listado">Almacenes</a>
 				<a id="enlaceListaPrecio" class="collapse-item"
 					href="${pageContext.request.contextPath}/precioController/listado">Lista
-					de Precios</a> <a id="enlaceGenerarInventario" class="collapse-item"
+					de Precios</a> 
+				<a id="enlaceConsultarInventario" class="collapse-item"
+					href="${pageContext.request.contextPath}/inventarioController/consultarInventario">Consultar Inventario</a>
+				<a id="enlaceGenerarInventario" class="collapse-item"
 					href="${pageContext.request.contextPath}/inventarioController/listado">Inventario</a>
 			</div>
 		</div></li>

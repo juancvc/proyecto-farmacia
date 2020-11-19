@@ -121,8 +121,7 @@ font-size: 13px;
 												<div class="controls"> 
 													<f:select id="numeroPeriodo"
 														path="numeroPeriodo"
-														required="required" class="form-control"
-														onchange="limpiarPorTipo()"> 
+														required="required" class="form-control"> 
 														<f:options items="${lstPeriodo}"
 															itemValue="idRegistro" itemLabel="descripcionCorta" />
 													</f:select>
@@ -171,6 +170,8 @@ font-size: 13px;
 										<input type="hidden" id="txtIdVenta" />
 										<input type="hidden" id="txtNumeroPeriodo"/>
 										<input type="hidden" id="txtNumero"/>
+										
+										
 										<div class="row">
 											<div class="form-group col-md-2 mb-1">
 												<label for="nombreCompleto" class="label_control">TIPO SEGURO </label>
@@ -191,7 +192,7 @@ font-size: 13px;
 														path="persona.apellidoMaterno" />
 												</div>
 											</div>
-											<div class="form-group col-md- mb-1">
+											<div class="form-group col-md-2 mb-1">
 												<label for="nombreCompleto" class="label_control">MONTO </label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
@@ -218,7 +219,7 @@ font-size: 13px;
 												</a>
 
 
-												<button type="submit" onclick="confirmar_eliminar()"
+												<button type="submit" onclick="confirmar_eliminar(0,3)"
 													class="btn btn-danger">
 													<i class="fa fa-level-down-alt"></i> ANULAR
 												</button>

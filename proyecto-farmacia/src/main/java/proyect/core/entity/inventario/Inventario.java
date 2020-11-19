@@ -1,5 +1,6 @@
 package proyect.core.entity.inventario;
  
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,9 @@ import proyect.core.entity.stock.Stock;
 						procedureName="[dbo].[usp_Inventario_insertar]",
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idInventario", 			type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idFarmacia",   		    type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen",   		    type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes", 					type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio", 					type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems", 		type=Integer.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 			type=String.class),
@@ -71,7 +74,18 @@ import proyect.core.entity.stock.Stock;
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", 		 type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idSituacion",     type=String.class )
 							}					
-				)
+				),
+				@NamedStoredProcedureQuery(
+						name="inventario.buscarPorFiltros", 
+						procedureName="[dbo].[usp_Inventario_buscarxCriterios]",
+						resultClasses = Inventario.class,
+						parameters={
+						
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="mes", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="anio", type=String.class)
+							}					
+				),
 		}
 	)
 @Entity
@@ -123,7 +137,40 @@ public class Inventario  {
 	
 	private double precio;
 	
+	private String mes;
+	private String nombreMes;
+	private String anio; 
+	private Timestamp fechaInvetario;
+	private String nombreAlmacen;
+	private String estado;
+	private String idSituacion;
+	private String situacion;
+	
 	public Inventario() { 
+	}
+
+	public String getNombreMes() {
+		return nombreMes;
+	}
+
+	public void setNombreMes(String nombreMes) {
+		this.nombreMes = nombreMes;
+	}
+
+	public String getIdSituacion() {
+		return idSituacion;
+	}
+
+	public void setIdSituacion(String idSituacion) {
+		this.idSituacion = idSituacion;
+	}
+
+	public String getSituacion() {
+		return situacion;
+	}
+
+	public void setSituacion(String situacion) {
+		this.situacion = situacion;
 	}
 
 	public Stock removeStockItem(Stock stockItem) {
@@ -228,8 +275,6 @@ public class Inventario  {
 		this.precio = precio;
 	}
 
- 
-
 	public int getNroMes() {
 		return nroMes;
 	}
@@ -309,9 +354,45 @@ public class Inventario  {
 	public void setUsuarioRegistro(String usuarioRegistro) {
 		this.usuarioRegistro = usuarioRegistro;
 	}
-	
-	
-	
 
-	 
+	public String getMes() {
+		return mes;
+	}
+
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
+
+	public String getAnio() {
+		return anio;
+	}
+
+	public void setAnio(String anio) {
+		this.anio = anio;
+	}
+
+	public Timestamp getFechaInvetario() {
+		return fechaInvetario;
+	}
+
+	public void setFechaInvetario(Timestamp fechaInvetario) {
+		this.fechaInvetario = fechaInvetario;
+	}
+
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
+	}
+
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 }

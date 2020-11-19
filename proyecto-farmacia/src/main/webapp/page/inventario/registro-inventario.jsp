@@ -42,10 +42,111 @@
 
 
 <style>
+
 body {
-	/*font-family: Cambria;*/
+font-family: Cambria;
+font-size: 13px;  
+}
+
+#datepicker {
+	width: 180px;
+	margin: 0 20px 20px 20px;
+}
+
+#datepicker>span:hover {
+	cursor: pointer;
+}
+
+#txtCajaImporteTotal:disabled {
+	font-color: #0A0A0A;
+	font-weight: plain;
+	font-family: Cambria;
+	font-size: 16px;
+	background-color: #DCE8EC;
+	text-align: right;
+	valign: center;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+	/*position: relative;*/
+	display: inline-block;
+}
+
+
+input {
+	border: 1px solid transparent; 
 	font-size: 13px;
 }
+
+input[type=text] {
+	width: 100%;
+}
+
+.autocomplete-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.autocomplete-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+	background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+/*the container must be positioned relative:*/
+.autocompletePac {
+	/*position: relative;*/
+	display: inline-block;
+}
+.autocompletePac-items {
+	position: absolute;
+	border: 1px solid #d4d4d4;
+	border-bottom: none;
+	border-top: none;
+	z-index: 99;
+	/*position the autocomplete items to be the same width as the container:*/
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.autocompletePac-items div {
+	padding: 10px;
+	cursor: pointer;
+	background-color: #fff;
+	border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocompletePac-items div:hover {
+	background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocompletePac-active {
+	background-color: DodgerBlue !important;
+	color: #ffffff;
+}
+
 </style>
 <body id="page-top">
 
@@ -67,7 +168,7 @@ body {
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmGenerarVenta" role="form" action=""
+				<f:form id="frmRegistrarInventario" role="form" action=""
 					onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -143,89 +244,93 @@ body {
 														itemLabel="persona.nombreCompleto" />
 												</f:select>
 											</div>
+										</div> 
+											<br>
+										<div class="label_title">
+											ARTICULOS <span class="required">*</span>:
 										</div>
-										<div class="row">
-											<div class="col-md-8 mb-3">
-												<label for="nombreCompleto" class="label_control">BUSCAR
-													ARTICULO </label>
-												<div class="controls">
-													<div class="autocomplete" style="width: 100%;">
-														<input type="text" value="" placeholder="Buscar..."
-															class="form-control"
-															onkeypress="return runIngresarExamen(event)"
-															id="txtArticuloNombre" name="txtArticuloNombre" />
-													</div>
-												</div>
-											</div>
-											<div class="form-group col-md-4 mb-1">
-												<label for="exampleInputName" class="label_control">CANTIDAD
-												</label>
-												<div class="position-relative has-icon-left">
+										 <div id="panelCEX" class="panel_style col-md-12">
+											<div class="row">
+												<div class="col-md-8 mb-3">
+													<label for="nombreCompleto" class="label_control">BUSCAR
+														ARTICULO </label>
 													<div class="controls">
-														<f:input type="text" class="form-control" maxlength="12"
-															id="nroDocumentoPaciente" path="codigo"
-															onkeypress="return runScript(event)" />
+														<div class="autocomplete" style="width: 100%;">
+															<input type="text" value="" placeholder="Buscar..."
+																class="form-control"  
+																onkeypress="return runIngresarExamen(event)"
+																id="txtArticuloNombre" name="txtArticuloNombre" />
+														</div>
 													</div>
 												</div>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-12">
-												<div class="table-responsive">
-													<table class="table table-bordered">
-														<thead class="tabla_th">
-															<tr>
-																<th width="30">ITEM</th>
-																<th>DESCRIPCION</th>
-																<th>PRESENTACION</th>
-																<th>LOTE</th>
-																<th width="50">CANTIDAD</th>
-																<th>PRECIO UNITARIO</th>
-																<th>IMPORTE</th>
-																<th>ACCION</th>
-															</tr>
-														</thead>
-														<tbody id="idbodyStock" class="label_control">
-															<c:forEach var="orden" items="${lstOrdennombreBean}"
-																varStatus="loop">
-																<tr>
-																	<td>${loop.count}</td>
-																	<td>${orden.examen.descripcion}</td>
-																	<td>${orden.examen.tipo.descripcionCorta}</td>
-																	<td>${orden.cantidad}</td>
-																	<td>${orden.examen.sPrecio}</td>
-																	<td>${orden.sImporte}</td>
-																	<c:choose>
-																		<c:when test="${codigo==null || codigo==''}">
-																			<td></td>
-																		</c:when>
-																		<c:otherwise>
-																			<td><button type='button'
-																					class='btn btn-outline-danger btn-sm'
-																					data-toggle='tooltip' data-placement='top'
-																					title='Eliminar'
-																					onclick='confirmar_eliminar(${ciex.examen.codigo})'
-																					data-original-title='Eliminar' id='eliminarDX'>
-																					<i class='icon-trash'></i>
-																				</button></td>
-																		</c:otherwise>
-																	</c:choose>
-
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
+												<div class="col-md-4 mb-3" style="margin-top: 30px;">
+													<button type="button" style="display: none"
+														class="btn btn-outline-success btn-sm"
+														data-toggle="tooltip" data-placement="top" title=""
+														data-original-title="Agregar" onclick="enviarIndex()"
+														id="agregarEspecialidad">
+														<i class="icon-check"> AGREGAR</i>
+													</button>
 												</div>
 											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="table-responsive">
+														<table class="table table-bordered">
+															<thead class="tabla_th">
+																<tr>
+																	<th width="30">ITEM</th>
+																	<th>DESCRIPCION</th>
+																	<th width="50">LOTE</th>
+																	<th width="50">SISMED</th>
+																	<th>PRESENTACION</th>
+																	<th>STOCK</th>
+																	<th width="50">CANTIDAD</th>
+																	
+																	<th>ACCION</th>
+																</tr>
+															</thead>
+															<tbody id="idbodyStock" class="label_control">
+																<c:forEach var="orden" items="${lstOrdennombreBean}"
+																	varStatus="loop">
+																	<tr>
+																		<td>${loop.count}</td>
+																		<td>${orden.examen.descripcion}</td>
+																		<td>${orden.examen.tipo.descripcionCorta}</td>
+																		<td>${orden.cantidad}</td>
+																		<td>0</td>
+																		<td>${orden.examen.sPrecio}</td>
+																		<td>${orden.sImporte}</td>
+																		<c:choose>
+																			<c:when test="${codigo==null || codigo==''}">
+																				<td></td>
+																			</c:when>
+																			<c:otherwise>
+																				<td><button type='button'
+																						class='btn btn-outline-danger btn-sm'
+																						data-toggle='tooltip' data-placement='top'
+																						title='Eliminar'
+																						onclick='confirmar_eliminar(${ciex.examen.codigo})'
+																						data-original-title='Eliminar' id='eliminarDX'>
+																						<i class='icon-trash'></i>
+																					</button></td>
+																			</c:otherwise>
+																		</c:choose>
+
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div> 
 										</div>
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
-												<a
-													href="${pageContext.request.contextPath}/ventaController/nuevo"
-													class="btn btn-info"> <i class="fa fa-file"></i> <span
-													class="text">NUEVO</span>
+											    <a href="${pageContext.request.contextPath}/inventarioController/listado"
+												 class="btn btn-secondary" id="btnListado"> <i class="fa fa-undo"></i>
+													<span class="text">CANCELAR</span>
 												</a>
 
 
@@ -238,10 +343,7 @@ body {
 									</div>
 								</div>
 							</div>
-						</div>
-
-						<input id="contextPath" type="hidden"
-							value="${pageContext.request.contextPath}">
+						</div> 
 						<div class="card-body">
 							<div class="form-group"></div>
 						</div>
@@ -301,7 +403,7 @@ body {
 
 	<!-- scripts  -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+		src="${pageContext.request.contextPath}/assets/js/page/inventario/inventario.js"
 		type="text/javascript" charset="utf-8"></script>
 
 	<script
@@ -342,7 +444,188 @@ body {
 		document.getElementById('collapseInventario').className = "collapse show";
 	</script>
 
+<script>
 
+function runIngresarExamen(e) {
+	var index = $('#txtIndexArticulo').val();
+	var examenNombre = $('#txtExamenNombre').val();
+	if (e.keyCode == 13) {
+		if(examenNombre != ''){
+			llenarArticuloIndex(index);
+			return false;
+		} 
+	}
+}
+
+function enviarIndex() { 
+	var index = $('#txtIndexArticulo').val();
+	var examenNombre = $('#txtExamenNombre').val();
+		if(examenNombre != ''){
+			llenarArticuloIndex(index);
+			return false;
+		}  
+}
+function autocomplete(inp, arr) {
+	/*the autocomplete function takes two arguments,
+	the text field element and an array of possible autocompleted values:*/
+	var currentFocus;
+	var codigoRegistro;
+	/*execute a function when someone writes in the text field:*/
+	inp
+			.addEventListener(
+					"input",
+					function(e) {
+						var a, b, i, val = this.value;
+						/*close any already open lists of autocompleted values*/
+						closeAllLists();
+						if (!val) {
+							return false;
+						}
+						currentFocus = -1;
+						/*create a DIV element that will contain the items (values):*/
+						a = document.createElement("DIV");
+						a.setAttribute("id", this.id
+								+ "autocomplete-list");
+						a.setAttribute("class", "autocomplete-items");
+						/*append the DIV element as a child of the autocomplete container:*/
+						this.parentNode.appendChild(a);
+						/*for each item in the array...*/
+						for (i = 0; i < arr.length; i++) {
+							/**console.log("arr[i].nombre:: " +arr[i].nombre.substr(0, val.length)
+									.toUpperCase());
+							console.log("val.toUpperCase():: " +arr[i].nombre.substr(0, val.length)
+									.toUpperCase());*/
+							/*check if the item starts with the same letters as the text field value:*/
+							if ( arr[i].nombre
+									.toUpperCase().includes(val.toUpperCase()) ) { 
+								/*create a DIV element for each matching element:*/
+								b = document.createElement("DIV");
+								/*make the matching letters bold:*/
+								b.innerHTML = "<strong>"
+										+ arr[i].nombre.substr(0, val.length)
+										+ "</strong>";
+								b.innerHTML += arr[i].nombre
+										.substr(val.length);
+								/*insert a input field that will hold the current array item's value:*/
+								b.innerHTML += "<input type='hidden' id='" + arr[i].codigo + "' value='" + arr[i].nombre + "'>"; 
+							
+								/*execute a function when someone clicks on the item value (DIV element):*/
+								b
+										.addEventListener(
+												"click",
+												function(e) {
+													 
+												
+													console.log("codigo::" +(this
+															.getElementsByTagName("input")[0].id));	
+															
+													inp.value = this
+															.getElementsByTagName("input")[0].value;
+													
+													$("#txtIndexArticulo").val(this
+															.getElementsByTagName("input")[0].id);
+															
+													llenarArticuloIndex(this
+															.getElementsByTagName("input")[0].id);		
+													
+													
+													$('#txtArticuloNombre').val("")
+													/*
+														$("#txtidRegistroUbigeo").val(this
+															.getElementsByTagName("input")[0].id)
+													close the list of autocompleted values,
+													(or any other open lists of autocompleted values:*/
+															
+													//$("#txtidRegistroUbigeo").val(arr[i].codigoRegistro);
+													closeAllLists();
+												});
+								a.appendChild(b);
+							}
+						}
+					});
+	/*execute a function presses a key on the keyboard:*/
+	inp.addEventListener("keydown", function(e) {
+		var x = document.getElementById(this.id + "autocomplete-list");
+		if (x)
+			x = x.getElementsByTagName("div");
+		if (e.keyCode == 40) {
+			/*If the arrow DOWN key is pressed,
+			increase the currentFocus variable:*/
+			currentFocus++;
+			/*and and make the current item more visible:*/
+			addActive(x);
+		} else if (e.keyCode == 38) { //up
+			/*If the arrow UP key is pressed,
+			decrease the currentFocus variable:*/
+			currentFocus--;
+			/*and and make the current item more visible:*/
+			addActive(x);
+		} else if (e.keyCode == 13) {
+			/*If the ENTER key is pressed, prevent the form from being submitted,*/
+			e.preventDefault();
+			if (currentFocus > -1) {
+				/*and simulate a click on the "active" item:*/
+				if (x)
+					x[currentFocus].click();
+			}
+		}
+	});
+	function addActive(x) {
+		/*a function to classify an item as "active":*/
+		if (!x)
+			return false;
+		/*start by removing the "active" class on all items:*/
+		removeActive(x);
+		if (currentFocus >= x.length)
+			currentFocus = 0;
+		if (currentFocus < 0)
+			currentFocus = (x.length - 1);
+		/*add class "autocomplete-active":*/
+		x[currentFocus].classList.add("autocomplete-active");
+	}
+	function removeActive(x) {
+		/*a function to remove the "active" class from all autocomplete items:*/
+		for (var i = 0; i < x.length; i++) {
+			x[i].classList.remove("autocomplete-active");
+		}
+	}
+	function closeAllLists(elmnt) {
+		/*close all autocomplete lists in the document,
+		except the one passed as an argument:*/
+		var x = document.getElementsByClassName("autocomplete-items");
+		for (var i = 0; i < x.length; i++) {
+			if (elmnt != x[i] && elmnt != inp) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+		}
+	}
+	/*execute a function when someone clicks in the document:*/
+	document.addEventListener("click", function(e) {
+		closeAllLists(e.target);
+	});
+}
+
+var arrayMenus = [];
+var arrayPersonas = [];
+
+<c:forEach var="stock" items="${lstStocks}"
+	varStatus="loop">
+var objArticulo = {
+		codigo : "",
+		nombre		: ""
+  	}; 
+objArticulo.codigo ='${loop.index}'; 
+objArticulo.nombre ='${stock.articulo.nombre} - LOTE:${stock.lote}'; 
+  arrayMenus.push(objArticulo);
+</c:forEach>
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+autocomplete(document.getElementById("txtArticuloNombre"), arrayMenus);
+
+
+var  listadoArticulo= []; 
+ 
+</script>
 
 
 	<div class="modal fade text-xs-left" id="modalPersona" tabindex="-2"

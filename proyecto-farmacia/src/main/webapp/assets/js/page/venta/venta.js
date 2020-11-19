@@ -1,8 +1,9 @@
 var accionRealizar = "";
 var codigoRegistro = "";
 
-function confirmar_eliminar(codigo) {
+function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
+	accionRealizar = tipo;
 	$('#md_confirmacion').modal('show');
 
 }
@@ -12,7 +13,14 @@ function agregar_accion() {
 
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
-		anularVenta(codigoRegistro);
+		if (accionRealizar == 3) {
+			console.log("anularVenta :: " + codigoRegistro );
+			anularVenta(codigoRegistro);
+		}else{
+			console.log("eliminarArticulo :: " + codigoRegistro );
+			eliminarArticulo(codigoRegistro);
+		}
+		
 		$('#md_confirmacion').modal('hide');
 	});
 });
@@ -124,7 +132,7 @@ function llenarArticuloIndex(index) {
 					if (data != null) {
 						for (var i = 0; i < listadoArticulo.length; i++) {
 							var objVentaItem = listadoArticulo[i];
-							if (objVentaItem.stock.articulo.codigo == data.stock.articulo.codigo) {
+							if (objVentaItem.stock.codigo == data.stock.codigo) {
 								valida = "1";
 							}
 						}
@@ -716,29 +724,36 @@ function buscarDocumento() {
 						  + "&idVenta=" + idVenta + "&numeroPeriodo=" + numeroPeriodo,
 		type : 'GET',	
 		success : function(venta) {
-			var todate = new Date(venta.fechaEmision);
-			var dia = todate.getDate();
-			var mes = todate.getMonth() + 1;
-			var anio = todate.getFullYear(); 
-			
-			if (dia.toString().length == 1) {
-				dia = "0"+dia;
-			}
-			if (mes.toString().length == 1) {
-				mes = "0"+mes;
-			}
+			console.log("venta::" + venta);
+			if(venta !=""){
+				var todate = new Date(venta.fechaEmision);
+				var dia = todate.getDate();
+				var mes = todate.getMonth() + 1;
+				var anio = todate.getFullYear(); 
+				
+				if (dia.toString().length == 1) {
+					dia = "0"+dia;
+				}
+				if (mes.toString().length == 1) {
+					mes = "0"+mes;
+				}
 
-			var fecha = dia+"/"+mes+"/"+anio 
-			 $('#personaNombres').val(venta.persona.nombreCompleto);
-			 $('#personaNroDocumento').val(venta.persona.nroDocumento);
-			 $('#txtEpisodio').val(venta.episodio.codigo);
-			 $('#txtTipoSeguro').val(venta.tipoFinanciador.descripcionCorta);
-			 $('#txtFechaEmision').val(fecha+ " "+ venta.hora);
-			 $('#txtUsuarioEmitio').val(venta.usuarioRegistro); 
-			 $('#txtIdVenta').val(venta.codigo);
-			 $('#txtNumeroPeriodo').val(venta.numeroPeriodo);
-			 $('#txtMonto').val("S/. " +venta.importe);
-			 $('#txtNumero').val(venta.serie.nroSerie + "-" + venta.codigo);
+				var fecha = dia+"/"+mes+"/"+anio 
+				 $('#personaNombres').val(venta.persona.nombreCompleto);
+				 $('#personaNroDocumento').val(venta.persona.nroDocumento);
+				 $('#txtEpisodio').val(venta.episodio.codigo);
+				 $('#txtTipoSeguro').val(venta.tipoFinanciador.descripcionCorta);
+				 $('#txtFechaEmision').val(fecha+ " "+ venta.hora);
+				 $('#txtUsuarioEmitio').val(venta.usuarioRegistro); 
+				 $('#txtIdVenta').val(venta.codigo);
+				 $('#txtNumeroPeriodo').val(venta.numeroPeriodo);
+				 $('#txtMonto').val("S/. " +venta.importe);
+				 $('#txtNumero').val(venta.serie.nroSerie + "-" + venta.codigo);
+				
+			}else{
+				msg_advertencia("No se encontraron resultados");
+			}
+			
 		},
 		error : function() {
 		}
@@ -768,6 +783,8 @@ function anularVenta(codigoRegistro){
 				 $('#txtNumeroPeriodo').val("");
 				 $('#nroSerie').val("");
 				 $('#idVenta').val("");
+				 $('#txtMonto').val("");
+				 $('#txtNumero').val("");
 			}else{
 				msg_error("Error al anular venta");	
 			}

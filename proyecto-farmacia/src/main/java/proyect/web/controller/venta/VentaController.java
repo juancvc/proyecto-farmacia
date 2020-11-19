@@ -631,14 +631,16 @@ public class VentaController extends BaseController{
 	}
 	   
     @RequestMapping(value = "/anular", method = RequestMethod.GET)
-	public ModelAndView anularVenta(HttpServletRequest request) {
+	public ModelAndView anularVenta(
+			@ModelAttribute("ventaBean") VentaBean ventaBean,
+			HttpServletRequest request) {
 		// cargarComboLeccion();
     	
     	java.util.Date fecha = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String anio = dateFormat.format(fecha);
-		
-		VentaBean ventaBean = new VentaBean(); 
+		System.out.println("anio "  + anio);
+		//VentaBean ventaBean = new VentaBean(); 
 		ventaBean.setNumeroPeriodo(anio);
 		StockBean Stock = new StockBean();
 		Stock.setTipoLlamada("1");
@@ -651,8 +653,7 @@ public class VentaController extends BaseController{
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}	
-		mav.addObject("lstPeriodo", lstPeriodo);
-		ventaBean.setNumeroPeriodo(anio);
+		mav.addObject("lstPeriodo", lstPeriodo); 
 		mav.addObject("ventaBean", ventaBean);
 		return mav;
 	}

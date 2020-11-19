@@ -27,7 +27,9 @@ public class InventarioDAOImpl implements InventarioDAO {
 		boolean sw=false;
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.insert");
-			spq.setParameter("idFarmacia", inventario.getAlmacen().getCodigo());
+			spq.setParameter("idAlmacen", inventario.getAlmacen().getCodigo());
+			spq.setParameter("mes", inventario.getMes().getIdRegistro());
+			spq.setParameter("anio", inventario.getPeriodo().getIdRegistro());
 			spq.setParameter("cantidadItems", inventario.getCantidadItems());
 			spq.setParameter("cadenaCantidad", inventario.getCadenaCantidad());
 			spq.setParameter("nroDocumento", inventario.getNroDocumento());
@@ -144,7 +146,9 @@ public class InventarioDAOImpl implements InventarioDAO {
 		List<InventarioBean> lstInventarioBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.buscarPorFiltros");  
-		//	spq.setParameter("nombreInventario", Inventario.getNombreInventario()); 
+			spq.setParameter("idAlmacen", Inventario.getAlmacen().getCodigo()); 
+			spq.setParameter("mes", Inventario.getMes().getIdRegistro()); 
+			spq.setParameter("anio", Inventario.getPeriodo().getIdRegistro()); 
 			
 			 if (spq.execute()) {
 				 lstInventario =  spq.getResultList(); 
@@ -184,13 +188,20 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 		
 		InventarioBean bean = null; 
 		if (entity != null) {
-			
 			bean = new InventarioBean();
 			bean.setCodigo(entity.getIdInventario());   
 			bean.setNroDocumento(entity.getNroDocumento()); 
 			bean.getAlmacen().setCodigo(entity.getIdAlmacen()); 
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro()); 
 			bean.setIpRegistro(entity.getIpRegistro()); 
+			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
+			bean.getAlmacen().setNombreAlmacen(entity.getNombreAlmacen());
+			bean.getMes().setIdRegistro(entity.getMes());
+			bean.getMes().setDescripcionCorta(entity.getNombreMes());
+			bean.getPeriodo().setIdRegistro(entity.getAnio());
+			bean.setFecha(entity.getFechaInvetario());
+			bean.getSituacion().setIdRegistro(entity.getIdSituacion());
+			bean.getSituacion().setDescripcionCorta(entity.getSituacion());
 	 	}
 		
 		return bean;

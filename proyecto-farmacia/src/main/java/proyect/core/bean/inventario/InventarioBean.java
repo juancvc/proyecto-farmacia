@@ -18,7 +18,11 @@ public class InventarioBean  extends BaseBean{
 	private int cantidadItems;
 	private String cadenaCantidad;
 	private String cadenaIdStock;
+	
 	public AlmacenBean getAlmacen() {
+		if (almacen == null) {
+			almacen =  new AlmacenBean();
+		}
 		return almacen;
 	}
 	public void setAlmacen(AlmacenBean almacen) {
@@ -43,12 +47,18 @@ public class InventarioBean  extends BaseBean{
 		this.nroDocumento = nroDocumento;
 	}
 	public CatalogoBean getMes() {
+		if (mes == null) {
+			mes = new CatalogoBean();
+		}
 		return mes;
 	}
 	public void setMes(CatalogoBean mes) {
 		this.mes = mes;
 	}
 	public CatalogoBean getPeriodo() {
+		if (periodo == null) {
+			periodo = new CatalogoBean();
+		}
 		return periodo;
 	}
 	public void setPeriodo(CatalogoBean periodo) {
