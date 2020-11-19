@@ -75,7 +75,7 @@ body {
 					<div class="container-fluid">
 
 						<!-- Page Heading -->
-						<div class="tituloForm">Reporte ICI</div>
+						<div class="tituloForm">REPORTE ICI MENSUAL</div>
 
 
 						<div class="card shadow mb-4">
@@ -113,62 +113,30 @@ body {
 													</f:select>
 												</div>
 											</div>
-									
-											<div class="form-group col-md-3 mb-2">
-												<label for="nombreCompleto" class="label_control">ALMACEN </label>
-												<div class="controls">
-													<f:input type="text" class="form-control" disabled="true"
-														id="txtAlias" path="almacenBean.nombreAlmacen" maxlength="35" />
-												</div>
+										<div class="col-md-3 mb-1">
+											<label for="lbltipoSeguroPaciente" class="label_control">ALMACEN<span
+													class="required">*</span></label>
+											<div class="controls">
+												<f:select id="cboTipoArticulo" required="required" path="almacenBean.codigo"
+													class="form-control">
+													<f:options items="${lstAlmacen}" itemValue="codigo"
+														itemLabel="nombreAlmacen" />
+												</f:select>
 											</div>
 										</div>
-									
-
-										<div class="row">
-											<div class="col-md-12">
-												<div class="table-responsive">
-													<table class="table table-bordered">
-														<thead class="tabla_th">
-															<tr>
-																<th width="30">ITEM</th>
-																<th>ARTICULO</th>
-																<th>LOTE</th>
-																<th>FECHA VENCIMIENTO</th>
-																<th width="50">COD SISMED</th>
-																<th>SALDO</th>
-																<th>PRECIO</th>
-																<th>SALIDA VENTA</th>
-																<th>SALIDA VENC.</th>
-															</tr>
-														</thead>
-														<tbody id="idbodyStock" class="label_control">
-															<c:forEach var="orden" items="${lstOrdennombreBean}"
-																varStatus="loop">
-																<tr>
-																	<td>${loop.count}</td>
-																	<td>${orden.examen.descripcion}</td>
-																	<td>${orden.examen.tipo.descripcionCorta}</td>
-																	<td>${orden.cantidad}</td>
-																	<td>${orden.examen.sPrecio}</td>
-																	<td>${orden.sImporte}</td>
-															
-
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
+										</div> 
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
-												style="margin-top: 15px;">
-												<a
-													href="${pageContext.request.contextPath}/movimientoAlmacenController/listarReporteICIMensual"
-													class="btn btn-info"> <i class="fa fa-file"></i> <span
-													class="text">BUSCAR</span>
-												</a>
-
+												style="margin-top: 15px;"> 
+												<button type="submit" title='Confirmar' 
+													onclick="${pageContext.request.contextPath}/movimientoAlmacenController/listarReporteICIMensual" 
+													class="btn btn-primary">
+													<i class="fa fa-save"></i>
+												</button> 
+											<a
+												href="${pageContext.request.contextPath}/movimientoAlmacenController/listarReporteICIMensual"
+												class="btn btn-info"> <i class="fa fa-file-excel"></i> GENERAR REPORTE
+											</a>
 											</div>
 										</div>
 									</div>
@@ -272,10 +240,10 @@ body {
 
 
 	<script>
-		document.getElementById('navInventario').className = "nav-item active";
-		document.getElementById('enlaceGenerarInventario').className = "collapse-item active";
-		document.getElementById('collInventario').className = "nav-link";
-		document.getElementById('collapseInventario').className = "collapse show";
+		document.getElementById('navICI').className = "nav-item active";
+		document.getElementById('enlaceListadoICIMensual').className = "collapse-item active";
+		document.getElementById('CollReporteICI').className = "nav-link";
+		document.getElementById('collapseReporteIci').className = "collapse show";
 	</script>
 
 

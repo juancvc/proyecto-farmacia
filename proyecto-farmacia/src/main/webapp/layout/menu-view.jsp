@@ -176,7 +176,7 @@
 					class="collapse-item" href="#">Devoluciones</a>
 			</div>
 		</div></li>
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
+	<li id="navICI" class="nav-item"><a id="CollReporteICI" class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseReporteIci"
 		aria-expanded="true" aria-controls="collapseReporteIci"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>ICI</span>
