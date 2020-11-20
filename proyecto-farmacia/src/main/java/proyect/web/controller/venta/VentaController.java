@@ -334,6 +334,7 @@ public class VentaController extends BaseController{
 			
 			lstPersonas = personaService.getBuscarPorFiltros(persona);
 			System.out.println("lstStocks " + lstStocks.size());
+			System.out.println("lstPersonas " + lstPersonas.size());
 		} catch (Exception e) { 
 		}
 		mav.addObject("lstPersonas", lstPersonas);
@@ -575,7 +576,9 @@ public class VentaController extends BaseController{
 	public void cargarPersona(@RequestParam("codigo") String codigo) { 
 		System.out.println("cargarPersona codigo:: " + codigo);
 		 this.setPersonaBean(new PersonaBean());
+		 
 		 this.getPersonaBean().setCodigo(codigo);
+		 listarPacienteCtaCtePendientes2();
    	}
  
 	@RequestMapping(value = "/llenarVenta", method = RequestMethod.GET)
@@ -1382,8 +1385,10 @@ public class VentaController extends BaseController{
 			 try {
 				lstCuentaCorrienteBean = cuentaCorrienteService.listarCtaCtePacientePendientes(cuentaCorrienteBean);
 				if (lstCuentaCorrienteBean.size()==1) {
+					System.out.println("lstCuentaCorrienteBean"+lstCuentaCorrienteBean.size());
 					for (CuentaCorrienteBean oCuentaCorrienteBean : lstCuentaCorrienteBean) {
 						setCuentaCorrienteBean(oCuentaCorrienteBean);
+						System.out.println("setCuentaCorrienteBean"+oCuentaCorrienteBean.getCodigo());
 					}	
 				}
 			

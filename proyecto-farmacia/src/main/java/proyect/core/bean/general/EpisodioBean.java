@@ -18,6 +18,9 @@ public class EpisodioBean extends BaseBean {
 	private String				observaciones;
 	private EpisodioBean 		episodioAnterior;
 	public CatalogoBean getTipoPaciente() {
+		if (tipoPaciente == null) {
+			tipoPaciente = new CatalogoBean();
+		}
 		return tipoPaciente;
 	}
 	public void setTipoPaciente(CatalogoBean tipoPaciente) {

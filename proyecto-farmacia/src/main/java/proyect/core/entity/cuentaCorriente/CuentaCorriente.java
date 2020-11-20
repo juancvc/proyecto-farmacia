@@ -39,7 +39,7 @@ import proyect.core.entity.general.Personal;
 				),
 				@NamedStoredProcedureQuery(
 						name="cuentaCorriente.listaPacientesPendientes", 
-						procedureName="[SIGEHOV2ASIS].[ATEN].[USP_CTA_CTE_LIST_PACIENTES_PENDIENTES]",
+						procedureName="[SIGEHOV2ASIS].[ATEN].[USP_CTA_CTE_LIST_PACIENTES_PENDIENTES_FARMACIA]",
 						resultClasses= CuentaCorriente.class,
 						parameters={
 
@@ -84,10 +84,10 @@ public class CuentaCorriente  implements Serializable {
 	@Column(name="CODRGEPI")
 	private String 		codigoEpisodio; 				// PACIENTE ESTA DENTRO DEL EPISODIO
 	
-	@Column(name="NROVERSI")
+	@Column(name="NRPEREPI")
 	private String       periodoEpisodio;
 	
-	@Column(name="NROPERIO")
+	@Column(name="NRVEREPI")
 	private String        versionoEpisodio;
 	
 	/****relacionado al paciente****/
