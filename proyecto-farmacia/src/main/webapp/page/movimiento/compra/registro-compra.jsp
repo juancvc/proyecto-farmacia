@@ -282,19 +282,7 @@ input[type=text] {
 												 <f:textarea class="form-control"
 												 id="descripcion" path="glosa" rows="2" maxlength="350"/>  
 												</div>
-											</div>
-											<div class="form-group col-md-2 mb-2">
-												<label for="nombreCompleto" class="label_control">GLOSA 
-												</label>
-												<div class="controls">
-												<input type="number" class="form-control" id="quantity" name="quantity" min="1" max="5"> 
-												</div>
-											</div>
-												<div class="form-group col-md-2 mb-2"> 
-											 <input type="text" autocomplete="off" max="Infinity" min="0" class="form-control el-input__inner" 
-											 role="spinbutton" aria-valuemax="Infinity" aria-valuemin="0" aria-valuenow="3" 
-											 aria-disabled="undefined">
-										</div>
+											</div> 
 										</div>
 											<br>
 										<div class="label_title">
