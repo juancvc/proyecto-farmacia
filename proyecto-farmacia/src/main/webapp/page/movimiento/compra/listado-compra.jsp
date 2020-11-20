@@ -15,7 +15,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Farmacia - Kárdex</title>
+<title>Farmacia - Compra</title>
 
 <!-- Custom styles for this template-->
 <link
@@ -48,13 +48,19 @@
 <link
 	href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/css/bootstrap-select.css" />
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/css/bootstrap.min-droop.css">	
+ 
+		
 </head>
+<style>
+#datepicker {
+	width: 180px;
+	margin: 0 20px 20px 20px;
+}
 
+#datepicker>span:hover {
+	cursor: pointer;
+}
+</style>
  
 <body id="page-top">
 
@@ -77,12 +83,12 @@
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
 				<f:form id="frmListadoArticulo" role="form"
-					action="${pageContext.request.contextPath}/movimientoAlmacenController/buscarArticuloKardex">
+					action="${pageContext.request.contextPath}/compraController/buscar">
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
 
 						<!-- Page Heading -->
-						<div class="tituloForm">KARDEX DE ARTICULOS</div>
+						<div class="tituloForm">LISTADO DE COMPRAS</div>
 
 
 						<div class="card shadow mb-2">
@@ -98,65 +104,44 @@
 									<div class="row">
 										<div class="col-md-3 mb-1">
 											<label for="lbltipoSeguroPaciente" class="label_control">ALMACEN</label>
-											<div class="controls">
+											<div class="controls"> 
 												<f:select id="cboTipoArticulo"
-													path="almacenBean.codigo" class="form-control"> 
+													path="almacen.codigo" class="form-control"> 
+													<f:option value="" label="Seleccione" selected="true"
+															disabled="disabled" />
 													<f:options items="${lstAlmacen}"
 														itemValue="codigo" itemLabel="nombreAlmacen" />
 												</f:select>
 											</div>
-										</div>
-										<div class="form-group col-md-7 mb-2">
-											<label for="situacion" class="label_control">PRODUCTOS
-												<span class="required">*</span>
+										</div> 
+									<div class="col-md-3 mb-2">
+											<label for="exampleInputName" class="label_control">FECHA
+												EMISION
 											</label>
-											<div class="controls">
-												<f:select id="cboProductos" data-live-search="true"
-													title="Seleccionar" class="selectpicker"
-													path="StockBean.articulo.codigo" required="required" >
-													<f:options items="${lstArticulos}" itemValue="codigo"
-														itemLabel="nombre" />
-												</f:select>
-											</div>
+											<f:input class="form-control" id="dateHasta" name="dateHasta"
+												maxlength="10" placeholder="DD/MM/YYYY"
+												type="text" path="sFechaEmision"
+												onkeyup="this.value=formateafechaNacimiento(this.value);" />
 										</div>
-									</div> 
+									</div>
 									<div class="row">
-									<div class="form-group col-md-5" style="margin-top: 15px;">
-											<a
-												href=""
-												class="btn btn-info"> <i class="fa fa-file-pdf"></i> EXPORTAR PDF
-											</a>
-									 		<a
-												href=""
-												class="btn btn-info"> <i class="fa fa-file-excel"></i> EXPORTAR EXCEL
-											</a>
-										</div>
-										<div class="form-group col-md-7 text-right"
-											style="margin-top: 15px;">
+										<div class="form-group col-md-12 text-right"
+											style="margin-top: 0px;">
 											<button id="btnBuscar" class="btn btn-success" type="submit">
 												<i class="fa fa-search"> </i> BUSCAR
 											</button>
-											
-											
-											<button
-												onclick="limpiarForm();$('#dataTable').dataTable().fnClearTable();"
-												type="button" class="btn btn-flat btn-secondary ">
-												<i class="fa fa-eraser"></i> LIMPIAR
-											</button>
-											 
 											<a
-												href="${pageContext.request.contextPath}/ventaController/nuevo"
-												class="btn btn-info"> <i class="fa fa-file"></i> <span
-												class="text"> NUEVO</span>
-											</a>
-										</div>
+											href="${pageContext.request.contextPath}/compraController/nuevo"
+											class="btn btn-info"> <i class="fa fa-file"></i> <span
+											class="text"> NUEVO</span>
+										</a>
+										</div> 
 									</div>
-
 								</div>
 							</div>
 						</div>
 
-						<div class="card shadow mb-4">
+						<div class="card shadow mb-2">
 							<!-- Card Content - Collapse -->
 							<div class="collapse show" id="collapseCardExample">
 								<div class="card-body">
@@ -168,34 +153,40 @@
 												<thead>
 													<tr class="tabla_th">
 														<th>ITEM</th>
-														<th>FECHA Y HORA</th>
-														<th>TIPO TRANSACCION</th>
-														<th>NUMERO</th>
-														<th>ENTRADA</th>
-														<th>SALIDA</th>
-														<th>SALDO</th> 
+														<th>FECHA EMISION</th>
+														<th>PROVEEDOR</th>
+														<th>TIPO DOCUMENTO</th>
+														<th>NUMERO</th> 
+														<th>IMPORTE</th>
+														<th>ACCIONES</th>
 													</tr>
 												</thead>
 												<tfoot>
 												<tbody class="tabla_td">
-													<c:forEach var="movimiento" items="${lstMovimientoArticulo}"
+													<c:forEach var="compra" items="${lstCompras}"
 														varStatus="loop">
 														<tr>
 															<td>${loop.count}</td>
-															<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${movimiento.fechaMovimiento}"/></td>
-															<td>${movimiento.tipoMovimiento.nombreTipoMovimiento}</td>
-															<td>${movimiento.nroDocumento}</td>
-															<c:choose>
-												<c:when test="${movimiento.tipoMovimiento.categoriaTipoMovimiento.idRegistro=='000001'}">
-																	<td>${movimiento.cantidad}</td>
-																	<td></td>
-																	</c:when>
-																	<c:otherwise> 
- 																<td></td>
-															<td>${movimiento.cantidad}</td>
-																</c:otherwise>
-																</c:choose> 
-															<td>${movimiento.saldo}</td>
+															<td><fmt:formatDate pattern="dd/MM/yyyy" value="${compra.fechaEmision}"/></td>
+															<td>${compra.proveedor.nombreProveedor}</td>
+															<td>${compra.tipoDocumento.descripcionCorta}</td>
+															<td>${compra.numeroDocumento}</td>
+															<td>S/. ${compra.sImporte}</td>
+															<td><a title="Modificar" data-placement="top"
+																	data-toggle="tooltip"
+																	class="btn btn-outline-success btn-sm"
+																	onclick=""
+																	href="#"><i class="fas fa-pencil-alt"></i></a>
+																<button type='button'
+																	class='btn btn-outline-danger btn-sm'
+																	data-toggle='tooltip' data-placement='top'
+																	title='Eliminar'
+																	onclick="confirmar_eliminar(${loop.count});"
+																	data-original-title='Eliminar' id='agregarEspecialidad'>
+																	<i class='fas fa-trash'></i>
+																</button> 
+																
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -315,13 +306,7 @@
 		
 		<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
 			type="text/javascript"></script>
-	
-		<script
-		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap-select.js"></script>
-		
-		<script
-		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/droop.js"></script>
-		
+ 
 	<script>
 		$(document).ready(
 				function() {
@@ -354,10 +339,10 @@
 				})
 	</script>	
 	<script>
-		document.getElementById('navMovimiento').className = "nav-item active";
-		document.getElementById('enlaceReporteKardex').className = "collapse-item active";
-		document.getElementById('collMovimiento').className = "nav-link";
-		document.getElementById('collapseMovimiento').className = "collapse show";
+	document.getElementById('navMovimiento').className = "nav-item active";
+	document.getElementById('enlaceCompras').className = "collapse-item active";
+	document.getElementById('collMovimiento').className = "nav-link";
+	document.getElementById('collapseMovimiento').className = "collapse show";
 	</script>
 
 

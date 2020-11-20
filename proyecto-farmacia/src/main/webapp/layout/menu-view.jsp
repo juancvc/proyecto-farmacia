@@ -94,6 +94,8 @@
 				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
 				<!--<a id="enlaceMovimiento" class="collapse-item"
 					href="${pageContext.request.contextPath}/movimientoAlmacenController/listado">Movimientos</a>-->
+				<a id="enlaceCompras" class="collapse-item"
+					href="${pageContext.request.contextPath}/compraController/listado">Compras</a>
 				<a id="enlaceReporteKardex" class="collapse-item"
 					href="${pageContext.request.contextPath}/movimientoAlmacenController/reporteKardex">Reporte
 					de Kardex</a>
