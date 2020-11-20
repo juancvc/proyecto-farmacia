@@ -157,14 +157,34 @@ function llenarArticuloIndex(index) {
 										+ "maxlength='5' "
 										+ "onkeypress= 'return soloNumeros(event);' />"
 										+ "</td>"
-										+ "<td>"
-										+ objVentaItem.stock.articulo.codigoSismed
+										+ "<td><input type='text' class='form-control' "
+										+ "id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+										+ " required='required' "
+										+ "value =''"
+										+ "maxlength='12' "
+										+ "onkeypress= 'return this.value=formateafechaNacimiento(event);' />"
 										+ "</td>"
-										+ "<td>"
-										+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+										+ "<td><input type='text' class='form-control' "
+										+ "id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+										+ " required='required' "
+										+ "value =''"
+										+ "maxlength='100'/>"
 										+ "</td>"
-										+ "<td>"
-										+ objVentaItem.stock.stock
+										+ "<td><input type='text' class='form-control' "
+										+ "id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+										+ " required='required' "
+										+ "value =''"
+										+ "maxlength='100'/>"
+										+ "</td>"
+										+ "<td><input type='text' class='form-control' "
+										+ "id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+										+ " required='required' "
+										+ "value =''"
+										+ "maxlength='100'/>"
 										+ "</td>"
 										+ "<td> <input type='text' class='form-control' "
 										+ "id="
