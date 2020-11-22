@@ -4,7 +4,7 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+  <link href="${pageContext.request.contextPath}/app-assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
 <ul
@@ -14,7 +14,7 @@
 	<!-- Sidebar - Brand -->
 	<a
 		class="sidebar-brand d-flex align-items-center justify-content-center"
-		href="index.html">
+		href="${pageContext.request.contextPath}/inicioController/portada">
 		<div class="sidebar-brand-icon rotate-n-15"></div> <!--   <i class="fas fa-laugh-wink"></i> <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div> -->
 		<div class="sidebar-brand-text mx-3">FARMACIA</div>
 	</a>
@@ -32,7 +32,13 @@
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 
-	<!-- Heading -->
+	<!-- Heading --> 
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="${pageContext.request.contextPath}/inicioController/portada">
+            <i class="fa fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
 	<div class="sidebar-heading">SALIDAS</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->

@@ -289,5 +289,29 @@ public class CompraDAOImpl implements CompraDAO{
 			   
 			return lstCompraBean;
 	}
+
+	@Override
+	public CompraBean totalCompra(int tipo, CompraBean compra) throws DAOException {
+		List<Compra> lstCompra = null;	
+		CompraBean lstCompraBean = null;
+				StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("compra.totalCompra");  
+				spq.setParameter("tipoReporte", tipo); 
+				spq.setParameter("fechaEmision", compra.getFechaEmision()); 
+				spq.setParameter("mes", compra.getMes()); 
+				spq.setParameter("anio", compra.getNumeroPeriodo());
+				
+				 if (spq.execute()) {
+					 lstCompra =  spq.getResultList(); 
+				 }
+				 
+				if (lstCompra != null && lstCompra.size() > 0) {
+					lstCompraBean = deObjetoAObjetoBean(lstCompra.get(0));
+				 }
+				
+				em.close();
+				
+			   
+			return lstCompraBean;
+	}
 	
 }

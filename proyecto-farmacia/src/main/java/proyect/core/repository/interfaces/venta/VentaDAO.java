@@ -18,16 +18,22 @@ public interface VentaDAO  extends BaseDAO<VentaBean>{
 	
 	public boolean cierreVentaDiaria(VentaBean venta)throws DAOException; 
 	
-	public List<VentaBean > listarVentasAnuladasFindByObject(VentaBean venta)throws DAOException;
+	public List<VentaBean> listarVentasAnuladasFindByObject(VentaBean venta)throws DAOException;
 	
-	public List<VentaBean > listarVentasAnuladasFindByObjectPagante(VentaBean venta)throws DAOException;
+	public List<VentaBean> listarVentasAnuladasFindByObjectPagante(VentaBean venta)throws DAOException;
  
-	public List<VentaBean > listarVentasDiarias(VentaBean venta)throws DAOException;
+	public List<VentaBean> listarVentasDiarias(VentaBean venta)throws DAOException;
 	
-	public List<VentaBean > listarAtencionesIME(VentaBean venta) throws DAOException;
+	public List<VentaBean> listarAtencionesIME(VentaBean venta) throws DAOException;
 	
-	public List<VentaBean > listarPacientes(VentaBean venta) throws DAOException;
+	public List<VentaBean> listarPacientes(VentaBean venta) throws DAOException;
 	
 	public VentaBean  buscarPorNroDocumento(VentaBean venta)throws DAOException;
+	
+	public VentaBean  totalVenta(int tipo, VentaBean venta) throws DAOException;
+	
+	public List<VentaBean>  listaMensual(VentaBean venta) throws DAOException;
+	
+	public List<VentaBean>  reporteVentaTipoPaciente(int tipo,VentaBean venta) throws DAOException;
 	 
 }

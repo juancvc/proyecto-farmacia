@@ -313,6 +313,37 @@ import org.bridj.cpp.com.DECIMAL;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class),
 									
 				}					
+				),				
+				@NamedStoredProcedureQuery(
+						name="venta.totalVenta", 
+						procedureName="[dbo].[usp_Venta_buscarxDiaMes]",
+						resultClasses= Venta.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoReporte", type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", type=Timestamp.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idSituacion",  type=String.class) 
+				}					
+				),
+				@NamedStoredProcedureQuery(
+						name="venta.listaMensual", 
+						procedureName="[dbo].[usp_Venta_porPeriodo]",
+						resultClasses= Venta.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class)
+				}					
+				),
+				@NamedStoredProcedureQuery(
+						name="venta.reporteTipoPaciente", 
+						procedureName="[dbo].[usp_Venta_reporteTiposPacientes]",
+						resultClasses= Venta.class,
+						parameters={
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoReporte", type=int.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", type=Timestamp.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes",  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class),
+				}					
 				),
 		}			
 	)
@@ -384,7 +415,22 @@ public class Venta  implements Serializable {
 	
 	private String nroSerie;
 	
+	private String mes;
+	
+	private int cantidadItems;
+	
+	
 	public Venta() { 
+	}
+
+
+	public String getMes() {
+		return mes;
+	}
+
+
+	public void setMes(String mes) {
+		this.mes = mes;
 	}
 
 
@@ -682,6 +728,16 @@ public class Venta  implements Serializable {
 
 	public void setMontoLetra(String montoLetra) {
 		this.montoLetra = montoLetra;
+	}
+
+
+	public int getCantidadItems() {
+		return cantidadItems;
+	}
+
+
+	public void setCantidadItems(int cantidadItems) {
+		this.cantidadItems = cantidadItems;
 	}
 	
 }

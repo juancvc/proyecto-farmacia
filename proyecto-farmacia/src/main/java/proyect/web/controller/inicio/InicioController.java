@@ -1,6 +1,8 @@
 package proyect.web.controller.inicio;
   
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itextpdf.text.log.SysoCounter;
 
+import proyect.core.bean.compra.CompraBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.AccesoBean;
@@ -27,12 +30,15 @@ import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
+import proyect.core.bean.venta.VentaBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
+import proyect.core.service.interfaces.compra.CompraService;
 import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
+import proyect.core.service.interfaces.venta.VentaService;
 import proyect.web.controller.base.BaseController;
 import proyect.web.utilitarios.NetUtil;
 import proyect.web.utilitarios.VO;
@@ -54,7 +60,12 @@ public class InicioController extends BaseController{
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private VentaService ventaService;
 	 
+	@Autowired
+	private CompraService compraService;
+	
 	@Autowired
 	private UsuarioPerfilService usuarioPerfilService;
 	
@@ -67,10 +78,20 @@ public class InicioController extends BaseController{
 	List<CatalogoBean> lstMaestra =(new ArrayList<CatalogoBean>()); ;
 	List<CatalogoBean> lstSituacion = new ArrayList<CatalogoBean>();
 	List<CatalogoBean> lstTipoPaciente = new ArrayList<CatalogoBean>(); 
+	List<VentaBean> lstVentasMes = new ArrayList<VentaBean>(); 
+	List<VentaBean> lstVentasTipoPacienteMes = new ArrayList<VentaBean>(); 
 	List<AlmacenBean> lstAlmacenBean;
+	
+	private VentaBean ventaBean;
+	private CompraBean compraBean;
+	
+	java.util.Date fecha = new Date();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+	String anio = dateFormat.format(fecha);
 	
 	@PostConstruct
 	public void init(){
+		
 		this.setLstMaestra(new ArrayList<CatalogoBean>());  
 	}
 	
@@ -352,28 +373,44 @@ public class InicioController extends BaseController{
 				AccesoBean filtroAccesoBean = new AccesoBean();
 				filtroAccesoBean.setPerfil(new PerfilBean());
 				filtroAccesoBean.getPerfil().setCodigo(usuario.getCodPerfilUsuSelec()); 
-				
-				 
-			//	List<AccesoBean> lstAccesoBean =  accesoService.getBuscarPorFiltros(filtroAccesoBean);
-				
-				
-			//	AccesoMenuVo accesoMenuVo = verificarAccesos(lstAccesoBean);
-			//	request.getSession().setAttribute("accesoMenu", accesoMenuVo);
-			//	mav.addObject("accesoMenu", accesoMenuVo);		
-			//	activar usuario.setLstAcceso(lstAccesoBean);
+ 
 				
 			}
+	 
+			String totalVenta = "0.00";
+			String totalVentaAnulado = "0.00";
+			String totalCompra = "0.00";
+			VentaBean prmVentaBean =  new VentaBean();
+			prmVentaBean.setFechaEmision(new Date());
+			prmVentaBean.getSituacion().setIdRegistro("000001");
+			prmVentaBean.setNumeroPeriodo(anio);
 			
-			/*try {
-			lstSituacion = Catalogo2Service.listarPorCodigoTabla("000012", 1);
-				lstTipoPaciente = Catalogo2Service.listarPorCodigoTabla("000007", 1);
+			CompraBean prmCompraBean =  new CompraBean();
+			prmCompraBean.setFechaEmision(new Date()); 
+			
+			try {
+				ventaBean = ventaService.totalVenta(1, prmVentaBean); 
+				totalVenta = ventaBean.getsImporte(); 
+				
+				prmVentaBean.getSituacion().setIdRegistro("000002");
+				ventaBean = ventaService.totalVenta(1, prmVentaBean); 
+				totalVentaAnulado= ventaBean.getsImporte(); 
+				
+				compraBean = compraService.totalCompra(1, prmCompraBean);
+				totalCompra = compraBean.getsImporte();
+				
+				lstVentasMes = ventaService.listaMensual(prmVentaBean);
+				lstVentasTipoPacienteMes = ventaService.reporteVentaTipoPaciente(1, prmVentaBean);
 			} catch (ServiceException e) {
 				System.out.println("printStackTrace");
 				e.printStackTrace();
-			}
-						mav.addObject("lstSituacion",lstSituacion); 
-			mav.addObject("lstTipoPaciente",lstTipoPaciente);
-			*/
+			}   
+			mav.addObject("totalVenta",totalVenta);  
+			mav.addObject("totalVentaAnulado",totalVentaAnulado);  
+			mav.addObject("totalCompra",totalCompra); 
+			mav.addObject("lstVentasMes",lstVentasMes); 
+			mav.addObject("lstVentasTipoPacienteMes",lstVentasTipoPacienteMes); 
+			
 			AlmacenBean objAlmacen = almacenService.getBuscarPorObjecto(usuario.getAlmacen());
 			usuario.setAlmacen(objAlmacen);
 			this.setUsuarioBean(usuario);	
@@ -410,7 +447,46 @@ public class InicioController extends BaseController{
 	@RequestMapping(value = "/portada", method = RequestMethod.GET)
 	public ModelAndView portada(@ModelAttribute("usuarioSesion") UsuarioBean usuario,
 			HttpServletRequest request) throws Exception {
-		return  new ModelAndView("portada", "command", new CatalogoBean());
+		
+		ModelAndView mav = new ModelAndView("portada", "command", new CatalogoBean());
+		String totalVenta = "0.00";
+		String totalVentaAnulado = "0.00";
+		String totalCompra = "0.00";
+		VentaBean prmVentaBean =  new VentaBean();
+		prmVentaBean.setFechaEmision(new Date());
+		prmVentaBean.getSituacion().setIdRegistro("000001");
+		prmVentaBean.setNumeroPeriodo(anio);
+		
+		CompraBean prmCompraBean =  new CompraBean();
+		prmCompraBean.setFechaEmision(new Date()); 
+		
+		try {
+			ventaBean = ventaService.totalVenta(1, prmVentaBean); 
+			totalVenta = ventaBean.getsImporte(); 
+			
+			prmVentaBean.getSituacion().setIdRegistro("000002");
+			ventaBean = ventaService.totalVenta(1, prmVentaBean); 
+			totalVentaAnulado= ventaBean.getsImporte(); 
+			
+			compraBean = compraService.totalCompra(1, prmCompraBean);
+			totalCompra = compraBean.getsImporte();
+			
+			lstVentasMes = ventaService.listaMensual(prmVentaBean);
+			lstVentasTipoPacienteMes = ventaService.reporteVentaTipoPaciente(1, prmVentaBean);
+			System.out.println();
+			
+		} catch (ServiceException e) {
+			System.out.println("printStackTrace");
+			e.printStackTrace();
+		}  
+		mav.addObject("lstVentasTipoPacienteMes",lstVentasTipoPacienteMes); 
+		mav.addObject("totalVenta",totalVenta);  
+		mav.addObject("totalVentaAnulado",totalVentaAnulado);  
+		mav.addObject("totalCompra",totalCompra); 
+		mav.addObject("lstVentasMes",lstVentasMes); 
+		
+		return mav;
+		
 	}
 	
 	

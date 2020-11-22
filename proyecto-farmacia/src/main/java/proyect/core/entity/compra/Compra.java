@@ -18,6 +18,8 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
 import org.bridj.cpp.com.DECIMAL;
+
+import proyect.core.entity.venta.Venta;
   
 
 
@@ -113,6 +115,17 @@ import org.bridj.cpp.com.DECIMAL;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro",  type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class),
 									
+				}					
+				),
+				@NamedStoredProcedureQuery(
+						name="compra.totalCompra", 
+						procedureName="[dbo].[usp_Compra_buscarxDiaMes]",
+						resultClasses= Compra.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoReporte", type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", type=Timestamp.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes",  type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class)
 				}					
 				),
 		}			

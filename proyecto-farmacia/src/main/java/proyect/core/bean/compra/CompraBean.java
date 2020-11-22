@@ -29,6 +29,7 @@ public class CompraBean extends BaseBean {
 	private String sFechaEmision;
 	private float importe;
 	private String sImporte;
+	private String mes;
 	
 	public CatalogoBean getTipoDocumento() {
 		if (tipoDocumento == null) {
@@ -134,6 +135,12 @@ public class CompraBean extends BaseBean {
 	}
 	public void setsImporte(String sImporte) {
 		this.sImporte = sImporte;
+	}
+	public String getMes() {
+		return mes;
+	}
+	public void setMes(String mes) {
+		this.mes = mes;
 	}
 	
 }

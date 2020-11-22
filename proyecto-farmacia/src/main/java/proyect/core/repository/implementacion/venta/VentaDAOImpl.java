@@ -251,6 +251,20 @@ public class VentaDAOImpl implements VentaDAO{
 			bean.setMontoLetras(entity.getMontoLetra());
 			bean.getEpisodio().setCodigo(entity.getIdEpisodio());
 			bean.getSerie().setNroSerie(entity.getNroSerie());
+			bean.setMes(entity.getMes());
+			bean.setCantidadItems(entity.getCantidadItems());
+		/*	bean.getReporteVenta().setEnero(entity.getEnero());
+			bean.getReporteVenta().setFebrero(entity.getFebrero());
+			bean.getReporteVenta().setMarzo(entity.getMarzo());
+			bean.getReporteVenta().setAbril(entity.getAbril());
+			bean.getReporteVenta().setMayo(entity.getMayo());
+			bean.getReporteVenta().setJunio(entity.getJunio());
+			bean.getReporteVenta().setJulio(entity.getJulio());
+			bean.getReporteVenta().setAgosto(entity.getAgosto());
+			bean.getReporteVenta().setSetiembre(entity.getSetiembre());
+			bean.getReporteVenta().setOctubre(entity.getOctubre());
+			bean.getReporteVenta().setNoviembre(entity.getNoviembre());
+			bean.getReporteVenta().setDiciembre(entity.getDiciembre());  */
 	 	}
 		
 		return bean;
@@ -307,6 +321,73 @@ public class VentaDAOImpl implements VentaDAO{
 				
 			   
 			return lstVentaBean;
+	}
+
+	@Override
+	public VentaBean totalVenta(int tipo, VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		VentaBean lstVentaBean = null;
+				StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.totalVenta");  
+				spq.setParameter("tipoReporte", tipo); 
+				spq.setParameter("fechaEmision", venta.getFechaEmision()); 
+				spq.setParameter("mes", venta.getMes()); 
+				spq.setParameter("anio", venta.getNumeroPeriodo());
+				spq.setParameter("idSituacion", venta.getSituacion().getIdRegistro());
+				 if (spq.execute()) {
+					 lstVenta =  spq.getResultList(); 
+				 }
+				 
+				if (lstVenta != null && lstVenta.size() > 0) {
+					lstVentaBean = deObjetoAObjetoBean(lstVenta.get(0));
+				 }
+				
+				em.close();
+				
+			   
+			return lstVentaBean;
+	}
+
+	@Override
+	public List<VentaBean> listaMensual(VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		List<VentaBean> lstVentaBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.listaMensual"); 
+			spq.setParameter("anio", venta.getNumeroPeriodo()); 	
+			 if (spq.execute()) {
+				 lstVenta =  spq.getResultList(); 
+				 System.out.println("lstVenta " + lstVenta.size());
+			 }		 
+			if (lstVenta != null && lstVenta.size() > 0) {
+				lstVentaBean = deListaObjetoAListaObjetoBean(lstVenta);
+			 }
+			
+			em.close();
+				   
+		return lstVentaBean;
+	}
+
+	@Override
+	public List<VentaBean> reporteVentaTipoPaciente(int tipo, VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		List<VentaBean> lstVentaBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.reporteTipoPaciente"); 
+			spq.setParameter("tipoReporte", tipo); 
+			spq.setParameter("fechaEmision", venta.getFechaEmision()); 
+			spq.setParameter("mes", venta.getMes()); 
+			spq.setParameter("anio", venta.getNumeroPeriodo());
+			 if (spq.execute()) {
+				 lstVenta =  spq.getResultList(); 
+				 System.out.println("lstVenta " + lstVenta.size());
+			 }		 
+			if (lstVenta != null && lstVenta.size() > 0) {
+				lstVentaBean = deListaObjetoAListaObjetoBean(lstVenta);
+			 }
+			
+			em.close();
+				   
+		return lstVentaBean;
 	}
 	
 }

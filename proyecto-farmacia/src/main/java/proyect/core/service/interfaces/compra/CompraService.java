@@ -4,8 +4,7 @@ import java.util.List;
 
 import proyect.base.service.ServiceException;
 import proyect.base.service.interfaces.BaseService;
-import proyect.core.bean.compra.CompraBean;
-
+import proyect.core.bean.compra.CompraBean; 
 
 public interface CompraService extends BaseService<CompraBean> {
 	  
@@ -26,4 +25,5 @@ public interface CompraService extends BaseService<CompraBean> {
 	
 	public CompraBean  buscarPorNroDocumento(CompraBean Compra) throws ServiceException;
 	
+	public CompraBean  totalCompra(int tipo, CompraBean venta) throws ServiceException;
 }

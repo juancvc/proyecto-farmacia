@@ -44,7 +44,9 @@ public class VentaBean extends BaseBean {
 	private int cantidadItems;
 	
 	private String pacienteEpisodio;
-
+	private String mes;
+	private ReporteVenta reporteVenta;
+	
 	public String getPacienteEpisodio() {
 		
 		pacienteEpisodio = this.getEpisodio().getCodigo()+ " - " + this.getPersona().getNombreCompleto();
@@ -310,16 +312,35 @@ public class VentaBean extends BaseBean {
 	public void setMontoLetras(String montoLetras) {
 		this.montoLetras = montoLetras;
 	}
-	
-	
-	
+
+	public String getMes() {
+		return mes;
+	}
+
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
 
 	public CuentaCorrienteBean getCuentaCorrienteBean() {
+		if (cuentaCorrienteBean == null) {
+			cuentaCorrienteBean = new CuentaCorrienteBean();
+		}
 		return cuentaCorrienteBean;
 	}
 
 	public void setCuentaCorrienteBean(CuentaCorrienteBean cuentaCorrienteBean) {
 		this.cuentaCorrienteBean = cuentaCorrienteBean;
+	}
+
+	public ReporteVenta getReporteVenta() {
+		if (reporteVenta == null) {
+			reporteVenta = new ReporteVenta();
+		}
+		return reporteVenta;
+	}
+
+	public void setReporteVenta(ReporteVenta reporteVenta) {
+		this.reporteVenta = reporteVenta;
 	}
 
 	@Override

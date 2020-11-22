@@ -181,6 +181,17 @@ public class CompraServiceImpl implements CompraService {
 		}
 		return oPedido;
 	}
+
+	@Override
+	public CompraBean totalCompra(int tipo, CompraBean compra) throws ServiceException {
+		CompraBean oPedido=null;
+		try {
+			oPedido=this.getCompraDAO().totalCompra(tipo,compra);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return oPedido;
+	}
 }
 
 	

@@ -4,7 +4,7 @@ import java.util.List;
 
 import proyect.base.repository.DAOException;
 import proyect.base.repository.interfaces.BaseDAO;
-import proyect.core.bean.compra.CompraBean; 
+import proyect.core.bean.compra.CompraBean;  
 
 public interface CompraDAO  extends BaseDAO<CompraBean>{
 	 
@@ -29,5 +29,7 @@ public interface CompraDAO  extends BaseDAO<CompraBean>{
 	public List<CompraBean > listarPacientes(CompraBean Compra) throws DAOException;
 	
 	public CompraBean  buscarPorNroDocumento(CompraBean Compra)throws DAOException;
+	
+	public CompraBean  totalCompra(int tipo, CompraBean compra) throws DAOException;
 	 
 }

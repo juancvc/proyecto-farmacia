@@ -26,4 +26,10 @@ public interface VentaService extends BaseService<VentaBean> {
 	
 	public VentaBean  buscarPorNroDocumento(VentaBean venta) throws ServiceException;
 	
+	public VentaBean  totalVenta(int tipo, VentaBean venta) throws ServiceException;
+	
+	public List<VentaBean>  listaMensual(VentaBean venta) throws ServiceException;
+	
+	public  List<VentaBean> reporteVentaTipoPaciente(int tipo, VentaBean venta) throws ServiceException;
+	
 }

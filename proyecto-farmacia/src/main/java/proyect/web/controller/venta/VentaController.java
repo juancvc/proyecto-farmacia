@@ -1384,13 +1384,16 @@ public class VentaController extends BaseController{
 			// cuentaCorrienteBean.setp
 			 try {
 				lstCuentaCorrienteBean = cuentaCorrienteService.listarCtaCtePacientePendientes(cuentaCorrienteBean);
-				if (lstCuentaCorrienteBean.size()==1) {
-					System.out.println("lstCuentaCorrienteBean"+lstCuentaCorrienteBean.size());
-					for (CuentaCorrienteBean oCuentaCorrienteBean : lstCuentaCorrienteBean) {
-						setCuentaCorrienteBean(oCuentaCorrienteBean);
-						System.out.println("setCuentaCorrienteBean"+oCuentaCorrienteBean.getCodigo());
-					}	
+				if (lstCuentaCorrienteBean != null) {
+					if (lstCuentaCorrienteBean.size()==1) {
+						System.out.println("lstCuentaCorrienteBean"+lstCuentaCorrienteBean.size());
+						for (CuentaCorrienteBean oCuentaCorrienteBean : lstCuentaCorrienteBean) {
+							setCuentaCorrienteBean(oCuentaCorrienteBean);
+							System.out.println("setCuentaCorrienteBean"+oCuentaCorrienteBean.getCodigo());
+						}	
+					}
 				}
+
 			
 			} catch (ServiceException e) {
 				// TODO Auto-generated catch block

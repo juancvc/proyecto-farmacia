@@ -57,7 +57,7 @@
 
     // Chart Data
     var empSatData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
         datasets: [{
             label: "Employees",
             data: [28, 35, 36, 48, 46, 42, 60],
