@@ -103,6 +103,17 @@ public class StockServiceImpl implements StockService {
 		}
 		return lstPedido;
 	}
+
+	@Override
+	public List<StockBean> reporteArticuloPorVencer() throws ServiceException {
+		List<StockBean> lstPedido=null;
+		try {
+			lstPedido=this.getStockDAO().reporteArticuloPorVencer();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
+	}
   
 
 }

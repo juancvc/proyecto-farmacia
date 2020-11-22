@@ -11,5 +11,7 @@ import proyect.core.bean.stock.StockBean;
 public interface StockDAO extends BaseDAO<StockBean> {
 	
 	public List<StockBean > listarPorIdArticulo(ArticuloBean articuloBean) throws DAOException;
+	
+	public List<StockBean > reporteArticuloPorVencer() throws DAOException;
 
 }

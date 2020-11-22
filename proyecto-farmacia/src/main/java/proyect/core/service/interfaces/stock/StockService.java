@@ -13,14 +13,5 @@ public interface StockService extends BaseService<StockBean> {
 	 
 	public List<StockBean > listarPorIdArticulo(ArticuloBean articuloBean) throws ServiceException;
 	
-	/*
-	public boolean anularVenta(VentaBean venta)throws ServiceException; 
-	 
-	 
-	public boolean cierreVentaDiaria(VentaBean venta)throws ServiceException; 
-	
-	public List<VentaBean > listarVentasAnuladas(VentaBean venta)throws ServiceException; 
- 
-	
-	public List<VentaBean > listarAtencionesIME(VentaBean venta) throws ServiceException;*/
+	public List<StockBean > reporteArticuloPorVencer() throws ServiceException;
 }

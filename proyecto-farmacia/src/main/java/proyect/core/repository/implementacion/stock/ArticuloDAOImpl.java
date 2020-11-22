@@ -220,4 +220,24 @@ private ArticuloBean deObjetoAObjetoBean(Articulo entity) {
 		return bean;
 	}
 
+@Override
+public List<ArticuloBean> reportePorStockAlerta() throws DAOException {
+	List<Articulo> lstArticulo = null;	
+	List<ArticuloBean> lstArticuloBean = null;
+	
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("articulo.reportePorStockAlerta");  
+		 if (spq.execute()) {
+			 lstArticulo =  spq.getResultList(); 
+		 }
+		 
+		if (lstArticulo != null && lstArticulo.size() > 0) {
+			lstArticuloBean = deListaObjetoAListaObjetoBean(lstArticulo);
+		 }
+		
+		em.close();
+		
+	   
+	return lstArticuloBean;
+}
+
 }

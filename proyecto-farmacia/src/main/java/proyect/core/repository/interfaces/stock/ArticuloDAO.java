@@ -8,4 +8,6 @@ import proyect.core.bean.stock.ArticuloBean;
  
 public interface ArticuloDAO extends BaseDAO<ArticuloBean> { 
 
+	public List<ArticuloBean > reportePorStockAlerta() throws DAOException;
+	
 }

@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter; 
+import javax.persistence.StoredProcedureParameter;
+
+import proyect.core.entity.venta.Venta; 
 
 @NamedStoredProcedureQueries(
 		{
@@ -168,7 +170,12 @@ import javax.persistence.StoredProcedureParameter;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaDesde",  type=Timestamp.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaHasta",  type=Timestamp.class),
 							}					
-				)
+				), 
+				@NamedStoredProcedureQuery(
+						name="articulo.reportePorStockAlerta", 
+						procedureName="[dbo].[usp_Articulo_reportePorStockAlerta]",
+						resultClasses= Articulo.class					
+				),
 		}
 				
 	)

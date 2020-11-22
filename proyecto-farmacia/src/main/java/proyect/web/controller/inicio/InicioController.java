@@ -30,6 +30,8 @@ import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
+import proyect.core.bean.stock.ArticuloBean;
+import proyect.core.bean.stock.StockBean;
 import proyect.core.bean.venta.VentaBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
@@ -38,6 +40,8 @@ import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
+import proyect.core.service.interfaces.stock.ArticuloService;
+import proyect.core.service.interfaces.stock.StockService;
 import proyect.core.service.interfaces.venta.VentaService;
 import proyect.web.controller.base.BaseController;
 import proyect.web.utilitarios.NetUtil;
@@ -61,6 +65,12 @@ public class InicioController extends BaseController{
 	private UsuarioService usuarioService;
 	
 	@Autowired
+	private ArticuloService articuloService;
+	
+	@Autowired
+	private StockService stockService;
+	
+	@Autowired
 	private VentaService ventaService;
 	 
 	@Autowired
@@ -80,6 +90,8 @@ public class InicioController extends BaseController{
 	List<CatalogoBean> lstTipoPaciente = new ArrayList<CatalogoBean>(); 
 	List<VentaBean> lstVentasMes = new ArrayList<VentaBean>(); 
 	List<VentaBean> lstVentasTipoPacienteMes = new ArrayList<VentaBean>(); 
+	List<ArticuloBean> lstArticulosStockAlerta = new ArrayList<ArticuloBean>(); 
+	List<StockBean> lstStockVencimiento = new ArrayList<StockBean>(); 
 	List<AlmacenBean> lstAlmacenBean;
 	
 	private VentaBean ventaBean;
@@ -401,6 +413,9 @@ public class InicioController extends BaseController{
 				
 				lstVentasMes = ventaService.listaMensual(prmVentaBean);
 				lstVentasTipoPacienteMes = ventaService.reporteVentaTipoPaciente(1, prmVentaBean);
+				
+				lstArticulosStockAlerta = articuloService.reportePorStockAlerta();
+				lstStockVencimiento = stockService.reporteArticuloPorVencer();
 			} catch (ServiceException e) {
 				System.out.println("printStackTrace");
 				e.printStackTrace();
@@ -410,6 +425,8 @@ public class InicioController extends BaseController{
 			mav.addObject("totalCompra",totalCompra); 
 			mav.addObject("lstVentasMes",lstVentasMes); 
 			mav.addObject("lstVentasTipoPacienteMes",lstVentasTipoPacienteMes); 
+			mav.addObject("lstArticulosStockAlerta",lstArticulosStockAlerta); 
+			mav.addObject("lstStockVencimiento",lstStockVencimiento); 
 			
 			AlmacenBean objAlmacen = almacenService.getBuscarPorObjecto(usuario.getAlmacen());
 			usuario.setAlmacen(objAlmacen);
@@ -473,6 +490,8 @@ public class InicioController extends BaseController{
 			
 			lstVentasMes = ventaService.listaMensual(prmVentaBean);
 			lstVentasTipoPacienteMes = ventaService.reporteVentaTipoPaciente(1, prmVentaBean);
+			lstArticulosStockAlerta = articuloService.reportePorStockAlerta();
+			lstStockVencimiento = stockService.reporteArticuloPorVencer();
 			System.out.println();
 			
 		} catch (ServiceException e) {
@@ -484,7 +503,8 @@ public class InicioController extends BaseController{
 		mav.addObject("totalVentaAnulado",totalVentaAnulado);  
 		mav.addObject("totalCompra",totalCompra); 
 		mav.addObject("lstVentasMes",lstVentasMes); 
-		
+		mav.addObject("lstArticulosStockAlerta",lstArticulosStockAlerta);
+		mav.addObject("lstStockVencimiento",lstStockVencimiento);
 		return mav;
 		
 	}

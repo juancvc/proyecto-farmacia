@@ -156,6 +156,7 @@ public class StockDAOImpl implements StockDAO{
 			bean.getTipoSeleccion().setDescripcionCorta(entity.getTipoProcesoSeleccion());
 			bean.getModalidadAdquision().setDescripcionCorta(entity.getNombreModalidadAdquisicion());
 			bean.setsPrecio((getTwoDecimals(entity.getPrecioVenta()).replace(",", "."))); 
+			bean.setDiasVencimiento(entity.getDiasVencimiento());
 	 	}
 		
 		return bean;
@@ -202,5 +203,24 @@ public List<StockBean> listarPorIdArticulo(ArticuloBean articuloBean) throws DAO
 			   
 	return lstStockBean;
 }
+
+@Override
+public List<StockBean> reporteArticuloPorVencer() throws DAOException {
+	List<Stock> lstStock = null;	
+	List<StockBean> lstStockBean = null;
+	
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("stock.reporteArticuloPorVencer");
+		 if (spq.execute()) {
+			 lstStock =  spq.getResultList(); 
+		 }		 
+		if (lstStock != null && lstStock.size() > 0) {
+			System.out.println("lstStock.size() " + lstStock.size());
+			lstStockBean = deListaObjetoAListaObjetoBean(lstStock);
+		 }
+		
+		em.close();
+			   
+	return lstStockBean;
+	}
   
 }

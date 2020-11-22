@@ -344,7 +344,7 @@ import org.bridj.cpp.com.DECIMAL;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes",  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class),
 				}					
-				),
+				)
 		}			
 	)
 

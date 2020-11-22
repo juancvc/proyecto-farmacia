@@ -172,6 +172,12 @@ import javax.persistence.Table;
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=String.class )
 						}					
 										
+				),
+				@NamedStoredProcedureQuery(
+						name="stock.reporteArticuloPorVencer", 
+						procedureName="[dbo].[usp_Stock_reporteArticuloPorVencer]",
+						resultClasses = Stock.class
+										
 				)
 		
 		}
@@ -246,10 +252,19 @@ public class Stock
 	private String cadenaStock;
 	private int cantidadItems;
 	private String codigoSismed;
+	private int diasVencimiento;
 	
 	public Stock() { 
 	}
  
+	public int getDiasVencimiento() {
+		return diasVencimiento;
+	}
+
+	public void setDiasVencimiento(int diasVencimiento) {
+		this.diasVencimiento = diasVencimiento;
+	}
+
 	public String getCadenaPrecioAdquisicion() {
 		return cadenaPrecioAdquisicion;
 	}

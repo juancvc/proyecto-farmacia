@@ -93,6 +93,17 @@ public class ArticuloServiceImpl implements ArticuloService {
 	public boolean existe(ArticuloBean t) throws ServiceException { 
 		return false;
 	}
+
+	@Override
+	public List<ArticuloBean> reportePorStockAlerta() throws ServiceException {
+		List<ArticuloBean> lstPedido=null;
+		try {
+			lstPedido=this.getArticuloDAO().reportePorStockAlerta();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstPedido;
+	}
  
 }
 
