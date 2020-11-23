@@ -310,8 +310,8 @@ import org.bridj.cpp.com.DECIMAL;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroPeriodo", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroDocu",  type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro",  type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class),
-									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class), 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="motivoElimino",  type=String.class),
 				}					
 				),				
 				@NamedStoredProcedureQuery(

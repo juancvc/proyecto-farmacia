@@ -584,6 +584,7 @@ public class VentaController extends BaseController{
 	@RequestMapping(value = "/llenarVenta", method = RequestMethod.GET)
 	@ResponseBody
 	public void llenarVenta(@ModelAttribute("ventaBean") VentaBean ventaBean, HttpServletRequest request) {
+		System.out.println("ventaBean " + ventaBean.getSfechaEmision());
 		this.setVentaBean(ventaBean);;
 	}
 	
@@ -1183,6 +1184,7 @@ public class VentaController extends BaseController{
 			@RequestParam("idVenta") String idVenta,
 			@RequestParam("numeroPeriodo") String numeroPeriodo,
 			@RequestParam("numeroDocu") String numeroDocu,
+			@RequestParam("motivo") String motivo,
 			
 			HttpServletRequest request) { 
 		String anulado = "";
@@ -1191,6 +1193,7 @@ public class VentaController extends BaseController{
 		venta.setCodigo(idVenta);
 		venta.setNumeroPeriodo(numeroPeriodo);
 		venta.setNumero(numeroDocu);
+		venta.setMotivoElimina(motivo);
 		try { 
 			this.setAuditoria(venta, request, true);
 			sw = ventaService.anularVenta(venta);

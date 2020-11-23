@@ -68,7 +68,9 @@ import proyect.core.entity.stock.Stock;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoSeleccionCat02",   type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocCompraCat02", 	 type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idpersona", 			 type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="glosa", 				 type=String.class)
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="glosa", 				 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 			 type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="macRegistro", 			 type=String.class)
 						}
 						),	
 					@NamedStoredProcedureQuery(

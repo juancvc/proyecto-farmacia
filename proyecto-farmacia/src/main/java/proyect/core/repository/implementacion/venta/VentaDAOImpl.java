@@ -39,7 +39,7 @@ public class VentaDAOImpl implements VentaDAO{
 		Object valida= null;
 		Object nroPeriodo = null;
 		Object nombreArticulo= "";
-		System.out.println("venta insertar " + venta);
+		System.out.println("venta.getSfechaEmision() insertar " + venta.getSfechaEmision());
 		try { 
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.insertar"); 
 			spq.setParameter("idPersona", venta.getPersona().getCodigo());
@@ -142,7 +142,7 @@ public class VentaDAOImpl implements VentaDAO{
 			spq.setParameter("numeroDocu", 	   	venta.getNumero());
 			spq.setParameter("ipRegistro", 	   	venta.getIpRegistro());
 			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());	
-	
+			spq.setParameter("motivoElimino", venta.getMotivoElimina());	
 			spq.execute();
 			
 			em.close();

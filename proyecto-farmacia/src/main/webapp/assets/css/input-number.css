@@ -1,0 +1,104 @@
+.el-input-number.is-controls-right[class*=small] [class*=increase], .el-input-number.is-controls-right[class*=small] [class*=decrease] {
+    line-height: 15px;
+}
+.el-input-number.is-controls-right[class*=small] [class*=increase], .el-input-number.is-controls-right[class*=small] [class*=decrease] {
+    line-height: 15px;
+}
+.el-input-number.is-controls-right .el-input-number__decrease {
+    right: 1px;
+    bottom: 1px;
+    top: auto;
+    left: auto;
+    border-right: none;
+    border-left: 1px solid #DCDFE6;
+    border-radius: 0 0 4px 0;
+}
+.el-input-number.is-controls-right .el-input-number__increase, .el-input-number.is-controls-right .el-input-number__decrease {
+    height: auto;
+    line-height: 19px;
+}
+.el-input-number.is-controls-right .el-input-number__decrease {
+    right: 1px;
+    bottom: 1px;
+    top: auto;
+    left: auto;
+    border-right: none;
+    border-left: 1px solid #DCDFE6;
+    border-radius: 0 0 4px 0;
+}
+.el-input-number.is-controls-right .el-input-number__increase, .el-input-number.is-controls-right .el-input-number__decrease {
+    height: auto;
+    line-height: 19px;
+}
+.el-input-number--small .el-input-number__increase, .el-input-number--small .el-input-number__decrease {
+    width: 32px;
+    font-size: 13px;
+}
+.el-input-number--small .el-input-number__increase, .el-input-number--small .el-input-number__decrease {
+    width: 32px;
+    font-size: 13px;
+}
+.el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid #DCDFE6;
+}
+.el-input-number__increase, .el-input-number__decrease {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: #F5F7FA;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
+}
+.el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid #DCDFE6;
+}
+.el-input-number__increase, .el-input-number__decrease {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: #F5F7FA;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
+}
+* {
+    outline: none !important;
+}
+* {
+    outline: none !important;
+}
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.el-input-number--small {
+    width: 130px;
+    line-height: 30px;
+}
+.el-input-number {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    line-height: 38px;
+}
+.el-input-number--small {
+    width: 130px;
+    line-height: 30px;
+}
+.el-input-number {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+    line-height: 38px;
+}

@@ -38,7 +38,10 @@
 	rel="stylesheet">
 	
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/datepicker.css">	
+	href="${pageContext.request.contextPath}/assets/css/datepicker.css">
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/assets/css/input-number.css">		
 <!-- Custom styles for this page -->
 </head>
 
@@ -318,17 +321,18 @@ input[type=text] {
 														<table class="table table-bordered">
 															<thead class="tabla_th">
 																<tr>
-																	<th width="30">ITEM</th>
-																	<th>DESCRIPCION</th>
+																	<th width="20">#</th>
+																	<th width="150">DESCRIPCION</th>
 																	<th width="80"># LOTE</th>
 																	<th width="150">FECHA VENC.</th>
-																	<th>REG. SANITARIO</th>
+																	<th width="80">REG. SANITARIO</th>
 																	<th width="60">PRECIO COMPRA</th>
 																	<th width="60">PRECIO VENTA</th> 
 																	<th width="50">CANTIDAD</th>
-																	<th width="50">ACCION</th>
-																</tr>
-															</thead>
+																	<th width="50">SUB TOTAL</th>
+																	<th width="20">ACCION</th>
+																</tr> 
+															</thead> 
 															<tbody id="idbodyStock" class="label_control">
 																<c:forEach var="orden" items="${lstOrdennombreBean}"
 																	varStatus="loop">
@@ -363,11 +367,26 @@ input[type=text] {
 													</div>
 												</div>
 											</div> 
+											<div class="row">
+												<div class="form-group col-md-9 text-right"
+													style="margin-top: 2px;"></div>
+												<div class="form-group col-md-3 text-right"
+													style="margin-top: 2px;">
+													<label for="nombreCompleto" class="label_control">IMPORTE
+														TOTAL S/. </label>
+													<f:input type="text" path="sImporte" class="form-control"
+														id="txtCajaImporteTotal" readonly="true" maxlength="10" />
+
+													<f:input type="hidden" path="importe"
+														id="txtCajaImporteTotalHidden" />
+												</div>
+											</div>
 										</div>
+											
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
-											    <a href="${pageContext.request.contextPath}/inventarioController/listado"
+											    <a href="${pageContext.request.contextPath}/compraController/listado"
 												 class="btn btn-secondary" id="btnListado"> <i class="fa fa-undo"></i>
 													<span class="text">CANCELAR</span>
 												</a>

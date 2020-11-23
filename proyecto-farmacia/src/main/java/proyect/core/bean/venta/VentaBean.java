@@ -46,6 +46,7 @@ public class VentaBean extends BaseBean {
 	private String pacienteEpisodio;
 	private String mes;
 	private ReporteVenta reporteVenta;
+	private String motivoElimina;
 	
 	public String getPacienteEpisodio() {
 		
@@ -227,8 +228,9 @@ public class VentaBean extends BaseBean {
 		java.util.Date fecha = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String fechaActual = dateFormat.format(fecha);
-		System.out.println(fechaActual);
-		sfechaEmision = fechaActual;
+		if (sfechaEmision== null) {
+			sfechaEmision = fechaActual;	
+		} 
 		return sfechaEmision;
 	}
 
@@ -341,6 +343,14 @@ public class VentaBean extends BaseBean {
 
 	public void setReporteVenta(ReporteVenta reporteVenta) {
 		this.reporteVenta = reporteVenta;
+	}
+
+	public String getMotivoElimina() {
+		return motivoElimina;
+	}
+
+	public void setMotivoElimina(String motivoElimina) {
+		this.motivoElimina = motivoElimina;
 	}
 
 	@Override

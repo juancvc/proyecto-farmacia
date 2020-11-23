@@ -100,9 +100,7 @@
 													<f:options items="${lstPersonas}"
 														itemValue="codigo" itemLabel="nombreCompleto" />
 												</f:select> 
-											</div>
-											<f:input type="hidden" class="form-control"
-												id="txtPersonaCodigo" path="persona.codigo" />
+											</div> 
 										</div>
 									</div>
 									<div class="row">

@@ -16,10 +16,11 @@ function convertirFecha(fecha){
 		if(fecha.getMonth().toString().length==1){
 			mes="0"+(fecha.getMonth()+1);
 		}else{
-			mes=fecha.getMonth().toString();
+			mes=fecha.getMonth()+1;
 			}
 		return strFecha=dia+"/"+mes +"/"+fecha.getFullYear();
 }
+
 function fechaCorrecta(fecha1, fecha2){
 
     //Split de las fechas recibidas para separarlas
@@ -59,6 +60,7 @@ var primerslap = false;
 var segundoslap = false;
 
 function formateafechaNacimiento(fecha) {
+	//debugger;
 	var fechaActual = new Date();
 	var long = fecha.length;
 	var dia;
@@ -142,6 +144,7 @@ function formateafechaNacimiento(fecha) {
 
 
 function formateafecha(fecha) {
+	
 	var fechaActual = new Date();
 	var long = fecha.length;
 	var dia;

@@ -200,7 +200,7 @@ font-size: 13px;
 														path="importe" />
 												</div>
 											</div>
-										<div class="form-group col-md-2 mb-1">
+										<div class="form-group col-md-2 mb-2">
 												<label for="nombreCompleto" class="label_control">USUARIO EMITIO </label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
@@ -211,17 +211,26 @@ font-size: 13px;
 											</div>
 										</div>	
 										<div class="row">
+											<div class="form-group col-md-9 mb-2">
+												<label for="nombreCompleto" class="label_control">MOTIVO <span class="required">*</span>
+												</label>
+												<div class="controls">
+												 <f:textarea class="form-control" required="required"
+												 id="txtMotivo" path="motivoElimina" rows="3" maxlength="350"/>  
+												</div>
+											</div>
+											 
+										</div> 
+										<div class="row">
 											<div class="form-group col-md-9 text-right"
 												style="margin-top: 15px;">
 												<a href="${pageContext.request.contextPath}/ventaController/listado"
 												 class="btn btn-secondary "> <i class="fa fa-step-backward"></i>
 													<span class="text">CANCELAR</span>
 												</a>
-
-
 												<button type="submit" onclick="confirmar_eliminar(0,3)"
 													class="btn btn-danger">
-													<i class="fa fa-level-down-alt"></i> ANULAR
+													<i class="fa fa-times-circle"></i> ANULAR
 												</button>
 											</div>
 										</div>

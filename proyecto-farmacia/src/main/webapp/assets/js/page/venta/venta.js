@@ -4,9 +4,19 @@ var codigoRegistro = "";
 function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
 	accionRealizar = tipo;
-	$('#md_confirmacion').modal('show');
+	if (tipo == '3') {
+		var myFormulario = $('#frmGenerarVenta'); 
+		if(!myFormulario[0].checkValidity()) {
+			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
+		}else{  
+			$('#md_confirmacion').modal('show');
+		}
+	}else{
+		$('#md_confirmacion').modal('show');
+	}
 }
+
 function agregar_accion() {
 	$('#md_reg_confirmacion').modal('show');
 }
@@ -765,10 +775,12 @@ function anularVenta(codigoRegistro){
 	var idVenta  = $('#txtIdVenta').val();
 	var numeroPeriodo  = $('#txtNumeroPeriodo').val();
 	var numeroDocu  = $('#txtNumero').val();
+	var motivo  = $('#txtMotivo').val();
 	
 	$.ajax({
 		url : contextPath + "/ventaController/anularVenta?idVenta="+idVenta
-			+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu=" + numeroDocu,
+			+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu=" + numeroDocu
+			+ "&motivo=" + motivo,
 		type : 'GET',	
 		success : function(data) {
 			if (data == "1") {
@@ -785,6 +797,7 @@ function anularVenta(codigoRegistro){
 				 $('#idVenta').val("");
 				 $('#txtMonto').val("");
 				 $('#txtNumero').val("");
+				 $('#txtMotivo').val("");
 			}else{
 				msg_error("Error al anular venta");	
 			}

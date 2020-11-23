@@ -132,7 +132,7 @@ function llenarArticuloIndex(index) {
 					if (data != null) {
 						for (var i = 0; i < listadoArticulo.length; i++) {
 							var objVentaItem = listadoArticulo[i];
-							if (objVentaItem.stock.codigo == data.stock.codigo) {
+							if (objVentaItem.stock.articulo.codigo == data.stock.articulo.codigo) {
 								valida = "1";
 							}
 						}
@@ -161,9 +161,9 @@ function llenarArticuloIndex(index) {
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
 										+ " required='required' "
-										+ "value =''"
-										+ "maxlength='12' "
-										+ "onkeypress= 'return this.value=formateafechaNacimiento(event);' />"
+										+ "placeholder='DD/MM/YYYY'"
+										+ "maxlength='10' "
+										+ "onkeyup='this.value=formateafecha(this.value);' />"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
@@ -176,14 +176,14 @@ function llenarArticuloIndex(index) {
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
 										+ " required='required' "
-										+ "value =''"
+										+ "value ='0'"
 										+ "maxlength='100'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
 										+ " required='required' "
-										+ "value =''"
+										+ "value ='0'"
 										+ "maxlength='100'/>"
 										+ "</td>"
 										+ "<td> <input type='text' class='form-control' "
@@ -195,6 +195,10 @@ function llenarArticuloIndex(index) {
 										+ "' "
 										+ "maxlength='5' "
 										+ "onkeypress= 'return soloNumeros(event);' /></td>"
+										+ "<td>"
+										+ "<label for='nombreCompleto' class='label_control'>0" 
+										+ "</label>"
+										+ "</td>"
 										+ "<td>"
 										+ "<button type='button'"
 										+ " class='btn btn-outline-danger btn-sm' "
