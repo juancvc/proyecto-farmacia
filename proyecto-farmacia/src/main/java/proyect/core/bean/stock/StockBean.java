@@ -23,6 +23,16 @@ public class StockBean extends BaseBean {
 	private String tipoLlamada;
 	private String sPrecio;
 	private int diasVencimiento;
+	private String sFechaVencimiento; 
+
+	
+	public String getsFechaVencimiento() {
+		return sFechaVencimiento;
+	}
+
+	public void setsFechaVencimiento(String sFechaVencimiento) {
+		this.sFechaVencimiento = sFechaVencimiento;
+	}
 
 	public int getDiasVencimiento() {
 		return diasVencimiento;

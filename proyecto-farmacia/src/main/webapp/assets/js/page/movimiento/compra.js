@@ -147,7 +147,10 @@ function llenarArticuloIndex(index) {
 										+ item
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.articulo.nombre
+										+ "<label for='nombreCompleto' class='label_control' id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+								        + " >" + objVentaItem.stock.articulo.nombre
+										+ "</label>" 
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
@@ -176,7 +179,7 @@ function llenarArticuloIndex(index) {
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
 										+ " required='required' "
-										+ "value ='0'"
+										+ "value ='0' onchange = 'calculaSubTotal(); ' "
 										+ "maxlength='100'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
@@ -194,9 +197,12 @@ function llenarArticuloIndex(index) {
 										+ objVentaItem.cantidad
 										+ "' "
 										+ "maxlength='5' "
-										+ "onkeypress= 'return soloNumeros(event);' /></td>"
+										+ "onkeypress= 'return soloNumeros(event);'" 
+										+ "onchange = 'calculaSubTotal(); '  /></td>"
 										+ "<td>"
-										+ "<label for='nombreCompleto' class='label_control'>0" 
+										+ "<label for='nombreCompleto' id="
+										+ [ objVentaItem.stock.articulo.codigo ]
+								        + "class='label_control'>0" 
 										+ "</label>"
 										+ "</td>"
 										+ "<td>"
@@ -233,6 +239,90 @@ function llenarArticuloIndex(index) {
 
 				}
 			});
+}
+
+function calculaSubTotal(){  
+	var arrayComprasItem = [];
+	/** RECORRER MENU **/
+    $("#dataTable tbody tr").each(function (index) 
+    {
+    	var asignado,input,idAcceso,idCompo;
+    	
+    	var objCompra = {
+	  		codigo : 0	
+	  	};
+	    	
+		var objCompraItem = {
+			item 		: 0,
+			codigo		: 0,
+			precioCompra : '0',
+			precioVenta	: 0,
+			cantidad 	: 0,
+			subtotal 	: 0,
+			flgExport 	: false
+	  	};
+    	
+        $(this).children("td").each(function (index2) 
+        {
+        	if(index2 == 5 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   		    objCompra.codigo = idCompo;
+  	   		    console.log("compra $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.precioCompra	= $(input).val();
+        	}
+        	if(index2 == 6 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   		    objCompra.codigo = idCompo;
+  	   		    console.log("venta $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.precioVenta	= $(input).val();
+        	}
+        	if(index2 == 7 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   		    objCompra.codigo = idCompo;
+  	   		    console.log("venta $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.cantidad	= $(input).val();
+        	}
+        	if(index2 == 8 ){ // Columna precio Compra
+        		input    = $(this).children("label");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   		    objCompra.codigo = idCompo; 
+  	   		    $(input).html(objCompraItem.cantidad * objCompraItem.precioCompra);
+  	   		    
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.subtotal	= objCompraItem.cantidad * objCompraItem.precioCompra;
+				console.log("objCompraItem.subtotal " + objCompraItem.subtotal);
+				
+	        	var subTotal = 0.0;
+	        	subTotal = $('#txtCajaImporteTotal').html();
+	        	console.log("subTotal " +  subTotal);
+	        	$('#txtCajaImporteTotal').val(subTotal + objCompraItem.subtotal);
+        	}
+        })
+        arrayComprasItem.push(objCompraItem);
+    })	
+	
 }
 
 function buscarPersonaNroDoc() {
@@ -448,9 +538,9 @@ function cargarPersona() {
 
 function grabar(){  
 		var contextPath = $('#contextPath').val(); 
-		var actionForm = $('#frmRegistrarInventario').attr("action");
-		var url =contextPath+"/compraController/llenarInventario" ;
-		var myFormulario = $('#frmRegistrarInventario'); 
+		var actionForm = $('#frmRegistrarCompra').attr("action");
+		var url =contextPath+"/compraController/llenarCompra" ;
+		var myFormulario = $('#frmRegistrarCompra'); 
 		console.log("actionForm " + actionForm);
 		
 		if(!myFormulario[0].checkValidity()) {
@@ -460,7 +550,7 @@ function grabar(){
 				$.ajax({
 				type : "GET",
 				url : url,
-				data: $('#frmRegistrarInventario').serialize(),
+				data: $('#frmRegistrarCompra').serialize(),
 				success : function(data) { 
 						    grabarDetalle()  
 				},
@@ -477,60 +567,198 @@ function grabar(){
 	}
 }
 
-function grabarDetalle() { 
-	var contextPath = $('#contextPath').val();
-	var actionForm = $('#frmRegistrarInventario').attr("action");
-	var myFormulario = $('#frmRegistrarInventario');
-
-	if (!myFormulario[0].checkValidity()) {
-		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
-
-	} else {
-		if (listadoArticulo.length == 0) {
-			msg_advertencia("Ingrese al menos una artículo.");
-			return;
-		}
-
-		for (var i = 0; i < listadoArticulo.length; i++) {
-			var objExamen = listadoArticulo[i];
-			if (objExamen.cantidad == '' || objExamen.cantidad == '0') {
-				msg_advertencia("Ingrese cantidad mayor a 0");
-				return;
-			}
-		}
-		iniciarBloqueo();
-		$.ajax({
-			contentType : "application/json",
-			type : "POST",
-			data : JSON.stringify(listadoArticulo),
-			url : contextPath + "/compraController/grabarInventario",
-
-			success : function(data) {
-				// console.log("SUCCESS: ", data);
-				if (data == "") {
-					msg_error("Error al registrar inventario");
-				} else {
-					msg_exito("Éxito al registrar inventario");
-					// enviarListado();
-					//verTicket();
-					document.getElementById("btnListado").click(); 
-				}
-
-			},
-
-			error : function(xhr, status, er) {
-				console.log("error: " + xhr + " status: " + status + " er:"
-						+ er);
-				// msg_error();
-
-			},
-			complete : function() {
-				finBloqueo();
-
-			}
-		});
-	}
+function grabarDetalle(){  
+	debugger;
+	/** RECORRER MENU **/
+	var arrayComprasItem = [];
+	var subTotal = 0.0;
+	
+    $("#dataTable tbody tr").each(function (index) 
+    {
+    	var asignado,input,idAcceso,idCompo;
+    	var objArticulo = {
+    	  		codigo : ""	
+    	  	};
+    	var objStock = {
+	  		codigo : ""	,
+	  		articulo : objArticulo,
+			sFechaVencimiento : "",
+			nroRegistroSanitario : "",
+			lote : "", 
+			precioCompra : 0,
+			precioVenta	: 0
+	  	};
+	    	
+		var objCompraItem = {
+			item 		: 0,
+			codigo		: "",
+			stock : objStock,
+			cantidad 	: 0,
+			subtotal 	: 0
+	  	};
+    	
+        $(this).children("td").each(function (index2) 
+        {
+        	
+        	if(index2 == 1 ){ // Columna idArticulo
+        		input    = $(this).children("label");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("compra $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 		= index+1;
+				objArticulo.codigo 	= idCompo; 
+				objStock.articulo = objArticulo;
+				
+				objCompraItem.stock = objStock;
+        	}
+        	
+        	if(index2 == 2 ){ // Columna precio Compralote
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("compra $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objStock.lote	= $(input).val();
+				
+				objCompraItem.stock = objStock;
+        	}
+        	if(index2 == 3 ){ // Columna fechaVencimiento
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("compra $(sFechaVencimiento). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objStock.sFechaVencimiento	= $(input).val();
+				objCompraItem.stock = objStock;
+        	}
+        	if(index2 == 4 ){ // Columna registroSanitario
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("compra $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objStock.nroRegistroSanitario	= $(input).val();
+				objCompraItem.stock = objStock;
+        	}
+        	if(index2 == 5 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("compra $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objStock.precioCompra	= $(input).val();
+				objCompraItem.stock = objStock;
+        	}
+        	if(index2 == 6 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("venta $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objStock.precioVenta	= $(input).val();
+				
+				objCompraItem.stock = objStock;
+        	}
+        	if(index2 == 7 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo;
+  	   		    console.log("venta $(input). " + $(input).val());
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.cantidad	= $(input).val();
+        	}
+        	if(index2 == 8 ){ // Columna precio Compra
+        		input    = $(this).children("label");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			
+  	   			objCompraItem.codigo = idCompo; 
+  	   		    $(input).html(objCompraItem.cantidad * objCompraItem.precioCompra);
+  	   		    
+  	   		    
+				objCompraItem.item 			= index+1;
+				objCompraItem.codigo 		= idAcceso;
+				objCompraItem.subtotal	= objCompraItem.cantidad * objCompraItem.precioCompra;
+				console.log("objCompraItem.subtotal " + objCompraItem.subtotal);
+				
+	        	
+	        	subTotal = subTotal +  objCompraItem.subtotal;
+	        	console.log("subTotal " +  subTotal);
+	        	
+        	}
+        })
+        arrayComprasItem.push(objCompraItem);
+    })	
+    $('#txtCajaImporteTotal').val(subTotal);
+    enviarDatosAccesoAjax(arrayComprasItem);
 }
+
+function enviarDatosAccesoAjax(arrayComprasItem){
+	
+	var contextPath = $('#contextPath').val();
+    var htmlTabla="";
+    
+    iniciarBloqueo();
+    
+ 	$.ajax({
+ 		   contentType: "application/json",
+           type: "POST",
+           data: JSON.stringify(arrayComprasItem),
+           url: contextPath+"/compraController/asignarCompra",
+           success: function(data)
+           {	
+        	    msg_exito();
+        	     
+	   	    	
+           },
+		   error: function(xhr,status,er) {
+			   msg_error();
+			   console.log("error: " + xhr + " status: " + status + " er:" + er);
+			   if(xhr.status==500) {
+				   console.log(er);
+			 //    Error_500(er);
+			   }
+			   if(xhr.status==901) {
+				   console.log(er);
+		    //	   spire_session_901(er);
+    		   }
+		   },
+		   complete: function(){
+			   $('#contentSubMenuTabla').empty();
+			   finBloqueo();
+		   }
+         });
+    return false;
+}
+
+
 
 function eliminarArticulo(codigo) {
 	var htmlTabla = "";

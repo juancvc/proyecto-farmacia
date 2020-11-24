@@ -17,7 +17,8 @@ import proyect.core.bean.compra.CompraBean;
 import proyect.core.bean.compra.CompraItemBean;
 import proyect.core.entity.compra.Compra;
 import proyect.core.entity.compra.CompraItem;
-import proyect.core.repository.interfaces.compra.CompraItemDAO; 
+import proyect.core.repository.interfaces.compra.CompraItemDAO;
+import proyect.web.utilitarios.VO; 
 
 @Transactional
 @Repository("CompraItemDAO")
@@ -32,7 +33,6 @@ public class CompraItemDAOImpl implements CompraItemDAO{
 
 	@Override
 	public boolean insertar(CompraItemBean t) throws DAOException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

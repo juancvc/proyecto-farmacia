@@ -35,30 +35,48 @@ public class CompraDAOImpl implements CompraDAO{
 	}
 
 	@Override
-	public boolean insertar(CompraBean Compra) throws DAOException {
+	public boolean insertar(CompraBean compra) throws DAOException {
 		boolean sw=false;
 		Object id = null;
 		Object valida= null;
 		Object nroPeriodo = null;
 		Object nombreArticulo= "";
-		System.out.println("Compra insertar " + Compra);
 		try { 
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("compra.insertar");  
-			spq.setParameter("idEvento", "");
-			spq.setParameter("idAlmacen", Compra.getAlmacen().getCodigo());
-			spq.setParameter("fechaAtencion", Compra.getFechaAtencion());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("compra.insertar"); 
+			spq.setParameter("cantidad", compra.getCantidadItems()); 
+			spq.setParameter("idAlmacen", compra.getAlmacen().getCodigo());
+			spq.setParameter("nroDocumento", compra.getNumeroDocumento());
+			spq.setParameter("usuarioRegistro", compra.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", compra.getIpRegistro()); 
+			
+			spq.setParameter("nroGuia", "");  
+			spq.setParameter("cadenaIdArticulo", compra.getCadenaIdArticulo());
+			spq.setParameter("cadenaCantidad", compra.getCadenaCantidad());
+			spq.setParameter("cadenaLote",compra.getCadenaLote());
+			spq.setParameter("cadenaPrecioCompra", compra.getCadenaPrecioCompra());
+			spq.setParameter("cadenaPrecioVenta", compra.getCadenaPrecioVenta());
+			spq.setParameter("cadenaFechaVencimiento", compra.getCadenaFechaVencimiento());
+			spq.setParameter("cadenaRegistroSanitario", compra.getCadenaRegistroSanitario());
+			spq.setParameter("idProveedor", compra.getProveedor().getCodigo());
+			
+			spq.setParameter("idTipoFinanciadorCat02", compra.getTipoFinanciamiento().getIdRegistro());
+			spq.setParameter("idTipoSeleccionCat02", compra.getTipoProcesoSeleccion().getIdRegistro());
  
-			 
-			spq.execute(); 
-			valida = spq.getOutputParameterValue(1);
-			nombreArticulo = spq.getOutputParameterValue(2);
-			id = spq.getOutputParameterValue(3);
-			nroPeriodo = spq.getOutputParameterValue(4);
+			spq.setParameter("idTipoDocCompraCat02", compra.getTipoDocumento().getIdRegistro());
+			spq.setParameter("idpersona", "");
+			
+			spq.setParameter("glosa", compra.getGlosa());
+			spq.setParameter("fechaEmision", compra.getsFechaEmision());
+			spq.setParameter("macRegistro", "");
+			
+			spq.execute();  
+			id = spq.getOutputParameterValue(1);
+			//nroPeriodo = spq.getOutputParameterValue(4);
 			if (VO.isNotNull(id)) {
-				sw = true; 
-				//Compra.get.setNombreCortoArticulo(nombreArticulo.toString());
-				Compra.setCodigo(id.toString());
-				Compra.setNumeroPeriodo(nroPeriodo.toString());
+				sw = true;
+				//compra.get.setNombreCortoArticulo(nombreArticulo.toString());
+				compra.setCodigo(id.toString());
+				//compra.setNumeroPeriodo(nroPeriodo.toString());
 			}
 			em.close();
 			

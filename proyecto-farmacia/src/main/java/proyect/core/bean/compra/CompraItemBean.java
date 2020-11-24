@@ -12,7 +12,6 @@ public class CompraItemBean extends BaseBean {
 	private int cantidadConsumida;
 	private CatalogoBean modalidadAdquicision;
 	private StockBean stock;
-	private ArticuloBean articulo;
 	private float precio;
 	private float subtotal;
 	private String sImporte; 

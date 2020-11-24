@@ -27,48 +27,6 @@ import proyect.core.entity.venta.Venta;
 @NamedStoredProcedureQueries(
 		{
 			@NamedStoredProcedureQuery(
-				name="compra.insertar", 
-				procedureName="[dbo].[usp_Compra_insertar]",
-				resultClasses= Compra.class,
-				parameters={
-						    @StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		  type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="nombreArticulo",  type=String.class ),
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idCompra", 		  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="numeroPeriodo",   type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", 	  type=String.class),
-							 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", 		  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaAtencion",   type=String.class),
-						
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTurno", 		  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idModalidadPago", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoFinanciador", type=String.class),
-					
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems",   type=Integer.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPeriodoStock",   type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock",   type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidadFaltante",  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoMoneda", 	  type=String.class),
-							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoComprobanteCat02", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoOperacionCat02", 	 type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie", 	  	  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="codctacte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perctacte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verctacte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="codepicta", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perepicte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verepicte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoPaci", 	      type=String.class)
-					}
-					),
-		
-			@NamedStoredProcedureQuery(
 				name="compra.buscarPorFiltros", 
 				procedureName="[dbo].[usp_Compra_buscarxCriterios]",
 				resultClasses= Compra.class,
@@ -128,6 +86,35 @@ import proyect.core.entity.venta.Venta;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class)
 				}					
 				),
+				@NamedStoredProcedureQuery(
+						name="compra.insertar", 
+						procedureName="[dbo].[usp_Compra_insertar]",
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idCompra",	 			 type=String.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidad", 				 type=int.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen",			 	 type=String.class),							
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", 			 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroGuia", 				 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdArticulo", 		 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad", 		 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaLote",		     type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPrecioCompra", 	 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPrecioVenta", 	 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaFechaVencimiento", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaRegistroSanitario",type=String.class),
+
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProveedor", 			 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoFinanciadorCat02", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoSeleccionCat02",   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocCompraCat02", 	 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idpersona", 			 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="glosa", 				 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 			 type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="macRegistro", 			 type=String.class)
+							}
+							),
 		}			
 	)
 

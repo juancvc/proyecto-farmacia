@@ -64,10 +64,14 @@ import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.SerieBean;
 import proyect.core.bean.general.UbigeoBean;
 import proyect.core.bean.inventario.InventarioDetalleBean;
+import proyect.core.bean.seguridad.AccesoBean;
+import proyect.core.bean.seguridad.ComponenteBean;
+import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.stock.ArticuloBean;
 import proyect.core.bean.stock.ProveedorBean;
 import proyect.core.bean.stock.StockBean;
+import proyect.core.bean.venta.VentaBean;
 import proyect.core.bean.compra.CompraBean;
 import proyect.core.bean.compra.CompraItemBean;
 import proyect.core.entity.general.PacienteReniec;
@@ -85,7 +89,9 @@ import proyect.core.service.interfaces.stock.ProveedorService;
 import proyect.core.service.interfaces.stock.StockService;
 import proyect.core.service.interfaces.compra.CompraItemService;
 import proyect.core.service.interfaces.compra.CompraService;
-import proyect.web.controller.base.BaseController; 
+import proyect.web.controller.base.BaseController;
+import proyect.web.utilitarios.VO;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -572,12 +578,7 @@ public class CompraController extends BaseController{
 		 this.setPersonaBean(new PersonaBean());
 		 this.getPersonaBean().setCodigo(codigo);
    	}
- 
-	@RequestMapping(value = "/llenarCompra", method = RequestMethod.GET)
-	@ResponseBody
-	public void llenarCompra(@ModelAttribute("compraBean") CompraBean compraBean, HttpServletRequest request) {
-		this.setCompraBean(compraBean);;
-	}
+
 	
     @RequestMapping(value = "/grabarCompra", method = RequestMethod.POST)
 	@ResponseBody
@@ -601,32 +602,7 @@ public class CompraController extends BaseController{
 			cadenaCantidad = cadenaCantidad + prmCompraItemBeanBean.getCantidad() + "@";
 			cadenaCodigoStock = cadenaCodigoStock + prmCompraItemBeanBean.getStock().getCodigo() + "@";
 		}
-	/*	this.getCompraBean().setCadenaCantidad(cadenaCantidad);
-		this.getCompraBean().setCadenaCodigoStock(cadenaCodigoStock);
-		this.getCompraBean().setCuentaCorrienteBean(this.getCuentaCorrienteBean());
-		this.getCompraBean().setCantidadItems(compraDetalleArray.length);
-		 
-		try {
 
-			if (this.getCompraBean().getCodigo().equals("")) {
-				this.setAuditoria(this.getCompraBean(), request, true);
-				  
-				sw = (this.compraService.insertar(this.getCompraBean()));
-
-				if (sw) {
-					codigo = this.getCompraBean().getCodigo(); 
-
-				} 
-
-			} else {
-				// UPDATE
-				this.setAuditoria(compraBean, request, false);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-*/
 		System.out.println("sw " + sw);
 		return codigo; 
 		 
@@ -1372,10 +1348,96 @@ public class CompraController extends BaseController{
 				}
 			
 			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}  // te lista los pacientes de ctaCte   
+			} 
 		   }
+
+	   
+		@RequestMapping(value = "/llenarCompra", method = RequestMethod.GET)
+		@ResponseBody
+		public void llenarCompra(@ModelAttribute("compraBean") 
+					CompraBean compraBean, HttpServletRequest request) {
+			this.setCompraBean(compraBean);
+		}
+		
+	   @RequestMapping(value = "/asignarCompra", method = RequestMethod.POST)
+	    public @ResponseBody List<CompraItemBean> asignarCompra(
+	    		@RequestBody CompraItemBean[] compraItemArray, 
+	    		HttpServletRequest request) {
+	        System.out.println("asignarCompra ");
+			List<CompraItemBean> lstCompraBean = new ArrayList<CompraItemBean>();
+			
+	        try {
+	        	
+				if (	!VO.isNull(compraItemArray)
+				   ) {
+					 
+					   System.out.println("guardarCambios ");
+					if(guardarCambios(compraItemArray,request)){ 
+					}
+					
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	        
+	        return lstCompraBean;
+	    }   
+	private boolean guardarCambios(CompraItemBean[] listaCompraItem, HttpServletRequest request){
+		boolean sw = false;
+		boolean swGuardado = true;
+		
+		String cadenaCantidad = "@"; 
+		String codigo = "";
+		String cadenaIdArticulo = "@"; 
+		String cadenaLote = "@";
+		String cadenaPrecioCompra = "@";
+		String cadenaPrecioVenta = "@";
+		String cadenaFechaVencimiento = "@";
+		String cadenaRegistroSanitario = "@";
+		
+			for (int i = 0; i < listaCompraItem.length; i++) {
+				
+				CompraItemBean prmCompraItem = listaCompraItem[i];
+				cadenaCantidad = cadenaCantidad + prmCompraItem.getCantidad() + "@";
+				cadenaIdArticulo = cadenaIdArticulo + prmCompraItem.getStock().getArticulo().getCodigo() + "@"; 
+				cadenaLote = cadenaLote + prmCompraItem.getStock().getLote() + "@"; 
+				cadenaPrecioCompra = cadenaPrecioCompra + prmCompraItem.getStock().getPrecioCompra() + "@"; 
+				cadenaPrecioVenta = cadenaPrecioVenta + prmCompraItem.getStock().getPrecioVenta() + "@"; 
+				cadenaFechaVencimiento = cadenaFechaVencimiento + prmCompraItem.getStock().getFechaVencimiento() + "@"; 
+				cadenaRegistroSanitario = cadenaRegistroSanitario + prmCompraItem.getStock().getNroRegistroSanitario() + "@"; 
+			}
+			this.getCompraBean().setCadenaCantidad(cadenaCantidad);
+			this.getCompraBean().setCadenaIdArticulo(cadenaIdArticulo);
+			this.getCompraBean().setCadenaLote(cadenaLote);
+			this.getCompraBean().setCadenaPrecioCompra(cadenaPrecioCompra);
+			this.getCompraBean().setCadenaPrecioVenta(cadenaPrecioVenta);
+			this.getCompraBean().setCadenaFechaVencimiento(cadenaFechaVencimiento);
+			this.getCompraBean().setCadenaRegistroSanitario(cadenaRegistroSanitario);
+			try {
+
+				if (this.getCompraBean().getCodigo().equals("")) {
+					this.setAuditoria(this.getCompraBean(), request, true);
+					  System.out.println("graba registro compra");
+					sw = (this.compraService.insertar(this.getCompraBean()));
+
+					if (sw) {
+						codigo = this.getCompraBean().getCodigo(); 
+
+					} 
+
+				} else {
+					// UPDATE
+					this.setAuditoria(this.getCompraBean(), request, false);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		return swGuardado;
+	}  
 	public CompraBean getCompraBean() {
 		return compraBean;
 	}

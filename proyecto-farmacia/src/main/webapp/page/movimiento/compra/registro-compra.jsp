@@ -173,7 +173,7 @@ input[type=text] {
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmRegistrarInventario" role="form" action=""
+				<f:form id="frmRegistrarCompra" role="form" action=""
 					onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -217,7 +217,7 @@ input[type=text] {
 												<span class="required">*</span></label>
 												<div class="controls">
 													<f:input class="form-control" id="date" name="date" maxlength="10" 
-														required="required" placeholder="DD/MM/YYYY" type="text"
+														required="required" placeholder="DD/MM/YYYY" type="text"  autocomplete="off" 
 														path="sFechaEmision" onkeyup="this.value=formateafechaNacimiento(this.value);"/> 
 
 												</div>
@@ -318,7 +318,7 @@ input[type=text] {
 											<div class="row">
 												<div class="col-md-12">
 													<div class="table-responsive">
-														<table class="table table-bordered">
+														<table class="table table-bordered" id="dataTable">
 															<thead class="tabla_th">
 																<tr>
 																	<th width="20">#</th>
@@ -375,7 +375,7 @@ input[type=text] {
 													<label for="nombreCompleto" class="label_control">IMPORTE
 														TOTAL S/. </label>
 													<f:input type="text" path="sImporte" class="form-control"
-														id="txtCajaImporteTotal" readonly="true" maxlength="10" />
+														id="txtCajaImporteTotal" value='0' readonly="true" maxlength="10" />
 
 													<f:input type="hidden" path="importe"
 														id="txtCajaImporteTotalHidden" />
