@@ -14,7 +14,6 @@ function agregar_accion() {
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
 		if (accionRealizar == 3) {
-			console.log("anularVenta :: " + codigoRegistro );
 			anularVenta(codigoRegistro);
 		}else{
 			console.log("eliminarArticulo :: " + codigoRegistro );
@@ -24,95 +23,6 @@ $(document).ready(function() {
 		$('#md_confirmacion').modal('hide');
 	});
 });
-
-function cargarPersonaModal() {
-	var contextPath = $('#contextPath').val();
-	path = contextPath + "/ventaController/personaModal";
-	$.ajax({
-		type : "POST",
-		url : path,
-
-		success : function(data) {
-			$("#modalPersona").html(data);
-			$("#modalPersona").modal('show');
-		},
-		error : function(request, status, error) {
-			console.log("ERROR: " + error);
-		}
-	});
-}
-
-function grabarPersona() {
-	var htmlTabla = "";
-	var contextPath = $('#contextPath').val();
-	var actionForm = $('#frmGuardarPersona').attr("action");
-	var url = contextPath + "/ventaController/grabarPersona";
-	var myFormulario = $('#frmGuardarPersona');
-	var telefono = $('#telefono').val();
-	var codigoRegistroUbigeoDireccion = $('#txtidRegistroUbigeo').val();
-
-	if (!myFormulario[0].checkValidity()) {
-		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
-
-	} else if (telefono.length < 7) {
-		msg_advertencia("Ingrese número de celular correcto.");
-
-	} else if (codigoRegistroUbigeoDireccion.length == 0) {
-		msg_advertencia("Ingrese ubigeo de dirección.");
-
-	} else {
-		iniciarBloqueo();
-		$.ajax({
-			type : "POST",
-			url : url,
-			data : $('#frmGuardarPersona').serialize(),
-			success : function(persona) {
-				if (persona == "") {
-					msg_error("Error al registrar persona");
-				} else {
-					msg_exito("Éxito al registrar persona");
-					$('#nroDocumentoPaciente').val(persona.nroDocumento);
-					$('#tipoDocumentoPaciente').val(
-							persona.tipoDocumento.idRegistro);
-					$('#personaApellidoPaterno').val(persona.apellidoPaterno);
-					$('#personaApellidoMaterno').val(persona.apellidoMaterno);
-					$('#personaNombres').val(persona.nombres);
-					$('#personaCodigo').val(persona.codigo);
-					var todate = new Date(persona.fechaNac);
-					var dia = todate.getDate();
-					var mes = todate.getMonth() + 1;
-					var anio = todate.getFullYear();
-					var fechaActual = new Date();
-					var anioActual = fechaActual.getFullYear();
-					var edad = anioActual - anio;
-					$('#edadPersona').val(edad);
-
-					$('#sexoPaciente').val(persona.sexo.codReg);
-					$('#personaDireccion').val(persona.direccion);
-
-					if (persona.ubigeoDireccion.codigoUbigeo != "") {
-						$('#ubigeoDireccion').val(
-								persona.ubigeoDireccion.codigoUbigeo);
-						$('#codigoRegistroUbigeoDireccion').val(
-								persona.ubigeoDireccion.codigoRegistro);
-						$('#nombreUbigeoDireccion').val(
-								persona.ubigeoDireccion.nombreUbigeo);
-					} else {
-					}
-					$('#modalPersona').modal('hide');
-				}
-			},
-
-			error : function(xhr, status, er) {
-				console.log("error: " + xhr + " status: " + status + " er:"
-						+ er);
-			},
-			complete : function() {
-				finBloqueo();
-			}
-		});
-	}
-}
 
 function llenarArticuloIndex(index) {
 	var contextPath = $('#contextPath').val();
@@ -138,7 +48,7 @@ function llenarArticuloIndex(index) {
 						}
 						if (valida == "1") {
 							msg_advertencia("El artículo ya fue ingresado.");
-						} else {
+						} else { 
 							listadoArticulo.push(data);
 							for (var i = 0; i < listadoArticulo.length; i++) {
 								var objVentaItem = listadoArticulo[i];
@@ -155,62 +65,73 @@ function llenarArticuloIndex(index) {
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-										+ " required='required' "
-										+ "value =''"
-										+ "maxlength='5' "
-										+ "onkeypress= 'return soloNumeros(event);' />"
+										+ " required='required' autocomplete='off' "
+										+ "value ='"
+										+ objVentaItem.stock.lote
+										+ "' onchange = 'calculaSubTotal(); ' "
+										+ "maxlength='5'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-										+ " required='required' "
+										+ " required='required' onchange = 'calculaSubTotal(); ' "
 										+ "placeholder='DD/MM/YYYY'"
-										+ "maxlength='10' "
+										+ "maxlength='10'  autocomplete='off'"
+										+ "value ='"
+										+ objVentaItem.stock.sFechaVencimiento
+										+ "' "
 										+ "onkeyup='this.value=formateafecha(this.value);' />"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-										+ " required='required' "
-										+ "value =''"
-										+ "maxlength='100'/>"
+										+ " required='required' onchange = 'calculaSubTotal(); ' "
+										+ "value ='"
+										+ objVentaItem.stock.nroRegistroSanitario
+										+ "' "
+										+ "maxlength='100'  autocomplete='off'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-										+ " required='required' "
-										+ "value ='0' onchange = 'calculaSubTotal(); ' "
-										+ "maxlength='100'/>"
+										+ " required='required' onkeypress= 'return decimales(event,this); '"
+										+ "value ='"
+										+ objVentaItem.stock.precioCompra
+										+ "' "
+										+ "onchange = 'calculaSubTotal(); ' "
+										+ "maxlength='100'  autocomplete='off'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-										+ " required='required' "
-										+ "value ='0'"
-										+ "maxlength='100'/>"
+										+ " required='required' onchange = 'calculaSubTotal(); ' "
+										+ "value ='"
+										+ objVentaItem.stock.precioVenta
+										+ "' onkeypress= 'return decimales(event,this); '"
+										+ "maxlength='100' autocomplete='off'/>"
 										+ "</td>"
 										+ "<td> <input type='text' class='form-control' "
 										+ "id="
-										+ [ objVentaItem.stock.codigo ]
+										+ [ objVentaItem.stock.articulo.codigo ]
 										+ " required='required' "
 										+ "value ='"
 										+ objVentaItem.cantidad
 										+ "' "
-										+ "maxlength='5' "
+										+ "maxlength='5' onkeypress= 'return soloNumeros(event); '"
 										+ "onkeypress= 'return soloNumeros(event);'" 
 										+ "onchange = 'calculaSubTotal(); '  /></td>"
 										+ "<td>"
-										+ "<label for='nombreCompleto' id="
+										+ "<label for='nombreCompleto' class='label_control' id="
 										+ [ objVentaItem.stock.articulo.codigo ]
-								        + "class='label_control'>0" 
-										+ "</label>"
+								        + " >" + objVentaItem.subtotal
+										+ "</label>" 
 										+ "</td>"
 										+ "<td>"
 										+ "<button type='button'"
 										+ " class='btn btn-outline-danger btn-sm' "
 										+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
 										+ "  onclick=\"confirmar_eliminar('"
-										+ [ objVentaItem.stock.codigo ]
+										+ [ objVentaItem.stock.articulo.codigo ]
 										+ "','1');\""
 										+ " data-original-title='Eliminar'"
 										+ " id='agregarEspecialidad'>"
@@ -264,168 +185,108 @@ function calculaSubTotal(){
     	
         $(this).children("td").each(function (index2) 
         {
-        	if(index2 == 5 ){ // Columna precio Compra
+        	if(index2 == 2 ){ // Columna lote
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id");
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.lote =  $(input).val(); 
+					}
+				}
+        	}
+        	if(index2 == 3 ){ // Columna fechaVencimiento
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			 
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.sFechaVencimiento =  $(input).val(); 
+					}
+				}
+        	}
+        	if(index2 == 4 ){ // Columna registroSanitario
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			 
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.nroRegistroSanitario =  $(input).val(); 
+					}
+				} 
+        	}
+        	if(index2 == 5 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id"); 
   	   			
-  	   		    objCompra.codigo = idCompo;
-  	   		    console.log("compra $(input). " + $(input).val());
-  	   		    
-				objCompraItem.item 			= index+1;
-				objCompraItem.codigo 		= idAcceso;
-				objCompraItem.precioCompra	= $(input).val();
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.precioCompra =  $(input).val(); 
+					}
+				}
         	}
         	if(index2 == 6 ){ // Columna precio Compra
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id");
-  	   			
-  	   		    objCompra.codigo = idCompo;
-  	   		    console.log("venta $(input). " + $(input).val());
-  	   		    
-				objCompraItem.item 			= index+1;
-				objCompraItem.codigo 		= idAcceso;
-				objCompraItem.precioVenta	= $(input).val();
+  	   			 
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.precioVenta =  $(input).val(); 
+					}
+				}
         	}
-        	if(index2 == 7 ){ // Columna precio Compra
+        	if(index2 == 7 ){ // Columna cantidad
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
-  	   			idCompo  = $(input).attr("id");
-  	   			
-  	   		    objCompra.codigo = idCompo;
-  	   		    console.log("venta $(input). " + $(input).val());
+  	   			idCompo  = $(input).attr("id"); 
+  	   		    console.log("cantidad :::: "+ $(input).val());
   	   		    
-				objCompraItem.item 			= index+1;
-				objCompraItem.codigo 		= idAcceso;
-				objCompraItem.cantidad	= $(input).val();
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.cantidad =  $(input).val(); 
+						console.log("cantidad :: "+ $(input).val());
+					}
+				}
         	}
-        	if(index2 == 8 ){ // Columna precio Compra
+        	if(index2 == 8 ){ // Columna sub total
         		input    = $(this).children("label");
         		idAcceso = $(input).val();
-  	   			idCompo  = $(input).attr("id");
+  	   			idCompo  = $(input).attr("id"); 
   	   			
-  	   		    objCompra.codigo = idCompo; 
-  	   		    $(input).html(objCompraItem.cantidad * objCompraItem.precioCompra);
-  	   		    
-  	   		    
-				objCompraItem.item 			= index+1;
-				objCompraItem.codigo 		= idAcceso;
-				objCompraItem.subtotal	= objCompraItem.cantidad * objCompraItem.precioCompra;
-				console.log("objCompraItem.subtotal " + objCompraItem.subtotal);
-				
-	        	var subTotal = 0.0;
-	        	subTotal = $('#txtCajaImporteTotal').html();
-	        	console.log("subTotal " +  subTotal);
-	        	$('#txtCajaImporteTotal').val(subTotal + objCompraItem.subtotal);
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.subtotal =  objVentaItemN.cantidad * objVentaItemN.stock.precioCompra;
+						console.log("objVentaItemN.subtotal " + objVentaItemN.subtotal);
+						$(input).html(objVentaItemN.subtotal);
+					}
+				}
+	        	
         	}
         })
         arrayComprasItem.push(objCompraItem);
     })	
-	
-}
-
-function buscarPersonaNroDoc() {
-
-	var contextPath = $('#contextPath').val();
-	var numeroDocumento = $('#nroDocumentoPaciente').val();
-	var tipoDocumento = $('#tipoDocumentoPaciente').val();
-	var htmlTabla = "";
-	console.log("consultarPersonaPorDocumento tipoDocumentoPaciente "
-			+ tipoDocumentoPaciente);
-	if (tipoDocumento == null || tipoDocumento == "") {
-		msg_advertencia("Seleccione tipo de documento.");
-		return;
-	} else if (numeroDocumento == null || numeroDocumento.trim() == "") {
-		msg_advertencia("Ingrese número de documento.");
-		return;
-	} else if (tipoDocumento == '000001' && numeroDocumento.trim().length != 8) {
-		msg_advertencia("Número de dni debe contener 8 dígitos.")
-		return;
-	} else if (tipoDocumento == '000002' && numeroDocumento.trim().length < 9) {
-		msg_advertencia("Número de pasaporte incorrecto.")
-		return;
-	} else {
-		// console.log("validarDni " + numeroDocumento );
-		iniciarBloqueo();
-		$
-				.ajax({
-					type : "GET",
-					url : contextPath
-							+ "/ventaController/consultarPersonaPorDocumento?tipoDocumento="
-							+ tipoDocumento + "&numero=" + numeroDocumento,
-
-					success : function(persona) {
-						if (numeroDocumento.length < 7) {
-							msg_advertencia("Número de documento incorrecto.");
-
-						} else {
-
-							if (persona != null) {
-								console.log("persona.length " + persona.length);
-
-								if (persona.length != 0) {
-									$('#nroDocumentoPaciente').val(
-											persona.nroDocumento);
-									$('#tipoDocumentoPaciente').val(
-											persona.tipoDocumento.idRegistro);
-									$('#personaApellidoPaterno').val(
-											persona.apellidoPaterno);
-									$('#personaApellidoMaterno').val(
-											persona.apellidoMaterno);
-									$('#personaNombres').val(persona.nombres);
-									$('#personaCodigo').val(persona.codigo);
-									/*
-									 * var todate = new Date(persona.fechaNac);
-									 * var dia = todate.getDate(); var mes =
-									 * todate.getMonth() + 1; var anio =
-									 * todate.getFullYear(); var fechaActual =
-									 * new Date(); var anioActual =
-									 * fechaActual.getFullYear(); var edad =
-									 * anioActual - anio;
-									 * $('#edadPersona').val(edad);
-									 * 
-									 * $('#sexoPaciente').val(persona.sexo.codReg);
-									 * $('#personaDireccion').val(
-									 * persona.direccion);
-									 * 
-									 * if (persona.ubigeoDireccion.codigoUbigeo !=
-									 * "") {
-									 * $('#ubigeoDireccion').val(persona.ubigeoDireccion.codigoUbigeo);
-									 * $('#codigoRegistroUbigeoDireccion').val(persona.ubigeoDireccion.codigoRegistro);
-									 * $('#nombreUbigeoDireccion').val(persona.ubigeoDireccion.nombreUbigeo);
-									 * }else{ }
-									 * 
-									 */
-								} else {
-									msg_advertencia("¡La persona no se encuentra registrada!")
-									limpiarPersona();
-								}
-
-							} else {
-								msg_advertencia("¡No se encontraron registros.!")
-								limpiarPersona();
-							}
-						}
-					},
-					error : function(xhr, status, er) {
-						console.log("error: " + xhr + " status: " + status
-								+ " er:" + er);
-						if (xhr.status == 500) {
-							console.log(er);
-							// Error_500(er);
-						}
-						if (xhr.status == 901) {
-							console.log(er);
-							// spire_session_901(er);
-						}
-
-					}
-				});
-		finBloqueo();
+	var importe = 0.00;
+	for (var i = 0; i < listadoArticulo.length; i++) {
+		var objVentaItem = listadoArticulo[i];
+		importe = importe
+				+ Number(objVentaItem.subtotal);
 	}
+	$('#txtCajaImporteTotal').val(importe.toFixed(2));
+	$('#txtCajaImporteTotalHidden').val(
+			importe.toFixed(2));
 }
-
+ 
 function cambiarCantidad(objeto) {
 	// debugger;
 	var nombreObjet = "#" + objeto + ""
@@ -439,8 +300,8 @@ function cambiarCantidad(objeto) {
 		var objVentaItem = listadoArticulo[i];
 		if (objVentaItem.stock.codigo == objeto) {
 			objVentaItem.cantidad = cantidad;
-			objVentaItem.subtotal = (objVentaItem.precio * cantidad).toFixed(2);
-			objVentaItem.sImporte = (objVentaItem.precio * cantidad).toFixed(2);
+			objVentaItem.subtotal = (objVentaItem.precioCompra * cantidad).toFixed(2);
+			//objVentaItem.sImporte = (objVentaItem.precioCompra * cantidad).toFixed(2);
 			console.log("objExamen.importe:: " + objVentaItem.subtotal)
 		}
 	}
@@ -451,24 +312,46 @@ function cambiarCantidad(objeto) {
 		+ item
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.nombre
+		+ "<label for='nombreCompleto' class='label_control' id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+        + " >" + objVentaItem.stock.articulo.nombre
+		+ "</label>" 
 		+ "</td>"
 		+ "<td><input type='text' class='form-control' "
 		+ "id="
 		+ [ objVentaItem.stock.articulo.codigo ]
 		+ " required='required' "
 		+ "value =''"
-		+ "maxlength='5' "
-		+ "onkeypress= 'return soloNumeros(event);' />"
+		+ "maxlength='5'/>"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.articulo.codigoSismed
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "placeholder='DD/MM/YYYY'"
+		+ "maxlength='10' "
+		+ "onkeyup='this.value=formateafecha(this.value);' />"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "value =''"
+		+ "maxlength='100'/>"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.stock
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' onkeypress= 'return decimales(event,this); '"
+		+ "value ='0' onchange = 'calculaSubTotal(); ' "
+		+ "maxlength='100'/>"
+		+ "</td>"
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "value ='0'"
+		+ "maxlength='100'/>"
 		+ "</td>"
 		+ "<td> <input type='text' class='form-control' "
 		+ "id="
@@ -477,8 +360,15 @@ function cambiarCantidad(objeto) {
 		+ "value ='"
 		+ objVentaItem.cantidad
 		+ "' "
-		+ "maxlength='5' "
-		+ "onkeypress= 'return soloNumeros(event);'/></td>"
+		+ "maxlength='5' onkeypress= 'return decimales(event,this); '"
+		+ "onkeypress= 'return soloNumeros(event);'" 
+		+ "onchange = 'calculaSubTotal(); '  /></td>"
+		+ "<td>"
+		+ "<label for='nombreCompleto' id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+        + "class='label_control'>0" 
+		+ "</label>"
+		+ "</td>"
 		+ "<td>"
 		+ "<button type='button'"
 		+ " class='btn btn-outline-danger btn-sm' "
@@ -496,46 +386,7 @@ function cambiarCantidad(objeto) {
 	$('#idbodyStock').html(htmlTabla);
 
 }
-  
-function cargarPersona() {
-	var personaCodigo = $('#personaCodigo').val();
-	var contextPath = $('#contextPath').val();
-	var htmlTabla = "";
-	console.log("personaCodigo " + personaCodigo );
-	if (personaCodigo == null || personaCodigo == "") { 
-		return;
-	} else {
-		 
-		//iniciarBloqueo();
-		$
-				.ajax({
-					type : "GET",
-					url : contextPath
-							+ "/ventaController/cargarPersona?codigo="
-							+ personaCodigo,
-
-					success : function() {
-
-					},
-					error : function(xhr, status, er) {
-						console.log("error: " + xhr + " status: " + status
-								+ " er:" + er);
-						if (xhr.status == 500) {
-							console.log(er);
-							// Error_500(er);
-						}
-						if (xhr.status == 901) {
-							console.log(er);
-							// spire_session_901(er);
-						}
-
-					}
-				});
-		//finBloqueo();
-	}
-}
-
-
+   
 function grabar(){  
 		var contextPath = $('#contextPath').val(); 
 		var actionForm = $('#frmRegistrarCompra').attr("action");
@@ -546,7 +397,20 @@ function grabar(){
 		if(!myFormulario[0].checkValidity()) {
 			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-		}else{  
+		} else {
+			if (listadoArticulo.length == 0) {
+				msg_advertencia("Ingrese al menos una artículo.");
+				return;
+			}
+
+			for (var i = 0; i < listadoArticulo.length; i++) {
+				var objExamen = listadoArticulo[i];
+				if (objExamen.cantidad == '' || objExamen.cantidad == '0') {
+					msg_advertencia("Ingrese cantidad mayor a 0");
+					return;
+				}
+			}
+			iniciarBloqueo();
 				$.ajax({
 				type : "GET",
 				url : url,
@@ -560,15 +424,16 @@ function grabar(){
 							//msg_error();
 	
 						},
-			  			complete: function()
+			  			complete: function()	
 	  			{ 
+			  				finBloqueo();
 				}
 		});
 	}
 }
 
 function grabarDetalle(){  
-	debugger;
+	//debugger;
 	/** RECORRER MENU **/
 	var arrayComprasItem = [];
 	var subTotal = 0.0;
@@ -615,7 +480,7 @@ function grabarDetalle(){
 				objCompraItem.stock = objStock;
         	}
         	
-        	if(index2 == 2 ){ // Columna precio Compralote
+        	if(index2 == 2 ){ // Columna lote
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id");
@@ -694,7 +559,7 @@ function grabarDetalle(){
 				objCompraItem.codigo 		= idAcceso;
 				objCompraItem.cantidad	= $(input).val();
         	}
-        	if(index2 == 8 ){ // Columna precio Compra
+        	if(index2 == 8 ){ // Columna sub total
         		input    = $(this).children("label");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id");
@@ -709,14 +574,13 @@ function grabarDetalle(){
 				console.log("objCompraItem.subtotal " + objCompraItem.subtotal);
 				
 	        	
-	        	subTotal = subTotal +  objCompraItem.subtotal;
-	        	console.log("subTotal " +  subTotal);
+	        	//subTotal = subTotal +  objCompraItem.subtotal;
+	        	//console.log("subTotal " +  subTotal);
 	        	
         	}
         })
         arrayComprasItem.push(objCompraItem);
-    })	
-    $('#txtCajaImporteTotal').val(subTotal);
+    })	 
     enviarDatosAccesoAjax(arrayComprasItem);
 }
 
@@ -780,24 +644,46 @@ function eliminarArticulo(codigo) {
 		+ item
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.nombre
+		+ "<label for='nombreCompleto' class='label_control' id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+        + " >" + objVentaItem.stock.articulo.nombre
+		+ "</label>" 
 		+ "</td>"
 		+ "<td><input type='text' class='form-control' "
 		+ "id="
 		+ [ objVentaItem.stock.articulo.codigo ]
 		+ " required='required' "
 		+ "value =''"
-		+ "maxlength='5' "
-		+ "onkeypress= 'return soloNumeros(event);' />"
+		+ "maxlength='5'/>"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.articulo.codigoSismed
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "placeholder='DD/MM/YYYY'"
+		+ "maxlength='10' "
+		+ "onkeyup='this.value=formateafecha(this.value);' />"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "value =''"
+		+ "maxlength='100'/>"
 		+ "</td>"
-		+ "<td>"
-		+ objVentaItem.stock.stock
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' onkeypress= 'return decimales(event,this); '"
+		+ "value ='0' onchange = 'calculaSubTotal(); ' "
+		+ "maxlength='100'/>"
+		+ "</td>"
+		+ "<td><input type='text' class='form-control' "
+		+ "id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+		+ " required='required' "
+		+ "value ='0'"
+		+ "maxlength='100'/>"
 		+ "</td>"
 		+ "<td> <input type='text' class='form-control' "
 		+ "id="
@@ -806,8 +692,15 @@ function eliminarArticulo(codigo) {
 		+ "value ='"
 		+ objVentaItem.cantidad
 		+ "' "
-		+ "maxlength='5' "
-		+ "onkeypress= 'return soloNumeros(event);' /></td>"
+		+ "maxlength='5' onkeypress= 'return decimales(event,this); '"
+		+ "onkeypress= 'return soloNumeros(event);'" 
+		+ "onchange = 'calculaSubTotal(); '  /></td>"
+		+ "<td>"
+		+ "<label for='nombreCompleto' id="
+		+ [ objVentaItem.stock.articulo.codigo ]
+        + "class='label_control'>0" 
+		+ "</label>"
+		+ "</td>"
 		+ "<td>"
 		+ "<button type='button'"
 		+ " class='btn btn-outline-danger btn-sm' "
@@ -847,53 +740,8 @@ function cambiarFinanciamiento() {
 		}
 	});
 }
-
-function cambiarTipoComprobante() {
-	tipoComprobante = $('#cboTipoComprobante').val();
-	var contextPath = $('#contextPath').val();
-	$.ajax({
-		contentType : "application/json",
-		type : "GET",
-		url : contextPath
-				+ "/ventaController/cambiarTipoComprobante?idTipoComprobante="
-				+ tipoComprobante,
-
-		success : function(data) {
-			$('#cboSerie').empty();
-			for (var i = 0; i < data.length; i++) {
-				 objSerie = data[i];
-				     $('#cboSerie').append($('<option>', { 
-				       	value: objSerie.codigo,
-				       	text : objSerie.nroSerie
-				   	}));
-				 
-		}
-		},
-
-		error : function(xhr, status, er) {
-			console.log("error: " + xhr + " status: " + status + " er:" + er);
-
-		},
-		complete : function() {
-		}
-	});
-}
-
-function limpiarPorTipo(){
-	
-}
-
-
-function limpiarPersona() {
-	$('#personaApellidoPaterno').val("");
-	$('#personaApellidoMaterno').val("");
-	$('#personaNombres').val("");
-	$('#personaCodigo').val("");
-}
-
-/**
- * Función para imprimir ticket
- */
+ 
+ 
 function imprimirIndividual(){
 	var contextPath = $('#contextPath').val();
 	var x = window.open(contextPath+"/"+"ticketVenta.jsp","toolbar=0,width=780,height=550");
@@ -912,72 +760,6 @@ function verTicket() {
 
 	$( "#onshow #dataInfoModal" ).empty();
 	$( "#onshow #dataInfoModal" ).append( object );
-}
-
-function refrescarListadoConsumo() {
-	var contextPath = $('#contextPath').val();
-	var idEpisodio  = $('#cboPacienteVenta').val();
-	console.log("idEpisodio "+ idEpisodio);
-	
-	$.ajax({
-		url : contextPath + "/ventaController/listarDevolucion?idEpisodio="+idEpisodio,
-		type : 'GET',
-	
-		success : function(data) {
-			//console.log("SUCCESS: ", data);
-			$('#idTablaDevolucion').html(data);
-		},
-		error : function() {
-			//console.log("ERROR: ");
-		}
-	});
-}
-
-function buscarDocumento() {
-	var contextPath = $('#contextPath').val();
-	var nroSerie  = $('#nroSerie').val();
-	var idVenta  = $('#idVenta').val();
-	var numeroPeriodo  = $('#numeroPeriodo').val();
-	
-	$.ajax({
-		url : contextPath + "/ventaController/buscarVentaPorNumeroDocumento?nroSerie="+nroSerie
-						  + "&idVenta=" + idVenta + "&numeroPeriodo=" + numeroPeriodo,
-		type : 'GET',	
-		success : function(venta) {
-			console.log("venta::" + venta);
-			if(venta !=""){
-				var todate = new Date(venta.fechaEmision);
-				var dia = todate.getDate();
-				var mes = todate.getMonth() + 1;
-				var anio = todate.getFullYear(); 
-				
-				if (dia.toString().length == 1) {
-					dia = "0"+dia;
-				}
-				if (mes.toString().length == 1) {
-					mes = "0"+mes;
-				}
-
-				var fecha = dia+"/"+mes+"/"+anio 
-				 $('#personaNombres').val(venta.persona.nombreCompleto);
-				 $('#personaNroDocumento').val(venta.persona.nroDocumento);
-				 $('#txtEpisodio').val(venta.episodio.codigo);
-				 $('#txtTipoSeguro').val(venta.tipoFinanciador.descripcionCorta);
-				 $('#txtFechaEmision').val(fecha+ " "+ venta.hora);
-				 $('#txtUsuarioEmitio').val(venta.usuarioRegistro); 
-				 $('#txtIdVenta').val(venta.codigo);
-				 $('#txtNumeroPeriodo').val(venta.numeroPeriodo);
-				 $('#txtMonto').val("S/. " +venta.importe);
-				 $('#txtNumero').val(venta.serie.nroSerie + "-" + venta.codigo);
-				
-			}else{
-				msg_advertencia("No se encontraron resultados");
-			}
-			
-		},
-		error : function() {
-		}
-	});
 }
 
 function anularVenta(codigoRegistro){

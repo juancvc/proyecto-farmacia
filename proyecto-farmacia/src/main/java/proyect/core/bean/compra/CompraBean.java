@@ -155,12 +155,18 @@ public class CompraBean extends BaseBean {
 		this.tipoMoneda = tipoMoneda;
 	}
 	public CatalogoBean getTipoProcesoSeleccion() {
+		if (tipoProcesoSeleccion == null) {
+			tipoProcesoSeleccion = new CatalogoBean();
+		}
 		return tipoProcesoSeleccion;
 	}
 	public void setTipoProcesoSeleccion(CatalogoBean tipoProcesoSeleccion) {
 		this.tipoProcesoSeleccion = tipoProcesoSeleccion;
 	}
 	public CatalogoBean getTipoFinanciamiento() {
+		if (tipoFinanciamiento == null) {
+			tipoFinanciamiento = new CatalogoBean();
+		}
 		return tipoFinanciamiento;
 	}
 	public void setTipoFinanciamiento(CatalogoBean tipoFinanciamiento) {

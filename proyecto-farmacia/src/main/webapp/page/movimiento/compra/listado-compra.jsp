@@ -175,13 +175,13 @@
 															<td><a title="Modificar" data-placement="top"
 																	data-toggle="tooltip"
 																	class="btn btn-outline-success btn-sm"
-																	onclick=""
+																	onclick="javascript:modificarElementoGenerico('/compraController/modificar','${loop.index}')"
 																	href="#"><i class="fas fa-pencil-alt"></i></a>
 																<button type='button'
 																	class='btn btn-outline-danger btn-sm'
 																	data-toggle='tooltip' data-placement='top'
 																	title='Eliminar'
-																	onclick="confirmar_eliminar(${loop.count});"
+																	onclick="confirmar_eliminar(${loop.count},3);"
 																	data-original-title='Eliminar' id='agregarEspecialidad'>
 																	<i class='fas fa-trash'></i>
 																</button> 
@@ -220,29 +220,13 @@
 		class="fas fa-angle-up"></i>
 	</a>
 
+	<input id="contextPath" type="hidden"
+		value="${pageContext.request.contextPath}">
+		
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">Ã</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+	<jsp:include
+			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
+			
 	<!-- Bootstrap core JavaScript-->
 
 	<script
@@ -273,7 +257,7 @@
 
 	<!-- scripts  -->
 	<script
-			src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+			src="${pageContext.request.contextPath}/assets/js/page/movimiento/compra.js"
 			type="text/javascript" charset="utf-8"></script>
 			
 		<script

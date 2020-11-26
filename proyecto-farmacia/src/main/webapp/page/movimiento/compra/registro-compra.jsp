@@ -334,33 +334,42 @@ input[type=text] {
 																</tr> 
 															</thead> 
 															<tbody id="idbodyStock" class="label_control">
-																<c:forEach var="orden" items="${lstOrdennombreBean}"
+																<c:forEach var="objCompraItem" items="${lstComprasItems}"
 																	varStatus="loop">
 																	<tr>
 																		<td>${loop.count}</td>
-																		<td>${orden.examen.descripcion}</td>
-																		<td>${orden.examen.tipo.descripcionCorta}</td>
-																		<td>${orden.cantidad}</td>
-																		<td>0</td>
-																		<td>${orden.examen.sPrecio}</td>
-																		<td>${orden.sImporte}</td>
-																		<c:choose>
-																			<c:when test="${codigo==null || codigo==''}">
-																				<td></td>
-																			</c:when>
-																			<c:otherwise>
-																				<td><button type='button'
-																						class='btn btn-outline-danger btn-sm'
-																						data-toggle='tooltip' data-placement='top'
-																						title='Eliminar'
-																						onclick='confirmar_eliminar(${ciex.examen.codigo})'
-																						data-original-title='Eliminar' id='eliminarDX'>
-																						<i class='icon-trash'></i>
-																					</button></td>
-																			</c:otherwise>
-																		</c:choose>
-
-																	</tr>
+																		<td>${objCompraItem.stock.articulo.nombre}</td> 
+																		<td><input type='text' class='form-control'  id="${objCompraItem.stock.articulo.codigo}"
+										 									required='required' autocomplete='off' value ='${objCompraItem.stock.lote}' 
+										 									onchange = 'calculaSubTotal(); 'maxlength='5'/></td>
+																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
+																			required='required' onchange = 'calculaSubTotal(); ' placeholder='DD/MM/YYYY' maxlength='10'  autocomplete='off'
+																			value ='${objCompraItem.stock.sFechaVencimiento}' 
+																			onkeyup='this.value=formateafecha(this.value);' /></td>
+																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
+																			required='required' onchange = 'calculaSubTotal();' value ='${objCompraItem.stock.nroRegistroSanitario}'
+																			maxlength='100'  autocomplete='off'/></td>
+																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
+																			required='required' onkeypress= 'return decimales(event,this);'
+																			value ='${objCompraItem.stock.precioCompra}' onchange = 'calculaSubTotal();'
+																			maxlength='100'  autocomplete='off'/></td>
+																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}"
+																			required='required' onchange = 'calculaSubTotal(); ' 
+																			value ='${objCompraItem.stock.precioVenta}' onkeypress= 'return decimales(event,this); '
+																			maxlength='100' autocomplete='off'/></td>
+																		<td> <input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}"
+																			required='required' value ='${objCompraItem.cantidad}'
+																			maxlength='5' onkeypress= 'return soloNumeros(event);'
+																			onkeypress= 'return soloNumeros(event);' onchange = 'calculaSubTotal();'/></td>
+																		<td><label for='nombreCompleto' class='label_control' id="${objCompraItem.stock.articulo.codigo}">
+																		 	${objCompraItem.subtotal}</label></td>
+																		<td><button type='button'"
+																			class='btn btn-outline-danger btn-sm' "
+																			data-toggle='tooltip'  data-placement='top'  title='Eliminar'
+																			onclick="confirmar_eliminar('${objCompraItem.stock.articulo.codigo}','1');"
+																		data-original-title='Eliminar'  id='agregarEspecialidad'>
+																		<i class='fas fa-trash'></i></button>
+																		</td></tr> 
 																</c:forEach>
 															</tbody>
 														</table>
@@ -375,7 +384,7 @@ input[type=text] {
 													<label for="nombreCompleto" class="label_control">IMPORTE
 														TOTAL S/. </label>
 													<f:input type="text" path="sImporte" class="form-control"
-														id="txtCajaImporteTotal" value='0' readonly="true" maxlength="10" />
+														id="txtCajaImporteTotal" readonly="true" maxlength="15" />
 
 													<f:input type="hidden" path="importe"
 														id="txtCajaImporteTotalHidden" />

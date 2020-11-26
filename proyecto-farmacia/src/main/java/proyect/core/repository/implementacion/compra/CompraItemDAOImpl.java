@@ -1,5 +1,6 @@
 package proyect.core.repository.implementacion.compra;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class CompraItemDAOImpl implements CompraItemDAO{
 		List<CompraItem> lstCompra = null;	
 		List<CompraItemBean> lstCompraBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("CompraItem.buscarPorCriterios"); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("compraItem.buscarPorCriterios"); 
 			spq.setParameter("idCompra", CompraItem.getCompra().getCodigo()); 	
 			spq.setParameter("numeroPeriodo", CompraItem.getCompra().getNumeroPeriodo()); 
 			 if (spq.execute()) {
@@ -108,18 +109,28 @@ private List<CompraItemBean> deListaObjetoAListaObjetoBean(List<CompraItem> lstC
 		
 		CompraItemBean bean = null; 
 		if (entity != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 			bean = new CompraItemBean();
 			bean.setCodigo(entity.getId().getIdCompraItem());  
 			bean.setNumeroPeriodo(entity.getId().getNumeroPeriodo()); 
-			bean.getCompra().setNumeroDocumento(entity.getNumero());
-			bean.getCompra().setFechaEmision(entity.getFechaEmision());
 			bean.getCompra().setCodigo(entity.getIdCompra());
+			bean.getCompra().setNumeroPeriodo(entity.getNumeroPeriodoCompra());
 			bean.setCantidad(entity.getCantidad());
 			bean.getStock().getArticulo().setNombre(entity.getNombreArticulo());
 			bean.getStock().getArticulo().getTipoPresentacion().setDescripcionCorta(entity.getDescripcionCortaPresentacion());
 			bean.getStock().setsPrecio((getTwoDecimals(entity.getPrecio()).replace(",", ".")));
 			bean.setsSubTotal((getTwoDecimals(entity.getSubtotal()).replace(",", ".")));
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro()); 
+			bean.setSubtotal(entity.getSubtotal());
+			bean.getStock().setLote(entity.getLote());
+			bean.getStock().setPrecioCompra(entity.getPrecioCompra());
+			bean.getStock().setPrecioVenta(entity.getPrecioVenta());
+			bean.getStock().setFechaVencimiento(entity.getFechaVencimiento());
+			bean.getStock().setNroRegistroSanitario(entity.getNroRegSanitario());
+			if (entity.getFechaVencimiento() !=null) {
+				bean.getStock().setsFechaVencimiento(dateFormat.format(entity.getFechaVencimiento()));
+			} 
+			
 	 	}
 		
 		return bean;

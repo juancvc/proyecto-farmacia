@@ -135,6 +135,7 @@ public class CompraController extends BaseController{
 	List<CompraBean> lstPersonasCompras;
 	List<CompraBean> lstCompras;
 	List<AlmacenBean> lstAlmacen;
+	List<CompraItemBean> lstComprasItems;
 	List<CompraItemBean> lstComprasItemDevolucion;
 	List<CompraItemBean> lstConsumoPaciente;
 	List<CuentaCorrienteBean> lstCuentaCorrienteBean;
@@ -340,28 +341,24 @@ public class CompraController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("catalogo") String catalogo,
-								  @RequestParam("codigo") String codigoRegistro){  
+	public ModelAndView modificar(@RequestParam("index") int index){  
 		
-		System.out.println("modificar catalogo " + catalogo);
-		System.out.println("modificar codigoRegistro " + codigoRegistro);
-		CatalogoBean ocatalogoBean = new CatalogoBean(); 
-		ocatalogoBean.setIdCatalogo(catalogo);
-		ocatalogoBean.setIdRegistro(codigoRegistro);
-		CatalogoBean catalogoBean = new CatalogoBean();  
-	
-			try { 
-				catalogoBean = catalogo2Service.getBuscarPorObjecto(ocatalogoBean);  
-			 System.out.println("catalogoBean::" + catalogoBean);
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
-			}
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			this.cargarCombos(mav);
-			mav.addObject("catalogoBean", catalogoBean);
-			mav.addObject("swActivo", "1"); 
-			return mav;
+		CompraItemBean compraItemBean = new CompraItemBean();
+		compraItemBean.setCompra(lstCompras.get(index));
+		ModelAndView mav = new ModelAndView("movimiento/compra/registro-compra", "command", lstCompras.get(index)); 
+		this.cargarCombos(mav);
+		try {
+			lstArticulos = articuloService.getBuscarPorFiltros(new ArticuloBean());
+			lstProveedor = proveedorService.getBuscarPorFiltros(new ProveedorBean());
+			lstComprasItems = compraItemService.getBuscarPorFiltros(compraItemBean);
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		mav.addObject("lstArticulos", lstArticulos); 
+		mav.addObject("lstProveedor", lstProveedor);
+		mav.addObject("compraBean", compraBean);
+		mav.addObject("lstComprasItems", lstComprasItems);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
@@ -512,9 +509,15 @@ public class CompraController extends BaseController{
 			System.out.println("index " + index);
 			CompraItemBean objCompraItemBean = new CompraItemBean(); 
 			objCompraItemBean.getStock().setArticulo(lstArticulos.get(index)); 
+			objCompraItemBean.getStock().setLote("");
+			objCompraItemBean.getStock().setsFechaVencimiento("");
+			objCompraItemBean.getStock().setNroRegistroSanitario("");
+			objCompraItemBean.getStock().setPrecioCompra(0);
+			objCompraItemBean.getStock().setPrecioVenta(0);
+			objCompraItemBean.setSubtotal(0);
 			objCompraItemBean.setPrecio(0);
 			objCompraItemBean.setCantidad(1);
-			objCompraItemBean.ejecutarImporte();
+		//	objCompraItemBean.ejecutarImporte();
 			DecimalFormat df = new DecimalFormat("0.00"); 
 			objCompraItemBean.setsImporte((df.format(objCompraItemBean.getSubtotal()).replace(",", ".")));
 			//lstOrdenDetalleBean.add(objOrdenDetalleBean);
@@ -1405,9 +1408,10 @@ public class CompraController extends BaseController{
 				cadenaLote = cadenaLote + prmCompraItem.getStock().getLote() + "@"; 
 				cadenaPrecioCompra = cadenaPrecioCompra + prmCompraItem.getStock().getPrecioCompra() + "@"; 
 				cadenaPrecioVenta = cadenaPrecioVenta + prmCompraItem.getStock().getPrecioVenta() + "@"; 
-				cadenaFechaVencimiento = cadenaFechaVencimiento + prmCompraItem.getStock().getFechaVencimiento() + "@"; 
+				cadenaFechaVencimiento = cadenaFechaVencimiento + prmCompraItem.getStock().getsFechaVencimiento() + "@"; 
 				cadenaRegistroSanitario = cadenaRegistroSanitario + prmCompraItem.getStock().getNroRegistroSanitario() + "@"; 
 			}
+			this.getCompraBean().setCantidadItems(listaCompraItem.length);
 			this.getCompraBean().setCadenaCantidad(cadenaCantidad);
 			this.getCompraBean().setCadenaIdArticulo(cadenaIdArticulo);
 			this.getCompraBean().setCadenaLote(cadenaLote);

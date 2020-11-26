@@ -1,5 +1,6 @@
 package proyect.core.repository.implementacion.compra;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -235,6 +236,7 @@ public class CompraDAOImpl implements CompraDAO{
 		
 		CompraBean bean = null; 
 		if (entity != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 			
 			bean = new CompraBean();
 			bean.setCodigo(entity.getId().getIdCompra());   
@@ -242,6 +244,9 @@ public class CompraDAOImpl implements CompraDAO{
 			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
 			bean.getAlmacen().setNombreAlmacen(entity.getNombreAlmacen()); 
 			bean.setFechaEmision(entity.getFechaEmision()); 
+			if (entity.getFechaEmision() !=null) {
+				bean.setsFechaEmision(dateFormat.format(entity.getFechaEmision()));
+			} 
 			bean.setHora(entity.getHora());
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro());
 			bean.setImporte(entity.getImporte());
@@ -249,8 +254,12 @@ public class CompraDAOImpl implements CompraDAO{
 			bean.getTipoDocumento().setIdRegistro(entity.getIdTipoDocumentoCat02());
 			bean.getTipoDocumento().setDescripcionCorta(entity.getTipoDocumento());
 			bean.getProveedor().setCodigo(entity.getIdProveedor());
+			bean.getTipoProcesoSeleccion().setIdRegistro(entity.getIdTipoProcesoSeleccionCat02());
+			bean.getTipoFinanciamiento().setIdRegistro(entity.getIdTipoFinanciadorCat02());
 			bean.getProveedor().setNombreProveedor(entity.getNombreProveedor());
+			bean.setGlosa(entity.getGlosa());
 			bean.setsImporte((getTwoDecimals(entity.getImporte()).replace(",", ".")));
+			
 	 	}
 		
 		return bean;

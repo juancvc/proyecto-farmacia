@@ -16,7 +16,7 @@ import javax.persistence.Table;
 		{
 				@NamedStoredProcedureQuery(
 						name="compraItem.buscarPorCriterios", 
-						procedureName="[dbo].[usp_Venta_listaCompraItemxidCompra]",
+						procedureName="[usp_CompraItem_buscarxCriterios]",
 						resultClasses= CompraItem.class,
 						parameters={
 								    @StoredProcedureParameter(mode=ParameterMode.IN,  name="idCompra",  type=String.class),
@@ -52,6 +52,8 @@ public class CompraItem implements Serializable {
 	private CompraItemPK id;
 
 	private String idCompra;
+	
+	private String numeroPeriodoCompra;
 	
 	private String idPersona;
 	
@@ -95,57 +97,59 @@ public class CompraItem implements Serializable {
 	
 	private int restoStockSolicitado;
 	 
-	private String idEpisodio;
+	private String lote;
+	 
+	private float precioVenta;
+ 
+	private float precioCompra;
+	 
+	private Timestamp fechaVencimiento;
 	
-	private Timestamp fechaEmision;
+	private String nroRegSanitario;
 	
-	private String numero;
 	
-	private String idTipoSeguro;
 	
-	private String tipoSeguro;
-	
+	public String getNroRegSanitario() {
+		return nroRegSanitario;
+	}
+
+
+	public void setNroRegSanitario(String nroRegSanitario) {
+		this.nroRegSanitario = nroRegSanitario;
+	}
+
+
 	public CompraItem() { 
 	}
 
-	
-	public String getIdTipoSeguro() {
-		return idTipoSeguro;
+	 
+	public float getPrecioVenta() {
+		return precioVenta;
 	}
 
 
-	public void setIdTipoSeguro(String idTipoSeguro) {
-		this.idTipoSeguro = idTipoSeguro;
+	public void setPrecioVenta(float precioVenta) {
+		this.precioVenta = precioVenta;
 	}
 
 
-	public String getTipoSeguro() {
-		return tipoSeguro;
+	public float getPrecioCompra() {
+		return precioCompra;
 	}
 
 
-	public void setTipoSeguro(String tipoSeguro) {
-		this.tipoSeguro = tipoSeguro;
+	public void setPrecioCompra(float precioCompra) {
+		this.precioCompra = precioCompra;
 	}
 
 
-	public Timestamp getFechaEmision() {
-		return fechaEmision;
+	public Timestamp getFechaVencimiento() {
+		return fechaVencimiento;
 	}
 
 
-	public void setFechaEmision(Timestamp fechaEmision) {
-		this.fechaEmision = fechaEmision;
-	}
-
-
-	public String getNumero() {
-		return numero;
-	}
-
-
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setFechaVencimiento(Timestamp fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
 	}
 
 
@@ -333,12 +337,20 @@ public class CompraItem implements Serializable {
 		this.restoStockSolicitado = restoStockSolicitado;
 	}
 
-	public String getIdEpisodio() {
-		return idEpisodio;
+	public String getNumeroPeriodoCompra() {
+		return numeroPeriodoCompra;
 	}
 
-	public void setIdEpisodio(String idEpisodio) {
-		this.idEpisodio = idEpisodio;
+	public void setNumeroPeriodoCompra(String numeroPeriodoCompra) {
+		this.numeroPeriodoCompra = numeroPeriodoCompra;
 	}
 
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
+	}
+ 
 }
