@@ -11,6 +11,8 @@ public interface VentaDAO  extends BaseDAO<VentaBean>{
 	public List<VentaBean >  buscarxFechaClienteVO(VentaBean  VentaBean ) throws DAOException;
 	
 	public boolean anularVenta(VentaBean venta)throws DAOException; 
+	
+	public boolean devolucionVenta(VentaBean venta)throws DAOException; 
 	 
 	public String cantidadConLetra(float monto)throws DAOException;
 	

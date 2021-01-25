@@ -117,6 +117,10 @@
 										<div class="row">
 											<div class="form-group col-md-12 text-right"
 												style="margin-top: 15px;">
+												<a href="${pageContext.request.contextPath}/almacenController/listado"
+												 class="btn btn-secondary" id="btnListado"> <i class="fa fa-undo"></i>
+													<span class="text">CANCELAR</span>
+												</a>
 												<a
 													href="${pageContext.request.contextPath}/almacenController/nuevo"
 													class="btn btn-info"> <i class="fa fa-file"></i> <span
@@ -195,10 +199,7 @@
 	<!-- Page level custom scripts -->
 
 
-	<!-- scripts  -->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
-		type="text/javascript" charset="utf-8"></script>
+	<!-- scripts  --> 
 
 	<script
 		src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.js"
@@ -238,10 +239,6 @@
 	document.getElementById('enlaceAlmacen').className = "collapse-item active";
 	document.getElementById('collInventario').className = "nav-link";
 	document.getElementById('collapseInventario').className = "collapse show";
-		//document.getElementById('navMantenimiento').className = "nav-item active";
-		//document.getElementById('enlaceAlmacen').className = "collapse-item active";
-		//document.getElementById('CollMantenimiento').className = "nav-link";
-		//document.getElementById('collapseMantenimiento').className = "collapse show";
 	</script>
 
 

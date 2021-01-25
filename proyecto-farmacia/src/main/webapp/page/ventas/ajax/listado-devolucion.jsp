@@ -11,6 +11,7 @@
 										<th>NRO DOCUMENTO</th>
 										<th>FECHA EMISION</th>
 										<th width="200">NOMBRE ARTICULO</th>
+										<th width="50"># LOTE</th>
 										<th width="50">CANTIDAD ADQUIRIDA</th>
 										<th width="50">CANTIDAD DEVUELTA</th>
 										<th width="50">CANTIDAD CONSUMIDA</th>
@@ -23,25 +24,24 @@
 										varStatus="loop">
 										<tr>
 											<td>${loop.count}</td>
-											<td>${objVentaItem.venta.numero}</td>
+											<td><span id="${objVentaItem.venta.codigo}"> ${objVentaItem.venta.numero} </span></td>
 											<td><fmt:formatDate pattern="dd/MM/yyyy" value="${objVentaItem.venta.fechaEmision}"/></td>
-											<td>${objVentaItem.stock.articulo.nombre}</td>
+											<td><span  id="${objVentaItem.stock.codigo}" >
+											 ${objVentaItem.stock.articulo.nombre}</span></td>
+											 <td><span>${objVentaItem.stock.lote}</span></td>
 											<td><input type='text' class='form-control' id="txtAdquirida${objVentaItem.codigo}"
 												 required='required' value ='${objVentaItem.cantidad}' 
-												 maxlength='3'onkeypress="return soloNumeros(event);"
-												 oninput="cambiarCantidad('${objVentaItem.stock.codigo}');" 
+												 maxlength='3' onkeypress="return soloNumeros(event);" 
 												 disabled="disabled"/></td>
 											<td><input type='text' class='form-control' id="txtDevolucion${objVentaItem.codigo}"
 												 required='required' value ='0' 
-												 maxlength='3'onkeypress="return soloNumeros(event);"
-												 oninput="cambiarCantidad('${objVentaItem.stock.codigo}');"/>
+												 maxlength='3' onkeypress="return soloNumeros(event);" />
 											</td>
 											<td><input type='text' class='form-control' id="txtConsumo${objVentaItem.codigo}"
-												 required='required' value ='${objVentaItem.cantidad}' 
-												 maxlength='3'onkeypress="return soloNumeros(event);"
-												 oninput="cambiarCantidad('${objVentaItem.stock.codigo}');" 
+												 required='required' value ='${objVentaItem.cantidadConsumida}' 
+												 maxlength='3' onkeypress="return soloNumeros(event);" 
 												 disabled="disabled"/></td>
-											<td>${objVentaItem.stock.sPrecio}</td>	
+											<td><span>${objVentaItem.stock.sPrecio}</span></td>	
 											<td>${objVentaItem.sSubTotal}</td> 
 										</tr>
 									</c:forEach>

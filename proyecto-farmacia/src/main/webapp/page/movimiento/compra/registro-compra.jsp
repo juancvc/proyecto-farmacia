@@ -448,6 +448,7 @@ input[type=text] {
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
+		
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -499,6 +500,7 @@ input[type=text] {
 	<script
 		src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
 		type="text/javascript"></script>
+		
 	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
 		type="text/javascript"></script>
 

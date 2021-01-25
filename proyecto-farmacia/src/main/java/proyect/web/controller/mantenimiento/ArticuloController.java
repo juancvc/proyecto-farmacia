@@ -79,14 +79,12 @@ public class ArticuloController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
-	public ModelAndView doBuscar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean,
+	public ModelAndView doBuscar(@ModelAttribute("articuloBean") ArticuloBean articuloBean,
 			HttpServletRequest request)
-			throws Exception { 
-		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>(); 
-		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", catalogoBean);  
-		lstcatalogosRegistros = catalogo1Service.getBuscarPorFiltros(catalogoBean);
-		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
-		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
+			throws Exception {  
+		ModelAndView mav = new ModelAndView("mantenimiento/articulo/listado-articulo", "command", articuloBean);  
+		lstArticulos = articuloService.getBuscarPorFiltros(articuloBean);
+		mav.addObject("lstArticulos", lstArticulos);
 		this.cargarCombos(mav);
 		return mav;
 		
@@ -148,17 +146,18 @@ public class ArticuloController extends BaseController{
 		return mav;
 	}
 	
-	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
-	//@ResponseBody
-	public ModelAndView grabar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request) {
+	@RequestMapping(value = "/grabar", method = RequestMethod.POST) 
+	public ModelAndView grabar(@ModelAttribute("articuloBean") ArticuloBean articuloBean, HttpServletRequest request) {
 		 
-		System.out.println("doGrabar @ModelAttribute");
+		System.out.println("doGrabar @articuloBean");
 		boolean sw = true;
 		try {
-			if (catalogoBean.getIdRegistro()!=null && !catalogoBean.getIdRegistro().equals("")) { 
-				sw = (catalogo1Service.actualizar(catalogoBean));
+			if (articuloBean.getCodigo()!=null && !articuloBean.getCodigo().equals("")) { 
+				this.setAuditoria(articuloBean, request, false); 
+				sw = (articuloService.actualizar(articuloBean));
 			} else { 
-				sw =  (catalogo1Service.insertar(catalogoBean)); 
+				this.setAuditoria(articuloBean, request, true); 
+				sw =  (articuloService.insertar(articuloBean)); 
 				
 			} 
 		} catch (Exception e) { 
@@ -170,7 +169,7 @@ public class ArticuloController extends BaseController{
 			 return this.listado(articuloBean, request);
 			 
 		}else{
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
+			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",articuloBean); 
 			return mav ;
 		} 
 		 
@@ -178,16 +177,15 @@ public class ArticuloController extends BaseController{
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	@ResponseBody
-	public String doEliminar(@RequestParam("catalogo") String catalogo,
-							 @RequestParam("codReg") String codReg,
+	public String doEliminar(@RequestParam("index") int index ,
 			 HttpServletRequest request) {
 		String valida = "";
-		System.out.println("codigo eliminar:: " + catalogo); 
-		CatalogoBean catalogoBean = new CatalogoBean();
-		catalogoBean.setIdRegistro(codReg);
-		catalogoBean.setIdCatalogo(catalogo);
-		try { 
-			 if(catalogo1Service.eliminar(catalogoBean)){
+		ArticuloBean articuloBean = new ArticuloBean();  
+	    articuloBean = lstArticulos.get(index);
+	    System.out.println("articuloBean.getCodigo " + articuloBean.getCodigo());
+	    try { 
+	    	this.setAuditoria(articuloBean, request, true); 
+			 if(articuloService.eliminar(articuloBean)){
 				 valida = "1";
 			 }
 		} catch (Exception e) { 

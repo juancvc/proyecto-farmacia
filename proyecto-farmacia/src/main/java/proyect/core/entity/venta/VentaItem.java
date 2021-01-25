@@ -105,49 +105,61 @@ public class VentaItem implements Serializable {
 	
 	private String tipoSeguro;
 	
+	private String idArticulo;
+	
+	private String lote;
+	
 	public VentaItem() { 
 	}
 
 	
+	public String getIdArticulo() {
+		return idArticulo;
+	} 
+
+	public void setIdArticulo(String idArticulo) {
+		this.idArticulo = idArticulo;
+	} 
+
+	public String getLote() {
+		return lote;
+	} 
+
+	public void setLote(String lote) {
+		this.lote = lote;
+	}
+ 
 	public String getIdTipoSeguro() {
 		return idTipoSeguro;
 	}
-
-
+ 
 	public void setIdTipoSeguro(String idTipoSeguro) {
 		this.idTipoSeguro = idTipoSeguro;
 	}
-
-
+ 
 	public String getTipoSeguro() {
 		return tipoSeguro;
 	}
-
-
+ 
 	public void setTipoSeguro(String tipoSeguro) {
 		this.tipoSeguro = tipoSeguro;
 	}
-
-
+ 
 	public Timestamp getFechaEmision() {
 		return fechaEmision;
 	}
-
-
+ 
 	public void setFechaEmision(Timestamp fechaEmision) {
 		this.fechaEmision = fechaEmision;
 	}
-
-
+ 
 	public String getNumero() {
 		return numero;
-	}
-
+	} 
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
+	} 
 
 	public String getIdVenta() {
 		return idVenta;

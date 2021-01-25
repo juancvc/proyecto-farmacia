@@ -115,6 +115,10 @@ private List<VentaItemBean> deListaObjetoAListaObjetoBean(List<VentaItem> lstVen
 			bean.getVenta().setFechaEmision(entity.getFechaEmision());
 			bean.getVenta().setCodigo(entity.getIdVenta());
 			bean.setCantidad(entity.getCantidad());
+			bean.setCantidadConsumida(entity.getCantidadConsumida());
+			bean.getStock().setCodigo(entity.getIdStock());
+			bean.getStock().getArticulo().setCodigo(entity.getIdArticulo());
+			bean.getStock().setLote(entity.getLote());
 			bean.getStock().getArticulo().setNombre(entity.getNombreArticulo());
 			bean.getStock().getArticulo().getTipoPresentacion().setDescripcionCorta(entity.getDescripcionCortaPresentacion());
 			bean.getStock().setsPrecio((getTwoDecimals(entity.getPrecio()).replace(",", ".")));
@@ -123,6 +127,7 @@ private List<VentaItemBean> deListaObjetoAListaObjetoBean(List<VentaItem> lstVen
 			bean.getVenta().getTipoFinanciador().setIdRegistro(entity.getIdTipoSeguro());
 			bean.getVenta().getTipoFinanciador().setDescripcionCorta(entity.getTipoSeguro());
 			bean.getVenta().getEpisodio().setCodigo(entity.getIdEpisodio());
+			bean.getVenta().getPersona().setCodigo(entity.getIdPersona());
 	 	}
 		
 		return bean;

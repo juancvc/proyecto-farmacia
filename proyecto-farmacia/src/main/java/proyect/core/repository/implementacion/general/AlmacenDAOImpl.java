@@ -171,6 +171,7 @@ private List<AlmacenBean> deListaObjetoAListaObjetoBean(List<Almacen> lstAlmacen
 			bean.setCodigo(entity.getIdAlmacen());   
 			bean.setNombreAlmacen(entity.getNombreAlmacen());
 			bean.setAlias(entity.getAlias());
+			bean.setDescripcion(entity.getDescripcion());
 	 	}
 		
 		return bean;

@@ -452,8 +452,7 @@ function grabarDetalle(){
 			lote : "", 
 			precioCompra : 0,
 			precioVenta	: 0
-	  	};
-	    	
+	  	}; 
 		var objCompraItem = {
 			item 		: 0,
 			codigo		: "",

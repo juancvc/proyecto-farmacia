@@ -60,7 +60,7 @@
 				<a id="enlaceAnularVenta" class="collapse-item"
 					href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
 				<a id="enlaceDevolucionVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/devolucion">Devoluciones</a>
+					href="${pageContext.request.contextPath}/ventaController/devolucion">Devolución</a>
 			</div>
 		</div></li>
 

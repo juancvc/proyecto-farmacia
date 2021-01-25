@@ -149,8 +149,22 @@ function buscarPersona() {
 	if (tipoDocumento == null || tipoDocumento == "") {
 		msg_advertencia("Seleccione tipo de documento");
 		return;
-	} else {
-		// console.log("validarDni " + numeroDocumento );
+	}else if  (numeroDocumento == null || numeroDocumento == "") {
+		msg_advertencia("Ingrese un número de documento.");
+		return;
+	 
+	}else if (tipoDocumento == "000001") {
+		if (numeroDocumento.length < 7) {
+			msg_advertencia("Ingrese número de DNI válido.");
+			return;
+		} 
+	}else if (tipoDocumento == "000002") {
+		if (numeroDocumento.length < 8) {
+			msg_advertencia("Ingrese número de PASAPORTE válido.");
+			return;
+		} 
+	}  
+		  console.log("validarDni " + numeroDocumento );
 
 		$
 				.ajax({
@@ -159,10 +173,7 @@ function buscarPersona() {
 							+ "/usuarioController/consultarPorDocumentoPersona?tipoDocumento="
 							+ tipoDocumento + "&numero=" + numeroDocumento,
 
-					success : function(persona) {
-						if (numeroDocumento.length < 7) {
-							msg_advertencia("Número de documento incorrecto.");
-						} else {
+					success : function(persona) { 
 					//		console.log("personaUsuarioNombreCompleto " + persona.nroDocumento );
 					//		document.getElementById("btnAgregarEstabUser").disabled = true;
 					//		document.getElementById("btnRestablecerClaveUser").disabled = true;
@@ -189,8 +200,7 @@ function buscarPersona() {
 								// + persona.nombreCompleto);
 							} else {
 								msg_advertencia("¡No se encontraron registros.!")
-							}
-						}
+							} 
 					},
 					error : function(xhr, status, er) {
 						console.log("error: " + xhr + " status: " + status
@@ -206,7 +216,7 @@ function buscarPersona() {
 
 					}
 				});
-	}
+	 
 }
 
 function buscarUsuarioPersona(codigoPersona) {
@@ -465,34 +475,7 @@ function cargarEstablecimientoModal() {
 			}
 		}); 
 }
-function modificarElementoGenerico(url, idElemento){
-	var contextPath = $('#contextPath').val();
-	var urlComplete = contextPath + url;
-	doPost(urlComplete, { codigo : idElemento } );
-}
-function doPost(path, params, method) {
-    method = method || "post";
-
-    var form = document.createElement("form");
-
-    form._submit_function_ = form.submit;
-
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for(var key in params) {
-        var hiddenField = document.createElement("input");
-        hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", key);
-        hiddenField.setAttribute("value", params[key]);
-
-        form.appendChild(hiddenField);
-    }
-
-    document.body.appendChild(form);
-    form._submit_function_();
-}
-
+ 
 function enviar_ajaxv2(page,method,form){
 		//showLoad_info_ajax();
 

@@ -76,19 +76,20 @@
 
 									<div class="controls">
 										<f:select id="tipoDocumentoUsuario"
-											path="persona.tipoDocumento.codReg" required="required"
+											path="persona.tipoDocumento.idRegistro" required="required"
 											class="form-control">
 
-											<f:options items="${lstDocumento}" itemValue="codReg"
-												itemLabel="nombreCorto" />
+											<f:options items="${lstDocumento}" itemValue="idRegistro"
+												itemLabel="descripcionCorta" />
 										</f:select>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<label for="exampleInputName" class="label_control">N° DOCUMENTO </label>
-									<f:input type="text" onkeypress="return runScript(event)"
-										required="required" maxlength="12" class="form-control"
-										id="nroDocumentoUsuario" path="persona.nroDocumento" />
+									<f:input type="text" 
+									         onkeypress="return soloNumeros(event);"
+										     required="required" maxlength="12" class="form-control"
+										     id="nroDocumentoUsuario" path="persona.nroDocumento" />
 
 									<f:input type="hidden" class="form-control" id="numeroPeriodo"
 										path="numeroPeriodo" />
@@ -111,23 +112,7 @@
 									<f:input type="text" required="required" class="form-control"
 										id="personaUsuarioNombreCompleto"
 										path="persona.nombreCompleto" disabled="true" />
-								</div>
-									<!--
-									<div class="col-md-2">
-									<label for="exampleInputName" class="label_control">SEDE
-										<span class="required">*</span>
-									</label>
-									<div class="controls">
-										<f:select id="comboSedes" path="codigoSede"
-											required="required" class="form-control">
-											<f:option value="" label="Seleccionar" selected="true"
-												disabled="disabled" />
-											<f:options items="${sedes}" itemValue="codReg"
-												itemLabel="nombreCorto" />
-										</f:select>
-									</div>
-								</div>
-									-->
+								</div> 
 								<div class="col-md-2">
 									<label for="exampleInputName" class="label_control">PERFIL
 										<span class="required">*</span>
@@ -254,10 +239,7 @@
 	<!-- Page level custom scripts -->
 
 
-	<!-- scripts  -->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
-		type="text/javascript" charset="utf-8"></script>
+	<!-- scripts  --> 
 
 	<script
 		src="${pageContext.request.contextPath}/assets/js/page/util/datepicker.js"
@@ -289,18 +271,15 @@
 	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
 		type="text/javascript"></script>
 
-	<script src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/almacen.js"
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/seguridad/usuario.js"
 		type="text/javascript"></script>
 		
 	<script>
-	document.getElementById('navInventario').className = "nav-item active";
-	document.getElementById('enlaceListaPrecio').className = "collapse-item active";
-	document.getElementById('collInventario').className = "nav-link";
-	document.getElementById('collapseInventario').className = "collapse show";
-		//document.getElementById('navMantenimiento').className = "nav-item active";
-		//document.getElementById('enlaceAlmacen').className = "collapse-item active";
-		//document.getElementById('CollMantenimiento').className = "nav-link";
-		//document.getElementById('collapseMantenimiento').className = "collapse show";
+		document.getElementById('navConfiguracion').className = "nav-item active";
+		document.getElementById('enlaceUsuario').className = "collapse-item active";
+		document.getElementById('collAccesos').className = "nav-link";
+		document.getElementById('collapseAccesos').className = "collapse show";
 	</script>
 
 

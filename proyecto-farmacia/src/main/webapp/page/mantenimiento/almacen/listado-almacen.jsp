@@ -153,7 +153,7 @@
 																	class='btn btn-outline-danger btn-sm'
 																	data-toggle='tooltip' data-placement='top'
 																	title='Eliminar'
-																	onclick="confirmar_accion(${loop.count});"
+																	onclick="confirmar_accion(${loop.index});"
 																	data-original-title='Eliminar' id='agregarEspecialidad'>
 																	<i class='fas fa-trash'></i>
 																</button></td>
@@ -167,6 +167,8 @@
 							</div>
 						</div>
 					</div>
+					<a style="display: none;" href="${pageContext.request.contextPath}/almacenController/listado"
+					   class="btn btn-secondary" id="btnListado"></a>
 				</f:form>
 				<!-- /.container-fluid -->
 

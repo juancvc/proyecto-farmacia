@@ -36,8 +36,10 @@ public class ArticuloDAOImpl implements ArticuloDAO{
 			spq.setParameter("nombreArticulo", 		articuloBean.getNombre());
 			spq.setParameter("idClase", 	   		articuloBean.getClase().getIdRegistro());
 			spq.setParameter("idGenerico", 	   		articuloBean.getIdGenerico());
+			spq.setParameter("idTipoPresentacionCat01", articuloBean.getTipoPresentacion().getIdRegistro());
 			spq.setParameter("concentracion",  		articuloBean.getConcentracion());			
 			spq.setParameter("idTipoArticuloCat01", articuloBean.getTipoArticulo().getIdRegistro());
+			spq.setParameter("volumen",             articuloBean.getVolumen());
 			
 			spq.setParameter("idLaboratorio",       articuloBean.getLaboratorio().getCodigo());
 			spq.setParameter("posologia", 	     	articuloBean.getPosologia());

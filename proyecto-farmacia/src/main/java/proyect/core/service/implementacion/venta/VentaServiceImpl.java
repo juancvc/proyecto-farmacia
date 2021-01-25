@@ -216,6 +216,17 @@ public class VentaServiceImpl implements VentaService {
 		}
 		return lstVentaVO;
 	}
+
+	@Override
+	public boolean devolucionVenta(VentaBean venta) throws ServiceException {
+		boolean sw=false;
+		try {
+			sw=this.getVentaDAO().devolucionVenta(venta);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return sw;
+	}
 }
 
 	

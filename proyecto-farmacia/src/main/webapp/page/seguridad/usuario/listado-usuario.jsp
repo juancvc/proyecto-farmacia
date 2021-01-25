@@ -120,7 +120,7 @@
 												<i class="fa fa-eraser"></i> LIMPIAR
 											</button>
 											<a
-												href="${pageContext.request.contextPath}/precioController/nuevo"
+												href="${pageContext.request.contextPath}/usuarioController/nuevo"
 												class="btn btn-info"> <i class="fa fa-file"></i> <span
 												class="text"> NUEVO</span>
 											</a>
@@ -166,7 +166,7 @@
 																		<a title="Modificar" data-placement="top"
 																			data-toggle="tooltip"
 																			class="btn btn-outline-success btn-sm"
-																			onclick="javascript:modificarElementoGenerico('/articuloController/modificar','${loop.index}')"
+																			onclick="javascript:modificarElementoGenerico('/usuarioController/modificar','${loop.index}')"
 																			href="#"><i class="fas fa-pencil-alt"></i></a>
 
 																		<button type='button'
@@ -280,8 +280,9 @@
 		type="text/javascript"></script>
 
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/almacen.js"
+		src="${pageContext.request.contextPath}/assets/js/page/seguridad/usuario.js"
 		type="text/javascript"></script>
+		
 	<script>
 		document.getElementById('navConfiguracion').className = "nav-item active";
 		document.getElementById('enlaceUsuario').className = "collapse-item active";

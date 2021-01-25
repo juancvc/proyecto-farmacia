@@ -389,5 +389,32 @@ public class VentaDAOImpl implements VentaDAO{
 				   
 		return lstVentaBean;
 	}
+
+	@Override
+	public boolean devolucionVenta(VentaBean venta) throws DAOException {
+		boolean sw=false; 
+		try { 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.devolucion");  
+			spq.setParameter("cadenaIdVenta", venta.getCadenaIdVenta());
+			spq.setParameter("idPersona", venta.getPersona().getCodigo());
+			spq.setParameter("fechaAtencion", venta.getFechaAtencion());
+			spq.setParameter("cantidadItems", venta.getCantidadItems());
+			spq.setParameter("cadenaPrecio", venta.getCadenaPrecioVenta());
+			spq.setParameter("cadenaIdStock", venta.getCadenaCodigoStock());
+			spq.setParameter("cadenaCantidad", venta.getCadenaCantidad());
+			spq.setParameter("ipRegistro", venta.getIpRegistro());  
+			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());
+			
+			spq.execute(); 
+			 
+			em.close();
+			
+		} catch (Exception e) {
+			sw = false;
+			e.printStackTrace();
+			throw new DAOException(e);
+		}
+		return sw;
+	}
 	
 }

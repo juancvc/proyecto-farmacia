@@ -51,7 +51,7 @@
 <link
 	href="${pageContext.request.contextPath}/app-assets/css/estilos.css"
 	rel="stylesheet">
-	
+
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -72,7 +72,7 @@
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmListadoArticulo" role="form" action=""
+				<f:form id="frmGenerarDevolucion" role="form" action=""
 					onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -87,7 +87,7 @@
 							<!-- Card Content - Collapse -->
 							<div class="collapse show" id="collapseCardExample">
 								<div class="card-body">
-									<div class="row"> 
+									<div class="row">
 										<div class="form-group col-md-7 mb-2">
 											<label for="situacion" class="label_control">PACIENTE
 												<span class="required">*</span>
@@ -95,59 +95,63 @@
 											<div class="controls">
 												<f:select id="cboPacienteVenta" data-live-search="true"
 													title="Seleccionar" class="selectpicker"
-													path="persona.codigo" required="required" >
+													path="episodio.codigo" required="required">
 													<f:options items="${lstPersonas}" itemValue="codigo"
 														itemLabel="pacienteEpisodio" />
 												</f:select>
 											</div>
 										</div>
-										<div class="form-group col-md-2 mb-2" style="margin-top: 25px;">
+										<div class="form-group col-md-2 mb-2"
+											style="margin-top: 25px;">
 											<button id="btn-save-reg" type="button" class="btn btn-info"
-											onclick="refrescarListadoConsumo()" >
-											<i class="fa fa-search"> </i>  CARGAR CONSUMO
-										</button>
+												onclick="refrescarListadoConsumo()">
+												<i class="fa fa-search"> </i> CARGAR CONSUMO
+											</button>
 										</div>
 									</div>
 									<br>
-									<div class="label_title">
-										ARTICULOS <span class="required">*</span>:
-									</div>
-									<div id="panelCEX" class="panel_style col-md-12">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="table-responsive" id ="idTablaDevolucion">
-													<table class="table table-bordered">
-														<thead class="tabla_th">
-															<tr>
-																<th width="50">ITEM</th>
-																<th>NRO DOCUMENTO</th>
-																<th>NOMBRE ARTICULO</th>
-																<th>CANTIDAD ADQUIRIDA</th>
-																<th>CANTIDAD DEVUELTA</th>
-																<th>CANTIDAD CONSUMIDA</th>
-																<th width="90">PRECIO (S/.)</th>
-																<th width="45">SUB TOTAL</th>
-																
-															</tr>
-														</thead>
-														<tbody id="idbodyStock" class="label_control">
-															 
-														</tbody>
-													</table>
+									<div class="row">
+										<div class="label_title">
+											ARTICULOS <span class="required">*</span>:
+										</div>
+										<div id="panelCEX" class="panel_style col-md-12">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="table-responsive" id="idTablaDevolucion">
+														<table class="table table-bordered">
+															<thead class="tabla_th">
+																<tr>
+																	<th width="50">ITEM</th>
+																	<th>NRO DOCUMENTO</th>
+																	<th>NOMBRE ARTICULO</th>
+																	<th width="50"># LOTE</th>
+																	<th>CANTIDAD ADQUIRIDA</th>
+																	<th>CANTIDAD DEVUELTA</th>
+																	<th>CANTIDAD CONSUMIDA</th>
+																	<th width="90">PRECIO (S/.)</th>
+																	<th width="45">SUB TOTAL</th>
+
+																</tr>
+															</thead>
+															<tbody id="idbodyStock" class="label_control">
+
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
-										</div> 
+										</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-md-12 text-right"
 											style="margin-top: 15px;">
-											<button type="submit" onclick="grabar()"
+											<button type="submit" onclick="grabarDevolucion()"
 												class="btn btn-primary">
-												<i class="fa fa-save"></i> GUARDAR
+												<i class="fa fa-save"></i> GRABAR DEVOLUCION
 											</button>
 										</div>
 									</div>
-								</div> 
+								</div>
 							</div>
 						</div>
 
@@ -223,6 +227,18 @@
 
 	<!-- Page level plugins -->
 	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/utilitarios.js"
+		type="text/javascript" charset="utf-8"></script>
+	
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+		type="text/javascript" charset="utf-8"></script>
+	
+	<script
+		src="${pageContext.request.contextPath}/assets/js/page/util/block.js"
+		type="text/javascript" charset="utf-8"></script>	
+		
+	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/jquery.min.droop.js"></script>
 
 	<script
@@ -250,23 +266,20 @@
 		src="${pageContext.request.contextPath}/app-assets/js/scripts/extensions/sweet-alerts.js"
 		type="text/javascript"></script>
 
+	<script src="${pageContext.request.contextPath}/assets/js/scripts.js"
+		type="text/javascript"></script>
+
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap-select.js"></script>
 
-	<script
-			src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
-			type="text/javascript" charset="utf-8"></script>
-			
-	<script>	
-function cargarDatos() {
-	
-	document.getElementById('seccionDatosPaciente').style.display = 'block';
-	idPaciente = $('#cboPaciente').val(); 
-	
-	
-}
-	
-</script>
+	<script>
+		function cargarDatos() {
+
+			document.getElementById('seccionDatosPaciente').style.display = 'block';
+			idPaciente = $('#cboPaciente').val();
+
+		}
+	</script>
 	<script>
 		document.getElementById('navVentas').className = "nav-item active";
 		document.getElementById('enlaceDevolucionVenta').className = "collapse-item active";

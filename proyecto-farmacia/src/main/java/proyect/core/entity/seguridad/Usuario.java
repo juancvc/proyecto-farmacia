@@ -35,16 +35,11 @@ import javax.persistence.StoredProcedureParameter;
 							}					
 					),
 				@NamedStoredProcedureQuery(
-						name="usuario.findByIdPersona", 
-						procedureName="[dbo].[SP_USUARIO_BUSCAR_X_ID_PERSONA]",
+						name="usuario.buscarxcodperso", 
+						procedureName="[dbo].[usp_Usuario_buscarxIdPersona]",
 						resultClasses= Usuario.class,
-						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=Long.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOCUMENTO", type=String.class )
+						parameters={ 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", type=String.class)
 									
 							}					
 					),
@@ -168,9 +163,30 @@ public class Usuario  {
 	private String nombres;  
 	private String idAlmacen; 
 	private String nombrePerfil; 
-	
+	private String nroDocumento; 
+	private String idTipoDocumentoCat02; 
 	
 	public Usuario() { 
+	}
+
+
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
+
+	public String getIdTipoDocumentoCat02() {
+		return idTipoDocumentoCat02;
+	}
+
+
+	public void setIdTipoDocumentoCat02(String idTipoDocumentoCat02) {
+		this.idTipoDocumentoCat02 = idTipoDocumentoCat02;
 	}
 
 

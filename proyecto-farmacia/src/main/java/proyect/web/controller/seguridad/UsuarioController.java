@@ -77,7 +77,7 @@ public class UsuarioController extends BaseController{
 	private PerfilBean perfilBean;
 	private List<CatalogoBean>	lstSituacion;
 	private List<CatalogoBean>	lstTipoDocumento;
-
+	private List<UsuarioBean> lstUsuarioBean;
 	private List<PerfilBean>	lstPerfiles;
 	List<CatalogoBean> lstDocumento = new ArrayList<CatalogoBean>();
 	List<CatalogoBean> tipoPerfil = new ArrayList<CatalogoBean>();
@@ -116,11 +116,31 @@ public class UsuarioController extends BaseController{
 		}
 		setPersonaBean(new PersonaBean());
 		mav.addObject("lstDocumento", lstDocumento); 
-		mav.addObject("tipoPerfil", tipoPerfil); 
-		mav.addObject("sedes", sedes); 
-	//	this.cargarComboPerfiles(mav);
-	//	this.cargarCombos(mav);
+		this.cargarComboPerfiles(mav);
 		return mav;
+	}
+	
+	@RequestMapping(value = "/consultarPorDocumentoPersona", method = RequestMethod.GET)
+	public @ResponseBody PersonaBean consultarPorNroDocumento(@RequestParam("tipoDocumento") String tipoDocumento,
+			@RequestParam("numero") String numero) throws Exception {
+		this.setPersonaBean(new PersonaBean());
+		personaBean = new PersonaBean();
+		PersonaBean prmPersona = new PersonaBean();
+		prmPersona.setNroDocumento(numero);
+		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
+		try {
+			personaBean = personaService.buscarxTipoDocumentoNumeroDocumento(prmPersona);
+			if (personaBean != null) {
+				System.out.println("perosana consultada" + personaBean.getNombreCompleto());
+				System.out.println("personaBean.getCodigo() " + personaBean.getCodigo());
+				this.setPersonaBean(personaBean);
+
+			} else {
+			}
+		} catch (Exception e) {
+		}
+
+		return this.getPersonaBean();
 	}
 	/***
 	@RequestMapping(value = "/consultarPorDocumentoPersona", method = RequestMethod.GET)
@@ -619,83 +639,16 @@ public static String stripAccents(String str) {
 	
  
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("codigo") String codigoUsuario){ //doObtener(@ModelAttribute("usuarioBean") UsuarioBean bean) {
-		UsuarioBean ousuarioBean = new UsuarioBean();
-		System.out.println("bean modificar "  + codigoUsuario);
-		ousuarioBean.setCodigo(codigoUsuario); 
-		ousuarioBean.setCodigoUsuario(codigoUsuario); 
-		UsuarioBean usuarioBean = new UsuarioBean(); 
-		List<UsuarioRenaesBean> lstUsuarioRenaesBean = null;	
-			try {
-				//lstUsuarioBean = usuarioService.getBuscarPorFiltros(bean);
-				usuarioBean = usuarioService.buscarxcodigousua(ousuarioBean); 
-				if(usuarioBean != null){ 
-					System.out.println("usuarioBean nroDocumento " + usuarioBean.getPersona().getNroDocumento());
-					tmpContrasena = ousuarioBean.getPasswordUsuario();//Guardando la contrasena en una variable temporal. 
-					System.out.println(" usuarioBean codigo::: "  + usuarioBean.getCodigo());
-					System.out.println(" usuarioBean codigoUser::: "  + usuarioBean.getCodigoUsuario());
-					System.out.println(" usuarioBean obj::: "  + usuarioBean);
-					this.setPersonaBean(usuarioBean.getPersona());					
-					 
-				}else{
-					System.out.println("usuario es null");
-					usuarioBean = new UsuarioBean();
-				}
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
-			}
-		 
-		
-	 
+	public ModelAndView modificar(@RequestParam("index") int index){   
+		System.out.println("bean modificar "  + index);
+		usuarioBean = lstUsuarioBean.get(index); 
 		ModelAndView mav = new ModelAndView("seguridad/usuario/registro-usuario", "command",usuarioBean);
-		mav.addObject("usuarioBean", usuarioBean);
-		mav.addObject("swActivo", "1");
-		mav.addObject("lstUsuarioRenaes", lstUsuarioRenaesBean);
+		mav.addObject("usuarioBean", usuarioBean);   
 		this.cargarCombos(mav);
 		this.cargarComboPerfiles(mav);
 		return mav;
 	}
-	
-	@RequestMapping(value = "/modificar", method = RequestMethod.GET)
-	public ModelAndView modificarGet(@RequestParam("codigo") String codigoUsuario){ //doObtener(@ModelAttribute("usuarioBean") UsuarioBean bean) {
-		UsuarioBean ousuarioBean = new UsuarioBean();
-		System.out.println("bean modificar "  + codigoUsuario);
-		ousuarioBean.setCodigo(codigoUsuario); 
-		ousuarioBean.setCodigoUsuario(codigoUsuario); 
-		UsuarioBean usuarioBean = new UsuarioBean(); 
-		List<UsuarioRenaesBean> lstUsuarioRenaesBean = null;	
-			try {
-				//lstUsuarioBean = usuarioService.getBuscarPorFiltros(bean);
-				usuarioBean = usuarioService.buscarxcodigousua(ousuarioBean); 
-				if(usuarioBean != null){ 
-					System.out.println("usuarioBean nroDocumento " + usuarioBean.getPersona().getNroDocumento());
-					tmpContrasena = ousuarioBean.getPasswordUsuario();//Guardando la contrasena en una variable temporal. 
-					System.out.println(" usuarioBean codigo::: "  + usuarioBean.getCodigo());
-					System.out.println(" usuarioBean codigoUser::: "  + usuarioBean.getCodigoUsuario());
-					System.out.println(" usuarioBean obj::: "  + usuarioBean);
-					this.setPersonaBean(usuarioBean.getPersona());					
-					 
-				}else{
-					System.out.println("usuario es null");
-					usuarioBean = new UsuarioBean();
-				}
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
-			}
-		 
-		
-	 
-		ModelAndView mav = new ModelAndView("seguridad/usuario/registro-usuario", "command",usuarioBean);
-		mav.addObject("usuarioBean", usuarioBean);
-		mav.addObject("swActivo", "1");
-		mav.addObject("lstUsuarioRenaes", lstUsuarioRenaesBean);
-		this.cargarCombos(mav);
-		this.cargarComboPerfiles(mav);
-		return mav;
-	}
-	
+ 
 	@RequestMapping(value = "/eliminarPerfil", method = RequestMethod.POST)
 	public ModelAndView doEliminarPerfil(@ModelAttribute UsuarioPerfilBean bean) {
 		List<UsuarioBean> lstUsuarioBean =new ArrayList<UsuarioBean>();
@@ -867,7 +820,7 @@ public static String stripAccents(String str) {
 	
 	private ModelAndView getLista(UsuarioBean usuarioBean, HttpServletRequest request) {
 		
-		List<UsuarioBean> lstUsuarioBean =new ArrayList<UsuarioBean>(); 
+		 lstUsuarioBean =new ArrayList<UsuarioBean>(); 
 		try {
 			lstUsuarioBean =  usuarioService.getBuscarPorFiltros(usuarioBean);
 			System.out.println("getLista size " + lstUsuarioBean.size());
@@ -893,19 +846,13 @@ public static String stripAccents(String str) {
 	private void cargarCombos(ModelAndView mav){ 
  
 			try {
-			//	lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);  
-				
-				 tipoPerfil = catalogo2Service.listarPorCodigoTabla("000064", 1);
-				 
-				 sedes  = catalogo2Service.listarPorCodigoTabla("000065", 1);
-				
+				lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1); 
 				
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}	 
 	
-		mav.addObject("tipoPerfil",tipoPerfil);
-		mav.addObject("sedes",sedes);
+		mav.addObject("lstDocumento",lstDocumento); 
 	}  
 	
 	private void cargarComboPerfiles(ModelAndView mav){

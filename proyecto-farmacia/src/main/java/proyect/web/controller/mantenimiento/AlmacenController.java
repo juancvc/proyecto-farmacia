@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.base.service.ServiceException; 
 import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.web.controller.base.BaseController; 
 
@@ -26,10 +24,7 @@ public class AlmacenController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
 	List<AlmacenBean> lstAlmacenes = new ArrayList<AlmacenBean>();
-	private AlmacenBean almacenBean;
-	
-	@Autowired
-	private Catalogo1Service Catalogo1Service;
+	private AlmacenBean almacenBean; 
 	
 	@Autowired
 	private AlmacenService almecenService;
@@ -118,18 +113,18 @@ public class AlmacenController extends BaseController{
 		return mav;
 	}
 	
-	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
-	//@ResponseBody
-	public ModelAndView grabar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request) {
+	@RequestMapping(value = "/grabar", method = RequestMethod.POST) 
+	public ModelAndView grabar(@ModelAttribute("almacenBean") AlmacenBean almacenBean, HttpServletRequest request) {
 		 
-		System.out.println("doGrabar @ModelAttribute");
+		System.out.println("doGrabar @almacenBean");
 		boolean sw = true;
 		try {
-			if (catalogoBean.getIdRegistro()!=null && !catalogoBean.getIdRegistro().equals("")) { 
-				sw = (Catalogo1Service.actualizar(catalogoBean));
+			if (almacenBean.getCodigo()!=null && !almacenBean.getCodigo().equals("")) { 
+				this.setAuditoria(almacenBean, request, false); 
+				sw = (almecenService.actualizar(almacenBean));
 			} else { 
-				sw =  (Catalogo1Service.insertar(catalogoBean)); 
-				
+				this.setAuditoria(almacenBean, request, true); 
+				sw =  (almecenService.insertar(almacenBean));
 			} 
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -140,7 +135,7 @@ public class AlmacenController extends BaseController{
 			 return this.listado(almacenBean, request);
 			 
 		}else{
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
+			ModelAndView mav = new ModelAndView("mantenimiento/almacen/registro-almacen", "command", almacenBean);
 			return mav ;
 		} 
 		 
@@ -148,42 +143,24 @@ public class AlmacenController extends BaseController{
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	@ResponseBody
-	public String doEliminar(@RequestParam("catalogo") String catalogo,
-							 @RequestParam("codReg") String codReg,
+	public String doEliminar(@RequestParam("index") int index ,
 			 HttpServletRequest request) {
 		String valida = "";
-		System.out.println("codigo eliminar:: " + catalogo); 
-		CatalogoBean catalogoBean = new CatalogoBean();
-		catalogoBean.setIdRegistro(codReg);
-		catalogoBean.setIdCatalogo(catalogo);
-		try { 
-			 if(Catalogo1Service.eliminar(catalogoBean)){
+		AlmacenBean almacenBean = new AlmacenBean();  
+		almacenBean = lstAlmacenes.get(index);
+	    System.out.println("almacenBean.getCodigo " + almacenBean.getCodigo());
+	    try { 
+	    	this.setAuditoria(almacenBean, request, true); 
+			 if(almecenService.eliminar(almacenBean)){
 				 valida = "1";
 			 }
-			 
-
 		} catch (Exception e) { 
 			e.printStackTrace();
 		} 
 		return valida;
 	}
 	
-	@RequestMapping(value = "/refrescarLista", method = RequestMethod.GET)
-	public @ResponseBody List<CatalogoBean> refrescarLista(@RequestParam("catalogo") String catalogo)throws Exception { 
-		 CatalogoBean catalogoBean = new CatalogoBean();
-		 catalogoBean.setIdCatalogo(catalogo);
-		List<CatalogoBean> lstcatalogoBean =new ArrayList<CatalogoBean>(); 
-		try {
-			lstcatalogoBean = Catalogo1Service.getBuscarPorFiltros(catalogoBean); 
-		
-		} catch (ServiceException e) {
-			
-			e.printStackTrace();
-		}
-		 
-			return lstcatalogoBean; 
-	}
-
+ 
 	public AlmacenBean getAlmacenBean() {
 		return almacenBean;
 	}

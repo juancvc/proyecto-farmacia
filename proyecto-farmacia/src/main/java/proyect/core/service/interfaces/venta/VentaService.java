@@ -12,6 +12,8 @@ public interface VentaService extends BaseService<VentaBean> {
 	
 	public boolean anularVenta(VentaBean venta)throws ServiceException; 
 	 
+	public boolean devolucionVenta(VentaBean venta)throws ServiceException;
+	
 	public String cantidadConLetra(float monto)throws ServiceException; 
 	
 	public boolean cierreVentaDiaria(VentaBean venta)throws ServiceException; 

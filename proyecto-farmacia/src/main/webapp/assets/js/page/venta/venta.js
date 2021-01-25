@@ -5,14 +5,14 @@ function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
 	accionRealizar = tipo;
 	if (tipo == '3') {
-		var myFormulario = $('#frmGenerarVenta'); 
-		if(!myFormulario[0].checkValidity()) {
-			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+		var myFormulario = $('#frmGenerarVenta');
+		if (!myFormulario[0].checkValidity()) {
+			msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-		}else{  
+		} else {
 			$('#md_confirmacion').modal('show');
 		}
-	}else{
+	} else {
 		$('#md_confirmacion').modal('show');
 	}
 }
@@ -24,13 +24,13 @@ function agregar_accion() {
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
 		if (accionRealizar == 3) {
-			console.log("anularVenta :: " + codigoRegistro );
+			console.log("anularVenta :: " + codigoRegistro);
 			anularVenta(codigoRegistro);
-		}else{
-			console.log("eliminarArticulo :: " + codigoRegistro );
+		} else {
+			console.log("eliminarArticulo :: " + codigoRegistro);
 			eliminarArticulo(codigoRegistro);
 		}
-		
+
 		$('#md_confirmacion').modal('hide');
 	});
 });
@@ -411,73 +411,70 @@ function cambiarCantidad(objeto) {
 	$('#txtCajaImporteTotal').val(importe.toFixed(2));
 	$('#txtCajaImporteTotalHidden').val(importe.toFixed(2));
 }
-  
+
 function cargarPersona() {
 	var personaCodigo = $('#personaCodigo').val();
 	var contextPath = $('#contextPath').val();
 	var htmlTabla = "";
-	console.log("personaCodigo " + personaCodigo );
-	if (personaCodigo == null || personaCodigo == "") { 
+	console.log("personaCodigo " + personaCodigo);
+	if (personaCodigo == null || personaCodigo == "") {
 		return;
 	} else {
-		 
-		//iniciarBloqueo();
-		$
-				.ajax({
-					type : "GET",
-					url : contextPath
-							+ "/ventaController/cargarPersona?codigo="
-							+ personaCodigo,
 
-					success : function() {
+		// iniciarBloqueo();
+		$.ajax({
+			type : "GET",
+			url : contextPath + "/ventaController/cargarPersona?codigo="
+					+ personaCodigo,
 
-					},
-					error : function(xhr, status, er) {
-						console.log("error: " + xhr + " status: " + status
-								+ " er:" + er);
-						if (xhr.status == 500) {
-							console.log(er);
-							// Error_500(er);
-						}
-						if (xhr.status == 901) {
-							console.log(er);
-							// spire_session_901(er);
-						}
+			success : function() {
 
-					}
-				});
-		//finBloqueo();
+			},
+			error : function(xhr, status, er) {
+				console.log("error: " + xhr + " status: " + status + " er:"
+						+ er);
+				if (xhr.status == 500) {
+					console.log(er);
+					// Error_500(er);
+				}
+				if (xhr.status == 901) {
+					console.log(er);
+					// spire_session_901(er);
+				}
+
+			}
+		});
+		// finBloqueo();
 	}
 }
 
+function grabar() {
+	var contextPath = $('#contextPath').val();
+	var actionForm = $('#frmGenerarVenta').attr("action");
+	var url = contextPath + "/ventaController/llenarVenta";
+	var myFormulario = $('#frmGenerarVenta');
+	console.log("actionForm " + actionForm);
 
-function grabar(){  
-		var contextPath = $('#contextPath').val(); 
-		var actionForm = $('#frmGenerarVenta').attr("action");
-		var url =contextPath+"/ventaController/llenarVenta" ;
-		var myFormulario = $('#frmGenerarVenta'); 
-		console.log("actionForm " + actionForm);
-		
-		if(!myFormulario[0].checkValidity()) {
-			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+	if (!myFormulario[0].checkValidity()) {
+		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-		}else{  
-				$.ajax({
-				type : "GET",
-				url : url,
-				data: $('#frmGenerarVenta').serialize(),
-				success : function(data) { 
-						    grabarDetalle()  
-				},
-				
-				error : function(xhr, status, er) { 
-				        console.log("error: " + xhr + " status: " + status + " er:" + er);
-							//msg_error();
-	
-						},
-			  			complete: function()
-	  			{ 
-				}
+	} else {
+		$.ajax({
+			type : "GET",
+			url : url,
+			data : $('#frmGenerarVenta').serialize(),
+			success : function(data) {
+				grabarDetalle()
+			},
+
+			error : function(xhr, status, er) {
+				console.log("error: " + xhr + " status: " + status + " er:"
+						+ er);
+				// msg_error();
+
+			},
+			complete : function() {
+			}
 		});
 	}
 }
@@ -524,8 +521,8 @@ function grabarDetalle() {
 				} else {
 					msg_exito("Éxito al registrar venta");
 					// enviarListado();
-					//verTicket();
-					document.getElementById("btnNuevo").click(); 
+					// verTicket();
+					document.getElementById("btnNuevo").click();
 				}
 
 			},
@@ -651,13 +648,13 @@ function cambiarTipoComprobante() {
 		success : function(data) {
 			$('#cboSerie').empty();
 			for (var i = 0; i < data.length; i++) {
-				 objSerie = data[i];
-				     $('#cboSerie').append($('<option>', { 
-				       	value: objSerie.codigo,
-				       	text : objSerie.nroSerie
-				   	}));
-				 
-		}
+				objSerie = data[i];
+				$('#cboSerie').append($('<option>', {
+					value : objSerie.codigo,
+					text : objSerie.nroSerie
+				}));
+
+			}
 		},
 
 		error : function(xhr, status, er) {
@@ -669,11 +666,6 @@ function cambiarTipoComprobante() {
 	});
 }
 
-function limpiarPorTipo(){
-	
-}
-
-
 function limpiarPersona() {
 	$('#personaApellidoPaterno').val("");
 	$('#personaApellidoMaterno').val("");
@@ -684,11 +676,12 @@ function limpiarPersona() {
 /**
  * Función para imprimir ticket
  */
-function imprimirIndividual(){
+function imprimirIndividual() {
 	var contextPath = $('#contextPath').val();
-	var x = window.open(contextPath+"/"+"ticketVenta.jsp","toolbar=0,width=780,height=550");
-	return true;	
-	 			
+	var x = window.open(contextPath + "/" + "ticketVenta.jsp",
+			"toolbar=0,width=780,height=550");
+	return true;
+
 }
 
 function verTicket() {
@@ -696,113 +689,299 @@ function verTicket() {
 	$("#txt_confir_Vd").html("Ticket de Venta");
 	$("#dataInfoModal").empty();
 
-	//$('#modalVerdocumento').modal('show');
+	// $('#modalVerdocumento').modal('show');
 
-	var object = "<object type='application/pdf' width='100%' height='450px'>"+"</object>";
+	var object = "<object type='application/pdf' width='100%' height='450px'>"
+			+ "</object>";
 
-	$( "#onshow #dataInfoModal" ).empty();
-	$( "#onshow #dataInfoModal" ).append( object );
-}
-
-function refrescarListadoConsumo() {
-	var contextPath = $('#contextPath').val();
-	var idEpisodio  = $('#cboPacienteVenta').val();
-	console.log("idEpisodio "+ idEpisodio);
-	
-	$.ajax({
-		url : contextPath + "/ventaController/listarDevolucion?idEpisodio="+idEpisodio,
-		type : 'GET',
-	
-		success : function(data) {
-			//console.log("SUCCESS: ", data);
-			$('#idTablaDevolucion').html(data);
-		},
-		error : function() {
-			//console.log("ERROR: ");
-		}
-	});
+	$("#onshow #dataInfoModal").empty();
+	$("#onshow #dataInfoModal").append(object);
 }
 
 function buscarDocumento() {
 	var contextPath = $('#contextPath').val();
-	var nroSerie  = $('#nroSerie').val();
-	var idVenta  = $('#idVenta').val();
-	var numeroPeriodo  = $('#numeroPeriodo').val();
-	
-	$.ajax({
-		url : contextPath + "/ventaController/buscarVentaPorNumeroDocumento?nroSerie="+nroSerie
-						  + "&idVenta=" + idVenta + "&numeroPeriodo=" + numeroPeriodo,
-		type : 'GET',	
-		success : function(venta) {
-			console.log("venta::" + venta);
-			if(venta !=""){
-				var todate = new Date(venta.fechaEmision);
-				var dia = todate.getDate();
-				var mes = todate.getMonth() + 1;
-				var anio = todate.getFullYear(); 
-				
-				if (dia.toString().length == 1) {
-					dia = "0"+dia;
-				}
-				if (mes.toString().length == 1) {
-					mes = "0"+mes;
-				}
+	var nroSerie = $('#nroSerie').val();
+	var idVenta = $('#idVenta').val();
+	var numeroPeriodo = $('#numeroPeriodo').val();
 
-				var fecha = dia+"/"+mes+"/"+anio 
-				 $('#personaNombres').val(venta.persona.nombreCompleto);
-				 $('#personaNroDocumento').val(venta.persona.nroDocumento);
-				 $('#txtEpisodio').val(venta.episodio.codigo);
-				 $('#txtTipoSeguro').val(venta.tipoFinanciador.descripcionCorta);
-				 $('#txtFechaEmision').val(fecha+ " "+ venta.hora);
-				 $('#txtUsuarioEmitio').val(venta.usuarioRegistro); 
-				 $('#txtIdVenta').val(venta.codigo);
-				 $('#txtNumeroPeriodo').val(venta.numeroPeriodo);
-				 $('#txtMonto').val("S/. " +venta.importe);
-				 $('#txtNumero').val(venta.serie.nroSerie + "-" + venta.codigo);
-				
-			}else{
-				msg_advertencia("No se encontraron resultados");
-			}
-			
-		},
-		error : function() {
-		}
-	});
+	$
+			.ajax({
+				url : contextPath
+						+ "/ventaController/buscarVentaPorNumeroDocumento?nroSerie="
+						+ nroSerie + "&idVenta=" + idVenta + "&numeroPeriodo="
+						+ numeroPeriodo,
+				type : 'GET',
+				success : function(venta) {
+					console.log("venta::" + venta);
+					if (venta != "") {
+						var todate = new Date(venta.fechaEmision);
+						var dia = todate.getDate();
+						var mes = todate.getMonth() + 1;
+						var anio = todate.getFullYear();
+
+						if (dia.toString().length == 1) {
+							dia = "0" + dia;
+						}
+						if (mes.toString().length == 1) {
+							mes = "0" + mes;
+						}
+
+						var fecha = dia + "/" + mes + "/" + anio
+						$('#personaNombres').val(venta.persona.nombreCompleto);
+						$('#personaNroDocumento').val(
+								venta.persona.nroDocumento);
+						$('#txtEpisodio').val(venta.episodio.codigo);
+						$('#txtTipoSeguro').val(
+								venta.tipoFinanciador.descripcionCorta);
+						$('#txtFechaEmision').val(fecha + " " + venta.hora);
+						$('#txtUsuarioEmitio').val(venta.usuarioRegistro);
+						$('#txtIdVenta').val(venta.codigo);
+						$('#txtNumeroPeriodo').val(venta.numeroPeriodo);
+						$('#txtMonto').val("S/. " + venta.importe);
+						$('#txtNumero').val(
+								venta.serie.nroSerie + "-" + venta.codigo);
+
+					} else {
+						msg_advertencia("No se encontraron resultados");
+					}
+
+				},
+				error : function() {
+				}
+			});
 }
 
-function anularVenta(codigoRegistro){
+/** *** ANULAR ********* */
+function anularVenta(codigoRegistro) {
 	var contextPath = $('#contextPath').val();
-	var idVenta  = $('#txtIdVenta').val();
-	var numeroPeriodo  = $('#txtNumeroPeriodo').val();
-	var numeroDocu  = $('#txtNumero').val();
-	var motivo  = $('#txtMotivo').val();
-	
+	var idVenta = $('#txtIdVenta').val();
+	var numeroPeriodo = $('#txtNumeroPeriodo').val();
+	var numeroDocu = $('#txtNumero').val();
+	var motivo = $('#txtMotivo').val();
+
 	$.ajax({
-		url : contextPath + "/ventaController/anularVenta?idVenta="+idVenta
-			+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu=" + numeroDocu
-			+ "&motivo=" + motivo,
-		type : 'GET',	
+		url : contextPath + "/ventaController/anularVenta?idVenta=" + idVenta
+				+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu="
+				+ numeroDocu + "&motivo=" + motivo,
+		type : 'GET',
 		success : function(data) {
 			if (data == "1") {
 				msg_exito("Éxito al anular venta");
-				 $('#personaNombres').val("");
-				 $('#personaNroDocumento').val("");
-				 $('#txtEpisodio').val("");
-				 $('#txtTipoSeguro').val("");
-				 $('#txtFechaEmision').val("");
-				 $('#txtUsuarioEmitio').val(""); 
-				 $('#txtIdVenta').val("");
-				 $('#txtNumeroPeriodo').val("");
-				 $('#nroSerie').val("");
-				 $('#idVenta').val("");
-				 $('#txtMonto').val("");
-				 $('#txtNumero').val("");
-				 $('#txtMotivo').val("");
-			}else{
-				msg_error("Error al anular venta");	
+				$('#personaNombres').val("");
+				$('#personaNroDocumento').val("");
+				$('#txtEpisodio').val("");
+				$('#txtTipoSeguro').val("");
+				$('#txtFechaEmision').val("");
+				$('#txtUsuarioEmitio').val("");
+				$('#txtIdVenta').val("");
+				$('#txtNumeroPeriodo').val("");
+				$('#nroSerie').val("");
+				$('#idVenta').val("");
+				$('#txtMonto').val("");
+				$('#txtNumero').val("");
+				$('#txtMotivo').val("");
+			} else {
+				msg_error("Error al anular venta");
 			}
 		},
 		error : function() {
 		}
 	});
 }
+/** *** DEVOLUCION ********* */
+
+function refrescarListadoConsumo() {
+	var contextPath = $('#contextPath').val();
+	var idEpisodio = $('#cboPacienteVenta').val();
+	console.log("idEpisodio " + idEpisodio);
+	var index = document.getElementById("cboPacienteVenta").selectedIndex;
+	console.log("index " + index);
+	$.ajax({
+		url : contextPath + "/ventaController/listarDevolucion?idEpisodio="
+				+ idEpisodio + "&index=" + index,
+		type : 'GET',
+
+		success : function(data) {
+			// console.log("SUCCESS: ", data);
+			$('#idTablaDevolucion').html(data);
+		},
+		error : function() {
+			// console.log("ERROR: ");
+		}
+	});
+}
+
+function grabarDevolucion() {
+	var contextPath = $('#contextPath').val();
+	var actionForm = $('#frmGenerarDevolucion').attr("action");
+	var url = contextPath + "/ventaController/llenarDevolucionCabecera";
+	var myFormulario = $('#frmGenerarDevolucion');
+	var cantidadAdquirida = 0;
+	var cantidadDevuelta = 0;
+	var validaCantidad = 0;
+	console.log("actionForm " + actionForm);
+
+	if (!myFormulario[0].checkValidity()) {
+		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+
+	} else {
+
+		$("#dataTable tbody tr").each(function(index) {
+			$(this).children("td").each(function(index2) {
+				if (index2 == 5) {
+					input = $(this).children("input");
+					cantidadAdquirida = $(input).val();
+				}
+				if (index2 == 6) {
+					input = $(this).children("input");
+					cantidadDevuelta = $(input).val();
+					
+					console.log("cantidadAdquirida " + cantidadAdquirida);
+					console.log("cantidadDevuelta " + cantidadDevuelta);
+
+					if (cantidadDevuelta > cantidadAdquirida) {
+						console.log("acá mayor ");
+						validaCantidad = 1;
+						return;
+					}
+				}
+				
+			})
+		})
+		console.log("validaCantidad " + validaCantidad);
+		if (validaCantidad == 1) {
+			msg_advertencia("La cantidad devuelta no puede ser mayor a la adquirida.");
+			return;
+		}
+
+		// iniciarBloqueo();
+		$.ajax({
+			type : "GET",
+			url : url,
+			data : $('#frmGenerarDevolucion').serialize(),
+			success : function(data) {
+				grabarDetalleDevolucion()
+			},
+
+			error : function(xhr, status, er) {
+				console.log("error: " + xhr + " status: " + status + " er:"
+						+ er);
+				// msg_error();
+
+			},
+			complete : function() {
+				// finBloqueo();
+			}
+		});
+	}
+}
+
+function grabarDetalleDevolucion() {
+	// debugger;
+	/** RECORRER MENU * */
+	var arrayVentasItem = [];
+	var subTotal = 0.0; 
+	$("#dataTable tbody tr").each(function(index) {
+		var asignado, input, idAcceso, idCompo;
+		var objArticulo = {
+			codigo : ""
+		};
+		var objStock = {
+			codigo : "",
+			articulo : objArticulo, 
+			lote : "" 
+		};
+
+		var objVentaItem = {
+			item : 0,
+			codigo : "",
+			stock : objStock,
+			cantidad : 0,
+			subtotal : 0,
+			precio   : 0,
+			venta : objVenta
+		};
+
+		var objVenta = {
+			codigo : "",
+			numero : ""
+		};
+
+		$(this).children("td").each(function(index2) {
+
+			if (index2 == 1) { // Columna documento
+				input = $(this).children("span");
+				objVenta.numero = $(input).html();
+				objVenta.codigo  = $(input).attr("id"); 
+				console.log("objVenta.codigo " + objVenta.codigo);
+				objVentaItem.venta = objVenta; 
+			}
+			if (index2 == 3) { // Columna articulo 
+				input = $(this).children("span");
+				objStock.codigo  = $(input).attr("id"); 
+				objVentaItem.stock = objStock;
+			}
+			if (index2 == 4) { // Columna lote 
+				input = $(this).children("span"); 
+				objStock.lote = $(input).html();
+				console.log("objArticulo.lote " + objStock.lote); 
+				objVentaItem.stock = objStock;
+			}
+			if (index2 == 6) { // Columna cantidad devuelta 
+				input = $(this).children("input"); 
+				objVentaItem.cantidad = $(input).val(); 
+			}
+			if (index2 == 8) { // Columna cantidad devuelta 
+				input = $(this).children("span"); 
+				objVentaItem.precio = $(input).html(); 
+			}
+		})
+		arrayVentasItem.push(objVentaItem);
+	})
+	enviarDatosAccesoAjax(arrayVentasItem);
+}
+
+function enviarDatosAccesoAjax(arrayVentasItem) {
+
+	var contextPath = $('#contextPath').val();
+	var htmlTabla = "";
+
+	// iniciarBloqueo();
+
+	$.ajax({
+		contentType : "application/json",
+		type : "POST",
+		data : JSON.stringify(arrayVentasItem),
+		url : contextPath + "/ventaController/asignarDevolucion",
+		success : function(data) {
+			msg_exito();
+			refrescarListadoConsumo();
+
+		},
+		error : function(xhr, status, er) {
+			msg_error();
+			console.log("error: " + xhr + " status: " + status + " er:" + er);
+			if (xhr.status == 500) {
+				console.log(er);
+			}
+			if (xhr.status == 901) {
+				console.log(er);
+			}
+		},
+		complete : function() {
+			$('#contentSubMenuTabla').empty();
+			// finBloqueo();
+		}
+	});
+	return false;
+}
+
+function tiene_letras(texto){
+	   texto = texto.toLowerCase();
+	   for(i=0; i<texto.length; i++){
+	      if (letras.indexOf(texto.charAt(i),0)!=-1){
+	         return 1;
+	      }
+	   }
+	   return 0;
+	}

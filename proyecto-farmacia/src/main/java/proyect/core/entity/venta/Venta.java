@@ -149,11 +149,11 @@ import org.bridj.cpp.com.DECIMAL;
 						resultClasses= Venta.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdVenta",    type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen",        type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona",        type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaAtencion",    type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cantidadItems",    type=Integer.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdArticulo", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdLote", 	   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaPrecio", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock", 	 type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",   type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	   type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro",  type=String.class)

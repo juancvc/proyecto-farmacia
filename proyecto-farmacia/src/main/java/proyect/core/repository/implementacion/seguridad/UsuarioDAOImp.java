@@ -211,6 +211,8 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.getPersona().setApellidoMaterno(entity.getApellidoMaterno());
 			bean.getPersona().setApellidoPaterno(entity.getApellidoPaterno());
 			bean.getPersona().setNombres(entity.getNombres()); 
+			bean.getPersona().setNroDocumento(entity.getNroDocumento());
+			bean.getPersona().getTipoDocumento().setIdRegistro(entity.getIdTipoDocumentoCat02());
 			bean.setFlgRestPass(entity.getFlgResetClave()); 
 			bean.getPerfil().setCodigo(entity.getIdPerfil());
 			bean.getPerfil().setNombrePerfil(entity.getNombrePerfil());
@@ -286,7 +288,7 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		
 		try {
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.buscarxcodperso");
-			spq.setParameter("CODPERSO", prmUsuarioBean.getPersona().getCodigo());
+			spq.setParameter("idPersona", prmUsuarioBean.getPersona().getCodigo());
 		
 			if (spq.execute()) {
 				lstLeotbcUsuario = spq.getResultList();			

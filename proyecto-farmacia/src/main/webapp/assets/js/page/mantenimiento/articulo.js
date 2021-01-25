@@ -7,21 +7,21 @@ function confirmar_accion(codigo) {
 
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
-		eliminarRegistro(idTabla,codReg);
+		eliminarRegistro(codReg);
 	});
 });
 
-function eliminarRegistro(idTabla,codReg) { 
+function eliminarRegistro(index) { 
 	var contextPath = $('#contextPath').val();
 	$
 			.ajax({
-				url :  contextPath+"/maestraController/eliminar?tabla="
-						+ idTabla +"&codReg="+codReg,
+				url :  contextPath+"/articuloController/eliminar?index="
+						+ index,
 				type : 'GET',
 				success : function(data) {
 					$('#md_confirmacion').modal('hide');
 					msg_exito();
-					refrescarListado();
+					document.getElementById("btnListado").click(); 
 				},
 				error : function(request, status, error) {
 					alert(error);
@@ -87,4 +87,36 @@ function refrescarListado() {
 					console.log("ERROR: ");
 				}
 			});
+}
+
+function grabar(){  
+	var contextPath = $('#contextPath').val(); 
+	var actionForm = $('#frmRegistroArticulo').attr("action");
+	var url =contextPath+"/articuloController/grabar" ;
+	var myFormulario = $('#frmRegistroArticulo'); 
+	console.log("actionForm " + actionForm);
+	
+	if(!myFormulario[0].checkValidity()) {
+		 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+
+	}else{  
+			$.ajax({
+			type : "POST",
+			url : url,
+			data: $('#frmRegistroArticulo').serialize(),
+			success : function(data) { 
+				msg_exito("Éxito al registrar artículo");
+				document.getElementById("btnListado").click(); 
+			},
+			
+			error : function(xhr, status, er) { 
+			        console.log("error: " + xhr + " status: " + status + " er:" + er);
+						//msg_error();
+
+					},
+		  			complete: function()
+  			{ 
+			}
+	});
+}
 }

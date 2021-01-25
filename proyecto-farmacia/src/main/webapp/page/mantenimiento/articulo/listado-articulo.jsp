@@ -89,8 +89,7 @@
 											<label for="nombreCompleto" class="label_control">NOMBRE
 												ARTICULO </label>
 											<div class="controls">
-												<f:input type="text" class="form-control"
-													required="required" id="txtnombre" path="nombre" />
+												<f:input type="text" class="form-control"  id="txtnombre" path="nombre" />
 
 											</div>
 										</div>
@@ -98,8 +97,7 @@
 											<label for="lbltipoSeguroPaciente" class="label_control">TIPO</label>
 											<div class="controls">
 												<f:select id="cboTipoArticulo"
-													path="tipoArticulo.idRegistro" class="form-control"
-													required="required">
+													path="tipoArticulo.idRegistro" class="form-control">
 													<f:option value="" label="Seleccionar" selected="true"
 														disabled="disabled" />
 													<f:options items="${lstTipoArticulo}"
@@ -111,8 +109,7 @@
 											<label for="lbltipoSeguroPaciente" class="label_control">CODIGO
 												SISMED</label>
 											<div class="controls">
-												<f:input type="text" class="form-control"
-													required="required" id="txtnombre" path="nombre" />
+												<f:input type="text" class="form-control" id="txtIdSismed" path="codigoSismed" />
 											</div>
 										</div>
 									</div>
@@ -180,7 +177,7 @@
 																	class='btn btn-outline-danger btn-sm'
 																	data-toggle='tooltip' data-placement='top'
 																	title='Eliminar'
-																	onclick="confirmar_eliminar(${loop.count});"
+																	onclick="confirmar_accion(${loop.index});"
 																	data-original-title='Eliminar' id='agregarEspecialidad'>
 																	<i class='fas fa-trash'></i>
 																</button></td>
@@ -194,6 +191,8 @@
 							</div>
 						</div>
 					</div>
+					<a style="display: none;" href="${pageContext.request.contextPath}/articuloController/listado"
+					   class="btn btn-secondary" id="btnListado"></a>
 				</f:form>
 				<!-- /.container-fluid -->
 
@@ -298,5 +297,14 @@
 			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
 
 </body>
+
+<script>
+	function limpiarForm() {
+		$("#cboTipoArticulo").val("");
+		$("#txtnombre").val("");
+		$("#txtIdSismed").val("");
+	}
+ 
+</script>
 
 </html>

@@ -28,8 +28,10 @@ public class VentaBean extends BaseBean {
 	private String sImporte;
 	private Boolean swValida;
 
+	private String cadenaIdVenta;
 	private String cadenaCantidad;
 	private String cadenaCodigoStock;
+	private String cadenaPrecioVenta; 
 	private String cadenaNroPeriodoStock;
 	private String cadenaCantidadFaltante;
 	private String sfechaEmision;
@@ -53,6 +55,23 @@ public class VentaBean extends BaseBean {
 		pacienteEpisodio = this.getEpisodio().getCodigo()+ " - " + this.getPersona().getNombreCompleto();
 		
 		return pacienteEpisodio;
+	}
+	
+ 
+	public String getCadenaPrecioVenta() {
+		return cadenaPrecioVenta;
+	}
+ 
+	public void setCadenaPrecioVenta(String cadenaPrecioVenta) {
+		this.cadenaPrecioVenta = cadenaPrecioVenta;
+	}
+ 
+	public String getCadenaIdVenta() {
+		return cadenaIdVenta;
+	}
+
+	public void setCadenaIdVenta(String cadenaIdVenta) {
+		this.cadenaIdVenta = cadenaIdVenta;
 	}
 
 	public EpisodioBean getEpisodio() {
