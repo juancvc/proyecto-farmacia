@@ -126,7 +126,8 @@
 													class="btn btn-info"> <i class="fa fa-file"></i> <span
 													class="text">NUEVO</span>
 												</a>
-
+													<f:input type="hidden" class="form-control" id="codigo"
+														path="codigo" />
 
 												<button type="submit" onclick="grabar()"
 													class="btn btn-primary">

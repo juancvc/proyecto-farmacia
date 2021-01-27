@@ -65,7 +65,7 @@
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
 				<f:form id="frmListadoArticulo" role="form"
-					action="${pageContext.request.contextPath}/articuloController/buscar">
+					action="${pageContext.request.contextPath}/almacenController/buscar">
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
 
@@ -86,10 +86,10 @@
 									<div class="row">
 										<div class="col-md-6 mb-2">
 											<label for="nombreCompleto" class="label_control">NOMBRE
-												ARTICULO </label>
+												ALMACEN </label>
 											<div class="controls">
 												<f:input type="text" class="form-control"
-													required="required" id="txtnombre" path="nombreAlmacen" />
+													     id="txtnombre" path="nombreAlmacen" />
 
 											</div>
 										</div>

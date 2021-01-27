@@ -78,9 +78,9 @@
 					href="${pageContext.request.contextPath}/articuloController/listado">Artículos</a>
 				<a id="enlaceAlmacen" class="collapse-item"
 					href="${pageContext.request.contextPath}/almacenController/listado">Almacenes</a>
-				<a id="enlaceListaPrecio" class="collapse-item"
+			<!--	<a id="enlaceListaPrecio" class="collapse-item"
 					href="${pageContext.request.contextPath}/precioController/listado">Lista
-					de Precios</a> 
+					de Precios</a> -->
 				<a id="enlaceConsultarInventario" class="collapse-item"
 					href="${pageContext.request.contextPath}/inventarioController/consultarInventario">Consultar Inventario</a>
 				<a id="enlaceGenerarInventario" class="collapse-item"
@@ -156,10 +156,11 @@
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<!-- <h6 class="collapse-header">Login Screens:</h6> -->
-				<a class="collapse-item" href="#">Personal</a> <a
-					class="collapse-item" href="#">Stock</a> <a class="collapse-item"
-					href="#">Laboratorios</a> <a class="collapse-item" href="#">Tipo
-					Movimientos</a> <a class="collapse-item" href="#">Catálogos</a>
+				<a class="collapse-item" href="#">Personal</a> 
+				<a class="collapse-item" href="#">Stock</a> 
+				<a id="enlaceLaboratorio" class="collapse-item" href="${pageContext.request.contextPath}/laboratorioController/listado">Laboratorios</a> 
+				<a class="collapse-item" href="#">Tipo Movimientos</a> 
+				<a class="collapse-item" href="#">Catálogos</a>
 			</div>
 		</div></li>
 

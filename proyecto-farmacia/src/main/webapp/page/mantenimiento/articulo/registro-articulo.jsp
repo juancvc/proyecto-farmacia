@@ -94,6 +94,8 @@
 														id="txtNombre" path="nombre" maxlength="250" />
 
 												</div>
+												<f:input type="hidden" class="form-control" id="codigo"
+														path="codigo" />
 											</div>
 											<div class="form-group col-md-3 mb-2">
 												<label for="nombreCompleto" class="label_control">CODIGO
@@ -122,12 +124,10 @@
 										</div>
 										<div class="row">
 											<div class="form-group col-md-3 mb-2">
-												<label for="nombreCompleto" class="label_control">VOLUMEN<span
-													class="required">*</span>
+												<label for="nombreCompleto" class="label_control">VOLUMEN 
 												</label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
-														required="required"
 														onkeyup="javascript:this.value=this.value.toUpperCase();"
 														id="txtAlias" path="volumen" maxlength="20" />
 												</div>

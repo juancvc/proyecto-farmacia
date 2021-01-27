@@ -44,7 +44,7 @@ import proyect.core.entity.venta.Venta;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreArticulo", 			type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idClase", 					type=String.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idGenerico", 				type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoPresentacionCat01",   type=Integer.class ),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoPresentacionCat01",   type=String.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="concentracion", 			type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoArticuloCat01", 		type=String.class ),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="volumen", 				    type=String.class),

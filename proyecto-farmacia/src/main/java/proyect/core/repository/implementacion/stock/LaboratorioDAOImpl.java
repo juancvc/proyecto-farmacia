@@ -35,6 +35,7 @@ public class LaboratorioDAOImpl implements LaboratorioDAO{
 		 
 			spq.setParameter("nombreLaboratorio", laboratorioBean.getNombre());
 			spq.setParameter("descripcion", 	  laboratorioBean.getDescripcion());
+			spq.setParameter("ruc", 	   		  laboratorioBean.getRuc());
 			spq.setParameter("usuarioRegistro",   laboratorioBean.getUsuarioRegistro());
 			spq.setParameter("ipRegistro", 		  laboratorioBean.getIpRegistro());
 			spq.execute();
@@ -62,7 +63,8 @@ public class LaboratorioDAOImpl implements LaboratorioDAO{
 			
 			spq.setParameter("idLaboratorio",    		laboratorioBean.getCodigo());
 			spq.setParameter("nombreLaboratorio", 		laboratorioBean.getNombre());
-			spq.setParameter("descripcion", 	   		laboratorioBean.getDescripcion());		
+			spq.setParameter("descripcion", 	   		laboratorioBean.getDescripcion());
+			spq.setParameter("ruc", 	   				laboratorioBean.getRuc());
 			spq.setParameter("usuarioModificacion",     laboratorioBean.getUsuarioModificacion());
 			spq.setParameter("ipModificacion", 		    laboratorioBean.getIpModificacion());
 	
@@ -176,6 +178,7 @@ private LaboratorioBean deObjetoAObjetoBean(Laboratorio entity) {
 			bean.setDireccion(entity.getDireccion());
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro());
 			bean.setIpRegistro(entity.getIpRegistro());
+			bean.setRuc(entity.getRuc());
 		
 	 	}
 		
