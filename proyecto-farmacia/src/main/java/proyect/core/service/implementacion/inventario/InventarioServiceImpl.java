@@ -79,8 +79,24 @@ public class InventarioServiceImpl implements InventarioService {
  
 	@Override
 	public boolean existe(InventarioBean t) throws ServiceException {
-		// TODO Auto-generated method stub
-		return false;
+		boolean sw=false;
+		try {
+			sw=inventarioDAO.existe(t);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return sw;
+	}
+
+	@Override
+	public boolean procesar(InventarioBean inventarioBean) throws ServiceException {
+		boolean sw=false;
+		try {
+			sw=inventarioDAO.procesar(inventarioBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return sw;
 	}
  
  

@@ -12,5 +12,9 @@ public interface Catalogo2Service extends BaseService<CatalogoBean> {
 	
 	public List<CatalogoBean> listarPorValor1(CatalogoBean catalogoBean)  throws ServiceException; 
 	
+	public List<CatalogoBean> listarTodascatalogos()  throws ServiceException;
+	
+	public List<CatalogoBean> listarCatalogoRegistros(CatalogoBean catalogoBean) throws ServiceException;
+	
 }
  

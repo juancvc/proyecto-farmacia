@@ -15,7 +15,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Farmacia - Almancén</title>
+<title>Farmacia - Almacén</title>
 
 <!-- Custom styles for this template-->
 

@@ -135,8 +135,7 @@ function grabarPerfil(){
 					    	msg_error("Error al registrar Perfil");  
 						}else{
 						    msg_exito("Éxito al registrar Perfil");  
-						    //enviarListado();
-							 $("#btnListado").trigger("click");
+						    document.getElementById("btnListado").click();
 						}
 
 						

@@ -1,23 +1,31 @@
 package proyect.core.bean.general;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
+import proyect.base.bean.BaseBean;
 
 
 
-public class CatalogoBean{
+public class CatalogoBean extends BaseBean{
 	private String idCatalogo;
+	private String nombreCatalogo;
 	private String descripcionCorta;
-	private String descripcionLarga;
-	private Timestamp fechaModificacion;
-	private Timestamp fechaRegistro;
-	private Boolean activo;
-	private String ipModificacion;
-	private String ipRegistro;
+	private String descripcionLarga; 
 	private int nroOrden;
 	private String idRegistro;
-		
+	 
+	
 	public CatalogoBean() {
 		super();
+	}
+
+	public String getNombreCatalogo() {
+		return nombreCatalogo;
+	}
+
+	public void setNombreCatalogo(String nombreCatalogo) {
+		this.nombreCatalogo = nombreCatalogo;
 	}
 
 	public String getIdCatalogo() {
@@ -26,16 +34,7 @@ public class CatalogoBean{
 
 	public void setIdCatalogo(String idCatalogo) {
 		this.idCatalogo = idCatalogo;
-	}
-
-	public Boolean getActivo() {
-		return activo;
-	}
-
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
-	}
-
+	} 
 	public String getDescripcionCorta() {
 		return descripcionCorta;
 	}
@@ -51,39 +50,7 @@ public class CatalogoBean{
 	public void setDescripcionLarga(String descripcionLarga) {
 		this.descripcionLarga = descripcionLarga;
 	}
-
-	public Timestamp getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(Timestamp fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-
-	public Timestamp getFechaRegistro() {
-		return fechaRegistro;
-	}
-
-	public void setFechaRegistro(Timestamp fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
-
-	public String getIpModificacion() {
-		return ipModificacion;
-	}
-
-	public void setIpModificacion(String ipModificacion) {
-		this.ipModificacion = ipModificacion;
-	}
-
-	public String getIpRegistro() {
-		return ipRegistro;
-	}
-
-	public void setIpRegistro(String ipRegistro) {
-		this.ipRegistro = ipRegistro;
-	}
-
+  
 	public int getNroOrden() {
 		return nroOrden;
 	}
@@ -98,9 +65,6 @@ public class CatalogoBean{
 
 	public void setIdRegistro(String idRegistro) {
 		this.idRegistro = idRegistro;
-	}
-
-
-	
-
+	} 
+ 
 }

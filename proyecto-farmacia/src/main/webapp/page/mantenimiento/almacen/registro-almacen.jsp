@@ -80,7 +80,7 @@
 								<div class="card-body">
 									<div class="form-group">
 										<div class="row">
-											<div class="form-group col-md-6 mb-2">
+											<div class="form-group col-md-5 mb-2">
 												<label for="nombreCompleto" class="label_control">NOMBRE ALMACEN <span class="required">*</span>
 												</label>
 												<div class="controls">
@@ -91,7 +91,7 @@
 
 												</div>
 											</div>
-											<div class="form-group col-md-4 mb-2">
+											<div class="form-group col-md-3 mb-2">
 												<label for="nombreCompleto" class="label_control">ALIAS <span class="required">*</span>
 												</label>
 												<div class="controls">
@@ -100,6 +100,21 @@
 														onkeyup="javascript:this.value=this.value.toUpperCase();"
 														id="txtAlias" path="alias" maxlength="10"/>
 
+												</div>
+											</div>
+											<div class="form-group col-md-3 mb-1">
+												<label for="exampleInputName" class="label_control">TIPO
+													<span class="required">*</span>
+												</label>
+												<div class="controls">
+													<f:select id="tipoAlmacen" path="tipo.idRegistro"
+													    onchange="cambiarNombreDocumento()"
+														required="required" class="form-control">
+														<f:option value="" label="Seleccione" selected="true"
+															disabled="disabled" />
+														<f:options items="${lstTipo}" itemValue="idRegistro"
+															itemLabel="descripcionCorta" />
+													</f:select>
 												</div>
 											</div>
 										</div>

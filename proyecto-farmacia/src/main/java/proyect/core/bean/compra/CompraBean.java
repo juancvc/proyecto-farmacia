@@ -38,7 +38,11 @@ public class CompraBean extends BaseBean {
 	private String cadenaPrecioVenta; 
 	private String cadenaFechaVencimiento;
 	private String cadenaRegistroSanitario;
-	
+	private CatalogoBean situacion;
+	private String ppa;
+	private String pecosa;
+	private String swDonacion;
+	private float porcentajeVenta;
 	
 	public String getCadenaRegistroSanitario() {
 		return cadenaRegistroSanitario;
@@ -178,6 +182,16 @@ public class CompraBean extends BaseBean {
 	public void setGlosa(String glosa) {
 		this.glosa = glosa;
 	}
+	
+	public CatalogoBean getSituacion() {
+		if (situacion == null) {
+			situacion = new CatalogoBean();
+		}
+		return situacion;
+	}
+	public void setSituacion(CatalogoBean situacion) {
+		this.situacion = situacion;
+	}
 	public String getsFechaEmision() {
 		/*java.util.Date fecha = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -208,5 +222,29 @@ public class CompraBean extends BaseBean {
 	public void setMes(String mes) {
 		this.mes = mes;
 	}
-	
+	public String getPpa() {
+		return ppa;
+	}
+	public void setPpa(String ppa) {
+		this.ppa = ppa;
+	}
+	public String getPecosa() {
+		return pecosa;
+	}
+	public void setPecosa(String pecosa) {
+		this.pecosa = pecosa;
+	}
+	public String getSwDonacion() {
+		return swDonacion;
+	}
+	public void setSwDonacion(String swDonacion) {
+		this.swDonacion = swDonacion;
+	}
+	public float getPorcentajeVenta() {
+		return porcentajeVenta;
+	}
+	public void setPorcentajeVenta(float porcentajeVenta) {
+		this.porcentajeVenta = porcentajeVenta;
+	}
+ 
 }

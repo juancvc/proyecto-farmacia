@@ -88,7 +88,9 @@
 						<!-- Page Heading -->
 						<div class="tituloForm">VENTAS</div>
 
-
+						<input id="contextPath" type="hidden"
+						value="${pageContext.request.contextPath}">
+						
 						<div class="card shadow mb-2">
 							<!-- Card Header - Accordion -->
 							<a href="#collapseCardExample" class="d-block card-header py-3"
@@ -134,7 +136,10 @@
 									</div> 
 									<div class="row">
 									<div class="form-group col-md-3" style="margin-top: 15px;">
-											<a
+											<button id="btnBuscar" class="btn btn-info" type="button" onclick="validarGenerar()">
+												<i class="fa fa-file-excel"> </i> EXPORTAR VENTAS
+											</button>
+											<a id="btnGenerar" style="display: none"
 												href="${pageContext.request.contextPath}/ventaController/descargarExcel"
 												class="btn btn-info"> <i class="fa fa-file-excel"></i> EXPORTAR VENTAS
 											</a>
@@ -151,13 +156,7 @@
 												onclick="limpiarForm();$('#dataTable').dataTable().fnClearTable();"
 												type="button" class="btn btn-flat btn-secondary ">
 												<i class="fa fa-eraser"></i> LIMPIAR
-											</button>
-											 
-											<a
-												href="${pageContext.request.contextPath}/ventaController/nuevo"
-												class="btn btn-info"> <i class="fa fa-file"></i> <span
-												class="text"> NUEVO</span>
-											</a>
+											</button>  
 										</div>
 									</div>
 
@@ -217,6 +216,22 @@
 							</div>
 						</div>
 					</div>
+					
+					<div  id="printarea" style="display: none; width: 200px; height: 170px;"  class="ancho-tabla"> 
+					    <table style="width: 200px; height: 170px;"  class="ancho-tabla"> 
+					      <tbody id="idBodyTicket">
+					       <tr> 
+					       		 <td class="centrado"> <div><img  style="width: 190px; height: 163px;"  id="barcode1"/> </div></td> 
+					        </tr>
+					        
+					        <tr> 
+					         <td class="producto centrado">SOSO</td>
+					        </tr> 
+					      </tbody>
+					    </table>
+					   
+					  </div>   
+					  
 				</f:form>
 				<!-- /.container-fluid -->
 
@@ -262,6 +277,7 @@
 			</div>
 		</div>
 	</div>
+ 
 	
 	<!-- Bootstrap core JavaScript-->
 
@@ -361,9 +377,40 @@
 		document.getElementById('enlaceListadoVenta').className = "collapse-item active";
 		document.getElementById('collVentas').className = "nav-link";
 		document.getElementById('collapseVentas').className = "collapse show";
+		/**
+		$("button").on("click",function(){
+			print();
+			});
+		*/
+		function PrintDoc(){
+			 
+			var toPrint = document.getElementById("printarea");
+			var popupWin = window.open("", "_blank", "width=350,height=150,location=no,left=200px");
+			popupWin.document.open();
+			popupWin.document.write("<html><title>::Preview::</title><link rel='stylesheet' type='text/css' href='print.css' /></head><body onload='window.print()'>")
+			//popupWin.document.write("<p>This is 'myWindow'</p>");
+			popupWin.document.write(toPrint.innerHTML);
+			popupWin.document.write("</html>");
+			popupWin.document.close();
+			
+		 }
+			/*--This JavaScript method for Print Preview command--*/
+			function printPreview() {
+				console.log("PrintPreview");
+			 	 	
+			var toPrint = document.getElementById("printarea");
+			var popupWin = window.open("", "_blank", "width=350,height=450,location=no,left=200px");
+			popupWin.document.open();
+			 popupWin.document.write("<html><title>::Print Preview::</title><link rel='stylesheet' type='text/css' href='Print.css' media='screen'/></head><body'>");
+		//	popupWin.document.write("<p>This is 'myWindow'</p>");
+			popupWin.document.write(toPrint.innerHTML);
+			popupWin.document.write("</html>");
+			popupWin.document.close(); 
+			 
+			}
 	</script>
 
-
+ 	
 
 </body>
 

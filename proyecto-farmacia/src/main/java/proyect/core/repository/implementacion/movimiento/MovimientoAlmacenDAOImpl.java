@@ -24,16 +24,32 @@ public class MovimientoAlmacenDAOImpl implements MovimientoAlmacenDAO {
 	@Override
 	public boolean insertar(MovimientoAlmacenBean MovimientoAlmacen) throws DAOException {
 		Object idMovimientoAlmacen= null;
+		Object valida= null;
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("MovimientoAlmacen.insertar");
-		 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.insertar");
+			spq.setParameter("idTipoMovimiento", MovimientoAlmacen.getTipoMovimiento().getCodigo());
+			spq.setParameter("cantidad", MovimientoAlmacen.getCantidad());
+			spq.setParameter("idAlmacenOrigen", MovimientoAlmacen.getAlmacenOrigen().getCodigo());
+			spq.setParameter("idAlmacenDestino", MovimientoAlmacen.getAlmacenDestino().getCodigo());
+			spq.setParameter("nroDocumento", MovimientoAlmacen.getNroDocumento());
+			spq.setParameter("usuarioRegistro", MovimientoAlmacen.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", MovimientoAlmacen.getIpRegistro());
+			spq.setParameter("nroGuia", "");
+			spq.setParameter("cadenaIdStock", MovimientoAlmacen.getCadenaIdStock());
+			spq.setParameter("cadenaCantidad", MovimientoAlmacen.getCadenaCantdArt());
+			spq.setParameter("tipoIngresoDocumento", MovimientoAlmacen.getTipoIngresoDocumento());
+			spq.setParameter("idTipoFinanciadorCat02", MovimientoAlmacen.getTipoFinanciador().getIdRegistro());
+			spq.setParameter("idTipoSeleccionCat02", MovimientoAlmacen.getTipoSeleccion().getIdRegistro());
+			spq.setParameter("idTipoDocCompraCat02", MovimientoAlmacen.getTipoDocumentoCompra().getIdRegistro());
 			
 			spq.execute();
 			
 			idMovimientoAlmacen = spq.getOutputParameterValue(1);
+			valida = spq.getOutputParameterValue(12);
 			if (VO.isNotNull(idMovimientoAlmacen)) {
 				MovimientoAlmacen.setCodigo(idMovimientoAlmacen.toString());
+				MovimientoAlmacen.setValida(Integer.valueOf(valida.toString()));
 				sw=true;
 			}
 			em.close();
@@ -176,10 +192,10 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 		
 		MovimientoAlmacenBean bean = null; 
 		if (entity != null) {
-			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 			bean = new MovimientoAlmacenBean();
-			bean.setCodigo(entity.getIdMovimientoAlmacen());   
-			bean.getAlmacenBean().setCodigo(entity.getIdAlmacen());
+			bean.setCodigo(entity.getId().getIdMovimientoAlmacen());   
+			bean.setNumeroPeriodo(entity.getId().getNumeroPeriodo());
 		//	bean.getInventarioBean().setCodigo(entity.getIdInventario());
 			bean.setCantidad(entity.getCantidad());
 			bean.setNroDocumento(entity.getNroDocumento());
@@ -192,28 +208,26 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 			bean.setFechaMovimiento(entity.getFechaMovimiento());
 			bean.setTipoIngresoDocumento(entity.getTipoIngresoDocumento());
 			bean.getArticuloBean().setCodigo(entity.getArticulo());
-			bean.getStockBean().setCodigo(entity.getIdStock());
-			bean.getStockBean().getArticulo().setNombre(entity.getNombreArticulo());
-			bean.getStockBean().setLote(entity.getLote());
-			bean.getStockBean().getArticulo().setCodigoSismed(entity.getCodigoSismed());
-			bean.getStockBean().setStock(entity.getStock());
-			bean.getStockBean().setFechaVencimiento(entity.getFechaVencimiento());
-			bean.gettipoMovimiento().setCodigo(entity.getIdTipoMovimiento());
-			bean.gettipoMovimiento().setNombreTipoMovimiento(entity.getTipoMovimiento());
-			bean.gettipoMovimiento().getCategoriaTipoMovimiento().setIdRegistro(entity.getIdCategoriaTipoMovimiento());
-			bean.setAlmacenOrigen(entity.getAlmacenOrigen());
-			bean.setAlmacenDestino(entity.getAlmacenDestino());
-		//	bean.getTipoFinanciador().setIdRegistro(entity.getTipoFinanciamiento());
-		//	bean.getTipoSeleccion().setIdRegistro(entity.getTipoProcesoSeleccion());
+			bean.getStock().setCodigo(entity.getIdStock());
+			bean.getStock().getArticulo().setNombre(entity.getNombreArticulo());
+			bean.getStock().setLote(entity.getLote());
+			bean.getStock().getArticulo().setCodigoSismed(entity.getCodigoSismed());
+			bean.getStock().setStock(entity.getStock());
+			bean.getStock().setFechaVencimiento(entity.getFechaVencimiento());
+			if (entity.getFechaVencimiento() !=null) {
+				bean.getStock().setsFechaVencimiento(dateFormat.format(entity.getFechaVencimiento()));
+			}
+			bean.getTipoMovimiento().setCodigo(entity.getIdTipoMovimiento());
+			bean.getTipoMovimiento().setNombreTipoMovimiento(entity.getTipoMovimiento());
+			bean.getTipoMovimiento().getCategoriaTipoMovimiento().setIdRegistro(entity.getIdCategoriaTipoMovimiento());
+			bean.getAlmacenOrigen().setCodigo(entity.getIdAlmacen());
+			bean.getAlmacenOrigen().setNombreAlmacen(entity.getAlmacenOrigen());
+			bean.getAlmacenDestino().setNombreAlmacen(entity.getAlmacenDestino());
 			bean.getPersona().setCodigo(entity.getIdPersona());
-		//	bean.getTipoDocumentoCompra().setIdRegistro(entity.getIdTipoDocumentoCompra()); 
-		//	bean.setMes(entity.getMes());
 			bean.getMes().setIdRegistro(entity.getMes());
 			bean.getPeriodo().setIdRegistro(entity.getAnio());
-		//	bean.setAnio(entity.getAnio());
 			bean.setFechaOrden(entity.getFechaOrden());
 			bean.setId_concepto(entity.getId_concepto());
-		//	bean.setStockBeanItems(entity.getStockItems());
 			bean.setCadenaCantdArt(entity.getCadenaCantdArt());
 			bean.setCadenaNroPeriodoStock(entity.getCadenaNroPeriodoStock());
 			bean.setCadenaIdStock(entity.getCadenaIdStock());
@@ -242,7 +256,7 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.reporteICIv2");  
 			spq.setParameter("mes", venta.getMes().getIdRegistro()); 
 			spq.setParameter("anio", venta.getPeriodo().getIdRegistro());  
-			spq.setParameter("idAlmacen", venta.getAlmacenBean().getCodigo()); 
+			spq.setParameter("idAlmacen", venta.getAlmacenOrigen().getCodigo()); 
 			
 			 if (spq.execute()) {
 				 lstMovimientoAlmacen =  spq.getResultList(); 
@@ -265,8 +279,8 @@ private List<MovimientoAlmacenBean> deListaObjetoAListaObjetoBean(List<Movimient
 		List<MovimientoAlmacenBean> lstMovimientoAlmacenBean = null;
 		
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("movimientoAlmacen.buscarxArticuloAlmacen");  
-			spq.setParameter("idArticulo", movimientoAlmacenBean.getStockBean().getArticulo().getCodigo()); 
-			spq.setParameter("idAlmacen", movimientoAlmacenBean.getAlmacenBean().getCodigo()); 
+			spq.setParameter("idArticulo", movimientoAlmacenBean.getStock().getArticulo().getCodigo()); 
+			spq.setParameter("idAlmacen", movimientoAlmacenBean.getAlmacenOrigen().getCodigo()); 
 			 if (spq.execute()) {
 				 lstMovimientoAlmacen =  spq.getResultList(); 
 			 }

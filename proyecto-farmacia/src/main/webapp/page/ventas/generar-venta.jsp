@@ -191,32 +191,46 @@ input[type=text] {
 								<div class="card-body">
 									<div class="form-group">
 										<div class="row">
-										<div class="form-group col-md-2 mb-1">
-												<label for="situacion" class="label_control">TIPO
-													COMPROBANTE<span class="required">*</span>
-												</label>
+										<div class="form-group col-md-2 mb-2">
+											<label for="exampleInputName" class="label_control">N°
+												DOCUMENTO <span Style= "font-size:9px;">H,E,R,FUA,DNI</span><span class="required">*</span>
+											</label>
+											<div class="position-relative has-icon-left"> 
+												<input id="contextPath" type="hidden"
+													value="${pageContext.request.contextPath}">
 												<div class="controls">
-													<f:select id="cboTipoComprobante"
-														path="tipoComprobante.idRegistro"
-														onchange="cambiarTipoComprobante()"
-														required="required" class="form-control"> 
-														<f:options items="${lstTipoComprobante}"
-															itemValue="idRegistro" itemLabel="descripcionCorta" />
-													</f:select>
+													<f:input type="text" class="form-control" required="required" 
+														maxlength="12" id="nroDocumento" path="persona.nroDocumento"
+														onkeypress="return buscarNroEpisodio(event)" title="Digite E, H, RN, Fua o Documento identidad"/>
 												</div>
 											</div>
-											<div class="form-group col-md-2 mb-1">
-												<label for="situacion" class="label_control">SERIE<span class="required">*</span>
-												</label>
+										</div> 
+										<div class="form-group col-md-4 mb-2">
+											<label for="exampleInputName" class="label_control">NOMBRES <span class="required">*</span>
+											</label>
+											<div class="position-relative has-icon-left"> 
+												<input id="contextPath" type="hidden" 
+													value="${pageContext.request.contextPath}">
 												<div class="controls">
-													<f:select id="cboSerie"
-														path="serie.nroSerie"
-														required="required" class="form-control"> 
-														<f:options items="${lstSerie}"
-															itemValue="nroSerie" itemLabel="nroSerie" />
-													</f:select>
+													<f:input type="text" class="form-control" required="required" disabled="true"
+														maxlength="12" id="nombrePaciente" 
+														path="persona.nombreCompleto" />
 												</div>
 											</div>
+										</div> 	
+										<div class="form-group col-md-2 mb-2">
+											<label for="exampleInputName" class="label_control">H.C.
+											</label>
+											<div class="position-relative has-icon-left"> 
+												<input id="contextPath" type="hidden" 
+													value="${pageContext.request.contextPath}">
+												<div class="controls">
+													<f:input type="text" class="form-control" required="required" disabled="true"
+														maxlength="12" id="nroHC" 
+														path="persona.nroHC" />
+												</div>
+											</div>
+										</div> 							<!-- 
 											<div class="form-group col-md-4 mb-2">
 												<label for="situacion" class="label_control">PACIENTE <span class="required">*</span>
 												<a href="#" onclick="cargarPersonaModal()">[+ Nuevo]</a>
@@ -228,9 +242,11 @@ input[type=text] {
 																id="txtPacienteNombre" name="txtPacienteNombre" />
 														</div>
 													</div>
-													<f:input type="hidden" class="form-control" id="personaCodigo"
-														path="persona.codigo" />
+													
 												</div>
+												 -->
+												 <f:input type="hidden" class="form-control" id="personaCodigo"
+														path="persona.codigo" />
 											<div class="form-group col-md-2 mb-1">
 												<label for="situacion" class="label_control">TIPO OPERACION<span class="required">*</span>
 												</label>
@@ -244,7 +260,7 @@ input[type=text] {
 												</div>
 											</div>
 											<div class="form-group col-md-2 mb-2">
-												<label for="nombreCompleto" class="label_control">ALMACEN </label>
+												<label for="nombreCompleto" class="label_control">FARMACIA </label>
 												<div class="controls">
 													<f:input type="text" class="form-control" disabled="true"
 														id="txtAlias" path="almacen.nombreAlmacen" maxlength="35" />
@@ -268,19 +284,91 @@ input[type=text] {
 
 												</div>
 											</div>
-											 
 											<div class="form-group col-md-2 mb-1">
 												<label for="situacion" class="label_control">TIPO
 													FINANCIAMIENTO<span class="required">*</span>
 												</label>
 												<div class="controls">
-													<f:select id="cboTipoFinanciador"
+													<f:select id="cboTipoFinanciador" disabled="true"
 														path="tipoFinanciador.idRegistro" 
 														required="required" class="form-control">
 														<f:option value="" label="Seleccionar" selected="true"
 															disabled="disabled" />
 														<f:options items="${lstTipoFinanciador}"
 															itemValue="idRegistro" itemLabel="descripcionCorta" />
+													</f:select>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-2">
+												<label for="exampleInputName" class="label_control">TIPO CTA.
+												</label>
+												<div class="position-relative has-icon-left"> 
+													<input id="contextPath" type="hidden" 
+														value="${pageContext.request.contextPath}">
+													<div class="controls">
+														<f:input type="text" class="form-control" required="required" disabled="true"
+															maxlength="12" id="descripcionTipoCuenta" 
+															path="persona.nroHC" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-2">
+												<label for="exampleInputName" class="label_control">#
+												</label>
+												<div class="position-relative has-icon-left">  
+													<div class="controls">
+														<f:input type="text" class="form-control" required="required" disabled="true"
+															maxlength="12" id="nroDocumentoEpisodio" 
+															path="persona.nroHC" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-2">
+												<label for="exampleInputName" class="label_control">ESTADO
+												</label>
+												<div class="position-relative has-icon-left">  
+													<div class="controls">
+														<input type="text" class="form-control" disabled="disabled"
+															maxlength="20" id="txtEstadoCuenta" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-2" style="display: none">
+												<label for="exampleInputName" class="label_control">ESPECIALIDAD
+												</label>
+												<div class="position-relative has-icon-left"> 
+													<input id="contextPath" type="hidden" 
+														value="${pageContext.request.contextPath}">
+													<div class="controls">
+														<f:input type="text" class="form-control" required="required" disabled="true"
+															maxlength="12" id="nroDocumentoPersona" 
+															path="persona.nroHC" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-1" style="display: none">
+												<label for="situacion" class="label_control">TIPO
+													COMPROBANTE<span class="required">*</span>
+												</label>
+												<div class="controls">
+													<f:select id="cboTipoComprobante"
+														path="tipoComprobante.idRegistro"
+														onchange="cambiarTipoComprobante()"
+														required="required" class="form-control"> 
+														<f:options items="${lstTipoComprobante}"
+															itemValue="idRegistro" itemLabel="descripcionCorta" />
+													</f:select>
+												</div>
+											</div>
+											<div class="form-group col-md-2 mb-1" style="display: none">
+												<label for="situacion" class="label_control">SERIE<span class="required">*</span>
+												</label>
+												<div class="controls">
+													<f:select id="cboSerie"
+														path="serie.nroSerie"
+														required="required" class="form-control"> 
+														<f:options items="${lstSerie}"
+															itemValue="nroSerie" itemLabel="nroSerie" />
 													</f:select>
 												</div>
 											</div>
@@ -389,15 +477,11 @@ input[type=text] {
 												</a>
 
 
-												<button type="submit" onclick="grabar()"
+												<button type="button" onclick="grabar()"
 													class="btn btn-primary">
 													<i class="fa fa-save"></i> GUARDAR
-												</button>
-												<!--
-												<button type="submit" onclick="imprimirIndividual()"
-													class="btn btn-primary">
-													<i class="fa fa-save"></i> IMPRIME
-												</button>
+												</button> 
+												<!-- 
 												
 												<a id="idDescargarPDF" class="btn btn-outline-secondary  mt-2"  
 												target="_Blank" href="<c:url value='/ventaController/descargarPDF'/>">
@@ -444,6 +528,28 @@ input[type=text] {
 	</a>
 
 	<!-- Logout Modal-->
+	<div class="modal fade text-xs-left" id="md_Error"
+				tabindex="-1" role="dialog" aria-labelledby="myModalLabel19"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="label_title_modal modal-header"> 
+							<h4 class="label_title" id="labelTituloError"></h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p id="txt_detalleError" class="label_control"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn grey btn-outline-secondary"
+								data-dismiss="modal">ACEPTAR</button>
+						</div>
+					</div>
+				</div>
+			</div>
 	<jsp:include
 			page="${pageContext.request.contextPath}/../layout/confirmacion-modal-view.jsp" />
 			
@@ -506,6 +612,7 @@ input[type=text] {
 			type="text/javascript"></script>
 			
 	<script>
+	var today = new Date();
 		$(document).ready(
 				function() {
 					var date_input = $('input[id="date"]'); //our date input has the name "date"
@@ -516,12 +623,14 @@ input[type=text] {
 						container : container,
 						todayHighlight : true,
 						autoclose : true,
+						minDate: new Date(),
+						maxDate: '+50Y',
 						language : 'es'
 
 					})
 				})
 	</script>
-  		
+
 			
 	<script>
 		document.getElementById('navVentas').className = "nav-item active";
@@ -529,8 +638,8 @@ input[type=text] {
 		document.getElementById('collVentas').className = "nav-link";
 		document.getElementById('collapseVentas').className = "collapse show";
 		
-		function runScript(e) {
-			console.log(${ordenBean.codigo});
+		function runScript(e) { 
+			
 			if (e.keyCode == 13) {
 				<c:if test="${ordenBean.codigo==null || ordenBean.codigo==''}">
 				buscarPersonaNroDoc(); 
@@ -610,7 +719,7 @@ function autocompletePac(inp, arr) {
 													inp.value = this
 															.getElementsByTagName("input")[0].value;
 													
-													$("#personaCodigo").val(this
+													$("#personaCodigo2").val(this
 															.getElementsByTagName("input")[0].id);
 													cargarPersona();
 													closeAllLists();
@@ -881,5 +990,6 @@ function autocompletePac(inp, arr) {
 		</div>
 	</div>
 </body>
+
 
 </html>

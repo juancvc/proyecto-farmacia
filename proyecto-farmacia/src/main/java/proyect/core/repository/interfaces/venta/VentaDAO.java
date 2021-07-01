@@ -37,5 +37,6 @@ public interface VentaDAO  extends BaseDAO<VentaBean>{
 	public List<VentaBean>  listaMensual(VentaBean venta) throws DAOException;
 	
 	public List<VentaBean>  reporteVentaTipoPaciente(int tipo,VentaBean venta) throws DAOException;
-	 
+	
+	public List<VentaBean>  reporteRecaudacion(VentaBean venta) throws DAOException;
 }

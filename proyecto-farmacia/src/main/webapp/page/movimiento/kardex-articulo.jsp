@@ -100,7 +100,7 @@
 											<label for="lbltipoSeguroPaciente" class="label_control">ALMACEN</label>
 											<div class="controls">
 												<f:select id="cboTipoArticulo"
-													path="almacenBean.codigo" class="form-control"> 
+													path="almacenOrigen.codigo" class="form-control"> 
 													<f:options items="${lstAlmacen}"
 														itemValue="codigo" itemLabel="nombreAlmacen" />
 												</f:select>
@@ -113,7 +113,7 @@
 											<div class="controls">
 												<f:select id="cboProductos" data-live-search="true"
 													title="Seleccionar" class="selectpicker"
-													path="StockBean.articulo.codigo" required="required" >
+													path="stock.articulo.codigo" required="required" >
 													<f:options items="${lstArticulos}" itemValue="codigo"
 														itemLabel="nombre" />
 												</f:select>
@@ -270,6 +270,7 @@
 	<!-- Page level plugins -->
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/jquery.dataTables.min.js"></script>
+	
 	<script
 		src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script> 
 

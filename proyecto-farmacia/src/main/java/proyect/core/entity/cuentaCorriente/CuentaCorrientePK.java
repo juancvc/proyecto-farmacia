@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class CuentaCorrientePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="NRPERCTC")
+	@Column(name="numeroPeriodo")
 	private String numeroPeriodo;
 
-	@Column(name="CODRGCTC")
+	@Column(name="idCuentaCorriente")
 	private String idCuentaCorriente;
  
-	@Column(name="NRVERCTC")
+	@Column(name="numeroVersion")
 	private String numeroVersion;
 
 	public String getNumeroPeriodo() {

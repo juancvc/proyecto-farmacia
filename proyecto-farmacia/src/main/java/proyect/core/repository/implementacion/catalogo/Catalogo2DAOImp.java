@@ -31,22 +31,25 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	} 
 	
 	@Override
-	public boolean insertar(CatalogoBean CatalogoBean) throws DAOException {   
+	public boolean insertar(CatalogoBean catalogoBean) throws DAOException {   
 		Object idMaestra= null; 
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.insertar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.insertar");
 			
-			spq.setParameter("p_codusureg", 1);
-			spq.setParameter("p_hostreg", ""); 
+			spq.setParameter("IdCatalogo", catalogoBean.getIdCatalogo());
+			spq.setParameter("DescripcionCorta", catalogoBean.getDescripcionCorta()); 
+			spq.setParameter("DescripcionLarga", catalogoBean.getDescripcionLarga());  
+			spq.setParameter("usuarioRegistro", catalogoBean.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", catalogoBean.getIpRegistro());
 			spq.execute();
 			
 			
 			idMaestra = spq.getOutputParameterValue(1);
 			if (idMaestra != null) {
-				CatalogoBean.setIdRegistro(idMaestra.toString());
-				System.out.println("CatalogoBean.getIdRegistro()"+CatalogoBean.getIdRegistro());
-				if (CatalogoBean.getIdRegistro()!="0") {
+				catalogoBean.setIdRegistro(idMaestra.toString());
+				System.out.println("CatalogoBean.getIdRegistro()"+catalogoBean.getIdRegistro());
+				if (catalogoBean.getIdRegistro()!="0") {
 					sw=true;
 				}else{
 					System.out.println("CatalogoBean.getIdRegistro() = 0");
@@ -62,23 +65,16 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	}
 	
 	@Override
-	public boolean eliminar(CatalogoBean CatalogoBean) throws DAOException { 
-		Object idMaestra= null; 
+	public boolean eliminar(CatalogoBean catalogoBean) throws DAOException {
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbcMaestra.eliminar");
-	 
-			spq.setParameter("p_codregis", CatalogoBean.getIdRegistro()); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.eliminar");
+			spq.setParameter("NroRegistro", catalogoBean.getIdRegistro());
+			spq.setParameter("IdCatalogo", catalogoBean.getIdCatalogo());
+			spq.setParameter("usuarioModificacion", catalogoBean.getUsuarioModificacion());
+			spq.setParameter("ipModificacion", catalogoBean.getIpModificacion());
 			spq.execute();   
-			sw=true;
-			System.out.println("spq.getOutputParameterValue(1)"+spq.getOutputParameterValue(1));
-			idMaestra = spq.getOutputParameterValue(1);
-			if (idMaestra != null) {
-				CatalogoBean.setIdRegistro((idMaestra.toString()));
-				if (CatalogoBean.getIdRegistro().equals("")) {
-					sw=false;
-				}
-			}  
+			sw=true; 
 		} catch (Exception e) {
 			e.printStackTrace();
 			sw=false; 
@@ -89,24 +85,19 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	}
 
 	@Override
-	public boolean actualizar(CatalogoBean CatalogoBean) throws DAOException {
-		Object idMaestra= null;
+	public boolean actualizar(CatalogoBean catalogoBean) throws DAOException { 
 		boolean sw=false;
-		System.out.println("CatalogoBean actualizar " + CatalogoBean );
+		System.out.println("CatalogoBean actualizar " + catalogoBean );
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.actualizar");
-			  
-			spq.setParameter("p_codregis", CatalogoBean.getIdRegistro()); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.actualizar");
+			spq.setParameter("NroRegistro", catalogoBean.getIdRegistro());
+			spq.setParameter("IdCatalogo", catalogoBean.getIdCatalogo());
+			spq.setParameter("DescripcionCorta", catalogoBean.getDescripcionCorta()); 
+			spq.setParameter("DescripcionLarga", catalogoBean.getDescripcionLarga());  
+			spq.setParameter("usuarioModificacion", catalogoBean.getUsuarioModificacion());
+			spq.setParameter("ipModificacion", catalogoBean.getIpModificacion());
 			spq.execute();   
-			sw=true;
-			System.out.println("spq.getOutputParameterValue(1)"+spq.getOutputParameterValue(1));
-			idMaestra = spq.getOutputParameterValue(1);
-			if (idMaestra != null) {
-				CatalogoBean.setIdRegistro((idMaestra.toString()));
-				if (CatalogoBean.getIdRegistro().equals("")) {
-					sw=false;
-				}
-			}  
+			sw=true; 
 		} catch (Exception e) {
 			e.printStackTrace();
 			sw=false; 
@@ -122,7 +113,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		CatalogoBean oCatalogoBean = null;
 		List<Catalogo02> lstLeotbcMaestra = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.buscarXcod_Tabla_Registro");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.buscarXcod_Tabla_Registro");
 			spq.setParameter("p_codregis", CatalogoBean.getIdRegistro());
 		
 			if (spq.execute()) {
@@ -143,27 +134,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		}
 		return oCatalogoBean;
 	}
-
-
-//	@Override
-//	public boolean eliminar(CatalogoBean Maestra2Bean) throws DAOException { 
-//		boolean sw=false;
-//		try {
-//			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.eliminar");
-//			spq.setParameter("p_codMaestra2", Maestra2Bean.getId()); 
-//			
-//			spq.execute();  
-//			sw=true;
-//			 
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			sw=false; 
-//		}finally{
-//			em.close();
-//		}
-//		return sw;
-//	}
-
+ 
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -171,7 +142,7 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 		CatalogoBean oCatalogoBean = null;
 		List<Catalogo02> lstCatalogo02 = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.buscar_por_codigo");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.buscar_por_codigo");
 			
 		
 			if (spq.execute()) {
@@ -239,12 +210,12 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CatalogoBean> listarComboGeneral(String codTabla) throws DAOException {
+	public List<CatalogoBean> listarCatalogoRegistros(CatalogoBean catalogoBean) throws DAOException {
 		List<Catalogo02> lstMaestra2 = null;	
 		List<CatalogoBean> lstCatalogoBean = null;
 //		System.out.println("listarPorCodigoTabla  "+ codTabla);
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("Catalogo02.listarComboGeneral");   
-			spq.setParameter("p_codregis", codTabla); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.listarCatalogoRegistros");   
+			spq.setParameter("IdCatalogo", catalogoBean.getIdCatalogo()); 
 			if (spq.execute()) {
 				lstMaestra2 =  spq.getResultList(); 
 			} 
@@ -295,10 +266,30 @@ public class Catalogo2DAOImp implements Catalogo2DAO {
 			bean.setIdCatalogo(entity.getIdCatalogo()); 
 			bean.setNroOrden(Integer.valueOf(entity.getNroOrden())); 
 			bean.setActivo(Boolean.valueOf(entity.getFlag()));  
+			bean.setNombreCatalogo(entity.getNombreCatalogo());
 			 
 		}
 		
 		return bean;
+	}
+
+	@Override
+	public List<CatalogoBean> listarTodascatalogos() throws DAOException {
+		List<Catalogo02> lstmaestra = null;	
+		List<CatalogoBean> lstCatalogoBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("catalogo02.listarTodascatalogos");
+			 
+			lstmaestra =  spq.getResultList(); 
+			 
+			if (lstmaestra != null && lstmaestra.size() > 0) {
+				
+				lstCatalogoBean = deListaMaestra2AListaCatalogoBean(lstmaestra);
+			}
+//			em.close();
+			
+		   
+		return lstCatalogoBean;
 	}
 
 }

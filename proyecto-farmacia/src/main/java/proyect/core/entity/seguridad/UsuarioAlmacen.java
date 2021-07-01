@@ -9,25 +9,43 @@ import java.sql.Timestamp;
 @NamedStoredProcedureQueries(
 		{
 				@NamedStoredProcedureQuery(
-					name="usuarioAlmacen.insertar", 
-					procedureName="[Farmacia].[dbo].[SP_USUARIO_ALMACEN_INSERTAR]",					
-					parameters={
-								@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idUsuarioAlmacen", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,   name="idUsuario", 		type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,   name="idAlmacen", 		type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,   name="usuarioRegistro", 	type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,   name="ipRegistro", 		type=String.class)
+					name="usuarioAlmacen.buscarPorCriterios", 
+					resultClasses= UsuarioAlmacen.class,
+					procedureName="usp_UsuarioAlmacen_buscarxCriterios",					
+					parameters={ 
+								@StoredProcedureParameter(mode=ParameterMode.IN,   name="idUsuario", type=String.class)
 						}					
-				)
+				),
+				@NamedStoredProcedureQuery(
+						name="usuarioAlmacen.insert", 
+						procedureName="[dbo].[usp_UsuarioAlmacen_insertar]",					
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idUsuarioAlmacen", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="idUsuario", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="idAlmacen", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="usuarioRegistro", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,   name="ipRegistro", 		type=String.class)
+							}					
+					),
+				@NamedStoredProcedureQuery(
+						name="usuarioAlmacen.delete", 
+						procedureName="[dbo].[usp_UsuarioAlmacen_eliminar]",
+						parameters={
+									
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuarioAlmacen",		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion",   type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 		type=String.class)
+							}					
+				),
 		}
 	)
 @Entity
-@Table(name="USUARIO_ALMACEN")
+@Table(name="UsuarioAlmacen")
 public class UsuarioAlmacen implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private UsuarioAlmacenPK id;
+	@Id
+	private String idUsuarioAlmacen;
 
 	@Column(name="AUD_FECHA_OPERACION")
 	private Timestamp audFechaOperacion;
@@ -58,17 +76,24 @@ public class UsuarioAlmacen implements Serializable {
 
 	@Column(name="idUsuario")
 	private String idUsuario;
-
-	public UsuarioAlmacen() {
-		setId(new UsuarioAlmacenPK());
+ 
+	private String nombreAlmacen;
+	
+	
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
 	}
 
-	public UsuarioAlmacenPK getId() {
-		return this.id;
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
 	}
 
-	public void setId(UsuarioAlmacenPK id) {
-		this.id = id;
+	public String getIdUsuarioAlmacen() {
+		return idUsuarioAlmacen;
+	}
+
+	public void setIdUsuarioAlmacen(String idUsuarioAlmacen) {
+		this.idUsuarioAlmacen = idUsuarioAlmacen;
 	}
 
 	public Timestamp getAudFechaOperacion() {

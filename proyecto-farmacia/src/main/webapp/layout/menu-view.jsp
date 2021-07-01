@@ -4,7 +4,9 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-  <link href="${pageContext.request.contextPath}/app-assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/app-assets/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 
 
 <ul
@@ -32,64 +34,86 @@
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 
-	<!-- Heading --> 
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="${pageContext.request.contextPath}/inicioController/portada">
-            <i class="fa fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
-          </a>
-        </li>
+	<!-- Heading -->
+	<li class="nav-item" data-toggle="tooltip" data-placement="right"
+		title="Dashboard"><a class="nav-link"
+		href="${pageContext.request.contextPath}/inicioController/portada">
+			<i class="fa fa-dashboard"></i> <span class="nav-link-text">Dashboard</span>
+	</a></li>
 	<div class="sidebar-heading">SALIDAS</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li id="navVentas" class="nav-item"><a id="collVentas"
-		class="nav-link collapsed" href="#" data-toggle="collapse"
-		data-target="#collapseVentas" aria-expanded="true"
-		aria-controls="collapseVentas"> <i class="fas fa-fw fa-cog"></i> <span>Ventas</span>
-	</a>
-		<div id="collapseVentas" class="collapse" aria-labelledby="headingTwo"
-			data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-				<a id="enlaceGenerarVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/nuevo">Generar</a>
-				<a id="enlaceListadoVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/listado">Listado</a>
-				<a id="enlacePacienteVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/consumoPaciente">Paciente</a>
-				<a id="enlaceAnularVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
-				<a id="enlaceDevolucionVenta" class="collapse-item"
-					href="${pageContext.request.contextPath}/ventaController/devolucion">Devolución</a>
-			</div>
-		</div></li>
-
-	<li id="navInventario" class="nav-item"><a id="collInventario"
-		class="nav-link collapsed" href="#" data-toggle="collapse"
-		data-target="#collapseInventario" aria-expanded="true"
-		aria-controls="collapseInventario"> <i class="fas fa-fw fa-cog"></i>
-			<span>Inventario</span>
-	</a>
-		<div id="collapseInventario" class="collapse"
-			aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
-				<a id="enlaceArticulo" class="collapse-item"
-					href="${pageContext.request.contextPath}/articuloController/listado">Artículos</a>
-				<a id="enlaceAlmacen" class="collapse-item"
-					href="${pageContext.request.contextPath}/almacenController/listado">Almacenes</a>
-			<!--	<a id="enlaceListaPrecio" class="collapse-item"
+	<c:if test="${accesoMenu.menu_Venta}">
+		<li id="navVentas" class="nav-item"><a id="collVentas"
+			class="nav-link collapsed" href="#" data-toggle="collapse"
+			data-target="#collapseVentas" aria-expanded="true"
+			aria-controls="collapseVentas"> <i class="fas fa-fw fa-cog"></i>
+				<span>Ventas</span>
+		</a>
+			<div id="collapseVentas" class="collapse"
+				aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<!-- <h6 class="collapse-header">Custom Components:</h6> -->
+					<c:if test="${accesoMenu.subMenu_venta_generar.lectura}">
+						<a id="enlaceGenerarVenta" class="collapse-item"
+							href="${pageContext.request.contextPath}/ventaController/nuevo">Generar</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_venta_listar.lectura}">
+						<a id="enlaceListadoVenta" class="collapse-item"
+							href="${pageContext.request.contextPath}/ventaController/listado">Listado</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_venta_paciente.lectura}">
+						<a id="enlacePacienteVenta" class="collapse-item"
+							href="${pageContext.request.contextPath}/ventaController/consumoPaciente">Paciente</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_venta_anular.lectura}">
+						<a id="enlaceAnularVenta" class="collapse-item"
+							href="${pageContext.request.contextPath}/ventaController/anular">Anular</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_venta_devolucion.lectura}">
+						<a id="enlaceDevolucionVenta" class="collapse-item"
+							href="${pageContext.request.contextPath}/ventaController/devolucion">Devolución</a>
+					</c:if>
+				</div>
+			</div></li>
+	</c:if>
+	<c:if test="${accesoMenu.menu_Inventario}">
+		<li id="navInventario" class="nav-item"><a id="collInventario"
+			class="nav-link collapsed" href="#" data-toggle="collapse"
+			data-target="#collapseInventario" aria-expanded="true"
+			aria-controls="collapseInventario"> <i class="fas fa-fw fa-cog"></i>
+				<span>Inventario</span>
+		</a>
+			<div id="collapseInventario" class="collapse"
+				aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<!-- <h6 class="collapse-header">Custom Components:</h6> -->
+					<c:if test="${accesoMenu.subMenu_inventario_articulo.lectura}">
+						<a id="enlaceArticulo" class="collapse-item"
+							href="${pageContext.request.contextPath}/articuloController/listado">Artículos</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_inventario_almacen.lectura}">
+						<a id="enlaceAlmacen" class="collapse-item"
+							href="${pageContext.request.contextPath}/almacenController/listado">Almacenes</a>
+					</c:if>
+					<!--	<a id="enlaceListaPrecio" class="collapse-item"
 					href="${pageContext.request.contextPath}/precioController/listado">Lista
 					de Precios</a> -->
-				<a id="enlaceConsultarInventario" class="collapse-item"
-					href="${pageContext.request.contextPath}/inventarioController/consultarInventario">Consultar Inventario</a>
-				<a id="enlaceGenerarInventario" class="collapse-item"
-					href="${pageContext.request.contextPath}/inventarioController/listado">Inventario</a>
-			</div>
-		</div></li>
-
-	<li id="navMovimiento"  class="nav-item"><a class="nav-link collapsed" id="collMovimiento"
-		href="#"
+					<c:if test="${accesoMenu.subMenu_inventario_consultar.lectura}">
+						<a id="enlaceConsultarInventario" class="collapse-item"
+							href="${pageContext.request.contextPath}/inventarioController/consultarInventario">Consultar
+							Inventario</a>
+					</c:if>
+					<c:if test="${accesoMenu.subMenu_inventario_generar.lectura}">
+						<a id="enlaceGenerarInventario" class="collapse-item"
+							href="${pageContext.request.contextPath}/inventarioController/listado">Inventario</a>
+					</c:if>
+				</div>
+			</div></li>
+	</c:if>
+	<c:if test="${accesoMenu.menu_Movimiento}">
+	<li id="navMovimiento" class="nav-item"><a
+		class="nav-link collapsed" id="collMovimiento" href="#"
 		data-toggle="collapse" data-target="#collapseMovimiento"
 		aria-expanded="true" aria-controls="collapseMovimiento"> <i
 			class="fas fa-fw fa-cog"></i> <span>Movimiento</span>
@@ -100,13 +124,28 @@
 				<!-- <h6 class="collapse-header">Custom Components:</h6> -->
 				<!--<a id="enlaceMovimiento" class="collapse-item"
 					href="${pageContext.request.contextPath}/movimientoAlmacenController/listado">Movimientos</a>-->
+				<c:if test="${accesoMenu.subMenu_movimiento_compra.lectura}">
 				<a id="enlaceCompras" class="collapse-item"
 					href="${pageContext.request.contextPath}/compraController/listado">Compras</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_movimiento_ingresoSalida.lectura}">
+				<a id="enlaceMovimiento" class="collapse-item"
+					href="${pageContext.request.contextPath}/movimientoAlmacenController/movimiento">Ingreso/Salida</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_movimiento_ingresoSalida.lectura}">
+				<a id="enlaceTransferenciaInsti" class="collapse-item"
+					href="${pageContext.request.contextPath}/movimientoAlmacenController/listadoTransferencia">Transferencia Insticional</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_movimiento_kardex.lectura}">
 				<a id="enlaceReporteKardex" class="collapse-item"
 					href="${pageContext.request.contextPath}/movimientoAlmacenController/reporteKardex">Reporte
 					de Kardex</a>
+				</c:if>	
 			</div>
-		</div></li>
+		</div>
+	</li>
+	</c:if>	
+		
 	<!-- <li id ="navVentas" class="nav-item">
         <a id="collVentas" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
           <i class="fas fa-fw fa-cog"></i>
@@ -143,6 +182,7 @@
 	<hr class="sidebar-divider">
 
 	<!-- Heading -->
+	<c:if test="${accesoMenu.menu_Mantenimiento}">
 	<div class="sidebar-heading">MANTENIMIENTOS</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
@@ -156,16 +196,30 @@
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<!-- <h6 class="collapse-header">Login Screens:</h6> -->
+				<c:if test="${accesoMenu.subMenu_mantenimiento_personal.lectura}">
 				<a class="collapse-item" href="#">Personal</a> 
-				<a class="collapse-item" href="#">Stock</a> 
-				<a id="enlaceLaboratorio" class="collapse-item" href="${pageContext.request.contextPath}/laboratorioController/listado">Laboratorios</a> 
-				<a class="collapse-item" href="#">Tipo Movimientos</a> 
-				<a class="collapse-item" href="#">Catálogos</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_mantenimiento_stock.lectura}">	
+				<a class="collapse-item" href="#">Stock</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_mantenimiento_laboratorio.lectura}">	
+				 <a id="enlaceLaboratorio"
+					class="collapse-item"
+					href="${pageContext.request.contextPath}/laboratorioController/listado">Laboratorios</a>
+				</c:if>	 
+				<!--<a class="collapse-item" href="#">Tipo Movimientos</a>  -->
+				<c:if test="${accesoMenu.subMenu_mantenimiento_catalogos.lectura}">
+				<a id="enlaceCatalogo" class="collapse-item"
+					href="${pageContext.request.contextPath}/catalogoController/listado">Catálogos</a>
+				</c:if>	 	
 			</div>
-		</div></li>
-
+		</div>
+	 </li>
+    </c:if>	
+    
 	<div class="sidebar-heading">REPORTES</div>
 
+	<c:if test="${accesoMenu.menu_RptVenta}">
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li id="navReporteVenta" class="nav-item"><a id="CollReporteVenta"
 		class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -176,18 +230,32 @@
 		<div id="collapseReporteVenta" class="collapse"
 			aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<!-- <h6 class="collapse-header">Login Screens:</h6> -->
+				<c:if test="${accesoMenu.subMenu_ventaRpt_recaudacion.lectura}">
+				<a id="enlaceRecaudacion" class="collapse-item"
+					href="${pageContext.request.contextPath}/ventaController/recaudacion">Recaudacion</a>
+				</c:if>	
+				<c:if test="${accesoMenu.subMenu_ventaRpt_diario.lectura}">	
 				<a id="enlaceArticulo" class="collapse-item"
 					href="${pageContext.request.contextPath}/articuloController/listado">Ventas
-					diarias</a> <a class="collapse-item"
+					diarias</a> 
+				</c:if>	
+				<c:if test="${accesoMenu.subMenu_ventaRpt_anulaciones.lectura}">
+				<a class="collapse-item"
 					href="${pageContext.request.contextPath}/almacenController/listado">Anuladas</a>
-				<a class="collapse-item" href="#">Por tipo de paciente</a> <a
-					class="collapse-item" href="#">Devoluciones</a>
+				</c:if>
+				<c:if test="${accesoMenu.subMenu_ventaRpt_tipoPaciente.lectura}"> 
+				<a class="collapse-item" href="#">Por tipo de paciente</a> 
+				</c:if>	
+				<a class="collapse-item" href="#">Devoluciones</a>
 			</div>
-		</div></li>
-	<li id="navICI" class="nav-item"><a id="CollReporteICI" class="nav-link collapsed" href="#"
-		data-toggle="collapse" data-target="#collapseReporteIci"
-		aria-expanded="true" aria-controls="collapseReporteIci"> <i
+		</div>
+	</li>
+	</c:if>		
+	<c:if test="${accesoMenu.menu_RptICI}">		
+	<li id="navICI" class="nav-item"><a id="CollReporteICI"
+		class="nav-link collapsed" href="#" data-toggle="collapse"
+		data-target="#collapseReporteIci" aria-expanded="true"
+		aria-controls="collapseReporteIci"> <i
 			class="fas fa-fw fa-chart-area"></i> <span>ICI</span>
 	</a>
 		<div id="collapseReporteIci" class="collapse"
@@ -200,6 +268,8 @@
 
 			</div>
 		</div></li>
+	</c:if>		
+	<c:if test="${accesoMenu.menu_RptArticulo}">	
 	<li class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseReporteArticulo"
 		aria-expanded="true" aria-controls="collapseReporteArticulo"> <i
@@ -213,14 +283,16 @@
 					class="collapse-item" href="#">Vencidos</a>
 			</div>
 		</div></li>
+	</c:if>
+		
 	<div class="sidebar-heading">SEGURIDAD</div>
-
+	<c:if test="${accesoMenu.menu_Seguridad}">
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li class="nav-item" id="navConfiguracion"><a id="collAccesos"
 		class="nav-link collapsed" href="#" data-toggle="collapse"
 		data-target="#collapseAccesos" aria-expanded="true"
 		aria-controls="collapseAccesos"> <i class="fas fa-fw fa-cog"></i>
-			<span>Accesos</span>
+			<span>Seguridad</span>
 	</a>
 		<div id="collapseAccesos" class="collapse"
 			aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -229,10 +301,14 @@
 				<a id="enlaceUsuario" class="collapse-item"
 					href="${pageContext.request.contextPath}/usuarioController/listado">Usuarios</a>
 				<a id="enlaceRoles" class="collapse-item"
-					href="${pageContext.request.contextPath}/inventarioController/configuracion">Roles
+					href="${pageContext.request.contextPath}/accesoController/listado">Roles
 					y Permisos</a>
+				<a id="enlacePefil" class="collapse-item"
+					href="${pageContext.request.contextPath}/perfilController/listado">Perfil</a>
 			</div>
 		</div></li>
+	</c:if>	
+	<c:if test="${accesoMenu.menu_Configuracion}">
 	<li class="nav-item" id="navConfiguracion"><a
 		id="collConfiguracion" class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseConfiguracion"
@@ -246,10 +322,10 @@
 				<a id="enlaceInstitucion" class="collapse-item"
 					href="${pageContext.request.contextPath}/institucionController/nuevo">Institución</a>
 				<a id="enlaceConfInventario" class="collapse-item"
-					href="${pageContext.request.contextPath}/inventarioController/configuracion">Inventario</a>
+					href="${pageContext.request.contextPath}/inventarioController/configuracion">Parametros</a>
 			</div>
 		</div></li>
-
+	</c:if>	
 	<!-- Nav Item - Charts 
       <li class="nav-item">
         <a class="nav-link" href="charts.html">

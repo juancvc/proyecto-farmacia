@@ -7,6 +7,7 @@ public class TipoMovimientoBean extends BaseBean {
 
 	private String nombreTipoMovimiento;
 	private CatalogoBean categoriaTipoMovimiento;
+	private CatalogoBean clase;
 	
 	public String getNombreTipoMovimiento() {
 		return nombreTipoMovimiento;
@@ -22,6 +23,15 @@ public class TipoMovimientoBean extends BaseBean {
 	}
 	public void setCategoriaTipoMovimiento(CatalogoBean categoriaTipoMovimiento) {
 		this.categoriaTipoMovimiento = categoriaTipoMovimiento;
+	}
+	public CatalogoBean getClase() {
+		if (clase == null ) {
+			clase = new CatalogoBean();
+		}
+		return clase;
+	}
+	public void setClase(CatalogoBean clase) {
+		this.clase = clase;
 	}
 	
 }

@@ -12,4 +12,7 @@ import proyect.core.bean.venta.VentaBean;
 public interface CuentaCorrienteDAO extends BaseDAO<CuentaCorrienteBean> {
 	 
 	public List<CuentaCorrienteBean > listarCtaCtePacientePendientes(CuentaCorrienteBean cuentaCorrienteBean) throws DAOException;
+	
+	public CuentaCorrienteBean buscarPorNroEpisodioV2(CuentaCorrienteBean cuentaCorrienteBean) throws DAOException;
+	
 }

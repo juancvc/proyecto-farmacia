@@ -1,49 +1,40 @@
 var codigoUsuario = "";
 var accionRealizar = "";
-var codigoRegistro = "";
+var index =0;
+var validaExisteAlmacen = "0";
 
 function confirmar_eliminar(codigo,accion) {
-	codigoRegistro = codigo;
+	index = codigo;
 	accionRealizar = accion;
 	// alert(codigoReferencia);
 	$('#md_confirmacion').modal('show');
 
 }
-function agregar_accion() {
-	$('#md_reg_confirmacion').modal('show');
-}
 
-function confirmar_accion(codigo) {
-	codigoUsuario = codigo;
-	 accionRealizar = '1';
-	// alert(codigoReferencia);
-	$('#md_confirmacion').modal('show');
-
-} 
 
 $(document).ready(function() {
 	$("#btnConfirmarGeneric").click(function() {
-		if(accionRealizar == '2'){
-			eliminar_UsuarioRenaes(codigoRegistro);
+		if(accionRealizar == '1'){
+			eliminar_UsuarioAlmacen(index);
 		}else{
-			eliminar_Usuario(codigoUsuario);
+			eliminar_Usuario(index);
 		} 
 	
 	});
 });
 
 
-function eliminar_Usuario(codigo) { 
+function eliminar_Usuario(index) { 
 	var contextPath = $('#contextPath').val();
 	$
 			.ajax({
-				url :  contextPath+"/usuarioController/eliminar?codigo="
-						+ codigo,
+				url :  contextPath+"/usuarioController/eliminar?index="
+						+ index,
 				type : 'GET',
 				success : function(data) {
 					$('#md_confirmacion').modal('hide');
 					msg_exito();
-					$("#btnRefrescarListaUser").trigger("click");
+					$("#btnBuscar").trigger("click");
 				},
 				error : function(request, status, error) {
 					alert(error);
@@ -51,19 +42,19 @@ function eliminar_Usuario(codigo) {
 			});
 
 };
-function eliminar_UsuarioRenaes(codigo) { 
+function eliminar_UsuarioAlmacen(codigo) { 
 	
 	var contextPath = $('#contextPath').val();
 	var codigoUsuario = $('#codigoUsuario').val();
 	$
 			.ajax({
-				url :  contextPath+"/usuarioController/eliminarRenaes?codigo="
+				url :  contextPath+"/usuarioController/eliminarAlmacen?codigo="
 						+ codigo,
 				type : 'GET',
 				success : function(data) {
 					$('#md_confirmacion').modal('hide');
 					msg_exito(); 
-					listUsuarioRenaesBean(codigoUsuario);
+					listUsuarioAlmacen(codigoUsuario);
 				},
 				error : function(request, status, error) { ;
 				}
@@ -173,10 +164,7 @@ function buscarPersona() {
 							+ "/usuarioController/consultarPorDocumentoPersona?tipoDocumento="
 							+ tipoDocumento + "&numero=" + numeroDocumento,
 
-					success : function(persona) { 
-					//		console.log("personaUsuarioNombreCompleto " + persona.nroDocumento );
-					//		document.getElementById("btnAgregarEstabUser").disabled = true;
-					//		document.getElementById("btnRestablecerClaveUser").disabled = true;
+					success : function(persona) {  
 							$('#codigoPersonaBean').val("");
 							$('#comboPerfil').val("");
 							$('#nombreUsuario').val("");
@@ -186,6 +174,10 @@ function buscarPersona() {
 							$('#correoUsuario').val(""); 
 							$('#idTablaUsuarioRenaes').empty(); 
 							if (persona != null) {
+								console.log("persona.codigo " + persona.codigo);
+								if(persona.codigo == "" || persona.codigo ==undefined){
+									msg_advertencia("¡No se encontraron registros.!")
+								}
 								// debugger;
 								$('#personaUsuarioNombreCompleto').val(
 										persona.nombreCompleto);
@@ -196,6 +188,7 @@ function buscarPersona() {
 								$('#codigoPersonaBean').val(persona.codigo);
 								$('#idpasswordUsuario').val(persona.nroDocumento);
 								buscarUsuarioPersona(persona.codigo);
+								
 								// console.log("personaUsuarioNombreCompleto "
 								// + persona.nombreCompleto);
 							} else {
@@ -239,6 +232,7 @@ function buscarUsuarioPersona(codigoPersona) {
 					// + persona.nombreCompleto);
 				//	document.getElementById("btnAgregarEstabUser").disabled = false;
 					document.getElementById("btnRestablecerClaveUser").disabled = false;
+					listUsuarioAlmacen(usuario.codigo);
 				//	listUsuarioRenaesBean(usuario.codigo);
 				} 
 		},
@@ -257,65 +251,7 @@ function buscarUsuarioPersona(codigoPersona) {
 	});
 
 }
-
-function listUsuarioRenaesBean(codigoUsuario){
-	var contextPath = $('#contextPath').val();
-	var htmlTabla = "";
-	var item = 0; 
-	var valida ="0";
-	 console.log("codigoUsuario" + codigoUsuario);
-	  $.ajax({
-		    type: "GET",
-		    // data: "entidad=" + entidad,
-		   	
-		    url: contextPath+"/usuarioController/listUsuarioRenaesBean?codigoUsuario="+codigoUsuario,
-		    	success: function(data){ 
-		    	if(data!=null){     
-			    	 for (var i = 0; i < data.length; i++) {
-			    			var objeto = data[i];
-			    			item = item + 1;
-			    			htmlTabla += 
-			    			"<tr>"+
-			    				"<td>"+item +"</td>"+
-			    				"<td>"+objeto.renaes.codRenaes +"</td>"+ 
-				    			"<td>"+objeto.renaes.nomRenaes+"</td>"+ 
-				    			"<td>"+objeto.renaes.categoria.nombreCorto+"</td>"+ 
-				    			"<td>"+objeto.renaes.red+"</td>"+ 
-				    			
-				    			"<td>"+
-						    	 	"<button type='button'"+
-						    	 	" class='btn btn-outline-danger btn-sm' "+
-						    	 	" data-toggle='tooltip'  data-placement='top'  title='Eliminar'"+
-						    	 	"  onclick=\"confirmar_eliminar('"+[objeto.codigo]+"','2');\""+
-						      	 	" data-original-title='Eliminar'"+
-						    	 	" id='agregarEspecialidad'>"+
-						    	 	"<i class='icon-trash'></i></button>"+
-						    		"</td>"+
-			    		"</tr>";
-			    		
-			    	
-			    		} 
-			    // console.log(htmlTabla);
-			    		//$("#idBtnCerrarModalCIEX").trigger("click");
-				    	$('#idTablaUsuarioRenaes').empty();  
-				  	    $('#idTablaUsuarioRenaes').html(htmlTabla);
-		    		} 
-		    
-			    },error: function(xhr,status,er) {
-		         console.log("error: " + xhr + " status: " + status + " er:" + er);
-					    if(xhr.status==500) {
-					    	console.log(er);
-					    	// Error_500(er);
-					    }
-					    if(xhr.status==901) {
-				    	console.log(er);
-				    	// spire_session_901(er);
-		 			}
-		
-			    }
-		  });
-}
-
+ 
 function ocultarBotones() {
 	var codigo = $('#codigoUsuario').val(); 
 	if(codigo != "" ){
@@ -421,7 +357,7 @@ function grabarUsuario(contextController, idForm){
 							$('#idpasswordUsuario').val(usuario.passwordUsuario);
 							// console.log("personaUsuarioNombreCompleto "
 							// + persona.nombreCompleto);
-							document.getElementById("btnAgregarEstabUser").disabled = false;
+							document.getElementById("btnAgregarAlmacen").disabled = false;
 							document.getElementById("btnRestablecerClaveUser").disabled = false;
 					//		listUsuarioRenaesBean(usuario.codigo);
 						}else{
@@ -445,30 +381,50 @@ function grabarUsuario(contextController, idForm){
 	}
 }
 
-function cargarEstablecimientoModal() {
+function asignarTurno(index) {
 	var contextPath = $('#contextPath').val();
-	var cod = $('#codigoUsuario').val() ;
-	var codPer = $('#codigoPersonaBean').val() ;
-	console.log("cod  " + cod);
-	console.log("codPer" + codPer);
-
-	// var codigoLengua = $('#codigoLengua').val(); //
-	// document.getElementById("codigoLengua").value;
-
-	path = contextPath + "/usuarioController/establecimientoModal";
+	path = contextPath + "/usuarioController/turnoModal?index="
+						+ index;
 	// alert("path " + path)
 		$.ajax({
 			type : "POST",
 			url : path,
 
 			success : function(data) {
-				// console.log("SUCCESS: ", data);
-				$('#codigoUsuarioReanes').val(cod);
-			//	document.getElementById("codigoUsuarioReanes").value = '';
-			//	document.getElementById("codigoPersona").value = codPer;
-				$('#codigoPersona').val(codPer);
-				$("#modalEstablecimiento").html(data);
-				$("#modalEstablecimiento").modal('show'); 
+				$("#modalTurno").html(data);
+				$("#modalTurno").modal('show'); 
+			},
+			error : function(request, status, error) {
+				console.log("ERROR: " + error);
+			}
+		}); 
+}
+
+function grabarTurnoAlmacen(index) {
+	var contextPath = $('#contextPath').val();
+	var idUsuarioAlmacen =  $('#txtIdUsarioAlmacen').val();
+	var dia = 0;
+	var tarde = 0;
+	var noche = 0;
+	
+	if ($("#chkDia").is(":checked")) { 
+		dia = 1;
+	}
+	if ($("#chkTarde").is(":checked")) { 
+		tarde = 1;
+		}
+	if ($("#chkNoche").is(":checked")) { 
+		noche = 1;
+	}
+	path = contextPath + "/usuarioController/grabarTurnoAlmacen?dia="
+					+ dia + "&tarde=" + tarde+ "&noche=" + noche+ "&idUsuarioAlmacen=" + idUsuarioAlmacen;
+	// alert("path " + path)
+		$.ajax({
+			type : "GET",
+			url : path,
+			success : function(data) { 
+				msg_exito();
+				$('#modalTurno').modal('hide');
 			},
 			error : function(request, status, error) {
 				console.log("ERROR: " + error);
@@ -596,3 +552,149 @@ function validar(){
 	return true;
 };
 
+
+function listUsuarioAlmacen(codigo){
+	var htmlTabla = "";
+	var item = 0; 
+	var contextPath = $('#contextPath').val();
+	
+	path = contextPath + "/usuarioController/listarUsuarioAlmacen?codigoUsuario="+codigo;
+		$.ajax({
+		type : "GET",
+		url : path,
+		
+		success : function(data) { 
+		console.log(data)
+	//	msg_exito();
+			for (var i = 0; i < data.length; i++) {
+			var objAlmacenUsu= data[i];
+			item = item + 1; 
+			htmlTabla += "<tr>" + "<td>"
+					+ item
+					+ "</td>"
+					+ "<td>"
+					+ "<label  class='label_control' for='nombreCompleto' id="
+					+ [ objAlmacenUsu.almacen.codigo ]
+			        + ">"
+			        + [ objAlmacenUsu.almacen.nombreAlmacen ]
+					+ "</label>"
+					+ "<td>"
+					+ "<button type='button'"
+					+ " class='btn btn-outline-danger btn-sm' "
+					+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
+					+ "  onclick=\"confirmar_eliminar('"
+					+ [ objAlmacenUsu.codigo ]
+					+ "','1');\""
+					+ " data-original-title='Eliminar'"
+					+ " id='agregarEspecialidad'>"
+					+ "  <i class='fas fa-trash'></i></button> "
+					+ "</td>" + "</tr>";
+		} 
+		$('#idbodyTabla').empty();
+		$('#idbodyTabla').html(htmlTabla);
+
+	},
+	error : function(request, status, error) {
+	console.log("ERROR: " + error);
+	}
+ }); 		
+}
+
+function asignarAlmacen(){
+	var htmlTabla = "";
+	var item = 0; 
+	var contextPath = $('#contextPath').val();
+	var codigoUsuario = $('#codigoUsuario').val() ;
+	var codPer = $('#codigoPersonaBean').val() ;
+	var idAlmacen = $('#cboAlmacen').val() ;
+	console.log("cod  " + codigoUsuario);
+	console.log("cboAlmacen" + idAlmacen); 
+
+	if (idAlmacen == null || idAlmacen == "") {
+		msg_advertencia("Seleccione almacén a asignar");
+		return;
+	
+	} 
+	validarAlmacen(idAlmacen);
+	console.log("validaExisteAlmacen " + validaExisteAlmacen);
+	if (validaExisteAlmacen == "1") {
+		msg_advertencia("El almacén ya se encuentra asignado");
+		
+		return;
+		
+	}else{
+		path = contextPath + "/usuarioController/asignarAlmacen?codigoUsuario="+codigoUsuario+ 
+		 "&idAlmacen=" + idAlmacen;
+			$.ajax({
+			type : "GET",
+			url : path,
+			
+			success : function(data) { 
+			console.log(data)
+			msg_exito();
+				for (var i = 0; i < data.length; i++) {
+				var objAlmacenUsu= data[i];
+				item = item + 1; 
+				htmlTabla += "<tr>" + "<td>"
+						+ item
+						+ "</td>"
+						+ "<td>"
+						+ "<label  class='label_control' for='nombreCompleto' id="
+						+ [ objAlmacenUsu.almacen.codigo ]
+				        + ">"
+				        + [ objAlmacenUsu.almacen.nombreAlmacen ]
+						+ "</label>"
+						+ "<td>"
+						+ "<button type='button'"
+						+ " class='btn btn-outline-danger btn-sm' "
+						+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
+						+ "  onclick=\"confirmar_eliminar('"
+						+ [ objAlmacenUsu.codigo ]
+						+ "','1');\""
+						+ " data-original-title='Turno'"
+						+ " id='agregarEspecialidad'>"
+						+ "  <i class='fas fa-trash'></i></button> "
+						+ "<button type='button'"
+						+ " class='btn btn-outline-success btn-sm' "
+						+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
+						+ "  onclick=\"asignarTurno('"
+						+ [ Number(i)]
+						+ "','1');\""
+						+ " data-original-title='Eliminar'"
+						+ " id='agregarEspecialidad'>"
+						+ "  <i class='fas fa-clock-o'>Turno</i></button> "
+						+ "</td>" + "</tr>";
+			} 
+			$('#idbodyTabla').empty();
+			$('#idbodyTabla').html(htmlTabla);
+
+		},
+		error : function(request, status, error) {
+		console.log("ERROR: " + error);
+		}
+	  }); 		
+   }
+}
+
+
+function validarAlmacen(idAlmacen){   
+	/** RECORRER MENU **/
+	validaExisteAlmacen = "0";
+    $("#dataTable tbody tr").each(function (index) 
+    {
+        $(this).children("td").each(function (index2) 
+        {
+        	console.log("td ");
+        	if(index2 == 1 ){ // Columna sub total
+        		input    = $(this).children("label");
+        		id = $(input).val();
+  	   			idCompo  = $(input).attr("id"); 
+  	   			console.log("idCompo "+idCompo);
+  	   		    console.log("idAlmacen "+idAlmacen);
+					if (idCompo == idAlmacen) {
+						validaExisteAlmacen = "1";
+					}
+        	}
+        })
+    })	
+}

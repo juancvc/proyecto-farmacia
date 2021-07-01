@@ -105,5 +105,16 @@ public class CuentaCorrienteServiceImpl implements CuentaCorrienteService {
 	public boolean existe(CuentaCorrienteBean t) throws ServiceException { 
 		return false;
 	}
+
+	@Override
+	public CuentaCorrienteBean buscarPorNroEpisodioV2(CuentaCorrienteBean cuentaCorrienteBean) throws ServiceException {
+		CuentaCorrienteBean oDevolucion=null;
+		try {
+			oDevolucion=this.getCuentaCorrienteDAO().buscarPorNroEpisodioV2(cuentaCorrienteBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return oDevolucion;
+	}
  
 }

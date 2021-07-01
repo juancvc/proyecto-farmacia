@@ -32,6 +32,7 @@ import proyect.core.entity.venta.Venta;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="stockOptimo", 			  type=Integer.class),			
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSismed", 			  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="codigoSiga", 			  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="swDecimal", 			  type=Boolean.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 		  type=String.class),								
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 			  type=String.class)
 						}					
@@ -224,6 +225,8 @@ public class Articulo  {
 
 	private String volumen;
 	
+	private Boolean swDecimal;
+	
 	private String nombreLaboratorio;
 	
 	private String nombreTipoArticulo;
@@ -233,6 +236,7 @@ public class Articulo  {
 	private String descripcionCortaPresentacion;
 	private String descripcionLargaPresentacion;
 	private String descripcionCortaTipoArticulo;
+	
 	
 	/***
 	private  int  anio;
@@ -434,5 +438,12 @@ public class Articulo  {
 	public void setDescripcionCortaTipoArticulo(String descripcionCortaTipoArticulo) {
 		this.descripcionCortaTipoArticulo = descripcionCortaTipoArticulo;
 	}
+	public Boolean getSwDecimal() {
+		return swDecimal;
+	}
+
+	public void setSwDecimal(Boolean swDecimal) {
+		this.swDecimal = swDecimal;
+	} 
 
 }

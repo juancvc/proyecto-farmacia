@@ -9,154 +9,79 @@ import java.util.Date;
 
 @NamedStoredProcedureQueries({	
 	
-	@NamedStoredProcedureQuery(name = "leotbc_auditoria.listar", 
-		procedureName = "segu.fun_leotbcauditoria_listar", 
+	@NamedStoredProcedureQuery(name = "auditoria.listar", 
+		procedureName = "usp_Auditoria_listar", 
 		resultClasses = Auditoria.class,
 		parameters = {
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_codusuari", type = long.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_tabla", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_nomusuari", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_codperfil", type = Long.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_codaccion", type = Integer.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_fecinicio", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_fecfin", type = String.class),
-			@StoredProcedureParameter(mode = ParameterMode.IN, name = "p_limite", type = Integer.class)
-	})
+			@StoredProcedureParameter(mode = ParameterMode.IN, name = "usuarioIngreso", type = String.class),
+			@StoredProcedureParameter(mode = ParameterMode.IN, name = "ipIngreso", type = String.class)
+	}),
+	
+	@NamedStoredProcedureQuery(name = "auditoria.insert", 
+	procedureName = "usp_Auditoria_insertar", 
+	resultClasses = Auditoria.class,
+	parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.OUT, name = "idAuditoria", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "usuarioIngreso", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "ipIngreso", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "swAcceso", type = int.class)
+	}),
 		
 })
 
 @Entity
-@Table(name="leotbc_auditoria", schema="segu")
+@Table(name="Auditoria")
 public class Auditoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="n_codaudit")
-	private Long nCodaudit;
+	@Column(name="idAuditoria")
+	private String idAuditoria;
 	
-	@Column(name="v_tabla")
-	private String vTabla;
+	@Column(name="usuarioIngreso")
+	private String usuarioIngreso;
 	  
-	@Column(name="n_tm1accion")
-	private Integer nTm1accion;
+	@Column(name="ipIngreso")
+	private Integer ipIngreso;
 	
-	@Column(name="n_codregaud")
-	private Long nCodregaud;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="d_fecaud")
-	private Date dFecaud;
-	
-	@Column(name="n_codusuaud")
-	private Long nCodusuaud;
-
-	@Column(name="v_hostaud")
-	private String vHostaud;
-	
-	private String v_strfecaud;
-	private String v_nomacc_aud;
-	private String v_nomusu_aud;
-	private String v_nompers_aud;
-	
+	@Column(name="swAcceso")
+	private int swAcceso;
+	  
 	public Auditoria() {
 	
 	}
 
-	public Long getnCodaudit() {
-		return nCodaudit;
+	public String getIdAuditoria() {
+		return idAuditoria;
 	}
 
-	public void setnCodaudit(Long nCodaudit) {
-		this.nCodaudit = nCodaudit;
+	public void setIdAuditoria(String idAuditoria) {
+		this.idAuditoria = idAuditoria;
 	}
 
-	public String getvTabla() {
-		return vTabla;
+	public String getUsuarioIngreso() {
+		return usuarioIngreso;
 	}
 
-	public void setvTabla(String vTabla) {
-		this.vTabla = vTabla;
+	public void setUsuarioIngreso(String usuarioIngreso) {
+		this.usuarioIngreso = usuarioIngreso;
 	}
 
-	public Integer getnTm1accion() {
-		return nTm1accion;
+	public Integer getIpIngreso() {
+		return ipIngreso;
 	}
 
-	public void setnTm1accion(Integer nTm1accion) {
-		this.nTm1accion = nTm1accion;
+	public void setIpIngreso(Integer ipIngreso) {
+		this.ipIngreso = ipIngreso;
 	}
 
-	public Long getnCodregaud() {
-		return nCodregaud;
+	public int getSwAcceso() {
+		return swAcceso;
 	}
 
-	public void setnCodregaud(Long nCodregaud) {
-		this.nCodregaud = nCodregaud;
+	public void setSwAcceso(int swAcceso) {
+		this.swAcceso = swAcceso;
 	}
-
-	public Date getdFecaud() {
-		return dFecaud;
-	}
-
-	public void setdFecaud(Date dFecaud) {
-		this.dFecaud = dFecaud;
-	}
-
-	public Long getnCodusuaud() {
-		return nCodusuaud;
-	}
-
-	public void setnCodusuaud(Long nCodusuaud) {
-		this.nCodusuaud = nCodusuaud;
-	}
-
-	public String getvHostaud() {
-		return vHostaud;
-	}
-
-	public void setvHostaud(String vHostaud) {
-		this.vHostaud = vHostaud;
-	}
-
-	public String getV_strfecaud() {
-		return v_strfecaud;
-	}
-
-	public void setV_strfecaud(String v_strfecaud) {
-		this.v_strfecaud = v_strfecaud;
-	}
-
-	public String getV_nomacc_aud() {
-		return v_nomacc_aud;
-	}
-
-	public void setV_nomacc_aud(String v_nomacc_aud) {
-		this.v_nomacc_aud = v_nomacc_aud;
-	}
-
-	public String getV_nomusu_aud() {
-		return v_nomusu_aud;
-	}
-
-	public void setV_nomusu_aud(String v_nomusu_aud) {
-		this.v_nomusu_aud = v_nomusu_aud;
-	}
-
-	public String getV_nompers_aud() {
-		return v_nompers_aud;
-	}
-
-	public void setV_nompers_aud(String v_nompers_aud) {
-		this.v_nompers_aud = v_nompers_aud;
-	}
-
-	@Override
-	public String toString() {
-		return "LeotbcAuditoria [nCodaudit=" + nCodaudit + ", vTabla=" + vTabla + ", nTm1accion=" + nTm1accion
-				+ ", nCodregaud=" + nCodregaud + ", dFecaud=" + dFecaud + ", nCodusuaud=" + nCodusuaud + ", vHostaud="
-				+ vHostaud + ", v_strfecaud=" + v_strfecaud + ", v_nomacc_aud=" + v_nomacc_aud + ", v_nomusu_aud="
-				+ v_nomusu_aud + ", v_nompers_aud=" + v_nompers_aud + "]";
-	}
-
+ 
 }

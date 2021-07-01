@@ -229,6 +229,25 @@
 													</f:select>
 												</div>
 											</div>
+											</div>
+										<div class="row">
+										<div class="form-group col-md-3 mb-2">
+												<label for="nombreCompleto" class="label_control">CODIGO
+													SIGA
+												</label>
+												<div class="controls">
+													<f:input type="text" class="form-control" 
+														onkeyup="javascript:this.value=this.value.toUpperCase();"
+														id="txtAlias" path="codigoSiga" maxlength="12" /> 
+												</div>
+											</div>
+											<div class="col-md-2 mb-1"> 
+												<label for="nombreCompleto" class="label_control">APLICA DECIMAL</label> 
+												<div class="controls">
+												<input type="checkbox"  name="chkDecimal" id="chkDecimal"/>
+												 <f:input type="hidden" id="txtswDecimal" path="swDecimal"  />
+												 </div>
+											</div>
 										</div>
 
 										<div class="label_title">
@@ -288,7 +307,7 @@
 													<span class="text">CANCELAR</span>
 												</a>
 												<a
-													href="${pageContext.request.contextPath}/almacenController/nuevo"
+													href="${pageContext.request.contextPath}/articuloController/nuevo"
 													class="btn btn-info"> <i class="fa fa-file"></i> <span
 													class="text">NUEVO</span>
 												</a>
@@ -400,7 +419,15 @@
 		src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/articulo.js"
 		type="text/javascript"></script>
 
+
 	<script>
+	$(document).ready(
+			function() {
+				var txtswDecimal =  $('#txtswDecimal').val(); 
+				if(txtswDecimal == "true"){ 
+					document.getElementById("chkDecimal").checked = true;
+				}
+			})
 		document.getElementById('navInventario').className = "nav-item active";
 		document.getElementById('enlaceArticulo').className = "collapse-item active";
 		document.getElementById('collInventario').className = "nav-link";

@@ -21,7 +21,7 @@
 			            <td>${submenu.componente.descripcion}</td>
 			            <td>
 			            	<c:choose>
-							    <c:when test="${submenu.flgRead}">
+							    <c:when test="${submenu.flgRead=='true'}">
 							    	<input type="checkbox" value="${submenu.codigo}" id="col-A-${submenu.componente.codigo}" checked="checked" />
 							    </c:when>
 							    <c:otherwise>

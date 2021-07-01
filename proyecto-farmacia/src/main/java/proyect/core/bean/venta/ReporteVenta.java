@@ -87,7 +87,5 @@ public class ReporteVenta {
 	public void setDiciembre(float diciembre) {
 		this.diciembre = diciembre;
 	}
-	
-	
 
 }

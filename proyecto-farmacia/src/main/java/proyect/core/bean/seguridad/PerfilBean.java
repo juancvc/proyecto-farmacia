@@ -13,12 +13,26 @@ public class PerfilBean extends BaseBean {
 	private String codigoPerfil; 
 	private CatalogoBean situacion; 
 	private String nombrePerfil;
+	private String descripcion;
 
 	
 	
 	public PerfilBean() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public CatalogoBean getSituacion() {
+		if (situacion == null) {
+			situacion = new CatalogoBean();
+		}
+		return situacion;
+	} 
+
+	public void setSituacion(CatalogoBean situacion) {
+		this.situacion = situacion;
 	}
 
 
@@ -32,21 +46,7 @@ public class PerfilBean extends BaseBean {
 	public void setCodigoPerfil(String codigoPerfil) {
 		this.codigoPerfil = codigoPerfil;
 	}
-
-
-
-	public CatalogoBean getSituacion() {
-		return situacion;
-	}
-
-
-
-	public void setSituacion(CatalogoBean situacion) {
-		this.situacion = situacion;
-	}
-
-
-
+ 
 	public String getNombrePerfil() {
 		return nombrePerfil;
 	}
@@ -55,6 +55,18 @@ public class PerfilBean extends BaseBean {
 
 	public void setNombrePerfil(String nombrePerfil) {
 		this.nombrePerfil = nombrePerfil;
+	}
+
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	

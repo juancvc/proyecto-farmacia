@@ -1,12 +1,14 @@
 package proyect.web.utilitarios.acceso;
  
 import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.TurnoBean;
 
 public class LoginVo {
 	
 	private String	nombreUsuario;
 	private String 	contrasena;
 	private AlmacenBean almacen;
+	private TurnoBean turno;
 	
 	
 	
@@ -31,7 +33,10 @@ public class LoginVo {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
- 
-	
-
+	public TurnoBean getTurno() {
+		return turno;
+	}
+	public void setTurno(TurnoBean turno) {
+		this.turno = turno;
+	}
 }

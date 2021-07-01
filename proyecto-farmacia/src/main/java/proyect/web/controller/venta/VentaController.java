@@ -77,6 +77,7 @@ import proyect.core.service.interfaces.stock.StockService;
 import proyect.core.service.interfaces.venta.VentaItemService;
 import proyect.core.service.interfaces.venta.VentaService;
 import proyect.web.controller.base.BaseController;
+import proyect.web.controller.venta.vista.VentaForm;
 import proyect.web.utilitarios.VO;
 
 import com.itextpdf.text.BaseColor;
@@ -130,7 +131,7 @@ public class VentaController extends BaseController {
 	private CatalogoBean tipoFinanciador;
 	private VentaBean ventaBean;
 	private UbigeoBean ubigeobean;
-	private AlmacenBean almacenBean;
+	private AlmacenBean almacenBean; 
 	private PersonaBean personaBean;
 	private String fechaEmision;
 	private VentaBean ventaDevolucion;
@@ -303,6 +304,7 @@ public class VentaController extends BaseController {
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
+		VentaForm ventaForm = new VentaForm();
 		PersonaBean persona = new PersonaBean();
 		VentaBean ventaBean = new VentaBean();
 		StockBean Stock = new StockBean();
@@ -571,25 +573,27 @@ public class VentaController extends BaseController {
 	@RequestMapping(value = "/llenarVenta", method = RequestMethod.GET)
 	@ResponseBody
 	public void llenarVenta(@ModelAttribute("ventaBean") VentaBean ventaBean, HttpServletRequest request) {
-		System.out.println("ventaBean " + ventaBean.getSfechaEmision());
+		System.out.println("ventaBean.getSfechaEmision:: " + ventaBean.getSfechaEmision());
 		this.setVentaBean(ventaBean);
-		;
 	}
 
 	@RequestMapping(value = "/grabarVenta", method = RequestMethod.POST)
 	@ResponseBody
-	public String grabarVenta(@RequestBody VentaItemBean[] ventaDetalleArray, HttpServletRequest request) {
+	public VentaBean grabarVenta(@RequestBody VentaItemBean[] ventaDetalleArray, HttpServletRequest request) {
 
 		UsuarioBean usuario = (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
 		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
 
 		System.out.println("personaCodigo:: " + this.getPersonaBean().getCodigo());
-		String codigo = "";
+		String resultado = "";
 		boolean sw = false;
 		String cadenaCodigoStock = "@";
 		String cadenaCantidad = "@";
 		this.getVentaBean().setPersona(this.getPersonaBean());
 		this.getVentaBean().setAlmacen(usuario.getAlmacen());
+		System.out.println("usuario.getTurno() " + usuario.getTurno().getCodigo());
+		this.getVentaBean().setTurno(usuario.getTurno());
+		this.getVentaBean().getTipoMoneda().setIdRegistro("000001");
 		for (VentaItemBean prmVentaItemBeanBean : ventaDetalleArray) {
 			System.out.println("getCodReg == >" + prmVentaItemBeanBean.getStock().getCodigo());
 
@@ -609,8 +613,7 @@ public class VentaController extends BaseController {
 				sw = (this.ventaService.insertar(this.getVentaBean()));
 
 				if (sw) {
-					codigo = this.getVentaBean().getCodigo();
-
+					resultado = this.getVentaBean().getCodigo();
 				}
 
 			} else {
@@ -623,7 +626,10 @@ public class VentaController extends BaseController {
 		}
 
 		System.out.println("sw " + sw);
-		return codigo;
+		System.out.println("this.getVentaBean() " + this.getVentaBean().getValida());
+		System.out.println("this.getVentaBean() error " + this.getVentaBean().getError());
+		System.out.println("this.getVentaBean() falta " + this.getVentaBean().getNombreArticuloSinStock());
+		return this.getVentaBean();
 
 	}
 
@@ -1157,13 +1163,16 @@ public class VentaController extends BaseController {
 
 	@RequestMapping(value = "/descargarExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
 	public @ResponseBody void descargarExcel(HttpServletResponse response) throws IOException {
-		try {
-			Workbook wb = generarExcel();
-			response.setHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
-			wb.write(response.getOutputStream());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (lstVentas  != null ) {
+			try {
+				Workbook wb = generarExcel();
+				response.setHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
+				wb.write(response.getOutputStream());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+	
 	}
 
 	public HSSFWorkbook generarExcel() {
@@ -1328,9 +1337,9 @@ public class VentaController extends BaseController {
 
 	private void listarPacienteCtaCtePendientes2() {
 		CuentaCorrienteBean cuentaCorrienteBean = new CuentaCorrienteBean();
-		PersonaBean persona = new PersonaBean();
+		PacienteBean persona = new PacienteBean();
 		persona.setCodigo(this.getPersonaBean().getCodigo());
-		cuentaCorrienteBean.setPersona(persona);
+		cuentaCorrienteBean.getEpisodio().setPaciente(persona);
 		// cuentaCorrienteBean.setp
 		try {
 			lstCuentaCorrienteBean = cuentaCorrienteService.listarCtaCtePacientePendientes(cuentaCorrienteBean);
@@ -1471,6 +1480,92 @@ public class VentaController extends BaseController {
 		return swGuardado;
 	}
 	
+	/*** RECAUDACION***/
+	
+	@RequestMapping(value = "/recaudacion", method = RequestMethod.GET)
+	public ModelAndView doRecaudacion(@ModelAttribute("ventaBean") VentaBean VentaBean, HttpServletRequest request) {
+		this.setVentaBean(VentaBean);
+		return this.recaudacion(VentaBean, request);
+	}
+
+	@RequestMapping(value = "/recaudacion", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView recaudacion(@ModelAttribute("ventaBean") VentaBean VentaBean, HttpServletRequest request) {
+
+		this.setVentaBean(VentaBean);
+		ModelAndView mav = new ModelAndView("ventas/reportes/recaudacion", "command", VentaBean);
+
+		try {
+			lstVentas = ventaService.reporteRecaudacion(VentaBean);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mav.addObject("ventaBean", VentaBean);
+		mav.addObject("lstVentas", lstVentas);
+		this.cargarCombosListado(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "reporteRecaudacion", method = RequestMethod.GET)
+	@ResponseBody
+	public void reporteRecaudacion(HttpServletResponse response,
+			HttpServletRequest request) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/rptRecaudacion.jasper");
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	 
+		System.out.println("this.getVentaBean().getFechaEmisionDesde() " + this.getVentaBean().getFechaEmisionDesde());
+		Map<String, Object> parametro = new HashMap<String, Object>();
+		parametro.put("nombUsuario", getUsuarioSesion(request).getNombreUsuario()); 
+		parametro.put("fechaDesde",  this.getVentaBean().getFechaEmisionDesde());
+		parametro.put("fechaHasta",  this.getVentaBean().getFechaEmisionHasta());
+
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(this.lstVentas);
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, dataSource);
+
+		response.setContentType("application/x-pdf");
+		response.setHeader("Content-disposition", "inline; filename= RecaudacionFarmacia"+this.getVentaBean().getFechaEmisionDesde().replaceAll("/", "")+".pdf");
+
+		final OutputStream outStream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+
+	}
+
+	/*********** CTA CORRIENTE ***************/
+	@RequestMapping(value = "/consultarCtaCorriente", method = RequestMethod.GET)
+	public @ResponseBody CuentaCorrienteBean consultarCtaCorriente(@RequestParam("numero") String numero) throws Exception {
+		this.setCuentaCorrienteBean(new CuentaCorrienteBean());
+		cuentaCorrienteBean = new CuentaCorrienteBean();
+		CuentaCorrienteBean prmCuentaCorrienteBean = new CuentaCorrienteBean();
+		prmCuentaCorrienteBean.getEpisodio().setNumeroEpisodio(numero);
+		try {
+			cuentaCorrienteBean = cuentaCorrienteService.buscarPorNroEpisodioV2(prmCuentaCorrienteBean);
+			if (cuentaCorrienteBean != null) {
+				this.setPersonaBean(cuentaCorrienteBean.getEpisodio().getPaciente());
+				System.out.println("cuentaCorrienteBean consultada" + cuentaCorrienteBean.getEpisodio().getPaciente().getNombreCompleto());
+				System.out.println("cuentaCorrienteBean.getCodigo() " + cuentaCorrienteBean.getCodigo());
+				System.out.println("cuentaCorrienteBean fecha liqui " + cuentaCorrienteBean.getFechaLiquidacion());
+				this.setCuentaCorrienteBean(cuentaCorrienteBean);
+
+			} else {
+			}
+		} catch (Exception e) {
+		}
+
+		return this.getCuentaCorrienteBean();
+	}
+	
+	@RequestMapping(value = "/validarGenerar", method = RequestMethod.GET)
+	public @ResponseBody String validarGenerar() throws IOException {
+		String validar="";
+		if (lstVentas  != null ) {
+			validar = "1";		}
+		return validar;
+	}
+
+	/********************************************/
 	public VentaBean getVentaBean() {
 		return ventaBean;
 	}

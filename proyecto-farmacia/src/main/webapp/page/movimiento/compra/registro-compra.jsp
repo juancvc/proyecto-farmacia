@@ -227,9 +227,7 @@ input[type=text] {
 											<span class="required">*</span></label>
 											<div class="controls"> 
 												<f:select id="cboTipoArticulo"
-													path="almacen.codigo" class="form-control"> 
-													<f:option value="" label="Seleccione" selected="true"
-															disabled="disabled" />
+													path="almacen.codigo" class="form-control">
 													<f:options items="${lstAlmacen}"
 														itemValue="codigo" itemLabel="nombreAlmacen" />
 												</f:select>
@@ -278,6 +276,25 @@ input[type=text] {
 											</div>
 										</div> 
 										<div class="row">
+										<div class="col-md-1 mb-1"> 
+										<label for="nombreCompleto" class="label_control">DONACION</label> 
+										<input type="checkbox"  name="chkDonacion" id="chkDonacion"  onclick="cambiarDonacion();"/>
+										 <f:input type="text" id="txtSwDonacion" path="swDonacion" style="display: none" />
+										</div>
+											<div class="col-md-2 mb-1">
+												<label for="nombreCompleto" class="label_control">PPA</label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														id="txtAlias" path="ppa" autocomplete="off" maxlength="20" />
+												</div>
+											</div>
+											<div class="col-md-3 mb-2">
+												<label for="nombreCompleto" class="label_control">N° PECOSA</label>
+												<div class="controls">
+													<f:input type="text" class="form-control"
+														id="txtAlias" path="pecosa" autocomplete="off" maxlength="20" />
+												</div>
+											</div>
 											<div class="form-group col-md-6 mb-2">
 												<label for="nombreCompleto" class="label_control">GLOSA 
 												</label>
@@ -286,32 +303,31 @@ input[type=text] {
 												 id="descripcion" path="glosa" rows="2" maxlength="350"/>  
 												</div>
 											</div> 
-										</div>
-											<br>
+										</div> 
 										<div class="label_title">
 											ARTICULOS <span class="required">*</span>:
 										</div>
 										 <div id="panelCEX" class="panel_style col-md-12">
 											<div class="row">
-												<div class="col-md-8 mb-3">
+											<!--<div class="col-md-8 mb-1" style="display: none"> 
 													<label for="nombreCompleto" class="label_control">BUSCAR
 														ARTICULO </label>
-													<div class="controls">
+													<div class="controls" >
 														<div class="autocomplete" style="width: 100%;">
 															<input type="text" value="" placeholder="Buscar..."
 																class="form-control"  
 																onkeypress="return runIngresarExamen(event)" autocomplete="off"
-																id="txtArticuloNombre" name="txtArticuloNombre" />
+																id="txtArticuloNombre_" name="txtArticuloNombre_" />
 														</div>
 													</div>
-												</div>
-												<div class="col-md-4 mb-3" style="margin-top: 30px;">
-													<button type="button" style="display: none"
+												</div> -->
+												<div class="col-md-4 mb-3"  >
+													<button type="button" 
 														class="btn btn-outline-success btn-sm"
 														data-toggle="tooltip" data-placement="top" title=""
-														data-original-title="Agregar" onclick="enviarIndex()"
-														id="agregarEspecialidad">
-														<i class="icon-check"> AGREGAR</i>
+														data-original-title="Agregar" onclick="cargarArticulos()"
+														id="btnAgregarArticulos">
+														<i class="icon-check"> AGREGAR ARTICULOS</i>
 													</button>
 												</div>
 											</div>
@@ -326,10 +342,10 @@ input[type=text] {
 																	<th width="80"># LOTE</th>
 																	<th width="150">FECHA VENC.</th>
 																	<th width="80">REG. SANITARIO</th>
-																	<th width="60">PRECIO COMPRA</th>
+																	<th width="60">PRECIO COSTO</th>
 																	<th width="60">PRECIO VENTA</th> 
 																	<th width="50">CANTIDAD</th>
-																	<th width="50">SUB TOTAL</th>
+																	<th width="50">SUB TOTAL</th> 
 																	<th width="20">ACCION</th>
 																</tr> 
 															</thead> 
@@ -339,37 +355,21 @@ input[type=text] {
 																	<tr>
 																		<td>${loop.count}</td>
 																		<td>${objCompraItem.stock.articulo.nombre}</td> 
-																		<td><input type='text' class='form-control'  id="${objCompraItem.stock.articulo.codigo}"
-										 									required='required' autocomplete='off' value ='${objCompraItem.stock.lote}' 
-										 									onchange = 'calculaSubTotal(); 'maxlength='5'/></td>
-																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
-																			required='required' onchange = 'calculaSubTotal(); ' placeholder='DD/MM/YYYY' maxlength='10'  autocomplete='off'
-																			value ='${objCompraItem.stock.sFechaVencimiento}' 
-																			onkeyup='this.value=formateafecha(this.value);' /></td>
-																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
-																			required='required' onchange = 'calculaSubTotal();' value ='${objCompraItem.stock.nroRegistroSanitario}'
-																			maxlength='100'  autocomplete='off'/></td>
-																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}" 
-																			required='required' onkeypress= 'return decimales(event,this);'
-																			value ='${objCompraItem.stock.precioCompra}' onchange = 'calculaSubTotal();'
-																			maxlength='100'  autocomplete='off'/></td>
-																		<td><input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}"
-																			required='required' onchange = 'calculaSubTotal(); ' 
-																			value ='${objCompraItem.stock.precioVenta}' onkeypress= 'return decimales(event,this); '
-																			maxlength='100' autocomplete='off'/></td>
-																		<td> <input type='text' class='form-control' id="${objCompraItem.stock.articulo.codigo}"
-																			required='required' value ='${objCompraItem.cantidad}'
-																			maxlength='5' onkeypress= 'return soloNumeros(event);'
-																			onkeypress= 'return soloNumeros(event);' onchange = 'calculaSubTotal();'/></td>
-																		<td><label for='nombreCompleto' class='label_control' id="${objCompraItem.stock.articulo.codigo}">
-																		 	${objCompraItem.subtotal}</label></td>
-																		<td><button type='button'"
+																		<td>${objCompraItem.stock.lote}</td>
+																		<td>${objCompraItem.stock.sFechaVencimiento}</td>
+																		<td>${objCompraItem.stock.nroRegistroSanitario}</td>
+																		<td>${objCompraItem.stock.precioCompra}</td>
+																		<td>${objCompraItem.stock.precioVenta}</td>
+																		<td>${objCompraItem.cantidad}</td>
+																		<td>${objCompraItem.subtotal}</td>
+																		<td></td>
+																		<!-- <td><button type='button'
 																			class='btn btn-outline-danger btn-sm' "
 																			data-toggle='tooltip'  data-placement='top'  title='Eliminar'
-																			onclick="confirmar_eliminar('${objCompraItem.stock.articulo.codigo}','1');"
+																			onclick="confirmar_eliminar('${loop.count}','1');"
 																		data-original-title='Eliminar'  id='agregarEspecialidad'>
 																		<i class='fas fa-trash'></i></button>
-																		</td></tr> 
+																		</td> --></tr> 
 																</c:forEach>
 															</tbody>
 														</table>
@@ -377,17 +377,23 @@ input[type=text] {
 												</div>
 											</div> 
 											<div class="row">
-												<div class="form-group col-md-9 text-right"
+												<div class="form-group col-md-10 text-right"
 													style="margin-top: 2px;"></div>
-												<div class="form-group col-md-3 text-right"
+												<div class="form-group col-md-2 text-right"
 													style="margin-top: 2px;">
 													<label for="nombreCompleto" class="label_control">IMPORTE
 														TOTAL S/. </label>
-													<f:input type="text" path="sImporte" class="form-control"
+													<f:input type="text" path="sImporte" class="form-control  text-right" 
 														id="txtCajaImporteTotal" readonly="true" maxlength="15" />
 
 													<f:input type="hidden" path="importe"
 														id="txtCajaImporteTotalHidden" />
+													<f:input type="hidden" path="porcentajeVenta"
+														id="txtPorcentajeVenta" />
+													<f:input type="hidden" path="codigo"
+														id="txtCodigoCompra" />
+													<f:input type="hidden" path="numeroPeriodo"
+														id="txtNumeroPeriodo" />
 												</div>
 											</div>
 										</div>
@@ -400,8 +406,7 @@ input[type=text] {
 													<span class="text">CANCELAR</span>
 												</a>
 
-
-												<button type="submit" onclick="grabar()"
+												<button id="btnGrabarCompra" type="submit" onclick="grabar()"
 													class="btn btn-primary">
 													<i class="fa fa-save"></i> GUARDAR
 												</button>
@@ -416,7 +421,7 @@ input[type=text] {
 						</div>
 					</div>
 
-					<input type="hidden" id="txtIndexArticulo" />
+					<input type="hidden" id="txtIndexArticulo_" />
 				</f:form>
 				<!-- /.container-fluid -->
 
@@ -507,6 +512,26 @@ input[type=text] {
 	<script>
 		$(document).ready(
 				function() {
+					var codigo = "";
+					codigo = '${compra.codigo}' ;
+					console.log("codigo::" + codigo );
+					<c:choose>
+					    <c:when test="${compra.codigo==null || compra.codigo==''}"> 
+						  //  document.getElementById("btnGrabarCompra").disabled = false;
+							document.getElementById("btnAgregarArticulos").disabled = false;
+					    </c:when>    
+					    <c:otherwise> 
+						  //  document.getElementById("btnGrabarCompra").disabled = true;
+						  validaContenidoItem = 1;
+						  document.getElementById("btnAgregarArticulos").disabled = true;
+					    </c:otherwise>
+					</c:choose>
+					
+					//<c:if test="${compra.codigo==null || compra.codigo==''}">
+					//	document.getElementById("btnGrabarCompra").disabled = true;
+					//	document.getElementById("btnAgregarArticulos").disabled = true;
+					//</c:if>
+				
 					var date_input = $('input[id="date"]'); //our date input has the name "date"
 					var container = $('.bootstrap-iso form').length > 0 ? $(
 							'.bootstrap-iso form').parent() : "body";
@@ -516,7 +541,6 @@ input[type=text] {
 						todayHighlight : true,
 						autoclose : true,
 						language : 'es'
-
 					})
 				})
 	</script>
@@ -529,7 +553,7 @@ input[type=text] {
 	</script>
 
 <script>
-
+/************
 function runIngresarExamen(e) {
 	var index = $('#txtIndexArticulo').val();
 	var examenNombre = $('#txtExamenNombre').val();
@@ -548,8 +572,8 @@ function enviarIndex() {
 			llenarArticuloIndex(index);
 			return false;
 		}  
-}
-function autocomplete(inp, arr) {
+}*/
+function autocomplete_(inp, arr) {
 	/*the autocomplete function takes two arguments,
 	the text field element and an array of possible autocompleted values:*/
 	var currentFocus;
@@ -706,17 +730,15 @@ objArticulo.nombre ='${articulo.nombre}';
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("txtArticuloNombre"), arrayMenus);
 
-
+var validaContenidoItem = 0;
 var  listadoArticulo= []; 
  
-</script>
-
-
-	<div class="modal fade text-xs-left" id="modalPersona" tabindex="-2"
+</script> 
+	<div class="modal fade text-xs-left" id="modalArticulo" tabindex="-2"
 		role="dialog" aria-labelledby="myModalLabel35" data-dismiss="modal"
 		aria-hidden="true" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" id="modalPersonaContent"></div>
+			<div class="modal-content" id="modalArticuloContent"></div>
 		</div>
 	</div>
 </body>

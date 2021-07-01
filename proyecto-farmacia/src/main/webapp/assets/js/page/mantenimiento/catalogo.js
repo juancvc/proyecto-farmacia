@@ -1,5 +1,7 @@
-var codReg = "";
-function confirmar_accion(codigo) { 
+
+var idTabla = "";
+var codReg = 0;
+function confirmar_accion(codigo) {
 	codReg = codigo;
 	$('#md_confirmacion').modal('show');
 
@@ -11,17 +13,16 @@ $(document).ready(function() {
 	});
 });
 
-function eliminarRegistro(index) { 
+function eliminarRegistro(codReg) { 
 	var contextPath = $('#contextPath').val();
 	$
 			.ajax({
-				url :  contextPath+"/articuloController/eliminar?index="
-						+ index,
+				url :  contextPath+"/catalogoController/eliminar?index="+codReg,
 				type : 'GET',
 				success : function(data) {
 					$('#md_confirmacion').modal('hide');
 					msg_exito();
-					document.getElementById("btnListado").click(); 
+					document.getElementById("btnListado").click();
 				},
 				error : function(request, status, error) {
 					alert(error);
@@ -36,7 +37,7 @@ function refrescarListado() {
 	var htmlTabla = "";
 	$
 			.ajax({
-				url :  contextPath+"/maestraController/refrescarLista",
+				url :  contextPath+"/catalogoController/refrescarLista",
 				type : 'GET',
 				data: $('#frmListadoMaestra').serialize(),
 				success : function(data) {
@@ -89,38 +90,45 @@ function refrescarListado() {
 			});
 }
 
-function grabar(){  
-	var contextPath = $('#contextPath').val(); 
-	var actionForm = $('#frmRegistroArticulo').attr("action");
-	var url =contextPath+"/articuloController/grabar" ;
-	var myFormulario = $('#frmRegistroArticulo'); 
-	console.log("actionForm " + actionForm); 
-	if ($("#chkDecimal").is(":checked")) { 
-		  $('#txtswDecimal').val(1); 
-	  } else { 
-		  $('#txtswDecimal').val(0); 
-	  } 
-	if(!myFormulario[0].checkValidity()) {
-		 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
-		 //alert( $('#txtswDecimal').val());
-	}else{  
-			$.ajax({
-			type : "POST",
-			url : url,
-			data: $('#frmRegistroArticulo').serialize(),
-			success : function(data) { 
-				msg_exito("Éxito al registrar artículo");
-				document.getElementById("btnListado").click(); 
-			},
-			
-			error : function(xhr, status, er) { 
-			        console.log("error: " + xhr + " status: " + status + " er:" + er);
-						//msg_error();
 
-					},
-		  			complete: function()
-  			{ 
-			}
-	});
+function grabar(){  
+		var contextPath = $('#contextPath').val(); 
+		var actionForm = $('#frmRegistroMaestra').attr("action");
+		var url =contextPath+"/catalogoController/grabar" ;
+		var myFormulario = $('#frmRegistroMaestra'); 
+		console.log("actionForm " + actionForm);
+		
+		if(!myFormulario[0].checkValidity()) {
+			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+
+		}else{  
+				iniciarBloqueo();
+				$.ajax({
+				type : "POST",
+				url : url,
+				data: $('#frmRegistroMaestra').serialize(),
+				success : function(data) {
+					   // console.log("SUCCESS: ", data);  
+					    if (data == "0") {
+					    	msg_error();  
+						}else{
+						    msg_exito();
+						    console.log(" btnListado click " );
+						    document.getElementById("btnListado").click();
+						} 
+				},
+				
+				error : function(xhr, status, er) { 
+				        console.log("error: " + xhr + " status: " + status + " er:" + er);
+							//msg_error(); 
+						},
+			  			complete: function()
+	  			{ 
+			  			finBloqueo();
+				}
+		});
+	}
 }
-}
+
+
+

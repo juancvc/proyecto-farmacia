@@ -26,7 +26,7 @@ public class VentaBean extends BaseBean {
 	private TurnoBean turno;
 	private float importe;
 	private String sImporte;
-	private Boolean swValida;
+	private String nombreArticuloSinStock;
 
 	private String cadenaIdVenta;
 	private String cadenaCantidad;
@@ -49,6 +49,13 @@ public class VentaBean extends BaseBean {
 	private String mes;
 	private ReporteVenta reporteVenta;
 	private String motivoElimina;
+	private CatalogoBean situacion; 
+	private int cantidadTransVenta;
+	private int cantidadTransAnul;
+	private int cantidadTransTotal;
+	private float importeVenta;
+	private float importeAnulacion;
+	private float importeTotal;
 	
 	public String getPacienteEpisodio() {
 		
@@ -58,6 +65,19 @@ public class VentaBean extends BaseBean {
 	}
 	
  
+	public CatalogoBean getSituacion() {
+		if (situacion == null) {
+			situacion = new CatalogoBean();
+		}
+		return situacion;
+	}
+
+
+	public void setSituacion(CatalogoBean situacion) {
+		this.situacion = situacion;
+	}
+
+
 	public String getCadenaPrecioVenta() {
 		return cadenaPrecioVenta;
 	}
@@ -124,13 +144,15 @@ public class VentaBean extends BaseBean {
 		this.cadenaNroPeriodoStock = cadenaNroPeriodoStock;
 	}
 
-	public Boolean getSwValida() {
-		return swValida;
+	public String getNombreArticuloSinStock() {
+		return nombreArticuloSinStock;
 	}
 
-	public void setSwValida(Boolean swValida) {
-		this.swValida = swValida;
+
+	public void setNombreArticuloSinStock(String nombreArticuloSinStock) {
+		this.nombreArticuloSinStock = nombreArticuloSinStock;
 	}
+
 
 	public String getsImporte() {
 		return sImporte;
@@ -371,6 +393,52 @@ public class VentaBean extends BaseBean {
 	public void setMotivoElimina(String motivoElimina) {
 		this.motivoElimina = motivoElimina;
 	}
+	public int getCantidadTransVenta() {
+		return cantidadTransVenta;
+	}
+	public void setCantidadTransVenta(int cantidadTransVenta) {
+		this.cantidadTransVenta = cantidadTransVenta;
+	}
+	public int getCantidadTransAnul() {
+		return cantidadTransAnul;
+	}
+	public void setCantidadTransAnul(int cantidadTransAnul) {
+		this.cantidadTransAnul = cantidadTransAnul;
+	}
+	public int getCantidadTransTotal() {
+		return cantidadTransTotal;
+	}
+	public void setCantidadTransTotal(int cantidadTransTotal) {
+		this.cantidadTransTotal = cantidadTransTotal;
+	}
+	public float getImporteVenta() {
+		return importeVenta;
+	}
+	 
+	public float getImporteAnulacion() {
+		return importeAnulacion;
+	}
+
+
+	public void setImporteAnulacion(float importeAnulacion) {
+		this.importeAnulacion = importeAnulacion;
+	}
+
+
+	public float getImporteTotal() {
+		return importeTotal;
+	}
+
+
+	public void setImporteTotal(float importeTotal) {
+		this.importeTotal = importeTotal;
+	}
+
+
+	public void setImporteVenta(float importeVenta) {
+		this.importeVenta = importeVenta;
+	}
+
 
 	@Override
 	public String toString() {

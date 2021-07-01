@@ -2,20 +2,13 @@ package proyect.core.bean.general;
 
 import proyect.base.bean.BaseBean;
 
-public class PacienteBean extends BaseBean {
-	
-	private PersonaBean persona;
+public class PacienteBean extends PersonaBean {
+	 
 	private String	nroIEDS;
 	private String	nroHC;
     private CatalogoBean tipoPaciente;
     
-    
-	public PersonaBean getPersona() {
-		return persona;
-	}
-	public void setPersona(PersonaBean persona) {
-		this.persona = persona;
-	}
+     
 	public String getNroIEDS() {
 		return nroIEDS;
 	}

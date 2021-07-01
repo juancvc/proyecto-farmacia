@@ -43,20 +43,10 @@ import proyect.core.entity.stock.Stock;
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 	  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="nroDocumento", type=String.class)
 							}					
-				),
-				@NamedStoredProcedureQuery(
-						name="inventario.insertHistorico", 
-						procedureName="[dbo].[usp_Inventario_insertarHistorico]",
-						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idFarmacia", 	 type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ipRegistro", 	 type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroDocumento", 	 type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioRegistro", type=String.class )
-							}					
-				),
+				), 
 				@NamedStoredProcedureQuery(
 						name="inventario.validarExisteInventario", 
-						procedureName="[dbo].[SP_INVENTARIO_VALIDAR_EXISTE]",
+						procedureName="[dbo].[usp_Inventario_validarExiste]",
 						resultClasses = Inventario.class,
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
@@ -86,6 +76,20 @@ import proyect.core.entity.stock.Stock;
 								@StoredProcedureParameter(mode=ParameterMode.IN, name="anio", type=String.class)
 							}					
 				),
+				@NamedStoredProcedureQuery(
+						name="inventario.procesar", 
+						procedureName="[dbo].[usp_Inventario_procesar]",
+						resultClasses = Inventario.class,
+						parameters={
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idInventario", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", type=String.class), 
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nroDocumento", 	 type=String.class), 
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="periodo", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioRegistro", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ipRegistro", 	 type=String.class)
+							}					
+				),
 		}
 	)
 @Entity
@@ -97,7 +101,7 @@ public class Inventario  {
 	@Column(name="idAlmacen")
 	private String idAlmacen;
 	 
-	@Column(name="idPersonalResponsable")
+	@Column(name="idPersonaResponsable")
 	private String idPersonalResponsable;
 	 
 	@Column(name="ID_STOCK")
@@ -145,6 +149,9 @@ public class Inventario  {
 	private String estado;
 	private String idSituacion;
 	private String situacion;
+	private String nombresEncargado;
+	private String apellidoPaternoEncargado;
+	private String apellidoMaternoEncargado;
 	
 	public Inventario() { 
 	}
@@ -393,6 +400,30 @@ public class Inventario  {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getNombresEncargado() {
+		return nombresEncargado;
+	}
+
+	public void setNombresEncargado(String nombresEncargado) {
+		this.nombresEncargado = nombresEncargado;
+	}
+
+	public String getApellidoPaternoEncargado() {
+		return apellidoPaternoEncargado;
+	}
+
+	public void setApellidoPaternoEncargado(String apellidoPaternoEncargado) {
+		this.apellidoPaternoEncargado = apellidoPaternoEncargado;
+	}
+
+	public String getApellidoMaternoEncargado() {
+		return apellidoMaternoEncargado;
+	}
+
+	public void setApellidoMaternoEncargado(String apellidoMaternoEncargado) {
+		this.apellidoMaternoEncargado = apellidoMaternoEncargado;
 	}
 
 }

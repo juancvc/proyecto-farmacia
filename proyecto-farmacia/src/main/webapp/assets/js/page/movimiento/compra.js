@@ -1,5 +1,6 @@
 var accionRealizar = "";
 var codigoRegistro = "";
+var porcentaje = 0.0; 
 
 function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
@@ -24,12 +25,14 @@ $(document).ready(function() {
 	});
 });
 
+
 function llenarArticuloIndex(index) {
+	
 	var contextPath = $('#contextPath').val();
 	var htmlTabla = "";
 	var item = 0;
 	var valida = "0";
-	console.log("index" + index);
+	console.log("index:::" + index);
 	$
 			.ajax({
 				type : "GET",
@@ -69,7 +72,7 @@ function llenarArticuloIndex(index) {
 										+ "value ='"
 										+ objVentaItem.stock.lote
 										+ "' onchange = 'calculaSubTotal(); ' "
-										+ "maxlength='5'/>"
+										+ "maxlength='15'/>"
 										+ "</td>"
 										+ "<td><input type='text' class='form-control' "
 										+ "id="
@@ -164,6 +167,8 @@ function llenarArticuloIndex(index) {
 
 function calculaSubTotal(){  
 	var arrayComprasItem = [];
+	porcentaje = $('#txtPorcentajeVenta').val();
+	porcentaje = porcentaje / 100;
 	/** RECORRER MENU **/
     $("#dataTable tbody tr").each(function (index) 
     {
@@ -220,7 +225,7 @@ function calculaSubTotal(){
 					}
 				} 
         	}
-        	if(index2 == 5 ){ // Columna precio Compra
+        	if(index2 == 5 ){ // Columna precio costo
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id"); 
@@ -232,15 +237,26 @@ function calculaSubTotal(){
 					}
 				}
         	}
-        	if(index2 == 6 ){ // Columna precio Compra
+        	if(index2 == 6 ){ // Columna precio venta
         		input    = $(this).children("input");
         		idAcceso = $(input).val();
   	   			idCompo  = $(input).attr("id");
-  	   			 
-				for (var i = 0; i < listadoArticulo.length; i++) {
+  	   			
+  	   			console.log("idCompo " + idCompo);
+  	   			
+				for (var i = 0; i < listadoArticulo.length; i++) {{
 					var objVentaItemN = listadoArticulo[i];
 					if (objVentaItemN.stock.articulo.codigo == idCompo) {
-						objVentaItemN.stock.precioVenta =  $(input).val(); 
+						if ($("#chkDonacion").is(":checked")) { 
+							objVentaItemN.stock.precioVenta =  objVentaItemN.stock.precioCompra;  
+						  } else { 
+							objVentaItemN.stock.precioVenta =  Number(objVentaItemN.stock.precioCompra)
+															   + (objVentaItemN.stock.precioCompra * porcentaje); 
+						  } 
+					}
+					$(input).val(objVentaItemN.stock.precioVenta)
+	  	   			
+					//objVentaItemN.stock.precioVenta =  $(input).val(); 
 					}
 				}
         	}
@@ -387,12 +403,51 @@ function cambiarCantidad(objeto) {
 
 }
    
+
 function grabar(){  
+		var contextPath = $('#contextPath').val(); 
+		var actionForm = $('#frmRegistrarCompra').attr("action");
+		var url =contextPath+"/compraController/generarCompra" ;
+		var myFormulario = $('#frmRegistrarCompra'); 
+		console.log("actionForm " + actionForm);
+		var fechaActual = new Date();
+		
+		if(!myFormulario[0].checkValidity()) {
+			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
+
+		} else if (validaContenidoItem == 0) {
+				msg_advertencia("Ingrese al menos una artículo.");
+				return;
+		}else{
+			iniciarBloqueo();
+			$.ajax({
+			type : "GET",
+			url : url,
+			data: $('#frmRegistrarCompra').serialize(),
+			success : function(data) { 
+						msg_exito();
+						document.getElementById("btnListado").click();
+			},
+			
+			error : function(xhr, status, er) { 
+			        console.log("error: " + xhr + " status: " + status + " er:" + er);
+						//msg_error();
+
+					},
+		  			complete: function()	
+  			{ 
+		  				finBloqueo();
+			}
+		}); 
+	} 
+}
+function grabar_(){  
 		var contextPath = $('#contextPath').val(); 
 		var actionForm = $('#frmRegistrarCompra').attr("action");
 		var url =contextPath+"/compraController/llenarCompra" ;
 		var myFormulario = $('#frmRegistrarCompra'); 
 		console.log("actionForm " + actionForm);
+		var fechaActual = new Date();
 		
 		if(!myFormulario[0].checkValidity()) {
 			 msg_advertencia("Debe completar los campos requeridos(*) correctamente");
@@ -408,6 +463,9 @@ function grabar(){
 				if (objExamen.cantidad == '' || objExamen.cantidad == '0') {
 					msg_advertencia("Ingrese cantidad mayor a 0");
 					return;
+				}else if (objExamen.fechaVencimiento <= fechaActual) {
+					msg_advertencia("La fecha de vencimiento no puede ser menor a la actual");
+					return;
 				}
 			}
 			iniciarBloqueo();
@@ -417,6 +475,7 @@ function grabar(){
 				data: $('#frmRegistrarCompra').serialize(),
 				success : function(data) { 
 						    grabarDetalle()  
+						    $("#btnListado").trigger("click");
 				},
 				
 				error : function(xhr, status, er) { 
@@ -566,6 +625,8 @@ function grabarDetalle(){
   	   			objCompraItem.codigo = idCompo; 
   	   		    $(input).html(objCompraItem.cantidad * objCompraItem.precioCompra);
   	   		    
+  	   		    console.log("objCompraItem.cantidad " + objCompraItem.cantidad);
+  	   		    console.log("objCompraItem.precioCompra " + objCompraItem.precioCompra);
   	   		    
 				objCompraItem.item 			= index+1;
 				objCompraItem.codigo 		= idAcceso;
@@ -624,96 +685,76 @@ function enviarDatosAccesoAjax(arrayComprasItem){
 
 
 function eliminarArticulo(codigo) {
+	validaContenidoItem = 0;
+	var importe = 0.00;
+	var contextPath = $('#contextPath').val();
 	var htmlTabla = "";
 	var item = 0;
+	var valida = "0";
+	var actionForm = $('#frmAgregarArticulos').attr("action");
+	var url = contextPath + "/compraController/removerCompraItem?index="+ codigo;
+	var myFormulario = $('#frmAgregarArticulos');
+	console.log("index:::" + codigo);
+	$
+			.ajax({
+				type : "POST", 
+				url : url,
+				success : function(data) {
+					if (data != null) {
+						for (var i = 0; i < data.length; i++) {
+							validaContenidoItem = 1;
+							var objVentaItem = data[i];
+							importe = importe + objVentaItem.subtotal;
+							item = item + 1;
+							htmlTabla += "<tr>" + "<td>"
+									+ item
+									+ "</td>"
+									+ "<td>"
+									+ "<label for='nombreCompleto' class='label_control' id="
+									+ [ objVentaItem.stock.articulo.codigo ]
+							        + " >" + objVentaItem.stock.articulo.nombre
+									+ "</label>" 
+									+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.lote ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.sFechaVencimiento ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.nroRegistroSanitario ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.precioCompra ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.precioVenta ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.cantidad ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.subtotal ]+ "</td>"
+									+ "<td>"
+									+ "<button type='button'"
+									+ " class='btn btn-outline-danger btn-sm' "
+									+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
+									+ "  onclick=\"confirmar_eliminar('"
+									+ [ item ]
+									+ "','1');\""
+									+ " data-original-title='Eliminar'"
+									+ " id='agregarEspecialidad'>"
+									+ "  <i class='fas fa-trash'></i></button> "
+									+ "</td>" + "</tr>"; 
+						} 
+							$('#idbodyStock').empty();
+							$('#idbodyStock').html(htmlTabla);
+							$('#txtCajaImporteTotal').val(importe.toFixed(2));
+							$('#txtCajaImporteTotalHidden').val(importe.toFixed(2));
+					}
 
-	console.log("codigo " + codigo);
-	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
-		if (objVentaItem.stock.codigo == codigo) {
-			console.log("objVentaItem.stock.codigo "
-					+ objVentaItem.stock.codigo);
-			listadoArticulo.splice(i, 1);
-		}
-	}
-	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
-		item = item + 1;
-		htmlTabla += "<tr>" + "<td>"
-		+ item
-		+ "</td>"
-		+ "<td>"
-		+ "<label for='nombreCompleto' class='label_control' id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-        + " >" + objVentaItem.stock.articulo.nombre
-		+ "</label>" 
-		+ "</td>"
-		+ "<td><input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-		+ " required='required' "
-		+ "value =''"
-		+ "maxlength='5'/>"
-		+ "</td>"
-		+ "<td><input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-		+ " required='required' "
-		+ "placeholder='DD/MM/YYYY'"
-		+ "maxlength='10' "
-		+ "onkeyup='this.value=formateafecha(this.value);' />"
-		+ "</td>"
-		+ "<td><input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-		+ " required='required' "
-		+ "value =''"
-		+ "maxlength='100'/>"
-		+ "</td>"
-		+ "<td><input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-		+ " required='required' onkeypress= 'return decimales(event,this); '"
-		+ "value ='0' onchange = 'calculaSubTotal(); ' "
-		+ "maxlength='100'/>"
-		+ "</td>"
-		+ "<td><input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-		+ " required='required' "
-		+ "value ='0'"
-		+ "maxlength='100'/>"
-		+ "</td>"
-		+ "<td> <input type='text' class='form-control' "
-		+ "id="
-		+ [ objVentaItem.stock.codigo ]
-		+ " required='required' "
-		+ "value ='"
-		+ objVentaItem.cantidad
-		+ "' "
-		+ "maxlength='5' onkeypress= 'return decimales(event,this); '"
-		+ "onkeypress= 'return soloNumeros(event);'" 
-		+ "onchange = 'calculaSubTotal(); '  /></td>"
-		+ "<td>"
-		+ "<label for='nombreCompleto' id="
-		+ [ objVentaItem.stock.articulo.codigo ]
-        + "class='label_control'>0" 
-		+ "</label>"
-		+ "</td>"
-		+ "<td>"
-		+ "<button type='button'"
-		+ " class='btn btn-outline-danger btn-sm' "
-		+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
-		+ "  onclick=\"confirmar_eliminar('"
-		+ [ objVentaItem.stock.codigo ]
-		+ "','1');\""
-		+ " data-original-title='Eliminar'"
-		+ " id='agregarEspecialidad'>"
-		+ "  <i class='fas fa-trash'></i></button> "
-		+ "</td>" + "</tr>";
-	}
-	$('#idbodyStock').empty();
-	$('#idbodyStock').html(htmlTabla);
+				},
+				error : function(xhr, status, er) {
+					console.log("error: " + xhr + " status: " + status + " er:"
+							+ er);
+					if (xhr.status == 500) {
+						console.log(er);
+						// Error_500(er);
+					}
+					if (xhr.status == 901) {
+						console.log(er);
+						// spire_session_901(er);
+					}
+
+				}
+			});
 
 }
 
@@ -792,5 +833,206 @@ function anularVenta(codigoRegistro){
 		},
 		error : function() {
 		}
+	}); 
+}
+
+function cambiarDonacion() {
+	  if ($("#chkDonacion").is(":checked")) {
+		  $('#txtSwDonacion').val("1"); 
+		  obtenerValorCompra("1");
+	  } else {
+		  $('#txtSwDonacion').val("0"); 
+		  obtenerValorCompra("0");
+	  }
+	}
+
+function obtenerValorCompra(tipo){  
+	var arrayComprasItem = [];
+	/** RECORRER MENU **/
+    $("#dataTable tbody tr").each(function (index) 
+    {
+    	var asignado,input,idAcceso,idCompo;
+    	
+    	var objCompra = {
+	  		codigo : 0	
+	  	};
+	    	
+		var objCompraItem = {
+			item 		: 0,
+			codigo		: 0,
+			precioCompra : '0',
+			precioVenta	: 0,
+			cantidad 	: 0,
+			subtotal 	: 0,
+			flgExport 	: false
+	  	};
+    	
+        $(this).children("td").each(function (index2) 
+        {
+        	
+        	if(index2 == 5 ){ // Columna precio Compra
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id"); 
+  	   			console.log("tipo " + tipo);
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.stock.precioCompra =  $(input).val(); 
+						if (tipo = "1") {
+							objVentaItemN.stock.precioVenta =  objVentaItemN.stock.precioCompra; 
+						}else{
+							objVentaItemN.stock.precioVenta =  objVentaItemN.stock.precioCompra * 1.25; 
+						} 
+						console.log("objVentaItemN.stock.precioVenta ::" + objVentaItemN.stock.precioVenta);
+						$(idCompo).html(objVentaItemN.stock.precioVenta);
+					}
+				}
+        	}
+        	if(index2 == 6 ){ // Columna precio Venta
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id");
+  	   			console.log("idAcceso ::" + idAcceso);
+  	   			console.log("input ::" + input);
+  	   			console.log("idCompo ::" + idCompo);
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						console.log("COSTO ::" + objVentaItemN.stock.precioCompra * 1.25);
+						console.log("Venta ::" + objVentaItemN.stock.precioVenta);
+						$(idCompo).val("13.50");
+					}
+				}
+        	}
+        	if(index2 == 7 ){ // Columna cantidad
+        		input    = $(this).children("input");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id"); 
+  	   		    
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.cantidad =  $(input).val(); 
+					}
+				}
+        	}
+        	if(index2 == 8 ){ // Columna sub total
+        		input    = $(this).children("label");
+        		idAcceso = $(input).val();
+  	   			idCompo  = $(input).attr("id"); 
+  	   			
+				for (var i = 0; i < listadoArticulo.length; i++) {
+					var objVentaItemN = listadoArticulo[i];
+					if (objVentaItemN.stock.articulo.codigo == idCompo) {
+						objVentaItemN.subtotal =  objVentaItemN.cantidad * objVentaItemN.stock.precioCompra;
+						console.log("objVentaItemN.subtotal " + objVentaItemN.subtotal);
+						$(input).html(objVentaItemN.subtotal);
+					}
+				}
+	        	
+        	}
+        })
+        arrayComprasItem.push(objCompraItem);
+    })	
+	var importe = 0.00;
+	for (var i = 0; i < listadoArticulo.length; i++) {
+		var objVentaItem = listadoArticulo[i];
+		importe = importe
+				+ Number(objVentaItem.subtotal);
+	}
+	$('#txtCajaImporteTotal').val(importe.toFixed(2));
+	$('#txtCajaImporteTotalHidden').val(
+			importe.toFixed(2));
+}
+
+function cargarArticulos() {
+	var contextPath = $('#contextPath').val();
+	path = contextPath + "/compraController/articuloModal";
+	$.ajax({
+		type : "POST",
+		url : path,
+
+		success : function(data) {
+			$("#modalArticulo").html(data);
+			$("#modalArticulo").modal('show');
+		},
+		error : function(request, status, error) {
+			console.log("ERROR: " + error);
+		}
 	});
+}
+
+
+function llenarDatosItem(index) {
+	var importe = 0.00;
+	var contextPath = $('#contextPath').val();
+	var htmlTabla = "";
+	var item = 0;
+	var valida = "0";
+	var actionForm = $('#frmAgregarArticulos').attr("action");
+	var url = contextPath + "/compraController/llenarCompraItem";
+	var myFormulario = $('#frmAgregarArticulos');
+	console.log("index:::" + index);
+	$
+			.ajax({
+				type : "POST",
+				data : $('#frmAgregarArticulos').serialize(),
+				url : url,
+				success : function(data) {
+					if (data != null) {
+						validaContenidoItem = 1;
+						for (var i = 0; i < data.length; i++) {
+							var objVentaItem = data[i];
+							importe = importe + objVentaItem.subtotal;
+							item = item + 1;
+							htmlTabla += "<tr>" + "<td>"
+									+ item
+									+ "</td>"
+									+ "<td>"
+									+ "<label for='nombreCompleto' class='label_control' id="
+									+ [ objVentaItem.stock.articulo.codigo ]
+							        + " >" + objVentaItem.stock.articulo.nombre
+									+ "</label>" 
+									+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.lote ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.sFechaVencimiento ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.nroRegistroSanitario ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.precioCompra ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.stock.precioVenta ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.cantidad ]+ "</td>"
+									+ "<td>"+ [ objVentaItem.subtotal ]+ "</td>"
+									+ "<td>"
+									+ "<button type='button'"
+									+ " class='btn btn-outline-danger btn-sm' "
+									+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
+									+ "  onclick=\"confirmar_eliminar('"
+									+ [ item ]
+									+ "','1');\""
+									+ " data-original-title='Eliminar'"
+									+ " id='agregarEspecialidad'>"
+									+ "  <i class='fas fa-trash'></i></button> "
+									+ "</td>" + "</tr>"; 
+						} 
+							$('#idbodyStock').empty();
+							$('#idbodyStock').html(htmlTabla);
+							$('#txtCajaImporteTotal').val(importe.toFixed(2));
+							$('#txtCajaImporteTotalHidden').val(importe.toFixed(2));
+					}
+
+				},
+				error : function(xhr, status, er) {
+					console.log("error: " + xhr + " status: " + status + " er:"
+							+ er);
+					if (xhr.status == 500) {
+						console.log(er);
+						// Error_500(er);
+					}
+					if (xhr.status == 901) {
+						console.log(er);
+						// spire_session_901(er);
+					}
+
+				}
+			});
 }

@@ -26,7 +26,7 @@ import org.bridj.cpp.com.DECIMAL;
 		{
 			@NamedStoredProcedureQuery(
 				name="venta.insertar", 
-				procedureName="[dbo].[usp_Venta_insertar]",
+				procedureName="[dbo].[usp_Venta_insertar_v2]",
 				resultClasses= Venta.class,
 				parameters={
 						    @StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		  type=Integer.class),
@@ -34,8 +34,6 @@ import org.bridj.cpp.com.DECIMAL;
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idVenta", 		  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="numeroPeriodo",   type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPersona", 	  type=String.class),
-							 
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", 		  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaAtencion",   type=String.class),
 						
@@ -48,22 +46,30 @@ import org.bridj.cpp.com.DECIMAL;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock",   type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidadFaltante",  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoMoneda", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoMoneda", 	  type=String.class),
 							
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmision", 	  type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoComprobanteCat02", type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoOperacionCat02", 	 type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroSerie", 	  	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idProcedenciaCat02", 	 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoCuentaCta02", 	 type=String.class),
+							 /*****parámetros cuenta corriente sigehov2*****/
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroEpisodio",  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="idEpisodio", 	  type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="periodoEpisodio", type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="versionEpisodio", type=String.class),
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoPaciente",    type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="codctacte", 	  type=String.class),
 						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perctacte", 	  type=String.class),
 						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verctacte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="codepicta", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="perepicte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="verepicte", 	  type=String.class),
-						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoPaci", 	      type=String.class)
-					}
+						    /*****fin parámetros cuenta corriente sigehov2*****/
+						    @StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="macRegistro", 	  type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.OUT,  name="idError", 	      type=Integer.class),
+							@StoredProcedureParameter(mode=ParameterMode.OUT,  name="descripError",   type=String.class),
+				}
 					),
 		
 			@NamedStoredProcedureQuery(
@@ -73,7 +79,7 @@ import org.bridj.cpp.com.DECIMAL;
 				parameters={
 				
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idVenta",  type=String.class),
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroEpisodio", type=String.class)
 					}					
 					),
 			@NamedStoredProcedureQuery(
@@ -136,11 +142,11 @@ import org.bridj.cpp.com.DECIMAL;
 				}					
 				),
 				@NamedStoredProcedureQuery(
-						name="venta.buscarArticulosxIdEvento", 
-						procedureName="[dbo].[usp_Venta_listaArticulosxIdEvento]",
+						name="venta.buscarArticulosxnumeroEpisodio", 
+						procedureName="[dbo].[usp_Venta_listaArticulosxnumeroEpisodio]",
 						resultClasses= Venta.class,
 						parameters={
-							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idEvento", type=String.class)
+							@StoredProcedureParameter(mode=ParameterMode.IN,  name="numeroEpisodio", type=String.class)
 				}					
 				),
 				@NamedStoredProcedureQuery(
@@ -344,6 +350,14 @@ import org.bridj.cpp.com.DECIMAL;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="mes",  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="anio",  type=String.class),
 				}					
+				),@NamedStoredProcedureQuery(
+						name="venta.reporteRecaudacion", 
+						procedureName="[dbo].[usp_Venta_reporteRecaudacion]",
+						resultClasses= Venta.class,
+						parameters={
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmisionDesde", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="fechaEmisionHasta", type=String.class)
+				}					
 				)
 		}			
 	)
@@ -365,7 +379,7 @@ public class Venta  implements Serializable {
 
 	private String idAlmacen;
 
-	private String idEvento;
+//	private String numeroEpisodio;
 
 	private String idModalidadPago;
 
@@ -419,8 +433,74 @@ public class Venta  implements Serializable {
 	
 	private int cantidadItems;
 	
+	private int cantidadTransVenta;
+	private int cantidadTransAnul;
+	private int cantidadTransTotal;
+	private float ImporteVenta;
+	private float ImporteAnulacion;
+	private float ImporteTotal;
 	
 	public Venta() { 
+	}
+
+
+	public int getCantidadTransTotal() {
+		return cantidadTransTotal;
+	}
+
+
+	public void setCantidadTransTotal(int cantidadTransTotal) {
+		this.cantidadTransTotal = cantidadTransTotal;
+	}
+
+
+	public float getImporteTotal() {
+		return ImporteTotal;
+	}
+
+
+	public void setImporteTotal(float importeTotal) {
+		ImporteTotal = importeTotal;
+	}
+
+
+	public int getCantidadTransVenta() {
+		return cantidadTransVenta;
+	}
+
+
+	public void setCantidadTransVenta(int cantidadTransVenta) {
+		this.cantidadTransVenta = cantidadTransVenta;
+	}
+
+
+	public int getCantidadTransAnul() {
+		return cantidadTransAnul;
+	}
+
+
+	public void setCantidadTransAnul(int cantidadTransAnul) {
+		this.cantidadTransAnul = cantidadTransAnul;
+	}
+
+
+	public float getImporteVenta() {
+		return ImporteVenta;
+	}
+
+
+	public void setImporteVenta(float importeVenta) {
+		ImporteVenta = importeVenta;
+	}
+
+
+	public float getImporteAnulacion() {
+		return ImporteAnulacion;
+	}
+
+
+	public void setImporteAnulacion(float importeAnulacion) {
+		ImporteAnulacion = importeAnulacion;
 	}
 
 
@@ -511,16 +591,16 @@ public class Venta  implements Serializable {
 		this.idAlmacen = idAlmacen;
 	}
 
-
-	public String getIdEvento() {
-		return idEvento;
+/*
+	public String getnumeroEpisodio() {
+		return numeroEpisodio;
 	}
 
 
-	public void setIdEvento(String idEvento) {
-		this.idEvento = idEvento;
+	public void setnumeroEpisodio(String numeroEpisodio) {
+		this.numeroEpisodio = numeroEpisodio;
 	}
-
+*/
 
 	public String getIdModalidadPago() {
 		return idModalidadPago;

@@ -139,7 +139,7 @@ public class ArticuloController extends BaseController{
 			e.printStackTrace();
 		}
 		ModelAndView mav = new ModelAndView("mantenimiento/articulo/registro-articulo", "command", articuloBean); 
-		
+		System.out.println("articuloBean.getSwDecimal " + articuloBean.getSwDecimal());
 		mav.addObject("totalStock", totalStock);
 		mav.addObject("lstStock", lstStock);
 		this.cargarCombos(mav);

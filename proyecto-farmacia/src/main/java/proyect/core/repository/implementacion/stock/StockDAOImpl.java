@@ -1,6 +1,7 @@
 package proyect.core.repository.implementacion.stock;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class StockDAOImpl implements StockDAO{
 		
 		StockBean bean = null; 
 		if (entity != null) {
-			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
 			bean = new StockBean();
 			bean.setCodigo(entity.getIdStock());   
 			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
@@ -152,6 +153,9 @@ public class StockDAOImpl implements StockDAO{
 			bean.setPrecioCompra(entity.getPrecioCompra());
 			bean.setPrecioVenta(entity.getPrecioVenta());
 			bean.setFechaVencimiento(entity.getFechaVencimiento());
+			if (entity.getFechaVencimiento() !=null) {
+				bean.setsFechaVencimiento(dateFormat.format(entity.getFechaVencimiento()));
+			}
 			bean.getTipoFinanciador().setDescripcionCorta(entity.getTipoFinanciamiento());
 			bean.getTipoSeleccion().setDescripcionCorta(entity.getTipoProcesoSeleccion());
 			bean.getModalidadAdquision().setDescripcionCorta(entity.getNombreModalidadAdquisicion());

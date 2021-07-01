@@ -28,16 +28,14 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class)
 						}					
 				),
-				
 				@NamedStoredProcedureQuery(
-						name="persona.findByObject", 
-						procedureName="PKG_PERSONA.SP_BUSCAR_X_ID",
+						name="persona.buscarPorDocumentoV2", 
+						procedureName="[usp_Persona_buscarxNroDocumentoV2]",
 						resultClasses= Persona.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="P_C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="P_ID_PERSONA", type=Long.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class)
 							}					
-					),
+					), 
 				@NamedStoredProcedureQuery(
 						name="persona.buscarPorFiltros", 
 						procedureName="usp_Persona_buscarxCriterios",
@@ -55,7 +53,7 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="apellidoMaterno", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombres", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="direccion", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaNacimiento", type=Date.class ),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="fechaNacimiento", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoDocumentoCat02", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroDocumento", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN, name="ruc", type=String.class ), 
@@ -69,56 +67,7 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class)
 							}					
 				),
-				
-				@NamedStoredProcedureQuery(
-						name="persona.modificar", 
-						procedureName="[Farmacia].[dbo].[SP_PERSONAL_MODIFICAR]",
-						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_PERSONA", type=Long.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="APELLIDO_PATERNO", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="APELLIDO_MATERNO", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="PRIMER_NOMBRE", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="SEGUNDO_NOMBRE", type=String.class),								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="FECHA_NACIMIENTO", type=Date.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEXO", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="DIRECCION", type=String.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NRO_DOCUMENTO", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_MAC", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_IP", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_ID_USUARIO", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
-						}					
-										
-				),
-
-				@NamedStoredProcedureQuery(
-						name="persona.delete", 
-						procedureName="PKG_PERSONA.SP_ELIMINAR",
-						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="P_ID_PERSONA", type=Long.class )
-							}					
-				),
-				@NamedStoredProcedureQuery(
-						name="persona.buscarXNroDocumento", 
-						procedureName="[dbo].[SP_PERSONA_BUSCAR_X_NRO_DOCUMENTO]",
-						resultClasses= Persona.class,
-						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="P_C_CURSOR", type=void.class ), 
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_ORGANIZACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SEDE", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NRO_DOCUMENTO", type=String.class)
-							}					
-					),
+				 
 				@NamedStoredProcedureQuery(
 						name="persona.insertPersonaGise", 
 						procedureName="[dbo].[SP_PERSONA_INSERTAR]",
@@ -196,6 +145,9 @@ public class Persona   implements Serializable {
 	
 	@Column(name="usuarioRegistro")
 	private String usuarioRegistro;
+	
+	@Column(name="codPersoSigeho")
+	private String codPersoSigeho;
 	
 	public String getIdEstadoCivil() {
 		return idEstadoCivil;
@@ -324,7 +276,12 @@ public class Persona   implements Serializable {
 	public void setUsuarioRegistro(String usuarioRegistro) {
 		this.usuarioRegistro = usuarioRegistro;
 	}
-	
 
-	 
+	public String getCodPersoSigeho() {
+		return codPersoSigeho;
+	}
+
+	public void setCodPersoSigeho(String codPersoSigeho) {
+		this.codPersoSigeho = codPersoSigeho;
+	}
 }

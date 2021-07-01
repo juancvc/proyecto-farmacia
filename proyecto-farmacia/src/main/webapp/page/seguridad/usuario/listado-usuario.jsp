@@ -65,7 +65,7 @@
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
 				<f:form id="frmListadoArticulo" role="form"
-					action="${pageContext.request.contextPath}/articuloController/buscar">
+					action="${pageContext.request.contextPath}/usuarioController/buscar">
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
 
@@ -89,7 +89,7 @@
 												USUARIO </label>
 											<div class="controls">
 												<f:input type="text" class="form-control"
-													required="required" id="txtnombre" path="nombreUsuario" />
+													 id="txtnombre" path="nombreUsuario" />
 
 											</div>
 										</div>
@@ -173,7 +173,7 @@
 																			class='btn btn-outline-danger btn-sm'
 																			data-toggle='tooltip' data-placement='top'
 																			title='Eliminar'
-																			onclick="confirmar_eliminar(${loop.count});"
+																			onclick="confirmar_eliminar(${loop.count},'0');"
 																			data-original-title='Eliminar'
 																			id='agregarEspecialidad'>
 																			<i class='fas fa-trash'></i>

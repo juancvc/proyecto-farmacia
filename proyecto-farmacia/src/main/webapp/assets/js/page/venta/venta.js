@@ -1,5 +1,6 @@
 var accionRealizar = "";
 var codigoRegistro = "";
+var swValidaSoloNumero= 1;
 
 function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
@@ -64,9 +65,10 @@ function grabarPersona() {
 	if (!myFormulario[0].checkValidity()) {
 		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-	} else if (telefono.length < 7) {
-		msg_advertencia("Ingrese número de celular correcto.");
-
+	} else if(telefono.length != 0){
+		if(telefono.length > 9){
+			msg_advertencia("Ingrese número de celular correcto.");
+		} 
 	} else if (codigoRegistroUbigeoDireccion.length == 0) {
 		msg_advertencia("Ingrese ubigeo de dirección.");
 
@@ -174,7 +176,7 @@ function llenarArticuloIndex(index) {
 										+ "' "
 										+ "maxlength='3' "
 										+ "onkeypress= 'return soloNumeros(event);' "
-										+ "oninput=\"cambiarCantidad('"
+										+ "onchange=\"cambiarCantidad('"
 										+ [ objVentaItem.stock.codigo ]
 										+ "');\" /></td>"
 										+ "<td>"
@@ -374,7 +376,7 @@ function cambiarCantidad(objeto) {
 				+ "' "
 				+ "maxlength='3' "
 				+ "onkeypress= 'return soloNumeros(event);' "
-				+ "oninput=\"cambiarCantidad('"
+				+ "onchange=\"cambiarCantidad('"
 				+ [ objVentaItem.stock.codigo ]
 				+ "');\" /></td>"
 				+ "<td>"
@@ -447,18 +449,23 @@ function cargarPersona() {
 		// finBloqueo();
 	}
 }
-
+ 
+ 
 function grabar() {
 	var contextPath = $('#contextPath').val();
 	var actionForm = $('#frmGenerarVenta').attr("action");
 	var url = contextPath + "/ventaController/llenarVenta";
 	var myFormulario = $('#frmGenerarVenta');
+	var estadoCuenta = $('#txtEstadoCuenta').val();
 	console.log("actionForm " + actionForm);
 
 	if (!myFormulario[0].checkValidity()) {
 		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-	} else {
+	}else if (estadoCuenta == 'LIQUIDADO') {
+		msg_advertencia("La cuenta se encuentra liquidada, no se puede realizar la carga.");
+
+	}else {
 		$.ajax({
 			type : "GET",
 			url : url,
@@ -499,12 +506,19 @@ function grabarDetalle() {
 			msg_advertencia("Ingrese al menos una artículo.");
 			return;
 		}
-
+		
 		for (var i = 0; i < listadoArticulo.length; i++) {
 			var objExamen = listadoArticulo[i];
 			if (objExamen.cantidad == '' || objExamen.cantidad == '0') {
 				msg_advertencia("Ingrese cantidad mayor a 0");
 				return;
+			}else{
+				console.log("objExamen.cantidad " + objExamen.cantidad);
+				validarSoloNumeros(objExamen.cantidad);
+				if(swValidaSoloNumero == 0){
+					msg_advertencia("Sólo se permite valores numéricos en cantidad.");
+					return;
+				}
 			}
 		}
 		iniciarBloqueo();
@@ -514,15 +528,27 @@ function grabarDetalle() {
 			data : JSON.stringify(listadoArticulo),
 			url : contextPath + "/ventaController/grabarVenta",
 
-			success : function(data) {
-				// console.log("SUCCESS: ", data);
-				if (data == "") {
-					msg_error("Error al registrar venta");
-				} else {
+			success : function(venta) {
+				 console.log("SUCCESS: ", venta.codigo);
+				if (venta.valida == 0) {
+				//	msg_advertencia("Sin Stock suficiente"); 
+					$("#md_Error").modal('show');
+					$("#labelTituloError").html("SIN STOCK SUFICIENTE");
+					$("#txt_detalleError").html(venta.error);
+					//alert("");
+				}else if (venta.valida == 3) {
+				//	msg_advertencia("Sin Stock suficiente"); 
+					$("#md_Error").modal('show');
+					$("#labelTituloError").html("MONTO TOPE INSUFICIENTE");
+					$("#txt_detalleError").html(venta.error);
+					//alert("");
+				}else if (venta.valida == 1){
 					msg_exito("Éxito al registrar venta");
 					// enviarListado();
 					// verTicket();
-					document.getElementById("btnNuevo").click();
+					//document.getElementById("btnNuevo").click();
+				}else{
+					msg_error("Error al registrar venta");
 				}
 
 			},
@@ -578,7 +604,7 @@ function eliminarArticulo(codigo) {
 				+ "' "
 				+ "maxlength='3' "
 				+ "onkeypress= 'return soloNumeros(event);' "
-				+ "oninput=\"cambiarCantidad('"
+				+ "onchange=\"cambiarCantidad('"
 				+ [ objVentaItem.stock.codigo ]
 				+ "');\" /></td>"
 				+ "<td>"
@@ -667,10 +693,14 @@ function cambiarTipoComprobante() {
 }
 
 function limpiarPersona() {
-	$('#personaApellidoPaterno').val("");
-	$('#personaApellidoMaterno').val("");
-	$('#personaNombres').val("");
+	$('#nroDocumentoPaciente').val("");
+	$('#nombrePaciente').val("");
+	$('#nroHC').val("");
+	$('#cboTipoFinanciador').val(""); 
 	$('#personaCodigo').val("");
+	$('#descripcionTipoCuenta').val("");
+	$('#txtEstadoCuenta').val("");
+	
 }
 
 /**
@@ -916,22 +946,22 @@ function grabarDetalleDevolucion() {
 				console.log("objVenta.codigo " + objVenta.codigo);
 				objVentaItem.venta = objVenta; 
 			}
-			if (index2 == 3) { // Columna articulo 
+			if (index2 == 3) { // Columna articulo
 				input = $(this).children("span");
 				objStock.codigo  = $(input).attr("id"); 
 				objVentaItem.stock = objStock;
 			}
-			if (index2 == 4) { // Columna lote 
+			if (index2 == 4) { // Columna lote
 				input = $(this).children("span"); 
 				objStock.lote = $(input).html();
 				console.log("objArticulo.lote " + objStock.lote); 
 				objVentaItem.stock = objStock;
 			}
-			if (index2 == 6) { // Columna cantidad devuelta 
+			if (index2 == 6) { // Columna cantidad devuelta
 				input = $(this).children("input"); 
 				objVentaItem.cantidad = $(input).val(); 
 			}
-			if (index2 == 8) { // Columna cantidad devuelta 
+			if (index2 == 8) { // Columna cantidad devuelta
 				input = $(this).children("span"); 
 				objVentaItem.precio = $(input).html(); 
 			}
@@ -985,3 +1015,127 @@ function tiene_letras(texto){
 	   }
 	   return 0;
 	}
+
+function buscarNroEpisodio(e){
+	
+	var contextPath = $('#contextPath').val();
+	var numeroDocumento = $('#nroDocumento').val(); 
+	var htmlTabla = "";
+	  
+	if (e.keyCode == 13) {
+			console.log("consultarPersonaPorDocumento numeroDocumento "
+					+ numeroDocumento );
+			if (numeroDocumento == null || numeroDocumento.trim() == "") {
+				msg_advertencia("Ingrese un número de documento.");
+				return;
+			
+			} else {
+				// console.log("validarDni " + numeroDocumento );
+				iniciarBloqueo();
+				$
+						.ajax({
+							type : "GET",
+							url : contextPath
+									+ "/ventaController/consultarCtaCorriente?numero=" + numeroDocumento,
+
+							success : function(cuenta) {
+								 if (cuenta != null) {
+										console.log("persona.length " + cuenta.length);
+
+										if (cuenta.length != 0) {
+											$('#nroDocumentoEpisodio').val(
+													cuenta.episodio.numeroEpisodio);
+											$('#nroDocumento').val(
+													cuenta.episodio.paciente.nroDocumento);
+											$('#nombrePaciente').val(
+													cuenta.episodio.paciente.nombreCompleto);
+											$('#nroHC').val(
+													cuenta.episodio.paciente.nroHC);
+											console.log("cuenta.episodio.tipoPaciente.idRegistro::" + cuenta.episodio.tipoPaciente.idRegistro)
+											$('#cboTipoFinanciador').val(
+													cuenta.episodio.tipoPaciente.idRegistro); 
+											$('#personaCodigo').val(cuenta.episodio.paciente.codigo);
+											$('#descripcionTipoCuenta').val(cuenta.tipoCuentaCorriente.descripcionCorta);
+											if(cuenta.sFechaLiquidacion != null){
+												$("#md_Error").modal('show');
+												$("#labelTituloError").html("CUENTA CORRIENTE LIQUIDADO");
+												$("#txt_detalleError").html("La cuenta a sido liquidada el "+ cuenta.sFechaLiquidacion+
+														", no se puede cargar consumo en farmacia.");
+												$("#txtEstadoCuenta").val("LIQUIDADO");
+											}else{
+												$("#txtEstadoCuenta").val("ACTIVO");
+											}
+										} else {
+											msg_advertencia("¡La persona no se encuentra registrada!")
+											limpiarPersona();
+										}
+
+									} else {
+										msg_advertencia("¡No se encontraron resultados.!")
+										limpiarPersona();
+									} 
+							},
+							error : function(xhr, status, er) {
+								console.log("error: " + xhr + " status: " + status
+										+ " er:" + er);
+								if (xhr.status == 500) {
+									console.log(er);
+									// Error_500(er);
+								}
+								if (xhr.status == 901) {
+									console.log(er);
+									// spire_session_901(er);
+								}
+
+							}
+						});
+				finBloqueo();
+			}
+		}
+}
+
+function validarSoloNumeros(dato){ 
+	if( dato != ""){
+	   var valoresAceptados = /^[0-9]+$/;
+	   try {
+		   if (dato.match(valoresAceptados)){
+	    	   swValidaSoloNumero = 1; 
+	       } else {
+	    	   swValidaSoloNumero = 0; 
+	      }
+		} catch (e) {
+			console.log("Error al validar solo número");
+			// TODO: handle exception
+		}
+	      
+	}
+}
+
+function validarGenerar(){
+	var contextPath = $('#contextPath').val();
+	path = contextPath + "/ventaController/validarGenerar";
+    console.log("ram pam")
+	// iniciarBloqueo();
+
+	$.ajax({ 		
+		url : path,
+		type : 'GET',
+		success : function(data) {
+			if(data == ""){
+				 msg_advertencia("No se encontraron registros para generar archivo.");
+			}else{
+				document.getElementById("btnGenerar").click();
+			}
+
+		},
+		error : function(xhr, status, er) {
+			msg_error();
+			console.log("error: " + xhr + " status: " + status + " er:" + er);
+		 
+		},
+		complete : function() { 
+		}
+	});
+    
+}
+

@@ -8,11 +8,48 @@ import java.sql.Timestamp;
  
 
 @NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(name = "catalogo02.insertar", procedureName = "[usp_Catalogo02_insertar]", 
+			resultClasses = Catalogo02.class, parameters = {					
+				@StoredProcedureParameter(mode = ParameterMode.OUT, name = "NroRegistro", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "IdCatalogo", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "DescripcionCorta", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "DescripcionLarga", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "usuarioRegistro", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "ipRegistro", type = String.class)    
+			}),
+	
+	@NamedStoredProcedureQuery(name = "catalogo02.actualizar", procedureName = "[usp_Catalogo02_actualizar]", 
+			resultClasses = Catalogo02.class, parameters = {					
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NroRegistro", 	  type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "IdCatalogo", 	  type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "DescripcionCorta", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "DescripcionLarga", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN,  name="usuarioModificacion", type = String.class ),
+				@StoredProcedureParameter(mode = ParameterMode.IN,  name="ipModificacion", 	  type = String.class)  
+			}),
+	
+	@NamedStoredProcedureQuery(name = "catalogo02.eliminar", procedureName = "[usp_Catalogo02_eliminar]", 
+			resultClasses = Catalogo02.class, parameters = {					
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "NroRegistro", 	  type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "IdCatalogo", 	  type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN,  name="usuarioModificacion", type = String.class ),
+				@StoredProcedureParameter(mode = ParameterMode.IN,  name="ipModificacion", 	  type = String.class)   
+			}),
+	
 	@NamedStoredProcedureQuery(name = "catalogo02.listarPorCodigoTabla", procedureName = "[usp_Catalogo02_listarxCodigoCatalogo]", 
-		resultClasses = Catalogo02.class, parameters = {					
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "CodigoTabla", type = String.class),
-		@StoredProcedureParameter(mode = ParameterMode.IN, name = "tipo", type = int.class) 
-	})
+			resultClasses = Catalogo02.class, parameters = {					
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "CodigoTabla", type = String.class),
+				@StoredProcedureParameter(mode = ParameterMode.IN, name = "tipo", type = int.class) 
+			}),
+	
+	@NamedStoredProcedureQuery(name = "catalogo02.listarTodascatalogos", procedureName = "[usp_Catalogo02_listarTodascatalogos]", 
+			resultClasses = Catalogo02.class, parameters = { 
+			}),
+	
+	@NamedStoredProcedureQuery(name = "catalogo02.listarCatalogoRegistros", procedureName = "[usp_Catalogo02_listarCatalogoRegistros]", 
+			resultClasses = Catalogo02.class, parameters = { 
+			@StoredProcedureParameter(mode = ParameterMode.IN, name = "IdCatalogo", type = String.class),
+			})
 	  
 })
 
@@ -51,8 +88,18 @@ public class Catalogo02 implements Serializable {
 	private String usuarioModificacion;
 
 	private String usuarioRegistro;
-
+	
+	private String nombreCatalogo;
+	
 	public Catalogo02() {
+	}
+
+	public String getNombreCatalogo() {
+		return nombreCatalogo;
+	}
+
+	public void setNombreCatalogo(String nombreCatalogo) {
+		this.nombreCatalogo = nombreCatalogo;
 	}
 
 	public String getDescripcionCorta() {

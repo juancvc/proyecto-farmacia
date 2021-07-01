@@ -69,6 +69,9 @@ public class CompraDAOImpl implements CompraDAO{
 			spq.setParameter("glosa", compra.getGlosa());
 			spq.setParameter("fechaEmision", compra.getsFechaEmision());
 			spq.setParameter("macRegistro", "");
+			spq.setParameter("ppa", compra.getPpa());
+			spq.setParameter("pecosa", compra.getPecosa());
+			spq.setParameter("swDonacion", compra.getSwDonacion());
 			
 			spq.execute();  
 			id = spq.getOutputParameterValue(1);
@@ -90,9 +93,38 @@ public class CompraDAOImpl implements CompraDAO{
 	}
 
 	@Override
-	public boolean actualizar(CompraBean t) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean actualizar(CompraBean compra) throws DAOException {
+		boolean sw=false; 
+		try { 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("compra.actualizar"); 
+			spq.setParameter("idCompra", compra.getCodigo()); 
+			spq.setParameter("numeroPeriodo", compra.getNumeroPeriodo()); 
+			spq.setParameter("numeroDocumento", compra.getNumeroDocumento());
+			spq.setParameter("idAlmacen", compra.getAlmacen().getCodigo()); 
+			spq.setParameter("idTipoFinanciadorCat02", compra.getTipoFinanciamiento().getIdRegistro());
+			spq.setParameter("idTipoProcesoSeleccionCat02", compra.getTipoProcesoSeleccion().getIdRegistro()); 
+			spq.setParameter("idTipoDocumentoCat02", compra.getTipoDocumento().getIdRegistro());
+			spq.setParameter("idSituacion", compra.getSituacion().getIdRegistro());
+			spq.setParameter("idProveedor", compra.getProveedor().getCodigo());
+			spq.setParameter("glosa", compra.getGlosa());
+			spq.setParameter("ppa", compra.getPpa());
+			spq.setParameter("pecosa", compra.getPecosa());
+			spq.setParameter("importe", compra.getImporte());
+			spq.setParameter("swDonacion", compra.getSwDonacion());
+			spq.setParameter("fechaEmision", compra.getsFechaEmision());
+			spq.setParameter("usuarioModificacion", compra.getUsuarioModificacion());  
+			spq.setParameter("ipModificacion", compra.getIpModificacion());
+			
+			spq.execute();   
+			sw = true; 
+			em.close();
+			
+		} catch (Exception e) {
+			sw = false;
+			e.printStackTrace();
+			throw new DAOException(e);
+		}
+		return sw;
 	}
 
 	@Override
@@ -258,6 +290,8 @@ public class CompraDAOImpl implements CompraDAO{
 			bean.getTipoFinanciamiento().setIdRegistro(entity.getIdTipoFinanciadorCat02());
 			bean.getProveedor().setNombreProveedor(entity.getNombreProveedor());
 			bean.setGlosa(entity.getGlosa());
+			bean.setPpa(entity.getPpa());
+			bean.setPecosa(entity.getPecosa());
 			bean.setsImporte((getTwoDecimals(entity.getImporte()).replace(",", ".")));
 			
 	 	}

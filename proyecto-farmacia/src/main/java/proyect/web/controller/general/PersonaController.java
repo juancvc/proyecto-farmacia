@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
+/*import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;*/
 import proyect.base.bean.BaseBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.CatalogoBean;
@@ -183,7 +183,7 @@ public class PersonaController {
 		return this.buscarPOST(personaBean, request) ;
 	}
 	
-
+/**
 	@RequestMapping(value = "/buscarPersonaReniec", method = RequestMethod.GET)
 	public ModelAndView doBuscarListado(@RequestParam("dni") String dni )
 			throws Exception {
@@ -201,13 +201,12 @@ public class PersonaController {
 		mav.addObject("lstInstitucionBean", lstInstitucionBean);*/
 	//	mav.addObject("personaRefBean", personaRefBean);
 	//	this.listarCombos(mav);
-		return mav;
+	/*	return mav;
 		
 	//	return this.getLista(institucionBean);
 		
 		
-	}
-	
+	} 
 	@RequestMapping(value = "/buscarPacienteReniec2", method = RequestMethod.GET)
 	public @ResponseBody List<gob.hnch.systems.ws.ext.model.Persona> doBuscarProvincia(@RequestParam("nroDocumento") String nroDocumento)throws Exception {
 		System.out.println("dni.. :"+nroDocumento);
@@ -232,7 +231,7 @@ public class PersonaController {
 		return lstPersona;
 	}
 	
-	
+	*/
 	
 	@RequestMapping(value = "/consultarPersonaPorDocumento", method = RequestMethod.GET)
 	public @ResponseBody PersonaBean consultarPorNroDocumento(@RequestParam("tipoDocumento") String tipoDocumento,@RequestParam("numero") String numero)throws Exception {

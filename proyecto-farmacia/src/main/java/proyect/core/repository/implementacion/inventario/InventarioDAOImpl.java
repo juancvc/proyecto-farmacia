@@ -190,8 +190,7 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 		if (entity != null) {
 			bean = new InventarioBean();
 			bean.setCodigo(entity.getIdInventario());   
-			bean.setNroDocumento(entity.getNroDocumento()); 
-			bean.getAlmacen().setCodigo(entity.getIdAlmacen()); 
+			bean.setNroDocumento(entity.getNroDocumento());  
 			bean.setUsuarioRegistro(entity.getUsuarioRegistro()); 
 			bean.setIpRegistro(entity.getIpRegistro()); 
 			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
@@ -202,6 +201,10 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 			bean.setFecha(entity.getFechaInvetario());
 			bean.getSituacion().setIdRegistro(entity.getIdSituacion());
 			bean.getSituacion().setDescripcionCorta(entity.getSituacion());
+			bean.getPersonalResponsable().setCodigo(entity.getIdPersonalResponsable());
+			bean.getPersonalResponsable().setNombres(entity.getNombresEncargado());
+			bean.getPersonalResponsable().setApellidoMaterno(entity.getApellidoMaternoEncargado());
+			bean.getPersonalResponsable().setApellidoPaterno(entity.getApellidoPaternoEncargado());
 	 	}
 		
 		return bean;
@@ -236,20 +239,22 @@ private List<InventarioBean> deListaObjetoAListaObjetoBean(List<Inventario> lstI
 	}
 
 	@Override
-	public boolean insertarHistorico(InventarioBean inventario) throws DAOException {
+	public boolean procesar(InventarioBean inventario) throws DAOException {
 		Object idInventario= null;
 		boolean sw=false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.insertHistorico");
-			spq.setParameter("idFarmacia", inventario.getAlmacen().getCodigo());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventario.procesar");
+			spq.setParameter("idInventario", inventario.getCodigo());
+			spq.setParameter("idAlmacen", inventario.getAlmacen().getCodigo());
 			spq.setParameter("nroDocumento", inventario.getNroDocumento());
+			spq.setParameter("periodo", inventario.getPeriodo().getIdRegistro());
+			spq.setParameter("nroMes", inventario.getMes().getIdRegistro());
 			spq.setParameter("usuarioRegistro", inventario.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", inventario.getIpRegistro());
 
 			spq.execute();
-			
-			idInventario = spq.getOutputParameterValue(1);
-			if (VO.isNotNull(idInventario)) {
-				inventario.setCodigo(idInventario.toString());
+			 
+			if (VO.isNotNull(idInventario)) { 
 				sw=true;
 			}
 			em.close();

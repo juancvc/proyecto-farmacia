@@ -188,15 +188,15 @@ public class AccesoDAOImp implements AccesoDAO {
 			bean = new AccesoBean();
 			bean.setItem(entity.getNroOrden()); 
 			bean.setCodigo(entity.getIdAcceso()); 
-			bean.getComponente().setNombreComponente(entity.getNomcompo());
-			bean.getComponente().setDescripcion(entity.getDescompo());
-			bean.getComponente().setCodigo(entity.getCodcompo());
-			bean.getComponente().setCodigoComponentePadre(entity.getCodcompa());
+			bean.getComponente().setNombreComponente(entity.getNombreComponente());
+			bean.getComponente().setDescripcion(entity.getDescripcion());
+			bean.getComponente().setCodigo(entity.getIdComponente());
+			bean.getComponente().setCodigoComponentePadre(entity.getIdComponentePadre());
 			bean.setFlgAsignado(entity.getSwAsignado());
-			bean.setFlgRead(entity.getSwLectura()!= null && entity.getSwLectura().equals("1") ? true : false);
-			bean.setFlgWrite(entity.getSwEscrito()!= null && entity.getSwEscrito().equals("1") ? true : false);
-			bean.setFlgDelete(entity.getSwEliminar()!= null && entity.getSwEliminar().equals("1") ? true : false);
-			bean.setFlgExport(entity.getSwExportar()!= null && entity.getSwExportar().equals("1") ? true : false);
+			bean.setFlgRead(entity.getSwLectura()!= null && entity.getSwLectura().equals("true") ? true : false);
+			bean.setFlgWrite(entity.getSwEscrito()!= null && entity.getSwEscrito().equals("true") ? true : false);
+			bean.setFlgDelete(entity.getSwEliminar()!= null && entity.getSwEliminar().equals("true") ? true : false);
+			bean.setFlgExport(entity.getSwExportar()!= null && entity.getSwExportar().equals("true") ? true : false);
 		}
 		
 		return bean;

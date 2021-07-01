@@ -5,18 +5,18 @@ import proyect.base.bean.BaseBean;
 
 public class TurnoBean  extends BaseBean{
 	 
-	private String nombre; 
+	private String nombreTurno; 
 	private String horaInicio; 
 	private String horaTermino;  
 	
 	
 	
 	
-	public String getNombre() {
-		return nombre;
+	public String getNombreTurno() {
+		return nombreTurno;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreTurno(String nombreTurno) {
+		this.nombreTurno = nombreTurno;
 	}
 	public String getHoraInicio() {
 		return horaInicio;
@@ -32,7 +32,7 @@ public class TurnoBean  extends BaseBean{
 	} 
 	@Override
 	public String toString() {
-		return "TurnoBean [nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaTermino=" + horaTermino
+		return "TurnoBean [nombreTurno=" + nombreTurno + ", horaInicio=" + horaInicio + ", horaTermino=" + horaTermino
 				 +"]";
 	} 
 	

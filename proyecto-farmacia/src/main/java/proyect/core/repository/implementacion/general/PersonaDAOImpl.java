@@ -206,6 +206,8 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 			bean.getEstadoCivil().setIdRegistro(entity.getIdEstadoCivil());
 			bean.getNacionalidad().setIdRegistro(entity.getIdNacionalidad());
 			bean.getUbigeoDireccion().setCodigoRegistro(entity.getIdRegUbigeoDireccion());
+			bean.setCodigoPersonaSigeho(entity.getCodPersoSigeho());
+			
 			/**
 			bean.setFechaNac(entity.getFechanac());
 			bean.setFoto(entity.getFotoDeta()); 
@@ -282,9 +284,8 @@ private List<PersonaBean> deListaObjetoAListaObjetoBean(List<Persona> lstPersona
 		List<Persona> lstpersona = null;	
 		PersonaBean oPersonaBean = null;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumento");
-			spq.setParameter("NRODOCUM", personaBean.getNroDocumento());  
-			spq.setParameter("TIPO", personaBean.getTipo());  
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("persona.buscarPorDocumentoV2");
+			spq.setParameter("nroDocumento", personaBean.getNroDocumento());     
 			if (spq.execute()) {
 				lstpersona =  spq.getResultList(); 
 			} 

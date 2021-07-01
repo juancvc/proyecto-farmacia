@@ -47,6 +47,7 @@ public class ArticuloDAOImpl implements ArticuloDAO{
 			spq.setParameter("stockOptimo", 	 	articuloBean.getStockOptimo());
 			spq.setParameter("codigoSismed", 	 	articuloBean.getCodigoSismed());
 			spq.setParameter("codigoSiga", 	     	articuloBean.getCodigoSiga());
+			spq.setParameter("swDecimal", 	     	articuloBean.getSwDecimal());
 			spq.setParameter("usuarioRegistro",  	articuloBean.getUsuarioRegistro());
 			spq.setParameter("ipRegistro", 		 	articuloBean.getIpRegistro());
 			spq.execute();
@@ -217,8 +218,9 @@ private ArticuloBean deObjetoAObjetoBean(Articulo entity) {
 			bean.setPosologia(entity.getPosologia());
 			bean.setIdGenerico(entity.getIdGenerico());
 			bean.setConcentracion(entity.getConcentracion());
-			bean.setCodigoSiga(entity.getCodigoSismed());
-			bean.setCodigoSismed(entity.getCodigoSismed());
+			bean.setCodigoSiga(entity.getCodigoSiga());
+			bean.setCodigoSismed(entity.getCodigoSismed()); 
+			bean.setSwDecimal(entity.getSwDecimal());
 	 	}
 		
 		return bean;

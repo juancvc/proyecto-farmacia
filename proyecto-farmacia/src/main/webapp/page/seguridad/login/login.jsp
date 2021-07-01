@@ -73,6 +73,16 @@
 							<f:options items="${lstAlmacenBean}" itemValue="codigo"
 								itemLabel="nombreAlmacen" />
 						</f:select>
+						 </div>
+                   <div class="form-group">
+						<f:select id="almacen"
+							path="turno.codigo" class="form-control form-control-combo"
+							required="required">
+							<f:option value="" label="-- Seleccione Turno --" selected="true"
+								disabled="disabled" />
+							<f:options items="${lstTurno}" itemValue="codigo"
+								itemLabel="nombreTurno" />
+						</f:select>
 					</div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">

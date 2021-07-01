@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.base.service.ServiceException;
@@ -25,18 +26,34 @@ import proyect.web.controller.base.BaseController;
 @Controller
 @RequestMapping(value = "perfilController")
 public class PerfilController extends BaseController {
+	
 	@Autowired
-	PerfilService perfilService;
+	private PerfilService perfilService;
 	
 	@Autowired
 	private Catalogo1Service 	maestra1Service;
 	
 	private PerfilBean perfilBean;
 	private List<CatalogoBean>	lstSituacion;
+	List<PerfilBean> lstPerfilBean =new ArrayList<PerfilBean>(); 
 	
 	@PostConstruct
 	public void init(){
 		this.setPerfilBean(new PerfilBean());
+	}
+	
+	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
+	public ModelAndView doBuscar(@ModelAttribute("perfilBean") PerfilBean perfilBean,
+			HttpServletRequest request)
+			throws Exception { 
+		
+		ModelAndView mav = new ModelAndView("seguridad/perfil/listado-perfil", "command",perfilBean);
+		lstPerfilBean =  perfilService.getBuscarPorFiltros(perfilBean);
+		mav.addObject("perfilBean", perfilBean);
+		mav.addObject("lstPerfilBean", lstPerfilBean);
+		this.cargarCombos(mav);
+		return mav;
+		
 	}
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
@@ -48,7 +65,7 @@ public class PerfilController extends BaseController {
 	@RequestMapping(value = "/listado", method = RequestMethod.POST)
 	public ModelAndView lista(@ModelAttribute("perfilBean") PerfilBean bean) {
 		ModelAndView mav = new ModelAndView(); 
-		List<PerfilBean> lstPerfilBean =new ArrayList<PerfilBean>(); 
+		
 		try {
 			lstPerfilBean =  perfilService.getBuscarPorFiltros(bean);
 			System.out.println("getLista sin errores " );
@@ -56,7 +73,7 @@ public class PerfilController extends BaseController {
 			System.out.println("getLista error " + e.getMessage());
 		}
 
-		 mav = new ModelAndView("seguridad/perfil/listado-perfil", "command",bean);
+		mav = new ModelAndView("seguridad/perfil/listado-perfil", "command",bean);
 		mav.addObject("perfilBean", bean);
 		mav.addObject("lstPerfilBean", lstPerfilBean);
 		
@@ -73,19 +90,18 @@ public class PerfilController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView doObtener(@RequestParam("codigo") String codigo) {
-		PerfilBean opPerfilBean = new PerfilBean();
-		opPerfilBean.setCodigo(codigo);
+	public ModelAndView doObtener(@RequestParam("codigo") int codigo) { 
 		
 		perfilBean = new PerfilBean();
-		try {
+		perfilBean = lstPerfilBean.get(codigo);
+		/**try {
 			perfilBean = perfilService.getBuscarPorObjecto(opPerfilBean);
 			if (perfilBean != null) {
 				System.out.println("perfilBean nombre " + perfilBean.getNombrePerfil());
 			}
 		} catch (ServiceException e) { 
 			e.printStackTrace();
-		}
+		}*/
 		ModelAndView mav = new ModelAndView("seguridad/perfil/registro-perfil", "command",perfilBean);
 		mav.addObject("perfilBean", perfilBean);
  
@@ -178,7 +194,6 @@ public class PerfilController extends BaseController {
 	@RequestMapping(value = "/listarPerfiles", method = RequestMethod.GET)
 	public @ResponseBody List<PerfilBean> refrescarListaPerfil()throws Exception { 
 		PerfilBean bean = new PerfilBean();
-		List<PerfilBean> lstPerfilBean =new ArrayList<PerfilBean>(); 
 		try {
 			lstPerfilBean = perfilService.getBuscarPorFiltros(bean);
 			if(lstPerfilBean != null && lstPerfilBean.size()>0){
@@ -195,7 +210,6 @@ public class PerfilController extends BaseController {
 	
 	private ModelAndView getLista(PerfilBean perfilBean) {
 		
-		List<PerfilBean> lstPerfilBean =new ArrayList<PerfilBean>(); 
 		try {
 			lstPerfilBean =  perfilService.getBuscarPorFiltros(perfilBean);
 			System.out.println("getLista sin errores " );

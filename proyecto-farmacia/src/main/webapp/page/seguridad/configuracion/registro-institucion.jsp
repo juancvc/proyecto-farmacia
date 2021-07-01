@@ -63,7 +63,7 @@
 				<jsp:include
 					page="${pageContext.request.contextPath}/../layout/head-nav-view.jsp" />
 				<!-- End of Topbar -->
-				<f:form id="frmRegistroAlmacen" role="form" action=""
+				<f:form id="frmRegistroInstitucion" role="form" action=""
 					onsubmit="return false">
 					<input id="contextPath" type="hidden"
 						value="${pageContext.request.contextPath}">
@@ -87,7 +87,7 @@
 												<div class="controls">
 													<f:input type="text" class="form-control"
 														required="required" disabled="true" value="20154528971"
-														id="txtNombreAlmacen" path="descripcionCorta"
+														id="txtNombreAlmacen" path="ruc"
 														maxlength="120" />
 
 												</div>
@@ -98,8 +98,8 @@
 												</label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
-														required="required" value="HOSPITAL CAYETANO HEREDIA"
-														id="txtNombreAlmacen" path="descripcionCorta"
+														required="required" 
+														id="txtNombreAlmacen" path="nombre"
 														maxlength="120" />
 												</div>
 											</div>
@@ -111,8 +111,8 @@
 												</label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
-														required="required" value="HOSPITAL CAYETANO HEREDIA"
-														id="txtNombreAlmacen" path="descripcionCorta"
+														required="required"  
+														id="txtNombreAlmacen" path="nombreComercial"
 														maxlength="120" />
 												</div>
 											</div>
@@ -137,12 +137,13 @@
 												</label>
 												<div class="controls">
 													<f:input type="text" class="form-control"
-														required="required" value="1 CV Zac, Av. Honorio Delgado 262, San Martín de Porres 15102"
-														id="txtNombreAlmacen" path="descripcionCorta"
+														required="required"  
+														id="txtNombreAlmacen" path="direccion"
 														maxlength="120" />
 												</div>
 											</div>
-
+												<f:input type="hidden" class="form-control" id="codigo"
+														path="codigo" />
 										</div>
 										<div class="row">
 											<div class="form-group col-md-8 mb-2">
@@ -150,7 +151,7 @@
 												</label>
 												<div class="controls">
 													<f:textarea class="form-control" id="descripcion"
-														path="descripcionLarga" rows="3" maxlength="350" />
+														path="descripcion" rows="3" maxlength="350" />
 												</div>
 											</div>
 
@@ -158,13 +159,7 @@
 
 										<div class="row">
 											<div class="form-group col-md-8 text-right"
-												style="margin-top: 15px;">
-												<a
-													href="${pageContext.request.contextPath}/precioController/nuevo"
-													class="btn btn-info"> <i class="fa fa-file"></i> <span
-													class="text">NUEVO</span>
-												</a>
-
+												style="margin-top: 15px;"> 
 
 												<button type="submit" onclick="grabar()"
 													class="btn btn-primary">
@@ -273,7 +268,7 @@
 		type="text/javascript"></script>
 
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/mantenimiento/almacen.js"
+		src="${pageContext.request.contextPath}/assets/js/page/general/institucion.js"
 		type="text/javascript"></script>
 
 	<script>

@@ -76,14 +76,11 @@ public class Acceso implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id  
-	@Column(name="NRORDEN")
-	private Integer nroOrden;
-	
 	@Column(name="idAcceso")
 	private String idAcceso;
 
 	@Column(name="idComponente")
-	private String codcompo;
+	private String idComponente;
 
 	@Column(name="idPerfil")
 	private String codperfil;
@@ -103,30 +100,23 @@ public class Acceso implements Serializable {
 	@Column(name="flagExportar")
 	private String swExportar;
 	
-	@Column(name="ESTADORG")
-	private String estado;
-	
-	@Column(name="SITUACRG")
-	private String sitauciom;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="AUFECHCR")
-	private Date auFechReg;
-
 	@Column(name="ipRegistro")
-	private String auPCIPcr;
+	private String ipRegistro;
 	
 	@Column(name="usuarioRegistro")
-	private String aucdUScr;
+	private String usuarioRegistro;
 	
-	@Column(name="nomcompo")
-	private String nomcompo;
+	@Column(name="nombreComponente")
+	private String nombreComponente;
 	
-	@Column(name="descompo")
-	private String descompo;
+	@Column(name="descripcion")
+	private String descripcion;
 	
-	@Column(name="codcompa")
-	private String codcompa;
+	@Column(name="idComponentePadre")
+	private String idComponentePadre;
+	
+	@Column(name="nroOrden")
+	private Integer nroOrden;
 	
 	public Acceso() {
 	
@@ -138,14 +128,6 @@ public class Acceso implements Serializable {
 
 	public void setIdAcceso(String idAcceso) {
 		this.idAcceso = idAcceso;
-	}
-
-	public String getCodcompo() {
-		return codcompo;
-	}
-
-	public void setCodcompo(String codcompo) {
-		this.codcompo = codcompo;
 	}
 
 	public String getCodperfil() {
@@ -196,68 +178,44 @@ public class Acceso implements Serializable {
 		this.swExportar = swExportar;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getIpRegistro() {
+		return ipRegistro;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setIpRegistro(String ipRegistro) {
+		this.ipRegistro = ipRegistro;
 	}
 
-	public String getSitauciom() {
-		return sitauciom;
+	public String getUsuarioRegistro() {
+		return usuarioRegistro;
 	}
 
-	public void setSitauciom(String sitauciom) {
-		this.sitauciom = sitauciom;
+	public void setUsuarioRegistro(String usuarioRegistro) {
+		this.usuarioRegistro = usuarioRegistro;
 	}
 
-	public Date getAuFechReg() {
-		return auFechReg;
+	public String getNombreComponente() {
+		return nombreComponente;
 	}
 
-	public void setAuFechReg(Date auFechReg) {
-		this.auFechReg = auFechReg;
+	public void setNombreComponente(String nombreComponente) {
+		this.nombreComponente = nombreComponente;
 	}
 
-	public String getAuPCIPcr() {
-		return auPCIPcr;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setAuPCIPcr(String auPCIPcr) {
-		this.auPCIPcr = auPCIPcr;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public String getAucdUScr() {
-		return aucdUScr;
+	public String getIdComponentePadre() {
+		return idComponentePadre;
 	}
 
-	public void setAucdUScr(String aucdUScr) {
-		this.aucdUScr = aucdUScr;
-	}
-
-	public String getNomcompo() {
-		return nomcompo;
-	}
-
-	public void setNomcompo(String nomcompo) {
-		this.nomcompo = nomcompo;
-	}
-
-	public String getDescompo() {
-		return descompo;
-	}
-
-	public void setDescompo(String descompo) {
-		this.descompo = descompo;
-	}
-
-	public String getCodcompa() {
-		return codcompa;
-	}
-
-	public void setCodcompa(String codcompa) {
-		this.codcompa = codcompa;
+	public void setIdComponentePadre(String idComponentePadre) {
+		this.idComponentePadre = idComponentePadre;
 	}
 
 	public Integer getNroOrden() {
@@ -267,5 +225,14 @@ public class Acceso implements Serializable {
 	public void setNroOrden(Integer nroOrden) {
 		this.nroOrden = nroOrden;
 	}
+
+	public String getIdComponente() {
+		return idComponente;
+	}
+
+	public void setIdComponente(String idComponente) {
+		this.idComponente = idComponente;
+	}
  
+	
 }

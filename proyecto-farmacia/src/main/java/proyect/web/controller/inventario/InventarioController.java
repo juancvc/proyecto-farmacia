@@ -1,12 +1,34 @@
 package proyect.web.controller.inventario;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFPalette;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +39,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.general.PersonalBean;
@@ -24,12 +53,11 @@ import proyect.core.bean.inventario.InventarioBean;
 import proyect.core.bean.inventario.InventarioDetalleBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.stock.StockBean; 
-import proyect.core.bean.venta.VentaItemBean;
-import proyect.base.service.ServiceException;
-import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.base.service.ServiceException; 
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.general.PersonalService;
+import proyect.core.service.interfaces.inventario.InventarioDetalleService;
 import proyect.core.service.interfaces.inventario.InventarioService;
 import proyect.core.service.interfaces.stock.StockService;
 import proyect.web.controller.base.BaseController; 
@@ -44,11 +72,16 @@ public class InventarioController extends BaseController{
 	List<StockBean> lstStocks;
 	List<AlmacenBean> lstAlmacen;
 	List<InventarioBean> lstInventarios;
+	List<InventarioDetalleBean> lstInventarioDetalle;
 	
+	AlmacenBean objAlmacenBean = new AlmacenBean();
 	private InventarioBean inventarioBean;
 	
 	@Autowired
 	private InventarioService inventarioService;
+	
+	@Autowired
+	private InventarioDetalleService inventarioDetalleService;
 	
 	@Autowired
 	private Catalogo2Service catalogo2Service;
@@ -140,6 +173,7 @@ public class InventarioController extends BaseController{
 		StockBean stock = new StockBean();
 		stock.setTipoLlamada("4");
 		stock.setAlmacen(inventarioBean.getAlmacen());
+		this.setObjAlmacenBean(inventarioBean.getAlmacen());
 		try {
 			lstStocks = StockService.getBuscarPorFiltros(stock);
 			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
@@ -165,10 +199,10 @@ public class InventarioController extends BaseController{
 		String mes = dateFormatMes.format(fechaMes);
 		
 		UsuarioBean usuario= (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
-		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
+		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo() + "mes::" + ""+Integer.valueOf(mes));
 		InventarioBean inventarioBean = new InventarioBean(); 
 		inventarioBean.getPeriodo().setIdRegistro(anio);
-		inventarioBean.getMes().setIdRegistro(mes);
+		inventarioBean.getMes().setIdRegistro(""+Integer.valueOf(mes));
 		inventarioBean.setAlmacen(usuario.getAlmacen());
 		nroMesDoc = mes;
 		if (mes.length() == 1) {
@@ -193,22 +227,27 @@ public class InventarioController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("catalogo") String catalogo,
-								  @RequestParam("codigo") String codigoRegistro){  
-		
-		System.out.println("modificar catalogo " + catalogo);
-		System.out.println("modificar codigoRegistro " + codigoRegistro);
-		CatalogoBean ocatalogoBean = new CatalogoBean(); 
-		ocatalogoBean.setIdCatalogo(catalogo);
-		ocatalogoBean.setIdRegistro(codigoRegistro);
-		CatalogoBean catalogoBean = new CatalogoBean();  
-	
-			 
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			this.cargarCombos(mav);
-			mav.addObject("catalogoBean", catalogoBean);
-			mav.addObject("swActivo", "1"); 
-			return mav;
+	public ModelAndView modificar(@RequestParam("index") int index){  
+		inventarioBean = lstInventarios.get(index);
+		StockBean stock = new StockBean();
+		stock.setTipoLlamada("4");
+		stock.setAlmacen(inventarioBean.getAlmacen());
+		System.out.println("inventarioBean getPersonalResponsable:: " + inventarioBean.getPersonalResponsable().getCodigo());
+		ModelAndView mav = new ModelAndView("inventario/registro-inventario", "command", inventarioBean); 
+		InventarioDetalleBean inventarioDetalleBean = new InventarioDetalleBean();
+		inventarioDetalleBean.setInventario(inventarioBean);
+		try {
+			lstStocks = StockService.getBuscarPorFiltros(stock);
+			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
+			lstInventarioDetalle = inventarioDetalleService.getBuscarPorFiltros(inventarioDetalleBean);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		this.cargarCombos(mav);
+		mav.addObject("lstInventarioDetalle", lstInventarioDetalle);
+		mav.addObject("lstStocks", lstStocks);
+		mav.addObject("inventarioBean", inventarioBean);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
@@ -278,16 +317,32 @@ public class InventarioController extends BaseController{
 		this.setInventarioBean(inventarioBean);
 	}
 	
-   @RequestMapping(value = "/refrescarListaArticulos", method = RequestMethod.GET)
+    @RequestMapping(value = "/refrescarListaArticulos", method = RequestMethod.GET)
 	public @ResponseBody InventarioDetalleBean refrescarListaOrden(@RequestParam("index") int index) throws Exception {
 		System.out.println("index " + index);
 		InventarioDetalleBean objInventarioDetalleBean = new InventarioDetalleBean(); 
-		objInventarioDetalleBean.setStock(lstStocks.get(index));
-		objInventarioDetalleBean.setCantidad(1);
+		objInventarioDetalleBean.setStock(lstStocks.get(index)); 
 		return objInventarioDetalleBean;
 	}
 
 
+    @RequestMapping(value = "/procesarInventario", method = RequestMethod.GET)
+  	@ResponseBody
+  	public String procesarInventario( HttpServletResponse response,@RequestParam("index") int index,
+			HttpServletRequest request) {
+	    String valida ="0";
+    	inventarioBean = lstInventarios.get(index);
+    	try {
+    		this.setAuditoria(inventarioBean, request, true);
+			inventarioService.procesar(inventarioBean);
+			valida ="1"; 
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+    	return valida;
+   }
+  	
+  			
     @RequestMapping(value = "/grabarInventario", method = RequestMethod.POST)
 	@ResponseBody
 	public String grabarInventario(
@@ -335,6 +390,265 @@ public class InventarioController extends BaseController{
 		return codigo; 
 		 
 	}
+    
+    @RequestMapping(value = "rptInventarioAlmacen", method = RequestMethod.GET)
+	@ResponseBody
+	public void rptInventarioAlmacen( HttpServletResponse response,
+			HttpServletRequest request) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/rptInventarioAlmacen.jasper");
+       
+		SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+		String fecha ="";
+		fecha = dateFormat.format(new Date());
+		Map<String, Object> parametro = new HashMap<String, Object>();
+		parametro.put("usuario", getUsuarioSesion(request).getNombreUsuario()); 
+		 if (this.lstStocks !=null) {
+			 parametro.put("almacen", this.lstStocks.get(0).getAlmacen().getNombreAlmacen());  
+		}
+		 
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lstStocks);
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, dataSource);
+
+		response.setContentType("application/x-pdf");
+		response.setHeader("Content-disposition", "inline; filename=Reporte_Inventario" + fecha + ".pdf");
+
+		final OutputStream outStream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+
+	}
+ 
+    @RequestMapping(value = "/descargarExcel", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
+	public @ResponseBody void descargarExcel(HttpServletResponse response) throws IOException {
+    	if (this.lstStocks != null) {
+    		try {
+    			Workbook wb = generarExcel();
+    			response.setHeader("Content-disposition", "attachment; filename=reporteExcel.xls");
+    			wb.write(response.getOutputStream());
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+		}
+	
+	}
+
+	public HSSFWorkbook generarExcel() {
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String fecha = dateFormat.format(new Date());
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			// Hoja
+			HSSFSheet sheet = workbook.createSheet("INVENTARIO");
+			/**** color ***/
+			HSSFColor lightGray = setColor(workbook, (byte) 0xE0, (byte) 0xE0, (byte) 0xE0);
+			/** estilos **/
+			// estilo para el titulo
+			HSSFFont headerFont = workbook.createFont();
+			CellStyle titleStyle = workbook.createCellStyle();
+			// titleStyle.setFillForegroundColor(lightGray.getIndex());
+			titleStyle.setFillBackgroundColor(IndexedColors.BLACK.getIndex());
+			titleStyle.setAlignment(CellStyle.ALIGN_CENTER);
+			titleStyle.setFont(headerFont);
+			// estilo para el cabecera
+			HSSFCellStyle headerStyle = workbook.createCellStyle();
+			headerStyle.setFillForegroundColor(lightGray.getIndex());
+			headerStyle.setAlignment(CellStyle.ALIGN_CENTER);
+			headerStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			headerStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			headerStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			headerStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			headerStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			// estilo para el cuerpo
+			HSSFCellStyle bodyStyle = workbook.createCellStyle();
+			// bodyStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			bodyStyle.setFillBackgroundColor(IndexedColors.WHITE.getIndex());
+			bodyStyle.setAlignment(CellStyle.ALIGN_CENTER);
+			bodyStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			bodyStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			bodyStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			bodyStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			/*** tamaÃ¯Â¿Â½o de la columnas ***/
+			sheet.setColumnWidth(0, 2500);
+			sheet.setColumnWidth(1, 2500);
+			sheet.setColumnWidth(2, 12000);
+			sheet.setColumnWidth(3, 5000);
+			sheet.setColumnWidth(4, 7000);
+			sheet.setColumnWidth(5, 8000);
+			sheet.setColumnWidth(6, 5000);
+ 
+			/**** fuente ***/
+			// titulo
+			HSSFFont fontTitulo = workbook.createFont();
+			fontTitulo.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			fontTitulo.setFontHeightInPoints((short) 14);
+
+			titleStyle.setFont(fontTitulo);
+			// cabecera
+			HSSFFont fontCabecera = workbook.createFont();
+			fontCabecera.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			fontCabecera.setFontHeightInPoints((short) 9);
+
+			headerStyle.setFont(fontCabecera);
+
+			/*** contenido del excel ***/
+
+			int rowIndex = 0;
+			HSSFCell headerCell = null;
+			sheet.createRow(rowIndex++); 
+			sheet.createRow(rowIndex++); 
+			HSSFRow headerRow = sheet.createRow(rowIndex++);
+			sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 6));
+			headerCell = headerRow.createCell(1);
+			headerCell.setCellValue("REPORTE INVENTARIO - "+ this.lstStocks.get(0).getAlmacen().getNombreAlmacen() +
+					" "+ fecha);
+			headerCell.setCellStyle(titleStyle);
+			sheet.createRow(rowIndex++);
+			// Fila
+			HSSFRow bodyRow = sheet.createRow(rowIndex++);
+
+			/************************* cabecera *****************************/
+
+			headerCell = bodyRow.createCell(1);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("N°");
+			headerCell = bodyRow.createCell(2);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("DESCRIPCION");
+			headerCell = bodyRow.createCell(3);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("LOTE");
+			headerCell = bodyRow.createCell(4);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("FECHA VENCIMIENTO");
+			headerCell = bodyRow.createCell(5);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("PRESENTACION");
+			headerCell = bodyRow.createCell(6);
+			headerCell.setCellStyle(headerStyle);
+			headerCell.setCellValue("CANTIDAD"); 
+			/******************* Contenido *************************/
+			HSSFRow contentRow = null;
+			HSSFCell contentCell = null;
+
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+			for (int i = 0; i < this.lstStocks.size(); i++) {
+
+//	            	personaBean personaBean = this.lstpersonaBean.get(i);
+				StockBean stockBean = this.lstStocks.get(i);
+				contentRow = sheet.createRow(rowIndex++);
+				contentCell = contentRow.createCell(1);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(String.valueOf((i + 1)));
+				contentCell = contentRow.createCell(2);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(stockBean.getArticulo().getNombre());
+				contentCell = contentRow.createCell(3);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(stockBean.getLote());
+				contentCell = contentRow.createCell(4);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(dateFormat.format(stockBean.getFechaVencimiento()));
+				contentCell = contentRow.createCell(5);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(stockBean.getArticulo().getTipoPresentacion().getDescripcionLarga());
+				contentCell = contentRow.createCell(6);
+				contentCell.setCellStyle(bodyStyle);
+				contentCell.setCellValue(stockBean.getStock());
+ 
+			}
+			workbook.write(new FileOutputStream("reporteExcel.xls"));
+
+			// return workbook.getBytes();
+			return workbook;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+    @RequestMapping(value = "rptInventarioProceso", method = RequestMethod.GET)
+	@ResponseBody
+	public void rptInventarioProceso( 
+			@RequestParam("index") int index,
+			HttpServletResponse response,
+			HttpServletRequest request)  
+		throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/rptInventarioProceso.jasper");
+		inventarioBean = lstInventarios.get(index);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+		String fecha ="";
+		fecha = dateFormat.format(new Date());
+		Map<String, Object> parametro = new HashMap<String, Object>();
+		parametro.put("almacen", inventarioBean.getAlmacen().getNombreAlmacen()); 
+		parametro.put("encargado", inventarioBean.getPersonalResponsable().getNombreCompleto()); 
+		parametro.put("periodo", inventarioBean.getMes().getDescripcionCorta() + " - " +
+								 inventarioBean.getPeriodo().getIdRegistro()); 
+		parametro.put("nroDocumento", inventarioBean.getNroDocumento()); 
+		parametro.put("usuario", getUsuarioSesion(request).getNombreUsuario()); 
+	 	
+		 
+		try {
+			lstInventarioDetalle = inventarioDetalleService.listarReporteProceso(inventarioBean);
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lstInventarioDetalle);
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, dataSource);
+
+		response.setContentType("application/x-pdf");
+		response.setHeader("Content-disposition", "inline; filename=Reporte_Inventario"+inventarioBean.getNroDocumento()+".pdf");
+
+		final OutputStream outStream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+
+	}
+    
+	public HSSFColor setColor(HSSFWorkbook workbook, byte r, byte g, byte b) {
+		HSSFPalette palette = workbook.getCustomPalette();
+		HSSFColor hssfColor = null;
+		try {
+			hssfColor = palette.findColor(r, g, b);
+			if (hssfColor == null) {
+				palette.setColorAtIndex(HSSFColor.LAVENDER.index, r, g, b);
+				hssfColor = palette.getColor(HSSFColor.LAVENDER.index);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return hssfColor;
+	}
+	
+	@RequestMapping(value = "/buscarInventario", method = RequestMethod.POST)
+	public ModelAndView buscarInventario(@ModelAttribute("inventarioBean") InventarioBean inventarioBean, HttpServletRequest request){	 
+		ModelAndView mav = new ModelAndView("inventario/listado-inventario", "command", inventarioBean);  
+		try {
+			lstInventarios = inventarioService.getBuscarPorFiltros(inventarioBean);
+			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}		
+		mav.addObject("lstInventarios", lstInventarios);
+		mav.addObject("lstAlmacen", lstAlmacen);
+		mav.addObject("inventarioBean", inventarioBean);
+		this.cargarCombos(mav);
+		return mav;
+	}
+	
+public AlmacenBean getObjAlmacenBean() {
+		return objAlmacenBean;
+	}
+
+
+	public void setObjAlmacenBean(AlmacenBean objAlmacenBean) {
+		this.objAlmacenBean = objAlmacenBean;
+	}
+
+
 public InventarioBean getInventarioBean() {
 	return inventarioBean;
 }

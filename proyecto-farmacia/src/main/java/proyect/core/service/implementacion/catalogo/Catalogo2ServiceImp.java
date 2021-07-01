@@ -103,8 +103,29 @@ public class Catalogo2ServiceImp implements Catalogo2Service {
 		
 		return null;
 	}
-	 
-	
+
+	@Override
+	public List<CatalogoBean> listarTodascatalogos() throws ServiceException {
+		List<CatalogoBean> lstcatalogoBean=null;
+		try { 
+			lstcatalogoBean =   maestra2DAO.listarTodascatalogos();
+		} catch (Exception e) {
+			 
+		}  
+		return lstcatalogoBean;
+	}
+
+	@Override
+	public List<CatalogoBean> listarCatalogoRegistros(CatalogoBean catalogoBean) throws ServiceException {
+		List<CatalogoBean> lstcatalogoBean=null;
+		try { 
+			lstcatalogoBean =   maestra2DAO.listarCatalogoRegistros(catalogoBean);
+		} catch (Exception e) {
+			 
+		}  
+		return lstcatalogoBean;
+	}
+	  
 }
 	
 	 

@@ -149,17 +149,20 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 	}
 	
 	@Override
-	public boolean insertarAuditoriaAcceso(AuditoriaAccesoBean prmAuditoriaAccesoBean) throws DAOException {
+	public boolean insertarAuditoriaAcceso(AuditoriaAccesoBean t) throws DAOException {
 		Object  id = null; 
 		boolean sw = false;
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("leotbcauditoriaacceso.insertar");
-	            spq.execute();
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("auditoria.insert");
+			spq.setParameter("usuarioIngreso", t.getUsuarioRegistro()); 
+			spq.setParameter("ipIngreso", t.getIpRegistro()); 
+			spq.setParameter("swAcceso", 0); 
+	        spq.execute();
 			
 			id = spq.getOutputParameterValue(1);
 			
 			if (id != null) {
-			//	prmAuditoriaAccesoBean.setCodigo(Integer.valueOf(id.toString()));
+			 	t.setCodigo(id.toString());
 				sw = true;
 			}
 		} catch (Exception e) {
@@ -212,13 +215,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		AuditoriaBean bean = null;
 		
 		if(entity!=null){
-			bean = new AuditoriaBean();
-			//bean.setCodigo(entity.getnCodaudit());
-			bean.setNomTabla(entity.getvTabla());
-		//	bean.getTipoAccion().setCodigoRegistro(entity.getnTm1accion());
-			bean.setCodRegistroAud(entity.getnCodregaud()!=null ? entity.getnCodregaud() : 0); 
-			bean.setNomUsuario(entity.getV_nomusu_aud());
-			bean.setNomPersonaUsu(entity.getV_nompers_aud());
+			bean = new AuditoriaBean(); 
 		}
 		
 		return bean;
@@ -238,10 +235,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 			bean.setFlgoffline(entity.getvFlgoffline());
 			bean.setDescEsquema(entity.getvDescesque());
 			bean.setDescTabla(entity.getvDesctabla());
-			bean.setDescCampo(entity.getvDesccampo());
-			
-			//bean.setNomEsqTabConcat1(entity.getNomEsqTabText_1());
-			//bean.setNomEsqTabConcat2(entity.getNomEsqTabText_2());
+			bean.setDescCampo(entity.getvDesccampo()); 
 			bean.setNomEsqTabConcat1(entity.getvEsquema()+"-"+entity.getvTabla());
 			bean.setNomEsqTabConcat2(entity.getvEsquema()+"."+entity.getvTabla());
 		}
@@ -270,11 +264,7 @@ public class AuditoriaDAOImp implements AuditoriaDAO {
 		AuditoriaAccesoBean bean = null;
 		
 		if(entity!=null){
-			bean = new AuditoriaAccesoBean(); 
-			bean.setCodUsuAcc(entity.getN_codusuari());
-			bean.setNomUsuario(entity.getVnomUsuacc()); 
-			bean.setNomTabla(entity.getV_tabla());
-			bean.setNomPersonaUsu(entity.getV_nomperusu());
+			bean = new AuditoriaAccesoBean();  
 		}
 		
 		return bean;

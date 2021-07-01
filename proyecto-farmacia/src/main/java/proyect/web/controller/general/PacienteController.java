@@ -1,31 +1,22 @@
 package proyect.web.controller.general;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.SimpleDateFormat; 
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
+import java.util.List; 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.ResponseBody; 
+/*
 import gob.hnch.system.ws.sis.model.PersonaSIS;
 import gob.hnch.system.ws.sis.model.PrmConsultaSIS;
 import gob.hnch.system.ws.sis.srv.impl.PersonaSISServiceImp;
 import gob.hnch.system.ws.sis.srv.inf.PersonaSISService; 
 import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
+*/
 import proyect.core.bean.general.PacienteBean;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.UbigeoBean;
@@ -33,9 +24,7 @@ import proyect.core.entity.general.PacienteReniec;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.general.PacienteReniecService;
 import proyect.core.service.interfaces.general.PersonaService;
-import proyect.core.service.interfaces.general.UbigeoService;
-import proyect.web.utilitarios.VO;
-
+import proyect.core.service.interfaces.general.UbigeoService; 
 import org.apache.commons.codec.binary.Base64;
 
 @Controller
@@ -87,7 +76,7 @@ public class PacienteController {
 		
 		return personaBean;
 	}
-
+/****
 	@RequestMapping(value = "/buscarPersonaReniec", method = RequestMethod.GET)
 	public ModelAndView doBuscarListado(@RequestParam("dni") String dni )
 			throws Exception {
@@ -105,7 +94,7 @@ public class PacienteController {
 		mav.addObject("lstInstitucionBean", lstInstitucionBean);*/
 	//	mav.addObject("personaRefBean", personaRefBean);
 	//	this.listarCombos(mav);
-		return mav;
+	/*	return mav;
 		
 	//	return this.getLista(institucionBean);
 		
@@ -135,7 +124,7 @@ public class PacienteController {
 		}
 		return lstPersona;
 	}
-	
+	*/
 	
 	 
 	@RequestMapping(value = "/consultarPorDocumentoPersona", method = RequestMethod.GET)
@@ -168,7 +157,7 @@ public class PacienteController {
 				}
 				
 				
-				paciente.setPersona(personaBean);
+				///paciente.setPersona(personaBean);
 			}else{
 				personaBean = this.getPersonaService().buscarxTipoDocumentoNumeroDocumentoSigeho(prmPersona);
 				if(personaBean!=null){  
@@ -178,7 +167,7 @@ public class PacienteController {
 					System.out.println("personaBeangetFoto " + personaBean.getFoto());
 					personaBean.setCodigo("");
 					
-					System.out.println("paciente nombrecompleto "+ paciente.getPersona().getNombreCompleto());
+					System.out.println("paciente nombrecompleto "+ paciente.getNombreCompleto());
 					
 					PacienteReniec pacienteReniec = new PacienteReniec();
 					pacienteReniec.setNroDni(numero);
@@ -196,7 +185,7 @@ public class PacienteController {
 						personaBean.setFotoCadena(bphoto);
 						personaBean.setSwReniec(false);
 					}
-					paciente.setPersona(personaBean);
+					//paciente(personaBean);
 				/*	if(personaBean.getFoto()!= null ){
 						
 					}
@@ -223,14 +212,14 @@ public class PacienteController {
 							if (lstPersona.get(0).getCodigoRespuesta().equals("0000")) {
 								System.out.println("lstPersona size " + lstPersona.size());
 								System.out.println("personaBean RENIEC no es null " + lstPersona.get(0).getCodigoRespuesta());
-								paciente.getPersona().setApellidoMaterno(lstPersona.get(0).getApellidoMaterno());
-								paciente.getPersona().setApellidoPaterno(lstPersona.get(0).getApellidoPaterno());
+								paciente.setApellidoMaterno(lstPersona.get(0).getApellidoMaterno());
+								paciente.setApellidoPaterno(lstPersona.get(0).getApellidoPaterno());
 								
 								SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 								String strFecha = lstPersona.get(0).getFechaNacimiento();
-								paciente.getPersona().setNombres(lstPersona.get(0).getNombres());
+								paciente.setNombres(lstPersona.get(0).getNombres());
 								if(lstPersona.get(0).getFotoPaciente() != null){
-									paciente.getPersona().setFoto(lstPersona.get(0).getFotoPaciente());
+									paciente.setFoto(lstPersona.get(0).getFotoPaciente());
 								}
 								Date fecha = null;
 								try {
@@ -243,13 +232,13 @@ public class PacienteController {
 
 								}
 								
-								paciente.getPersona().setFechaNac(fecha);
-								System.out.println("personaBean no es null " + paciente.getPersona().getNombreCompleto());
-								System.out.println("personaBean no es null " + paciente.getPersona().getFechaNac());
+								paciente.setFechaNac(fecha);
+								System.out.println("personaBean no es null " + paciente.getNombreCompleto());
+								System.out.println("personaBean no es null " + paciente.getFechaNac());
 								if (lstPersona.get(0).getSexo().equals("1")) {
-									paciente.getPersona().getSexo().setIdRegistro("000002"); 
+									paciente.getSexo().setIdRegistro("000002"); 
 								}else{
-									paciente.getPersona().getSexo().setIdRegistro("000001"); 
+									paciente.getSexo().setIdRegistro("000001"); 
 								}
 								System.out.println("tipoDocumento " + tipoDocumento);
 							}else{

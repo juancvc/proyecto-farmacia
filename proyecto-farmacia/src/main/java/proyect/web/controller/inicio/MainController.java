@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import proyect.core.bean.general.AlmacenBean;
+import proyect.core.bean.general.TurnoBean;
 import proyect.core.service.interfaces.general.AlmacenService;
+import proyect.core.service.interfaces.general.TurnoService;
 import proyect.base.service.ServiceException;
 import proyect.web.utilitarios.acceso.LoginVo;
 
@@ -18,11 +20,13 @@ import proyect.web.utilitarios.acceso.LoginVo;
 @RequestMapping(value="")
 public class MainController {
 	List<AlmacenBean> lstAlmacenBean;
-	
+	List<TurnoBean> lstTurno;
 	
 	@Autowired
 	AlmacenService almacenService;
 	
+	@Autowired
+	private  TurnoService turnoService;
 	
 /*	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView getdata() {
@@ -42,11 +46,13 @@ public class MainController {
 		 
 			try {
 				lstAlmacenBean = almacenService.getBuscarPorFiltros(almacenBean);
+				lstTurno = turnoService.getBuscarPorFiltros(new TurnoBean());
 			} catch (ServiceException e) {
 				e.printStackTrace(); 	
 		}
   
 		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
+		mav.addObject("lstTurno",lstTurno); 
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

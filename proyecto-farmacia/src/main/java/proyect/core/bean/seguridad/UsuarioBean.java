@@ -4,6 +4,7 @@ import java.util.List;
 
 import proyect.base.bean.BaseBean;
 import proyect.core.bean.general.PersonaBean;
+import proyect.core.bean.general.TurnoBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 
@@ -49,6 +50,7 @@ public class UsuarioBean extends BaseBean {
 	
 	private AlmacenBean almacen;
 	
+	private TurnoBean turno;
 	
 	public UsuarioBean() {
 		super();
@@ -88,6 +90,9 @@ public class UsuarioBean extends BaseBean {
 	}
 
 	public CatalogoBean getSituacion() {
+		if (situacion == null) {
+			situacion = new CatalogoBean();
+		}
 		return situacion;
 	}
 
@@ -234,8 +239,19 @@ public class UsuarioBean extends BaseBean {
 
 	public void setNroCelular(String nroCelular) {
 		this.nroCelular = nroCelular;
+	} 
+	
+	public TurnoBean getTurno() {
+		if (turno == null) {
+			turno = new TurnoBean();
+		}
+		return turno;
 	}
-
+ 
+	public void setTurno(TurnoBean turno) {
+		this.turno = turno;
+	}
+ 
 	@Override
 	public String toString() {
 		return "UsuarioBean [codigoUsuario=" + codigoUsuario + ", codigoPerfil=" + codigoPerfil + ", situacion="

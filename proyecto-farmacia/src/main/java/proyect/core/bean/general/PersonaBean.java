@@ -71,6 +71,8 @@ public class PersonaBean extends BaseBean {
 	private String codigoTelefono; 
 	private String codigoCorreo;
 	
+	private String	nroIEDS;
+	private String	nroHC;
 	
 	private String tipo;
 	
@@ -436,12 +438,7 @@ public class PersonaBean extends BaseBean {
 	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
-	public CatalogoBean getSituacion() {
-		if (situacion==null) {
-			situacion = new CatalogoBean();
-		}
-		return situacion;
-	}
+ 
 	public void setSituacion(CatalogoBean situacion) {
 		this.situacion = situacion;
 	}
@@ -465,6 +462,18 @@ public class PersonaBean extends BaseBean {
 			tipoFinanciador = new CatalogoBean();
 		}
 		this.tipoFinanciador = tipoFinanciador;
+	}
+	public String getNroIEDS() {
+		return nroIEDS;
+	}
+	public void setNroIEDS(String nroIEDS) {
+		this.nroIEDS = nroIEDS;
+	}
+	public String getNroHC() {
+		return nroHC;
+	}
+	public void setNroHC(String nroHC) {
+		this.nroHC = nroHC;
 	}
 	
  

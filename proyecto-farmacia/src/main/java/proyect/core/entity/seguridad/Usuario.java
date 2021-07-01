@@ -11,26 +11,13 @@ import javax.persistence.StoredProcedureParameter;
 @Entity
 @NamedStoredProcedureQueries(
 		{
+				 
 				@NamedStoredProcedureQuery(
-					name="usuario.validarAcceso", 
-					procedureName="SP_USUARIO_VALIDAR_ACCESO",
-					resultClasses= Usuario.class,
-					parameters={
-							//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class)
-						}					
-				),
-				@NamedStoredProcedureQuery(
-						name="usuario.findByObject", 
-						procedureName="SP_USUARIO_BUSCAR_X_ID",
+						name="usuario.buscarPorCodigoUsuario", 
+						procedureName="usp_Usuario_buscarxID",
 						resultClasses= Usuario.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario",  type=Long.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_ORGANIZACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_SEDE", type=int.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idUsuario",  type=String.class)
 									
 							}					
 					),
@@ -61,13 +48,13 @@ import javax.persistence.StoredProcedureParameter;
 						name="usuario.insert", 
 						procedureName="[dbo].[usp_Usuario_insertar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idUsuario", type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 	type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", type=String.class),
-									/*
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class)*/
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="idUsuario", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idPerfil", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 			type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipPersona", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", 		type=String.class)
 							}					
 				),
 				@NamedStoredProcedureQuery(
@@ -101,7 +88,18 @@ import javax.persistence.StoredProcedureParameter;
 						parameters={
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreUsuario", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", 		type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idAlmacen", 	type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTurno", 		type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.OUT, name="error", 		type=String.class)
+							}					
+					),
+				@NamedStoredProcedureQuery(
+						name="usuario.validarAcceso", 
+						procedureName="[usp_Usuario_validarAcceso]",
+						resultClasses= Usuario.class,
+						parameters={
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuario", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="clave", type=String.class)
 							}					
 					),
 					@NamedStoredProcedureQuery(
@@ -162,9 +160,12 @@ public class Usuario  {
 	private String apellidoMaterno; 
 	private String nombres;  
 	private String idAlmacen; 
+	private String nombreAlmacen;
 	private String nombrePerfil; 
 	private String nroDocumento; 
 	private String idTipoDocumentoCat02; 
+	private String idTurno; 
+	private String error; 
 	
 	public Usuario() { 
 	}
@@ -228,86 +229,93 @@ public class Usuario  {
 		this.idAlmacen = idAlmacen;
 	}
 
-
 	public String getIdPerfil() {
 		return idPerfil;
 	}
-
 
 	public void setIdPerfil(String idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 
-
 	public String getIdPersona() {
 		return idPersona;
 	}
-
 
 	public void setIdPersona(String idPersona) {
 		this.idPersona = idPersona;
 	}
 
-
 	public Boolean getFglgest() {
 		return fglgest;
 	}
-
 
 	public void setFglgest(Boolean fglgest) {
 		this.fglgest = fglgest;
 	}
  
-
 	public String getFlgResetClave() {
 		return flgResetClave;
 	}
-
 
 	public void setFlgResetClave(String flgResetClave) {
 		this.flgResetClave = flgResetClave;
 	}
 
-
 	public String getApellidoPaterno() {
 		return apellidoPaterno;
 	}
-
 
 	public void setApellidoPaterno(String apellidoPaterno) {
 		this.apellidoPaterno = apellidoPaterno;
 	}
 
-
 	public String getApellidoMaterno() {
 		return apellidoMaterno;
 	}
-
 
 	public void setApellidoMaterno(String apellidoMaterno) {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
-
 	public String getNombres() {
 		return nombres;
 	}
-
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
 
-
 	public String getNombrePerfil() {
 		return nombrePerfil;
 	}
-
 
 	public void setNombrePerfil(String nombrePerfil) {
 		this.nombrePerfil = nombrePerfil;
 	}
 
- 
+	public String getNombreAlmacen() {
+		return nombreAlmacen;
+	}
+
+	public void setNombreAlmacen(String nombreAlmacen) {
+		this.nombreAlmacen = nombreAlmacen;
+	}
+
+	public String getIdTurno() {
+		return idTurno;
+	}
+
+	public void setIdTurno(String idTurno) {
+		this.idTurno = idTurno;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
 	
 }

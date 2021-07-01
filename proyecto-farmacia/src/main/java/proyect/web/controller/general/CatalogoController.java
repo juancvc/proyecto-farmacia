@@ -15,27 +15,29 @@ import org.springframework.web.servlet.ModelAndView;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.web.controller.base.BaseController; 
 
 @Controller
-@RequestMapping(value = "CatalogoController")
+@RequestMapping(value = "catalogoController")
 public class CatalogoController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
-	
+	List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>();
 	
 	@Autowired
 	private Catalogo1Service Catalogo1Service;
 	
+	@Autowired
+	private Catalogo2Service Catalogo2Service;
 	
 	private void cargarCombos(ModelAndView mav) {
-		/*try {
-			lstcatalogos = Catalogo1Service.listarTodascatalogos(new CatalogoBean());
+		try {
+			lstcatalogos = Catalogo2Service.listarTodascatalogos();
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
-		}
-		*/
+		} 
 		mav.addObject("lstcatalogos", lstcatalogos);
 	}
 	
@@ -43,24 +45,23 @@ public class CatalogoController extends BaseController{
 	public ModelAndView doBuscar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean,
 			HttpServletRequest request)
 			throws Exception { 
-		List<CatalogoBean> lstcatalogosRegistros = new ArrayList<CatalogoBean>();
+		 
 		
-		ModelAndView mav = new ModelAndView("general/Catalogos/listado-Catalogo", "command", catalogoBean); 
-		
-		lstcatalogosRegistros = Catalogo1Service.getBuscarPorFiltros(catalogoBean);
-		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
-		System.out.println("lstcatalogosRegistros " + lstcatalogosRegistros.size());
+		ModelAndView mav = new ModelAndView("mantenimiento/catalogo/listado-catalogo", "command", catalogoBean); 
+
+		try {
+			lstcatalogosRegistros = Catalogo2Service.listarCatalogoRegistros(catalogoBean);
+		} catch (Exception e) { 
+		}
+		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros); 
 		this.cargarCombos(mav);
 		return mav;
 		
 	}
 	
 	@RequestMapping(value = "/listado", method = RequestMethod.GET)
-	public ModelAndView doListado(@ModelAttribute("renaesBean") CatalogoBean catalogoBean, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("general/Catalogos/listado-Catalogo", "command", catalogoBean); 
-	
-		this.cargarCombos(mav);
-		return mav;
+	public ModelAndView doListado(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request) {
+		return this.listado(catalogoBean, request);
 	}
 
 	
@@ -68,7 +69,12 @@ public class CatalogoController extends BaseController{
 	@ResponseBody
 	public ModelAndView listado(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request){
 	 
-		ModelAndView mav = new ModelAndView("general/Catalogos/listado-Catalogo", "command", catalogoBean); 
+		ModelAndView mav = new ModelAndView("mantenimiento/catalogo/listado-catalogo", "command", catalogoBean); 
+		try {
+			lstcatalogosRegistros = Catalogo2Service.listarCatalogoRegistros(catalogoBean);
+		} catch (Exception e) { 
+		}
+		mav.addObject("lstcatalogosRegistros", lstcatalogosRegistros);
 		this.cargarCombos(mav);
 		return mav;
 	}
@@ -77,33 +83,19 @@ public class CatalogoController extends BaseController{
 	public ModelAndView doNuevo(HttpServletRequest request) {
 		// cargarComboLeccion();
 		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command", catalogoBean); 
+		ModelAndView mav = new ModelAndView("mantenimiento/catalogo/registro-catalogo", "command", catalogoBean); 
 		this.cargarCombos(mav);
 		return mav;
 	}
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("catalogo") String catalogo,
-								  @RequestParam("codigo") String codigoRegistro){  
-		
-		System.out.println("modificar catalogo " + catalogo);
-		System.out.println("modificar codigoRegistro " + codigoRegistro);
-		CatalogoBean ocatalogoBean = new CatalogoBean(); 
-		ocatalogoBean.setIdCatalogo(catalogo);
-		ocatalogoBean.setIdRegistro(codigoRegistro);
-		CatalogoBean catalogoBean = new CatalogoBean();  
-	
-			try { 
-				catalogoBean = Catalogo1Service.getBuscarPorObjecto(ocatalogoBean);  
-			 System.out.println("catalogoBean::" + catalogoBean);
-			} catch (ServiceException e) {
-				
-				e.printStackTrace();
-			}
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			this.cargarCombos(mav);
-			mav.addObject("catalogoBean", catalogoBean);
-			mav.addObject("swActivo", "1"); 
-			return mav;
+	public ModelAndView modificar(@RequestParam("index") int index ){  
+		CatalogoBean catalogoBean = new CatalogoBean();
+		catalogoBean = lstcatalogosRegistros.get(index);
+		ModelAndView mav = new ModelAndView("mantenimiento/catalogo/registro-catalogo", "command",catalogoBean); 
+		this.cargarCombos(mav);
+		mav.addObject("catalogoBean", catalogoBean);
+		mav.addObject("swActivo", "1"); 
+		return mav;
 	}
 	
 	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
@@ -114,9 +106,11 @@ public class CatalogoController extends BaseController{
 		boolean sw = true;
 		try {
 			if (catalogoBean.getIdRegistro()!=null && !catalogoBean.getIdRegistro().equals("")) { 
-				sw = (Catalogo1Service.actualizar(catalogoBean));
+				this.setAuditoria(catalogoBean, request, false); 
+				sw = (Catalogo2Service.actualizar(catalogoBean));
 			} else { 
-				sw =  (Catalogo1Service.insertar(catalogoBean)); 
+				this.setAuditoria(catalogoBean, request, false); 
+				sw =  (Catalogo2Service.insertar(catalogoBean)); 
 				
 			} 
 		} catch (Exception e) { 
@@ -128,7 +122,7 @@ public class CatalogoController extends BaseController{
 			 return this.listado(catalogoBean, request);
 			 
 		}else{
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
+			ModelAndView mav = new ModelAndView("mantenimiento/catalogo/registro-catalogo", "command",catalogoBean); 
 			return mav ;
 		} 
 		 
@@ -136,20 +130,16 @@ public class CatalogoController extends BaseController{
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	@ResponseBody
-	public String doEliminar(@RequestParam("catalogo") String catalogo,
-							 @RequestParam("codReg") String codReg,
+	public String doEliminar(@RequestParam("index") int index,
 			 HttpServletRequest request) {
 		String valida = "";
-		System.out.println("codigo eliminar:: " + catalogo); 
+		System.out.println("codigo eliminar:: " + index); 
 		CatalogoBean catalogoBean = new CatalogoBean();
-		catalogoBean.setIdRegistro(codReg);
-		catalogoBean.setIdCatalogo(catalogo);
+		catalogoBean = lstcatalogosRegistros.get(index);
 		try { 
-			 if(Catalogo1Service.eliminar(catalogoBean)){
+			 if(Catalogo2Service.eliminar(catalogoBean)){
 				 valida = "1";
-			 }
-			 
-
+			 } 
 		} catch (Exception e) { 
 			e.printStackTrace();
 		} 

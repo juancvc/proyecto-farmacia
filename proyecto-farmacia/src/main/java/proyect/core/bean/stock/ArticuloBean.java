@@ -21,7 +21,8 @@ public class ArticuloBean extends BaseBean{
 	private int stockAlerta;
 	private int stockOptimo;
 	private String volumen;
-	
+	private Boolean swDecimal;
+	private String nombreArticuloSismed;
 	
 	public ArticuloBean() {
 	}
@@ -140,6 +141,24 @@ public class ArticuloBean extends BaseBean{
 
 	public void setVolumen(String volumen) {
 		this.volumen = volumen;
+	}
+
+	public Boolean getSwDecimal() {
+		return swDecimal;
+	}
+
+	public void setSwDecimal(Boolean swDecimal) {
+		this.swDecimal = swDecimal;
+	}
+
+	public String getNombreArticuloSismed() {
+		
+		nombreArticuloSismed = codigoSismed +" - "+ nombre;
+		return nombreArticuloSismed;
+	}
+
+	public void setNombreArticuloSismed(String nombreArticuloSismed) {
+		this.nombreArticuloSismed = nombreArticuloSismed;
 	}
 
 	@Override

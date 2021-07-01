@@ -99,6 +99,7 @@ public class AccesoController extends BaseController{
 				filtro.getPerfil().setCodigo(codperfil);
 				filtro.getComponente().setCodigoComponentePadre(codcompa);
 				lstAccesoBean =  accesoService.getBuscarPorFiltros(filtro);
+				
 			
 		} catch (Exception e) {
 			System.out.println("getLista " + e.getMessage());
@@ -159,6 +160,7 @@ public class AccesoController extends BaseController{
 				
 				AccesoBean prmAcceso = listaAcceso[i];
 				System.out.println("prmAcceso codigo " + prmAcceso.getCodigo());
+				System.out.println("prmAcceso codigo " + prmAcceso.isFlgRead());
 				this.setAuditoria(prmAcceso, request, true);
 				//prmAcceso.setCodigoUsuarioCreacion(usuarioSesion.getCodigoUsuario());
 				//prmAcceso.setIpCreacion(NetUtil.getClientIpAddr(request));

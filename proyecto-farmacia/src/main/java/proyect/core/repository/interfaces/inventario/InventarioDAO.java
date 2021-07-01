@@ -8,5 +8,6 @@ import java.util.List;
 public interface InventarioDAO extends BaseDAO<InventarioBean> {
 	 
 	public List<InventarioBean> listarBuscarxNroDocumento(InventarioBean inventarioBean);
-	public boolean insertarHistorico(InventarioBean inventarioBean) throws DAOException;
+	
+	public boolean procesar(InventarioBean inventarioBean) throws DAOException;
 }

@@ -14,4 +14,7 @@ public interface UsuarioService extends BaseService<UsuarioBean>{
 	public UsuarioBean buscarxcodigousua(UsuarioBean prmUsuarioBean) throws ServiceException;
 	
 	public UsuarioBean buscarxcodperso(UsuarioBean prmUsuarioBean) throws ServiceException;
+	
+	public UsuarioBean validarAccesoAlmacen(UsuarioBean prmUsuarioBean) throws ServiceException;
+	
 }

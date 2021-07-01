@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
+import proyect.core.bean.general.InstitucionBean;
 import proyect.core.bean.general.PersonalBean;
 import proyect.core.bean.inventario.PreciosVentaArticuloBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
+import proyect.core.service.interfaces.general.InstitucionService;
 import proyect.core.service.interfaces.general.PersonalService;
 import proyect.web.controller.base.BaseController; 
 
@@ -33,7 +37,7 @@ public class InstitucionController extends BaseController{
 	private PreciosVentaArticuloBean preciosVentaArticuloBean;
 	
 	@Autowired
-	private Catalogo1Service catalogo1Service;
+	private InstitucionService institucionService;
 	
 	@Autowired
 	private Catalogo2Service catalogo2Service;
@@ -109,13 +113,16 @@ public class InstitucionController extends BaseController{
 	}
  
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
-	public ModelAndView doNuevo(HttpServletRequest request) {
-		// cargarComboLeccion();
+	public ModelAndView doNuevo(HttpServletRequest request) { 
 		UsuarioBean usuario= (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
 		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
-		CatalogoBean catalogoBean = new CatalogoBean(); 
-		ModelAndView mav = new ModelAndView("seguridad/configuracion/registro-institucion", "command", catalogoBean); 
-	//	this.cargarCombos(mav);
+		InstitucionBean institucionBean = new InstitucionBean(); 
+		try {
+			institucionBean = institucionService.getBuscarPorObjecto(new InstitucionBean());
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		ModelAndView mav = new ModelAndView("seguridad/configuracion/registro-institucion", "command", institucionBean);  
 		return mav;
 	}
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
@@ -137,24 +144,27 @@ public class InstitucionController extends BaseController{
 			return mav;
 	}
 	
-	@RequestMapping(value = "/grabar", method = RequestMethod.POST)
-	//@ResponseBody
-	public ModelAndView grabar(@ModelAttribute("catalogoBean") CatalogoBean catalogoBean, HttpServletRequest request) {
+	@RequestMapping(value = "/grabar", method = RequestMethod.POST) 
+	public ModelAndView grabar(@ModelAttribute("institucionBean") InstitucionBean institucionBean, HttpServletRequest request) {
 		 
-		System.out.println("doGrabar @ModelAttribute");
+		System.out.println("doGrabar @institucionBean " 
+				 + institucionBean.getCodigo());
 		boolean sw = true;
-		 
-		System.out.println("sw " + sw);
-		if (sw) {
-			catalogoBean = new CatalogoBean() ;
-			 return this.listado(catalogoBean, request);
-			 
-		}else{
-			ModelAndView mav = new ModelAndView("general/Catalogos/registro-Catalogo", "command",catalogoBean); 
-			return mav ;
-		} 
-		 
-	} 
+		try {
+			if (institucionBean.getCodigo()!=null && !institucionBean.getCodigo().equals("")) { 
+				this.setAuditoria(institucionBean, request, false); 
+				sw = (institucionService.actualizar(institucionBean));
+			} else { 
+				this.setAuditoria(institucionBean, request, true); 
+				sw =  (institucionService.insertar(institucionBean));
+			} 
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		System.out.println("sw " + sw); 
+			ModelAndView mav = new ModelAndView("seguridad/configuracion/registro-institucion", "command", institucionBean);  
+			return mav ; 
+	}
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
 	@ResponseBody

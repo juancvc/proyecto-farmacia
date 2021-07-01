@@ -136,4 +136,16 @@ public class UsuarioServiceImp implements UsuarioService {
 		return oUsuarioBean;
 	}
 
+	@Override
+	public UsuarioBean validarAccesoAlmacen(UsuarioBean prmUsuarioBean) throws ServiceException {
+		UsuarioBean oUsuarioBean = null;
+		try {
+			oUsuarioBean =  usuarioDAO.validarAccesoAlmacen(prmUsuarioBean);
+			
+		} catch (DAOException e) { 
+			e.printStackTrace();
+		}
+		return oUsuarioBean;
+	}
+
 }

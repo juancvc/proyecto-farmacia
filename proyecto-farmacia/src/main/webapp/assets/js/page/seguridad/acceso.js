@@ -254,7 +254,7 @@ function enviarDatosAccesoAjax(arrayMenus){
 		   		    			"<td>"+acceso.item+"</td>"+
 		   		    			"<td>"+acceso.componente.descripcion+"</td>"+
 		   		    			"<td>";
-								    if(acceso.flgAsignado=='1'){
+								    if(acceso.flgAsignado=='true'){
 								    	htmlTabla +="<input type='checkbox' value='"+acceso.codigo+"' id='"+acceso.componente.codigo+"' checked='checked' />";
 								    }else{
 								    	htmlTabla +="<input type='checkbox' value='"+acceso.codigo+"' id='"+acceso.componente.codigo+"' />";
@@ -267,7 +267,7 @@ function enviarDatosAccesoAjax(arrayMenus){
 		                            		"data-toggle='tooltip'"+   
 		                            		"data-original-title='Ver'"+
 		                            		"onclick=\"verSubMenu('"+acceso.componente.codigo+"',"+acceso.item+")\">"+ 
-		                            		"<i class='ft-search'></i>"+ 
+		                            		"<i class='fas fa-search'></i>"+ 
 		                            "</button>"+
 	                            "</td>"+
 		   			    	"</tr>";

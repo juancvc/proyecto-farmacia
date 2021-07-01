@@ -9,6 +9,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import proyect.base.repository.DAOException;
+import proyect.core.bean.inventario.InventarioBean;
 import proyect.core.bean.inventario.InventarioDetalleBean;
 import proyect.core.repository.interfaces.inventario.InventarioDetalleDAO;
 import proyect.web.utilitarios.VO; 
@@ -136,8 +137,8 @@ public class InventarioDetalleDAOImpl implements InventarioDetalleDAO {
 		List<InventarioDetalle> lstInventarioDetalle = null;	
 		List<InventarioDetalleBean> lstInventarioDetalleBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("InventarioDetalle.buscarPorFiltros");  
-		//	spq.setParameter("nombreInventarioDetalle", InventarioDetalle.getNombreInventarioDetalle()); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventarioDetalle.buscarPorFiltros");  
+		 	spq.setParameter("idInventario", InventarioDetalle.getInventario().getCodigo()); 
 			
 			 if (spq.execute()) {
 				 lstInventarioDetalle =  spq.getResultList(); 
@@ -176,10 +177,19 @@ private List<InventarioDetalleBean> deListaObjetoAListaObjetoBean(List<Inventari
 	private InventarioDetalleBean deObjetoAObjetoBean(InventarioDetalle entity) {
 		
 		InventarioDetalleBean bean = null; 
-		if (entity != null) {
-			
+		if (entity != null) { 
 			bean = new InventarioDetalleBean();
-			bean.setCodigo(entity.getIdInventarioDetalle());   
+			bean.setCodigo(entity.getIdInventarioDetalle());  
+			bean.setCantidad(entity.getCantidad());
+			bean.getStock().setCodigo(entity.getIdStock());
+			bean.getStock().setLote(entity.getLote());
+			bean.getStock().setStock(entity.getStock());
+			bean.getStock().getArticulo().setCodigo(entity.getIdArticulo());
+			bean.getStock().getArticulo().setNombre(entity.getNombreArticulo());
+			bean.getStock().getArticulo().getTipoPresentacion().setDescripcionLarga(entity.getDescripcionLargaPresentacion());
+			bean.getStock().getArticulo().setCodigoSismed(entity.getCodigoSismed());
+			bean.setFaltantes(entity.getFaltante());
+			bean.setSobrantes(entity.getSobrante());
 	 	}
 		
 		return bean;
@@ -191,5 +201,25 @@ private List<InventarioDetalleBean> deListaObjetoAListaObjetoBean(List<Inventari
 		return false;
 	}
 
-
+	@Override
+	public List<InventarioDetalleBean> listarReporteProceso(InventarioBean inventarioBean) 
+			throws DAOException {
+		List<InventarioDetalle> lstInventarioDetalle = null;	
+		List<InventarioDetalleBean> lstInventarioDetalleBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("inventarioDetalle.reporteProceso");  
+		 	spq.setParameter("idInventario", inventarioBean.getCodigo()); 
+			
+			 if (spq.execute()) {
+				 lstInventarioDetalle =  spq.getResultList(); 
+			 } 
+			 
+			if (lstInventarioDetalle != null && lstInventarioDetalle.size() > 0) {
+				lstInventarioDetalleBean = deListaObjetoAListaObjetoBean(lstInventarioDetalle);
+			 } 
+			em.close(); 
+		   
+		return lstInventarioDetalleBean;
+	}
+ 
 }

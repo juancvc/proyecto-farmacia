@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import proyect.base.repository.DAOException;
 import proyect.base.service.ServiceException;
+import proyect.core.bean.inventario.InventarioBean;
 import proyect.core.bean.inventario.InventarioDetalleBean;
 import proyect.core.repository.interfaces.inventario.InventarioDetalleDAO;
 import proyect.core.service.interfaces.inventario.InventarioDetalleService;
@@ -79,6 +80,17 @@ public class InventarioDetalleServiceImpl implements InventarioDetalleService {
 	@Override
 	public boolean existe(InventarioDetalleBean t) throws ServiceException {
 		return false;
+	}
+
+	@Override
+	public List<InventarioDetalleBean> listarReporteProceso(InventarioBean inventarioBean) throws ServiceException {
+		List<InventarioDetalleBean> lstInventarioDetalleBean=null;
+		try {
+			lstInventarioDetalleBean=inventarioDetalleDAO.listarReporteProceso(inventarioBean);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return lstInventarioDetalleBean;
 	}
  
  

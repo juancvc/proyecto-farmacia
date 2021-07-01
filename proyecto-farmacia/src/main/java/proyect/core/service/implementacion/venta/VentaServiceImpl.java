@@ -227,6 +227,18 @@ public class VentaServiceImpl implements VentaService {
 		}
 		return sw;
 	}
+
+	@Override
+	public List<VentaBean> reporteRecaudacion(VentaBean venta) throws ServiceException {
+		List<VentaBean> lstVentaVO = null;
+		try {
+			lstVentaVO =  this.getVentaDAO().reporteRecaudacion(venta);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+		return lstVentaVO;
+	}
 }
 
 	

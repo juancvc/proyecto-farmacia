@@ -13,109 +13,69 @@ import javax.persistence.StoredProcedureParameter;
 		{
 				
 				@NamedStoredProcedureQuery(
-						name="intitucion.buscarxid", 
-						procedureName="SP_INSTITUCIONES_BUSCAR_X_ID",
+						name="institucion.buscarPorObjeto", 
+						procedureName="[usp_Institucion_buscarxID]",
 						resultClasses= Institucion.class,
-						parameters={
-									//@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_INSTITUCION", type=Long.class)
+						parameters={ 
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idInstitucion", type=String.class)
 							}					
-					),
+					), 
 				@NamedStoredProcedureQuery(
-						name="intitucion.buscarxcriterios", 
-						procedureName="SP_INSTITUCIONES_BUSCAR_X_CRITERIOS",
+						name="institucion.buscarPorFiltros", 
+						procedureName="[usp_Institucion_buscarxCriterios]",
 						resultClasses= Institucion.class,
 						parameters={
-								//	@StoredProcedureParameter(mode=ParameterMode.REF_CURSOR,name="C_CURSOR", type=void.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class)
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nombre", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class) 
 							}	
 				),
 				@NamedStoredProcedureQuery(
-						name="intitucion.buscarTodos", 
-						procedureName="SP_INSTITUCIONES_BUSCAR_TODOS",
-						resultClasses= Institucion.class
-				),
-				@NamedStoredProcedureQuery(
-						name="intitucion.insert", 
-						procedureName="SP_INSTITUCIONES_INSERTAR",
+						name="institucion.update", 
+						procedureName="[usp_Institucion_actualizar]",
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.OUT, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_CORTO", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="NOMBRE_LARGO", type=String.class),
-									
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ID_SITUACION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_USUARIO", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_IP", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_SESSION", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_ID_OPERACION", type=int.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="RUC", type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN,  name="AUD_OBSERVACION", type=String.class)
-							}					
-				),
-				@NamedStoredProcedureQuery(
-						name="intitucion.update", 
-						procedureName="SP_INSTITUCIONES_ACTUALIZAR",
-						parameters={
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_LARGO", type=String.class),
-								
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class ),
-								@StoredProcedureParameter(mode=ParameterMode.IN, name="AUD_OBSERVACION", type=String.class )
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="idInstitucion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nombre", type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreComercial", type=String.class), 
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="direccion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="logo", type=byte.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreLogo", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="usuarioModificacion", type=String.class ),
+								@StoredProcedureParameter(mode=ParameterMode.IN, name="ipModificacion", type=String.class )
 						}					
 										
-				),
-				@NamedStoredProcedureQuery(
-						name="intitucion.delete", 
-						procedureName="SP_INSTITUCIONES_ELIMINAR",
-						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class )
-							}					
-				),
-				@NamedStoredProcedureQuery(
-						name="intitucion.validar", 
-						procedureName="SP_INSTITUCIONES_VALIDAR",
-						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="ID_INSTITUCION", type=int.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="NOMBRE_CORTO", type=String.class )
-							}					
-				)
-		
+				)  
 		}
 	)
+
 @Entity
 public class Institucion { 
 	
 	@Id
-	@Column(name="ID_INSTITUCION")
+	@Column(name="idInstitucion")
 	private String idInstitucion;
-
-	@Column(name="NOMBRE_CORTO")
-	private String nombreCorto;
-
-	@Column(name="NOMBRE_LARGO")
-	private String nombreLargo;
-
-	@Column(name="ID_ORGANIZACION")
-	private int idOrganizacion;
+ 
+	@Column(name="nombre")
+	private String nombre;
 	
-	/**@Column(name="ID_SEDE")
-	private int idSede;
+	@Column(name="direccion")
+	private String direccion;
 	
-	@Column(name="NRO_VERSION")
-	private int nroVersion;
+	@Column(name="nombreComercial")
+	private String nombreComercial;
 	
-	@Column(name="NRO_PERIODO")
-	private int nroPeriodo;
-	*/
+	@Column(name="ruc")
 	private String ruc;
 	
-	@Column(name="AUD_FECHA_OPERACION")
-	private  Timestamp 	aud_fechaOperacion;
+	@Column(name="logo")
+	private byte[] logo;
 	
-	private String observacion;
+	@Column(name="nombreLogo")
+	private String nombreLogo;
 	
+	@Column(name="descripcion")
+	private String descripcion;
+	 
 	public Institucion() {  
 	}
 
@@ -127,28 +87,28 @@ public class Institucion {
 		this.idInstitucion = idInstitucion;
 	}
 
-	public String getNombreCorto() {
-		return nombreCorto;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getNombreLargo() {
-		return nombreLargo;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setNombreLargo(String nombreLargo) {
-		this.nombreLargo = nombreLargo;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	public int getIdOrganizacion() {
-		return idOrganizacion;
+	public String getNombreComercial() {
+		return nombreComercial;
 	}
 
-	public void setIdOrganizacion(int idOrganizacion) {
-		this.idOrganizacion = idOrganizacion;
+	public void setNombreComercial(String nombreComercial) {
+		this.nombreComercial = nombreComercial;
 	}
 
 	public String getRuc() {
@@ -159,23 +119,29 @@ public class Institucion {
 		this.ruc = ruc;
 	}
 
-	public Timestamp getAud_fechaOperacion() {
-		return aud_fechaOperacion;
+	public byte[] getLogo() {
+		return logo;
 	}
 
-	public void setAud_fechaOperacion(Timestamp aud_fechaOperacion) {
-		this.aud_fechaOperacion = aud_fechaOperacion;
+	public void setLogo(byte[] logo) {
+		this.logo = logo;
 	}
 
-	public String getObservacion() {
-		return observacion;
+	public String getNombreLogo() {
+		return nombreLogo;
 	}
 
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+	public void setNombreLogo(String nombreLogo) {
+		this.nombreLogo = nombreLogo;
 	}
-	 
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
  
 	
 }

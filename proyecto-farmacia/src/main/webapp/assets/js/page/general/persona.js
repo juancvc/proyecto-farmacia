@@ -686,13 +686,16 @@ function guardarPersonaLaboratorio() {
 	var codigoRegistroUbigeoDireccion = $('#codigoRegistroUbigeoDireccion').val();
 	
 	// console.log("fechaIni " + fechaIni);
-	// console.log("fechaFin " + fechaFin);
+	  console.log("telefono.length " + telefono.length);
 
 	if (!myFormulario[0].checkValidity()) {
 		msg_advertencia("Debe completar los campos requeridos(*) correctamente");
 
-	} else if(telefono.length < 7){
-		msg_advertencia("Ingrese número de celular correcto.");
+	} else if(telefono.length != 0){
+		if(telefono.length > 9){
+			msg_advertencia("Ingrese número de celular correcto.");
+		}
+		
 		
 	}else if(codigoRegistroUbigeoDireccion.length == 0){
 		msg_advertencia("Ingrese ubigeo de dirección.");

@@ -135,7 +135,7 @@ public class CompraController extends BaseController{
 	List<CompraBean> lstPersonasCompras;
 	List<CompraBean> lstCompras;
 	List<AlmacenBean> lstAlmacen;
-	List<CompraItemBean> lstComprasItems;
+	List<CompraItemBean> lstComprasItems = new ArrayList<CompraItemBean>();
 	List<CompraItemBean> lstComprasItemDevolucion;
 	List<CompraItemBean> lstConsumoPaciente;
 	List<CuentaCorrienteBean> lstCuentaCorrienteBean;
@@ -149,6 +149,7 @@ public class CompraController extends BaseController{
 	private PersonaBean personaBean;
 	private String fechaEmision;
 	private CuentaCorrienteBean cuentaCorrienteBean;
+	private float parametroPorcentajeVenta;
 	
 	@Autowired
 	private ProveedorService proveedorService;
@@ -190,8 +191,11 @@ public class CompraController extends BaseController{
 	private CuentaCorrienteService cuentaCorrienteService;
 	
 	private void cargarCombos(ModelAndView mav) { 
+		AlmacenBean prmAlmacenBean = new AlmacenBean();
+		prmAlmacenBean.getTipo().setIdRegistro("000002");
+		prmAlmacenBean.setSwPrincipal(true);
 		try {
-			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
+			lstAlmacen = almacenService.getBuscarPorFiltros(prmAlmacenBean);
 			lstTipoDocumento = catalogo2Service.listarPorCodigoTabla("000022", 1);
 			lstProcesoSeleccion = catalogo2Service.listarPorCodigoTabla("000023", 1); 
 			lstTipoFinanciamiento = catalogo2Service.listarPorCodigoTabla("000024", 1);
@@ -221,8 +225,10 @@ public class CompraController extends BaseController{
 	}
 	
 	private void cargarCombosListado(ModelAndView mav) {
+		AlmacenBean prmAlmacenBean = new AlmacenBean();
+		prmAlmacenBean.getTipo().setIdRegistro("000002");
 		try {
-			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
+			lstAlmacen = almacenService.getBuscarPorFiltros(prmAlmacenBean);
 			lstTipoComprobante = catalogo1Service.listarPorCodigoTabla("000018", 0);
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
@@ -319,6 +325,18 @@ public class CompraController extends BaseController{
  
 	@RequestMapping(value = "/nuevo", method = RequestMethod.GET)
 	public ModelAndView doNuevo(HttpServletRequest request) { 
+		lstComprasItems = new ArrayList<CompraItemBean>();
+		List<CatalogoBean> lst;
+		try {
+			lst = catalogo2Service.listarPorCodigoTabla("000028", 1);
+			if (lst != null) {
+				parametroPorcentajeVenta = (float) Double.parseDouble(lst.get(0).getDescripcionCorta());
+				System.out.println("parametroPorcentajeVenta " + parametroPorcentajeVenta);
+			}
+		} catch (ServiceException e1) { 
+			e1.printStackTrace();
+		}
+		
 		CompraBean compraBean = new CompraBean(); 
 		StockBean Stock = new StockBean();
 		Stock.setTipoLlamada("1");
@@ -326,17 +344,19 @@ public class CompraController extends BaseController{
 		System.out.println("usuario.getAlmacen()" + usuario.getAlmacen().getCodigo());
 		Stock.setAlmacen(usuario.getAlmacen());
 		compraBean.setAlmacen(usuario.getAlmacen());
-		
+		compraBean.setPorcentajeVenta(parametroPorcentajeVenta);
 		ModelAndView mav = new ModelAndView("movimiento/compra/registro-compra", "command", compraBean); 
 		this.cargarCombos(mav);
 		try {
 			lstArticulos = articuloService.getBuscarPorFiltros(new ArticuloBean());
+			System.out.println("lstArticulos size::" + lstArticulos.size());
 			lstProveedor = proveedorService.getBuscarPorFiltros(new ProveedorBean());
 		} catch (ServiceException e) { 
 			e.printStackTrace();
 		}
 		mav.addObject("lstArticulos", lstArticulos); 
 		mav.addObject("lstProveedor", lstProveedor);
+		mav.addObject("compra", compraBean);
 		return mav;
 	}
 	
@@ -356,7 +376,7 @@ public class CompraController extends BaseController{
 		}
 		mav.addObject("lstArticulos", lstArticulos); 
 		mav.addObject("lstProveedor", lstProveedor);
-		mav.addObject("compraBean", compraBean);
+		mav.addObject("compra", lstCompras.get(index));
 		mav.addObject("lstComprasItems", lstComprasItems);
 		return mav;
 	}
@@ -418,111 +438,78 @@ public class CompraController extends BaseController{
 		List<CatalogoBean> lstcatalogoBean =new ArrayList<CatalogoBean>(); 
 		try {
 			lstcatalogoBean = catalogo2Service.getBuscarPorFiltros(catalogoBean); 
-		
 		} catch (ServiceException e) {
 			
 			e.printStackTrace();
 		}
-		 
 			return lstcatalogoBean; 
 	}
 	
-	@RequestMapping(value = "/personaModal", method = RequestMethod.POST)
-	public ModelAndView personaModalPost() throws Exception {
-		PersonaBean objPersona = new  PersonaBean(); 
-		objPersona.getNacionalidad().setIdRegistro("000114");
-		objPersona.getEstadoCivil().setIdRegistro("000006");
-		ModelAndView mav = new ModelAndView("movimiento/compra/persona-registro-modal", "command",  objPersona); 
-		ubigeobean = new UbigeoBean();
-		ubigeobean.setDescripcion("");
-		ubigeobean.setInstitucion("000003");
-		ubigeobean.setCategoria("000003");
-		lstUbigeoBean = new ArrayList<UbigeoBean>();
+	@RequestMapping(value = "/articuloModal", method = RequestMethod.POST)
+	public ModelAndView articuloModal() throws Exception {
+		List<CatalogoBean> lst;
+		CompraItemBean objCompraItem = new  CompraItemBean(); 
 		try {
-			
-			lstUbigeoBean = ubigeoService.getBuscarPorFiltros(ubigeobean);
-		} catch (Exception e) { 
+			lst = catalogo2Service.listarPorCodigoTabla("000028", 1);
+			if (lst != null) {
+				parametroPorcentajeVenta = (float) Double.parseDouble(lst.get(0).getDescripcionCorta());
+				System.out.println("parametroPorcentajeVenta " + parametroPorcentajeVenta);
+				objCompraItem.getCompra().setPorcentajeVenta(parametroPorcentajeVenta);
+			}
+		} catch (ServiceException e1) { 
+			e1.printStackTrace();
 		}
-		mav.addObject("personaBean", objPersona);
-		mav.addObject("ubigeoBean", new UbigeoBean());
-		mav.addObject("lstUbigeoBean", lstUbigeoBean);
-		this.cargarCombos(mav);
+		ModelAndView mav = new ModelAndView("movimiento/compra/articulo-modal", "command",  objCompraItem); 
+		try {
+			lstArticulos = articuloService.getBuscarPorFiltros(new ArticuloBean()); 
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		mav.addObject("lstArticulos", lstArticulos); 
+		mav.addObject("compraItem", objCompraItem); 
 		return mav;
 	} 
 	
-	@RequestMapping(value = "/grabarPersona", method = RequestMethod.POST)
-	public @ResponseBody PersonaBean grabarPersonaLaboratorio(@ModelAttribute("personaBean")PersonaBean obpersonaBean,
+	@RequestMapping(value = "/llenarCompraItem", method = RequestMethod.POST)
+	public @ResponseBody List<CompraItemBean> llenarCompraItem(@ModelAttribute("compraItem")CompraItemBean objCompraItemBean,
 											 HttpServletRequest request) throws Exception {  
-	
-		if (personaBean==null) {
-			personaBean = new PersonaBean();
-		} 
+		 
+		objCompraItemBean.getStock().setArticulo(
+				lstArticulos.get(Integer.valueOf(objCompraItemBean.getStock().getArticulo().getCodigo())));
+		System.out.println("objCompraItemBean " + objCompraItemBean.getStock().getArticulo().getCodigo());
+		System.out.println("objCompraItemBean venci" + objCompraItemBean.getStock().getsFechaVencimiento());
+		lstComprasItems.add(objCompraItemBean);
 		
-		System.out.println("obpersonaBean.getCodigo() " + obpersonaBean.getCodigo());
-		
-		if (obpersonaBean.getCodigo().equals("")) {
-			if(!obpersonaBean.getTipoDocumento().getIdRegistro().equals("000002") ){  
-				System.out.println("SIN SERVICIO DE RENIEC" ); 
-				
-				this.setAuditoria(obpersonaBean, request, true); 
-				this.personaService.insertar(obpersonaBean);
-				System.out.println("SIN SERVICIO DE RENIEC getNroDocumento"  + obpersonaBean.getNroDocumento()); 
-				setPersonaBean(obpersonaBean);
-			}else{
-				setPersonaBean(obpersonaBean);
-				if(this.getPersonaBean().getSwReniec()){
-					
-					System.out.println("this.getPostulanteBean().getPersona(). " +this.getPersonaBean().getTipoDocumento().getIdRegistro());
-					System.out.println("this.getPostulanteBean().getPersona() ::" + this.getPersonaBean());
-					this.getPersonaBean().setTelefonoNumero(obpersonaBean.getTelefonoNumero());
-					this.getPersonaBean().setCorreo(obpersonaBean.getCorreo());
-					this.getPersonaBean().getNivelInstrucion().setIdRegistro(obpersonaBean.getNivelInstrucion().getIdRegistro());
-					this.getPersonaBean().getOcupacion().setIdRegistro(obpersonaBean.getOcupacion().getIdRegistro());
-					
-					this.setAuditoria(this.getPersonaBean(), request, true); 
-					this.personaService.insertar(this.getPersonaBean());
-					System.out.println("persona reniec");
-				}else{
-					System.out.println("SIN SERVICIO DE RENIEC" ); 
-					this.setAuditoria(obpersonaBean, request, true); 
-					this.personaService.insertar(obpersonaBean);
-					System.out.println("SIN SERVICIO DE RENIEC getNroDocumento"  + obpersonaBean.getNroDocumento()); 
-					setPersonaBean(obpersonaBean);
-				}
-			} 
-			System.out.println("persona no existe es nuevo"); 
-			
-		}else{ 
-			System.out.println("existe persona");
-			 
-				this.setAuditoria(this.getPersonaBean(), request, true);  
-				this.personaService.actualizar(obpersonaBean); 
-			
-		}     
-		
-		return this.getPersonaBean();
+		return lstComprasItems;
 	}
 	
+	@RequestMapping(value = "/removerCompraItem", method = RequestMethod.POST)
+	public @ResponseBody List<CompraItemBean> removerCompraItem(@RequestParam("index") int index,
+											 HttpServletRequest request) throws Exception {  
+		lstComprasItems.remove(index-1);
+		
+		return lstComprasItems;
+	}
 
-	   @RequestMapping(value = "/refrescarListaArticulos", method = RequestMethod.GET)
-		public @ResponseBody CompraItemBean refrescarListaCompra(@RequestParam("index") int index) throws Exception {
-			System.out.println("index " + index);
-			CompraItemBean objCompraItemBean = new CompraItemBean(); 
-			objCompraItemBean.getStock().setArticulo(lstArticulos.get(index)); 
-			objCompraItemBean.getStock().setLote("");
-			objCompraItemBean.getStock().setsFechaVencimiento("");
-			objCompraItemBean.getStock().setNroRegistroSanitario("");
-			objCompraItemBean.getStock().setPrecioCompra(0);
-			objCompraItemBean.getStock().setPrecioVenta(0);
-			objCompraItemBean.setSubtotal(0);
-			objCompraItemBean.setPrecio(0);
-			objCompraItemBean.setCantidad(1);
-		//	objCompraItemBean.ejecutarImporte();
-			DecimalFormat df = new DecimalFormat("0.00"); 
-			objCompraItemBean.setsImporte((df.format(objCompraItemBean.getSubtotal()).replace(",", ".")));
-			//lstOrdenDetalleBean.add(objOrdenDetalleBean);
-			return objCompraItemBean;
-		}
+   @RequestMapping(value = "/refrescarListaArticulos", method = RequestMethod.GET)
+	public @ResponseBody CompraItemBean refrescarListaCompra(@RequestParam("index") int index) throws Exception {
+		System.out.println("index " + index);
+		CompraItemBean objCompraItemBean = new CompraItemBean(); 
+		objCompraItemBean.getStock().setArticulo(lstArticulos.get(index)); 
+		objCompraItemBean.getStock().setLote("");
+		objCompraItemBean.getStock().setsFechaVencimiento("");
+		objCompraItemBean.getStock().setNroRegistroSanitario("");
+		objCompraItemBean.getStock().setPrecioCompra(0);
+		objCompraItemBean.getStock().setPrecioVenta(0);
+		objCompraItemBean.setSubtotal(0);
+		objCompraItemBean.setPrecio(0);
+		objCompraItemBean.setCantidad(1);
+	//	objCompraItemBean.ejecutarImporte();
+		DecimalFormat df = new DecimalFormat("0.00"); 
+		objCompraItemBean.setsImporte((df.format(objCompraItemBean.getSubtotal()).replace(",", ".")));
+		//lstOrdenDetalleBean.add(objOrdenDetalleBean);
+		return objCompraItemBean;
+	}
 
 
 	   @RequestMapping(value = "/consultarPersonaPorDocumento", method = RequestMethod.GET)
@@ -1338,9 +1325,10 @@ public class CompraController extends BaseController{
 	   
 	   private void  listarPacienteCtaCtePendientes2() {
 			 CuentaCorrienteBean  cuentaCorrienteBean= new CuentaCorrienteBean();  
-			 PersonaBean persona= new PersonaBean();
+			 PacienteBean persona= new PacienteBean();
 			 persona.setCodigo(this.getPersonaBean().getCodigo());
-			 cuentaCorrienteBean.setPersona(persona);
+			 
+			 cuentaCorrienteBean.getEpisodio().setPaciente(persona);
 			// cuentaCorrienteBean.setp
 			 try {
 				lstCuentaCorrienteBean = cuentaCorrienteService.listarCtaCtePacientePendientes(cuentaCorrienteBean);
@@ -1356,12 +1344,67 @@ public class CompraController extends BaseController{
 		   }
 
 	   
-		@RequestMapping(value = "/llenarCompra", method = RequestMethod.GET)
+		@RequestMapping(value = "/generarCompra", method = RequestMethod.GET)
 		@ResponseBody
-		public void llenarCompra(@ModelAttribute("compraBean") 
+		public String generarCompra(@ModelAttribute("compraBean") 
 					CompraBean compraBean, HttpServletRequest request) {
 			this.setCompraBean(compraBean);
+ 
+			boolean sw = false; 
+			
+			String cadenaCantidad = "@"; 
+			String codigo = "";
+			String cadenaIdArticulo = "@"; 
+			String cadenaLote = "@";
+			String cadenaPrecioCompra = "@";
+			String cadenaPrecioVenta = "@";
+			String cadenaFechaVencimiento = "@";
+			String cadenaRegistroSanitario = "@";
+		
+			for ( CompraItemBean prmCompraItem :lstComprasItems) {
+				cadenaCantidad = cadenaCantidad + prmCompraItem.getCantidad() + "@";
+				cadenaIdArticulo = cadenaIdArticulo + prmCompraItem.getStock().getArticulo().getCodigo() + "@"; 
+				cadenaLote = cadenaLote + prmCompraItem.getStock().getLote() + "@"; 
+				cadenaPrecioCompra = cadenaPrecioCompra + prmCompraItem.getStock().getPrecioCompra() + "@"; 
+				cadenaPrecioVenta = cadenaPrecioVenta + prmCompraItem.getStock().getPrecioVenta() + "@"; 
+				cadenaFechaVencimiento = cadenaFechaVencimiento + prmCompraItem.getStock().getsFechaVencimiento() + "@"; 
+				cadenaRegistroSanitario = cadenaRegistroSanitario + prmCompraItem.getStock().getNroRegistroSanitario() + "@"; 
+			}
+			
+			this.getCompraBean().setCantidadItems(lstComprasItems.size());
+			this.getCompraBean().setCadenaCantidad(cadenaCantidad);
+			this.getCompraBean().setCadenaIdArticulo(cadenaIdArticulo);
+			this.getCompraBean().setCadenaLote(cadenaLote);
+			this.getCompraBean().setCadenaPrecioCompra(cadenaPrecioCompra);
+			this.getCompraBean().setCadenaPrecioVenta(cadenaPrecioVenta);
+			this.getCompraBean().setCadenaFechaVencimiento(cadenaFechaVencimiento);
+			this.getCompraBean().setCadenaRegistroSanitario(cadenaRegistroSanitario);
+			try {
+
+				if (this.getCompraBean().getCodigo().equals("")) {
+					this.setAuditoria(this.getCompraBean(), request, true);
+					  System.out.println("graba registro compra");
+					  sw = (this.compraService.insertar(this.getCompraBean()));
+
+					if (sw) {
+						codigo = this.getCompraBean().getCodigo(); 
+
+					} 
+
+				} else {
+					// UPDATE
+					this.setAuditoria(this.getCompraBean(), request, false);
+					sw = (this.compraService.actualizar(this.getCompraBean()));
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return codigo;
 		}
+		
+		
 		
 	   @RequestMapping(value = "/asignarCompra", method = RequestMethod.POST)
 	    public @ResponseBody List<CompraItemBean> asignarCompra(
@@ -1479,6 +1522,14 @@ public class CompraController extends BaseController{
 
 	public void setCuentaCorrienteBean(CuentaCorrienteBean cuentaCorrienteBean) {
 		this.cuentaCorrienteBean = cuentaCorrienteBean;
+	}
+
+	public float getParametroPorcentajeVenta() {
+		return parametroPorcentajeVenta;
+	}
+
+	public void setParametroPorcentajeVenta(float parametroPorcentajeVenta) {
+		this.parametroPorcentajeVenta = parametroPorcentajeVenta;
 	}
 	
 	

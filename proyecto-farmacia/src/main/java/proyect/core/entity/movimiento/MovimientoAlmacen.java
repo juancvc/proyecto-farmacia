@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,13 +17,14 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
 import proyect.core.entity.stock.Stock;
+import proyect.core.entity.venta.VentaItemPK;
  
 
 
 @NamedStoredProcedureQueries(
 		{
 			@NamedStoredProcedureQuery(
-				name="movimientoAlmacen.insert", 
+				name="movimientoAlmacen.insertar", 
 				procedureName="[dbo].[usp_AlmacenMovimiento_insertar]",
 				parameters={
 							@StoredProcedureParameter(mode=ParameterMode.OUT, name="idMovimiento", 	   		 type=String.class ),
@@ -37,7 +39,7 @@ import proyect.core.entity.stock.Stock;
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="nroGuia", 		   		 type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaIdStock",    		 type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="cadenaCantidad",   		 type=String.class),							
-							@StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		   		 type=String.class),
+							@StoredProcedureParameter(mode=ParameterMode.OUT, name="valida", 		   		 type=int.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="tipoIngresoDocumento",   type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoFinanciadorCat02", type=String.class),
 							@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoSeleccionCat02", 	 type=String.class),
@@ -199,10 +201,10 @@ import proyect.core.entity.stock.Stock;
 
 @Entity
 public class MovimientoAlmacen  implements Serializable {
-	@Id
-	@Column(name="idMovimiento")
-	private String idMovimientoAlmacen;
-
+ 
+	@EmbeddedId
+	private MovimientoAlmacenPK id;
+	
 	@Column(name="cantidad")
 	private int cantidad;
 
@@ -417,14 +419,14 @@ public class MovimientoAlmacen  implements Serializable {
 
 		return movimientoAlmacen;
 	}
-
-	public String getIdMovimientoAlmacen() {
-		return idMovimientoAlmacen;
+ 
+	public MovimientoAlmacenPK getId() {
+		return id;
 	}
 
 
-	public void setIdMovimientoAlmacen(String idMovimientoAlmacen) {
-		this.idMovimientoAlmacen = idMovimientoAlmacen;
+	public void setId(MovimientoAlmacenPK id) {
+		this.id = id;
 	}
 
 
@@ -709,8 +711,28 @@ public class MovimientoAlmacen  implements Serializable {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
- 
 
-	 
+
+	@Override
+	public String toString() {
+		return "MovimientoAlmacen [id=" + id + ", cantidad=" + cantidad + ", nroDocumento=" + nroDocumento + ", monto="
+				+ monto + ", saldo=" + saldo + ", orden=" + orden + ", precio=" + precio + ", nroGuia=" + nroGuia
+				+ ", glosa=" + glosa + ", fechaMovimiento=" + fechaMovimiento + ", tipoIngresoDocumento="
+				+ tipoIngresoDocumento + ", articulo=" + articulo + ", idStock=" + idStock + ", idTipoMovimiento="
+				+ idTipoMovimiento + ", almacenOrigen=" + almacenOrigen + ", almacenDestino=" + almacenDestino
+				+ ", tipoFinanciamiento=" + tipoFinanciamiento + ", tipoProcesoSeleccion=" + tipoProcesoSeleccion
+				+ ", idPersona=" + idPersona + ", idTipoDocumentoCompra=" + idTipoDocumentoCompra + ", mes=" + mes
+				+ ", anio=" + anio + ", fechaOrden=" + fechaOrden + ", id_concepto=" + id_concepto + ", stockItems="
+				+ stockItems + ", movimientoAlmacenItems=" + movimientoAlmacenItems + ", cadenaCantdArt="
+				+ cadenaCantdArt + ", cadenaNroPeriodoStock=" + cadenaNroPeriodoStock + ", cadenaIdStock="
+				+ cadenaIdStock + ", subtotal=" + subtotal + ", total=" + total + ", idAlmacen=" + idAlmacen
+				+ ", idInventario=" + idInventario + ", fechaInventarioSig=" + fechaInventarioSig + ", abastecimientos="
+				+ abastecimientos + ", tipoMovimiento=" + tipoMovimiento + ", idCategoriaTipoMovimiento="
+				+ idCategoriaTipoMovimiento + ", fechaVencimiento=" + fechaVencimiento + ", nombreArticulo="
+				+ nombreArticulo + ", lote=" + lote + ", codigoSismed=" + codigoSismed + ", stock=" + stock
+				+ ", INGRESO_POR_ANULACION=" + INGRESO_POR_ANULACION + ", SALIDA_POR_VENTA=" + SALIDA_POR_VENTA + "]";
+	}
+
+ 
 	
 }

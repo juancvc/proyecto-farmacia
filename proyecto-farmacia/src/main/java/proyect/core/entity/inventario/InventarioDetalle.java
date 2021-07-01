@@ -1,17 +1,13 @@
 package proyect.core.entity.inventario;
- 
-import java.util.List;
+  
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id; 
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
-
-import proyect.core.entity.stock.Stock;
- 
-@SuppressWarnings("serial")
+import javax.persistence.StoredProcedureParameter; 
+  
 @NamedStoredProcedureQueries(
 		{
 				
@@ -62,18 +58,24 @@ import proyect.core.entity.stock.Stock;
 							}					
 				),
 				@NamedStoredProcedureQuery(
-						name="inventarioDetalle.findByLikeObjectVO", 
-						procedureName="[dbo].[SP_INVENTARIO_BUSCAR_X_CRITERIOS]",
+						name="inventarioDetalle.buscarPorFiltros", 
+						procedureName="[dbo].[usp_InventarioDetalle_buscarxCriterios]",
 						resultClasses = InventarioDetalle.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idAlmacen", 		 type=String.class),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroPeriodo", 	 type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="nroMes", 		 type=String.class ),
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="idSituacion",     type=String.class )
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idInventario", 	type=String.class) 
+							}					
+				),
+				@NamedStoredProcedureQuery(
+						name="inventarioDetalle.reporteProceso", 
+						procedureName="[dbo].[usp_InventarioDetalle_ReporteProceso]",
+						resultClasses = InventarioDetalle.class,
+						parameters={
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idInventario", 	type=String.class) 
 							}					
 				)
 		}
 	)
+
 @Entity
 public class InventarioDetalle  {
 	@Id
@@ -101,6 +103,16 @@ public class InventarioDetalle  {
 	@Column(name="saldoActual")
 	private int saldoActual;
 
+	private String nombreArticulo;
+	private String concentracion;
+	private String descripcionLargaPresentacion;
+	private String lote;
+	private int stock;
+	private String codigoSismed; 
+	private String idArticulo;
+	private Integer sobrante;
+	private Integer faltante;
+	
 	public String getIdInventarioDetalle() {
 		return idInventarioDetalle;
 	}
@@ -164,8 +176,84 @@ public class InventarioDetalle  {
 	public void setSaldoActual(int saldoActual) {
 		this.saldoActual = saldoActual;
 	}
-	
-	
+
+	public String getNombreArticulo() {
+		return nombreArticulo;
+	}
+
+	public void setNombreArticulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
+	}
+
+	public String getConcentracion() {
+		return concentracion;
+	}
+
+	public void setConcentracion(String concentracion) {
+		this.concentracion = concentracion;
+	}
+
+	public String getDescripcionLargaPresentacion() {
+		return descripcionLargaPresentacion;
+	}
+
+	public void setDescripcionLargaPresentacion(String descripcionLargaPresentacion) {
+		this.descripcionLargaPresentacion = descripcionLargaPresentacion;
+	}
+
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public String getCodigoSismed() {
+		return codigoSismed;
+	}
+
+	public void setCodigoSismed(String codigoSismed) {
+		this.codigoSismed = codigoSismed;
+	}
+
+	public String getIdArticulo() {
+		return idArticulo;
+	}
+
+	public void setIdArticulo(String idArticulo) {
+		this.idArticulo = idArticulo;
+	}
+
+	public Integer getSobrante() {
+		if (sobrante == null) {
+			sobrante = 0;
+		}
+		return sobrante;
+	}
+
+	public void setSobrante(Integer sobrante) {
+		this.sobrante = sobrante;
+	}
+
+	public Integer getFaltante() {
+		if (faltante == null) {
+			faltante = 0;
+		}
+		return faltante;
+	}
+
+	public void setFaltante(Integer faltante) {
+		this.faltante = faltante;
+	}
 	
 }
 

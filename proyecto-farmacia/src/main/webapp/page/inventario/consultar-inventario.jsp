@@ -106,11 +106,11 @@
 									<div class="row">
 									<div class="form-group col-md-5" style="margin-top: 15px;">
 											<a
-												href=""
+												href="${pageContext.request.contextPath}/inventarioController/rptInventarioAlmacen"
 												class="btn btn-info"> <i class="fa fa-file-pdf"></i> EXPORTAR PDF
 											</a>
 									 		<a
-												href=""
+												href="${pageContext.request.contextPath}/inventarioController/descargarExcel"
 												class="btn btn-info"> <i class="fa fa-file-excel"></i> EXPORTAR EXCEL
 											</a>
 										</div>
@@ -141,7 +141,7 @@
 														<th>LOTE</th>
 														<th>FECHA VENCIMIENTO</th>
 														<th>CANTIDAD</th>
-														<th>UNIDAD</th>
+														<th>PRESENTACION</th>
 													</tr>
 												</thead>
 												<tfoot>

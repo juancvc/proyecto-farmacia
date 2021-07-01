@@ -8,8 +8,8 @@ import proyect.core.bean.stock.StockBean;
 public class CompraItemBean extends BaseBean {
 
 	private CompraBean Compra;
-	private int cantidad;
-	private int cantidadConsumida;
+	private float cantidad;
+	private float cantidadConsumida;
 	private CatalogoBean modalidadAdquicision;
 	private StockBean stock;
 	private float precio;
@@ -43,16 +43,16 @@ public class CompraItemBean extends BaseBean {
 	public void setCompra(CompraBean Compra) {
 		this.Compra = Compra;
 	}
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
-	public int getCantidadConsumida() {
+	public float getCantidadConsumida() {
 		return cantidadConsumida;
 	}
-	public void setCantidadConsumida(int cantidadConsumida) {
+	public void setCantidadConsumida(float cantidadConsumida) {
 		this.cantidadConsumida = cantidadConsumida;
 	}
 	public CatalogoBean getModalidadAdquicision() {

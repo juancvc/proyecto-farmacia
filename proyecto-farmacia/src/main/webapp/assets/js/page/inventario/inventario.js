@@ -1,5 +1,11 @@
 var accionRealizar = "";
 var codigoRegistro = "";
+var indexInventario =0;
+
+function confirmaEjecutar(index) { 
+	$('#md_confirmacionEjecuta').modal('show');
+	indexInventario = index;
+}
 
 function confirmar_eliminar(codigo, tipo) {
 	codigoRegistro = codigo;
@@ -12,6 +18,12 @@ function agregar_accion() {
 }
 
 $(document).ready(function() {
+	$("#btnConfirmarProceso").click(function() { 
+			console.log("procesar :: " + indexInventario );
+			procesarInventario(indexInventario);  
+		    $('#md_confirmacionEjecuta').modal('hide');
+	});
+	
 	$("#btnConfirmarGeneric").click(function() {
 		if (accionRealizar == 3) {
 			console.log("anularVenta :: " + codigoRegistro );
@@ -131,8 +143,8 @@ function llenarArticuloIndex(index) {
 				success : function(data) {
 					if (data != null) {
 						for (var i = 0; i < listadoArticulo.length; i++) {
-							var objVentaItem = listadoArticulo[i];
-							if (objVentaItem.stock.codigo == data.stock.codigo) {
+							var objInventarioItem = listadoArticulo[i];
+							if (objInventarioItem.stock.codigo == data.stock.codigo) {
 								valida = "1";
 							}
 						}
@@ -141,41 +153,42 @@ function llenarArticuloIndex(index) {
 						} else {
 							listadoArticulo.push(data);
 							for (var i = 0; i < listadoArticulo.length; i++) {
-								var objVentaItem = listadoArticulo[i];
+								var objInventarioItem = listadoArticulo[i];
 								item = item + 1;
 								htmlTabla += "<tr>" + "<td>"
 										+ item
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.articulo.nombre
+										+ objInventarioItem.stock.articulo.nombre
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.lote
+										+ objInventarioItem.stock.lote
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.articulo.codigoSismed
+										+ objInventarioItem.stock.articulo.codigoSismed
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+										+ objInventarioItem.stock.articulo.tipoPresentacion.descripcionLarga
 										+ "</td>"
 										+ "<td>"
-										+ objVentaItem.stock.stock
+										+ objInventarioItem.stock.stock
 										+ "</td>"
 										+ "<td> <input type='text' class='form-control' "
 										+ "id="
-										+ [ objVentaItem.stock.codigo ]
+										+ [ objInventarioItem.stock.codigo ]
 										+ " required='required' "
 										+ "value ='"
-										+ objVentaItem.cantidad
+										+ objInventarioItem.cantidad
 										+ "' "
-										+ "maxlength='5' "
-										+ "onkeypress= 'return soloNumeros(event);' /></td>"
+										+ "maxlength='5' " 
+										+ "onkeypress= 'return soloNumeros(event);' " 
+										+ "onchange =\"cambiarCantidad('"+ [objInventarioItem.stock.codigo]+"');\"/></td>"
 										+ "<td>"
 										+ "<button type='button'"
 										+ " class='btn btn-outline-danger btn-sm' "
 										+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
 										+ "  onclick=\"confirmar_eliminar('"
-										+ [ objVentaItem.stock.codigo ]
+										+ [ objInventarioItem.stock.codigo ]
 										+ "','1');\""
 										+ " data-original-title='Eliminar'"
 										+ " id='agregarEspecialidad'>"
@@ -317,57 +330,54 @@ function cambiarCantidad(objeto) {
 	console.log("cantidad " + cantidad);
 
 	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
-		if (objVentaItem.stock.codigo == objeto) {
-			objVentaItem.cantidad = cantidad;
-			objVentaItem.subtotal = (objVentaItem.precio * cantidad).toFixed(2);
-			objVentaItem.sImporte = (objVentaItem.precio * cantidad).toFixed(2);
-			console.log("objExamen.importe:: " + objVentaItem.subtotal)
+		var objInventarioItem = listadoArticulo[i];
+		if (objInventarioItem.stock.codigo == objeto) {
+			objInventarioItem.cantidad = cantidad; 
+			console.log("objExamen.importe:: " + objInventarioItem.subtotal)
 		}
 	}
 	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
+		var objInventarioItem = listadoArticulo[i];
 		item = item + 1;
 		htmlTabla += "<tr>" + "<td>"
 		+ item
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.nombre
+		+ objInventarioItem.stock.articulo.nombre
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.lote
+		+ objInventarioItem.stock.lote
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.codigoSismed
+		+ objInventarioItem.stock.articulo.codigoSismed
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+		+ objInventarioItem.stock.articulo.tipoPresentacion.descripcionLarga
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.stock
+		+ objInventarioItem.stock.stock
 		+ "</td>"
 		+ "<td> <input type='text' class='form-control' "
 		+ "id="
-		+ [ objVentaItem.stock.codigo ]
+		+ [ objInventarioItem.stock.codigo ]
 		+ " required='required' "
 		+ "value ='"
-		+ objVentaItem.cantidad
+		+ objInventarioItem.cantidad
 		+ "' "
 		+ "maxlength='5' "
-		+ "onkeypress= 'return soloNumeros(event);'/></td>"
+		+ "onkeypress= 'return soloNumeros(event);' onchange = 'cambiarCantidad("+ [ objInventarioItem.stock.codigo ]+"); '/></td>"
 		+ "<td>"
 		+ "<button type='button'"
 		+ " class='btn btn-outline-danger btn-sm' "
 		+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
 		+ "  onclick=\"confirmar_eliminar('"
-		+ [ objVentaItem.stock.codigo ]
+		+ [ objInventarioItem.stock.codigo ]
 		+ "','1');\""
 		+ " data-original-title='Eliminar'"
 		+ " id='agregarEspecialidad'>"
 		+ "  <i class='fas fa-trash'></i></button> "
 		+ "</td>" + "</tr>";
-
-	}
+}
 	$('#idbodyStock').empty();
 	$('#idbodyStock').html(htmlTabla);
 
@@ -459,6 +469,7 @@ function grabarDetalle() {
 
 		for (var i = 0; i < listadoArticulo.length; i++) {
 			var objExamen = listadoArticulo[i];
+			console.log("objExamen.cantidad "  + objExamen.cantidad);
 			if (objExamen.cantidad == '' || objExamen.cantidad == '0') {
 				msg_advertencia("Ingrese cantidad mayor a 0");
 				return;
@@ -504,40 +515,40 @@ function eliminarArticulo(codigo) {
 
 	console.log("codigo " + codigo);
 	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
-		if (objVentaItem.stock.codigo == codigo) {
-			console.log("objVentaItem.stock.codigo "
-					+ objVentaItem.stock.codigo);
+		var objInventarioItem = listadoArticulo[i];
+		if (objInventarioItem.stock.codigo == codigo) {
+			console.log("objInventarioItem.stock.codigo "
+					+ objInventarioItem.stock.codigo);
 			listadoArticulo.splice(i, 1);
 		}
 	}
 	for (var i = 0; i < listadoArticulo.length; i++) {
-		var objVentaItem = listadoArticulo[i];
+		var objInventarioItem = listadoArticulo[i];
 		item = item + 1;
 		htmlTabla += "<tr>" + "<td>"
 		+ item
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.nombre
+		+ objInventarioItem.stock.articulo.nombre
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.lote
+		+ objInventarioItem.stock.lote
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.codigoSismed
+		+ objInventarioItem.stock.articulo.codigoSismed
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.articulo.tipoPresentacion.descripcionLarga
+		+ objInventarioItem.stock.articulo.tipoPresentacion.descripcionLarga
 		+ "</td>"
 		+ "<td>"
-		+ objVentaItem.stock.stock
+		+ objInventarioItem.stock.stock
 		+ "</td>"
 		+ "<td> <input type='text' class='form-control' "
 		+ "id="
-		+ [ objVentaItem.stock.codigo ]
+		+ [ objInventarioItem.stock.codigo ]
 		+ " required='required' "
 		+ "value ='"
-		+ objVentaItem.cantidad
+		+ objInventarioItem.cantidad
 		+ "' "
 		+ "maxlength='5' "
 		+ "onkeypress= 'return soloNumeros(event);' /></td>"
@@ -546,7 +557,7 @@ function eliminarArticulo(codigo) {
 		+ " class='btn btn-outline-danger btn-sm' "
 		+ " data-toggle='tooltip'  data-placement='top'  title='Eliminar'"
 		+ "  onclick=\"confirmar_eliminar('"
-		+ [ objVentaItem.stock.codigo ]
+		+ [ objInventarioItem.stock.codigo ]
 		+ "','1');\""
 		+ " data-original-title='Eliminar'"
 		+ " id='agregarEspecialidad'>"
@@ -740,6 +751,29 @@ function anularVenta(codigoRegistro){
 				 $('#txtNumero').val("");
 			}else{
 				msg_error("Error al anular venta");	
+			}
+		},
+		error : function() {
+		}
+	});
+}
+
+function procesarInventario(index){
+	var contextPath = $('#contextPath').val();
+	var idVenta  = $('#txtIdVenta').val();
+	var numeroPeriodo  = $('#txtNumeroPeriodo').val();
+	var numeroDocu  = $('#txtNumero').val();
+	 
+	$.ajax({
+		url : contextPath + "/inventarioController/procesarInventario?index="+index
+			+ "&numeroPeriodo=" + numeroPeriodo + "&numeroDocu=" + numeroDocu,
+		type : 'GET',	
+		success : function(data) {
+			if (data == "1") {
+				msg_exito("Éxito al procesar inventario"); 
+				document.getElementById("btnBuscar").click(); 
+			}else{
+				msg_error("Error al procesar inventario");	
 			}
 		},
 		error : function() {

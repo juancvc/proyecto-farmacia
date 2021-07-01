@@ -22,12 +22,16 @@ import org.springframework.web.servlet.ModelAndView;
 //import gob.hnch.systems.ws.hnch.client.imp.PersonaServiceImp;
 import proyect.core.bean.general.PersonaBean;
 import proyect.core.bean.general.RenaesBean;
+import proyect.core.bean.compra.CompraItemBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.seguridad.PerfilBean;
+import proyect.core.bean.seguridad.UsuarioAlmacenBean;
+import proyect.core.bean.seguridad.UsuarioAlmacenTurnoBean;
 import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.seguridad.UsuarioPerfilBean;
 import proyect.core.bean.seguridad.UsuarioRenaesBean;
+import proyect.core.bean.stock.ArticuloBean;
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
@@ -35,6 +39,8 @@ import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.core.service.interfaces.general.PersonaService;
 import proyect.core.service.interfaces.general.RenaesService;
 import proyect.core.service.interfaces.seguridad.PerfilService;
+import proyect.core.service.interfaces.seguridad.UsuarioAlmacenService;
+import proyect.core.service.interfaces.seguridad.UsuarioAlmacenTurnoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
 import proyect.web.controller.base.BaseController;
@@ -51,7 +57,13 @@ public class UsuarioController extends BaseController{
 	UsuarioService usuarioService;
 	
 	@Autowired
+	UsuarioAlmacenService usuarioAlmacenService;
+	
+	@Autowired
 	UsuarioPerfilService usuarioPerfilService;
+	
+	@Autowired
+	UsuarioAlmacenTurnoService usuarioAlmacenTurnoService;
 	
 	@Autowired 
 	private PersonaService personaService;
@@ -83,7 +95,7 @@ public class UsuarioController extends BaseController{
 	List<CatalogoBean> tipoPerfil = new ArrayList<CatalogoBean>();
 	List<CatalogoBean> sedes = new ArrayList<CatalogoBean>();
 	List<AlmacenBean> lstAlmacenBean;
-	
+	List<UsuarioAlmacenBean> lstUsuarioAlmacenBean =new ArrayList<UsuarioAlmacenBean>(); 
 	private List<RenaesBean> lstRenaesBean;
 	private String tmpContrasena;
 	
@@ -110,12 +122,15 @@ public class UsuarioController extends BaseController{
 			lstDocumento = catalogo2Service.listarPorCodigoTabla("000003", 1);
 			tipoPerfil = maestraGene01Services.listarPorCodigoTabla("000064", 1);
 			sedes = maestraGene01Services.listarPorCodigoTabla("000065", 1);
+		    lstAlmacenBean = almacenService.getBuscarPorFiltros(new AlmacenBean());
+			 
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
 		}
 		setPersonaBean(new PersonaBean());
-		mav.addObject("lstDocumento", lstDocumento); 
+		mav.addObject("lstDocumento", lstDocumento);
+		mav.addObject("lstAlmacen", lstAlmacenBean);
 		this.cargarComboPerfiles(mav);
 		return mav;
 	}
@@ -129,7 +144,7 @@ public class UsuarioController extends BaseController{
 		prmPersona.setNroDocumento(numero);
 		prmPersona.getTipoDocumento().setIdRegistro(tipoDocumento);
 		try {
-			personaBean = personaService.buscarxTipoDocumentoNumeroDocumento(prmPersona);
+			personaBean = personaService.buscarxTipoDocumentoNumeroDocumentoSigeho(prmPersona);
 			if (personaBean != null) {
 				System.out.println("perosana consultada" + personaBean.getNombreCompleto());
 				System.out.println("personaBean.getCodigo() " + personaBean.getCodigo());
@@ -238,7 +253,7 @@ public class UsuarioController extends BaseController{
 		} catch (Exception e) { 
 			
 		} 
-	
+	    
 		return usuarioBean;
 	}
 	
@@ -383,11 +398,10 @@ public class UsuarioController extends BaseController{
 						ousuarioBean.getPersona().setCodigo(getPersonaBean().getCodigo());
 					}
 				}
-				nombreUsuario= getPersonaBean().getNombres()+"."+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
+				nombreUsuario= getPersonaBean().getNombres().substring(0,1)+getPersonaBean().getApellidoPaterno()+ getPersonaBean().getApellidoMaterno().substring(0,1);
 				 
 				System.out.println("método usuarioBean insertar " + ousuarioBean);
-				ousuarioBean.setNombreUsuario(stripAccents(nombreUsuario));
-			//	usuarioBean.setCodigoSede(getPersonaBean().getCodigoSede());
+				ousuarioBean.setNombreUsuario(stripAccents(nombreUsuario)); 
 				ousuarioBean.setPersona(getPersonaBean());
 				System.out.println("stripAccents(nombreUsuario); " + stripAccents(nombreUsuario));
 				 
@@ -408,7 +422,8 @@ public class UsuarioController extends BaseController{
 		if (sw) {
 			
 			try {
-				objUsuarioBean = usuarioService.buscarxcodperso(usuarioBean);
+				//objUsuarioBean = usuarioService.buscarxcodperso(ousuarioBean);
+				objUsuarioBean = usuarioService.buscarxcodigousua(ousuarioBean);
 				if (objUsuarioBean != null) {
 					System.out.println("objUsuarioBean " + objUsuarioBean.getCodigo());
 					
@@ -557,16 +572,15 @@ public static String stripAccents(String str) {
 	}
 	
 	@RequestMapping(value = "/eliminar", method = RequestMethod.GET)
-	public ModelAndView doEliminar(@RequestParam("codigo") String codigo,
+	public ModelAndView doEliminar(@RequestParam("index") int index,
 			 HttpServletRequest request) {
 		
-		System.out.println("codigo eliminarPerfil:: " + codigo);
+		System.out.println("codigo eliminar usuario:: " + index);
 		boolean sw = true; 
-		UsuarioBean usuarioBean = new UsuarioBean();
-		usuarioBean.setCodigo(codigo);
+		
 		try {
 			this.setAuditoria(usuarioBean, request, false);  
-			 sw = (usuarioService.eliminar(usuarioBean));
+			 sw = (usuarioService.eliminar(this.lstUsuarioBean.get(index-1)));
 			 
 
 		} catch (Exception e) { 
@@ -576,6 +590,29 @@ public static String stripAccents(String str) {
 			return this.getLista(usuarioBean,request); 
 	}
  
+	@RequestMapping(value = "/asignarAlmacen", method = RequestMethod.GET)
+	public @ResponseBody List<UsuarioAlmacenBean> asignarAlmacen(
+			@RequestParam("codigoUsuario") String codigoUsuario,
+			@RequestParam("idAlmacen") String idAlmacen,
+			HttpServletRequest request
+			)throws Exception { 
+		
+		
+			AlmacenBean objAlmacenBean = new AlmacenBean();
+			objAlmacenBean.setCodigo(idAlmacen);
+			UsuarioAlmacenBean bean = new UsuarioAlmacenBean();
+			bean.getUsuario().setCodigo(codigoUsuario);
+			bean.setAlmacen(objAlmacenBean);
+			this.setAuditoria(bean, request, true); 
+			usuarioAlmacenService.insertar(bean);
+			try {
+				lstUsuarioAlmacenBean = usuarioAlmacenService.getBuscarPorFiltros(bean); 
+			} catch (ServiceException e) { 
+				e.printStackTrace();
+			}
+			 
+			return lstUsuarioAlmacenBean; 
+	}
 	
 	@RequestMapping(value = "/listarUsuario", method = RequestMethod.GET)
 	public @ResponseBody List<UsuarioBean> refrescarListaPerfil()throws Exception { 
@@ -641,9 +678,21 @@ public static String stripAccents(String str) {
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
 	public ModelAndView modificar(@RequestParam("index") int index){   
 		System.out.println("bean modificar "  + index);
-		usuarioBean = lstUsuarioBean.get(index); 
+		usuarioBean = lstUsuarioBean.get(index);  
+		UsuarioAlmacenBean bean = new UsuarioAlmacenBean();
+		bean.setUsuario(usuarioBean); 
+		try {
+			lstUsuarioAlmacenBean = usuarioAlmacenService.getBuscarPorFiltros(bean); 
+			System.out.println("lstUsuarioAlmacenBean " + lstUsuarioAlmacenBean.size());
+			lstAlmacenBean = almacenService.getBuscarPorFiltros(new AlmacenBean());
+		} catch (ServiceException e) { 
+			e.printStackTrace();
+		}
+		
 		ModelAndView mav = new ModelAndView("seguridad/usuario/registro-usuario", "command",usuarioBean);
-		mav.addObject("usuarioBean", usuarioBean);   
+		mav.addObject("usuarioBean", usuarioBean);  
+		mav.addObject("lstAlmacen", lstAlmacenBean); 
+		mav.addObject("lstUsuarioAlmacen", lstUsuarioAlmacenBean); 
 		this.cargarCombos(mav);
 		this.cargarComboPerfiles(mav);
 		return mav;
@@ -879,7 +928,93 @@ public static String stripAccents(String str) {
   
 		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
 	}  
+	
+	@RequestMapping(value = "/eliminarAlmacen", method = RequestMethod.GET)
+	public @ResponseBody String eliminarAlmacen(@RequestParam("codigo") String codigo,
+			 HttpServletRequest request) {
+		String valida= "";
+		System.out.println("codigo eliminarPerfil:: " + codigo);
+		boolean sw = true; 
+		UsuarioAlmacenBean usuarioBean = new UsuarioAlmacenBean();
+		usuarioBean.setCodigo(codigo);
+		try {
+			this.setAuditoria(usuarioBean, request, false);  
+			 sw = (usuarioAlmacenService.eliminar(usuarioBean));
+			 
 
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}  
+		return valida;
+	}
+
+	@RequestMapping(value = "/listarUsuarioAlmacen", method = RequestMethod.GET)
+	public @ResponseBody List<UsuarioAlmacenBean> listarUsuarioAlmacen(
+			@RequestParam("codigoUsuario") String codigoUsuario,
+			HttpServletRequest request
+			)throws Exception { 
+		 
+			UsuarioAlmacenBean bean = new UsuarioAlmacenBean();
+			bean.getUsuario().setCodigo(codigoUsuario);   
+			
+			try {
+				lstUsuarioAlmacenBean = usuarioAlmacenService.getBuscarPorFiltros(bean); 
+			} catch (ServiceException e) { 
+				e.printStackTrace();
+			}
+			 
+			return lstUsuarioAlmacenBean; 
+	}
+	
+	@RequestMapping(value = "/turnoModal", method = RequestMethod.POST)
+	public ModelAndView turnoModal(@RequestParam("index") int index,
+			 HttpServletRequest request) throws Exception {
+		
+		List<UsuarioAlmacenTurnoBean> lstTurnoAlmacen = new ArrayList<UsuarioAlmacenTurnoBean>();
+		
+		UsuarioAlmacenTurnoBean objUsuarioAlmacenTurno = new  UsuarioAlmacenTurnoBean();
+		objUsuarioAlmacenTurno.setUsuarioAlmacen(lstUsuarioAlmacenBean.get(index));
+		
+		ModelAndView mav = new ModelAndView("seguridad/usuario/turno-modal", "command",  objUsuarioAlmacenTurno); 
+		
+		lstTurnoAlmacen = usuarioAlmacenTurnoService.getBuscarPorFiltros(objUsuarioAlmacenTurno);
+		mav.addObject("lstTurnoAlmacen", lstTurnoAlmacen); 
+		mav.addObject("usuarioAlmacenTurno", objUsuarioAlmacenTurno); 
+		return mav;
+	} 
+	
+	@RequestMapping(value = "/grabarTurnoAlmacen", method = RequestMethod.GET)
+	public @ResponseBody String grabarTurnoAlmacen(
+			@RequestParam("dia") String dia,@RequestParam("tarde") String tarde,
+			@RequestParam("noche") String noche,@RequestParam("idUsuarioAlmacen") String idUsuarioAlmacen,
+			HttpServletRequest request
+			)throws Exception { 
+		
+			String codigo = "";
+			System.out.println("dia " + dia);
+			System.out.println("idUsuarioAlmacen" + idUsuarioAlmacen);
+			UsuarioAlmacenTurnoBean bean = new UsuarioAlmacenTurnoBean();
+			bean.getUsuarioAlmacen().setCodigo(idUsuarioAlmacen);   
+			
+			try {
+				this.setAuditoria(bean, request, true);
+				bean.getTurno().setCodigo("0001");
+				bean.setEstadoTurno(dia);
+				usuarioAlmacenTurnoService.insertar(bean) ;
+				bean.getTurno().setCodigo("0002");
+				bean.setEstadoTurno(tarde);
+				usuarioAlmacenTurnoService.insertar(bean) ;
+				bean.getTurno().setCodigo("0003");
+				bean.setEstadoTurno(noche);
+				usuarioAlmacenTurnoService.insertar(bean) ;
+			} catch (ServiceException e) { 
+				e.printStackTrace();
+			}
+			 
+			return codigo; 
+	}
+	
+	
 	public UsuarioBean getUsuarioBean() {
 		return usuarioBean;
 	}

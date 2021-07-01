@@ -25,6 +25,7 @@ import com.itextpdf.text.log.SysoCounter;
 import proyect.core.bean.compra.CompraBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
+import proyect.core.bean.general.TurnoBean;
 import proyect.core.bean.seguridad.AccesoBean;
 import proyect.core.bean.seguridad.AuditoriaAccesoBean;
 import proyect.core.bean.seguridad.PerfilBean;
@@ -37,6 +38,7 @@ import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.compra.CompraService;
 import proyect.core.service.interfaces.general.AlmacenService;
+import proyect.core.service.interfaces.general.TurnoService;
 import proyect.core.service.interfaces.seguridad.AccesoService;
 import proyect.core.service.interfaces.seguridad.UsuarioPerfilService;
 import proyect.core.service.interfaces.seguridad.UsuarioService;
@@ -83,9 +85,12 @@ public class InicioController extends BaseController{
 	private Catalogo2Service Catalogo2Service;
  
 	@Autowired
-	AlmacenService almacenService;
+	private AlmacenService almacenService;
 	
-	List<CatalogoBean> lstMaestra =(new ArrayList<CatalogoBean>()); ;
+	@Autowired
+	private  TurnoService turnoService;
+	
+	List<TurnoBean> lstTurno =(new ArrayList<TurnoBean>());
 	List<CatalogoBean> lstSituacion = new ArrayList<CatalogoBean>();
 	List<CatalogoBean> lstTipoPaciente = new ArrayList<CatalogoBean>(); 
 	List<VentaBean> lstVentasMes = new ArrayList<VentaBean>(); 
@@ -103,8 +108,7 @@ public class InicioController extends BaseController{
 	
 	@PostConstruct
 	public void init(){
-		
-		this.setLstMaestra(new ArrayList<CatalogoBean>());  
+		 
 	}
 	
 	private void cargarComboAlmacen(ModelAndView mav){
@@ -112,11 +116,13 @@ public class InicioController extends BaseController{
 		 
 			try {
 				lstAlmacenBean = almacenService.getBuscarPorFiltros(almacenBean);
+				lstTurno = turnoService.getBuscarPorFiltros(new TurnoBean()); 
 			} catch (ServiceException e) {
 				e.printStackTrace(); 	
 		}
   
 		mav.addObject("lstAlmacenBean",lstAlmacenBean); 
+		mav.addObject("lstTurno",lstTurno); 
 	}
 	
 	
@@ -145,7 +151,10 @@ public class InicioController extends BaseController{
 			prmUsuario.setNombreUsuario(prmLogin.getNombreUsuario());
 			System.out.println("prmLogin.getAlmacen() " + prmLogin.getAlmacen().getCodigo());
 			prmUsuario.setAlmacen(prmLogin.getAlmacen());
+			
 			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario); 
+			
+			UsuarioBean oUsuarioAlmacen = usuarioService.validarAccesoAlmacen(prmUsuario); 
 			if (oUsuario != null) {
 				System.out.println("NombreUsuario "+oUsuario.getNombreUsuario());
 				System.out.println("NombreUsuario persona "+oUsuario.getPersona().getNombreCompleto());
@@ -173,17 +182,29 @@ public class InicioController extends BaseController{
 					return mav;
 				}
 				
-				/** BUSCAR LOS PERFILES DEL USUARIO **/
-				List<UsuarioPerfilBean> lstUsuarioPerfilBean = new ArrayList<UsuarioPerfilBean>();
-				UsuarioPerfilBean us = new UsuarioPerfilBean();
-				us.setCodigoUsuario(oUsuario.getCodigo());
-				lstUsuarioPerfilBean.add(us); 
-				 
-				oUsuario.setCodPerfilUsuSelec(oUsuario.getPerfil().getCodigo());
-				oUsuario.setLstUsuarioPerfil(lstUsuarioPerfilBean); 
-				return this.getLista(oUsuario, request);
+				if (oUsuarioAlmacen != null) {
+					/** BUSCAR LOS PERFILES DEL USUARIO **/
+					List<UsuarioPerfilBean> lstUsuarioPerfilBean = new ArrayList<UsuarioPerfilBean>();
+					UsuarioPerfilBean us = new UsuarioPerfilBean();
+					us.setCodigoUsuario(oUsuarioAlmacen.getCodigo());
+					lstUsuarioPerfilBean.add(us); 
+					 
+					oUsuario.setCodPerfilUsuSelec(oUsuarioAlmacen.getPerfil().getCodigo());
+					oUsuario.setLstUsuarioPerfil(lstUsuarioPerfilBean); 
+					return this.getLista(oUsuarioAlmacen, request);
+					
 				
-				
+				}else {
+					UsuarioBean tmpUsuario = new UsuarioBean();
+					tmpUsuario.setNombreUsuario("NV");
+					this.setUsuarioBean(tmpUsuario);
+					
+					ModelAndView mav = new ModelAndView("seguridad/login/login", "command",prmLogin);
+					mav.addObject("msgErrorLogin", "No tiene acceso al almacén seleccionado.");
+					mav.addObject("usuarioSesion", tmpUsuario);
+					cargarComboAlmacen(mav);
+					return mav;
+				} 
 				
 			} else {
 				UsuarioBean tmpUsuario = new UsuarioBean();
@@ -226,8 +247,10 @@ public class InicioController extends BaseController{
 			System.out.println("prmUsuario getAlmacen" + prmLogin.getAlmacen().getCodigo());
 			
 			prmUsuario.setAlmacen(prmLogin.getAlmacen()); 
-			
+			prmUsuario.setTurno(prmLogin.getTurno());
 			UsuarioBean oUsuario = usuarioService.autenticar(prmUsuario);
+			
+			UsuarioBean oUsuarioAlmacen = usuarioService.validarAccesoAlmacen(prmUsuario); 
 			System.out.println("11111");
 			if (oUsuario != null) {
 				oUsuario.setAlmacen(prmLogin.getAlmacen());
@@ -256,17 +279,39 @@ public class InicioController extends BaseController{
 					return mav;
 				}
 				
-				/** BUSCAR LOS PERFILES DEL USUARIO **/
-				List<UsuarioPerfilBean> lstUsuarioPerfilBean = new ArrayList<UsuarioPerfilBean>();
-				UsuarioPerfilBean us = new UsuarioPerfilBean();
-				us.setCodigoUsuario(oUsuario.getCodigo());
-				lstUsuarioPerfilBean.add(us); 
-				 
-				oUsuario.setCodPerfilUsuSelec(oUsuario.getPerfil().getCodigo());
-				oUsuario.setLstUsuarioPerfil(lstUsuarioPerfilBean); 
-				return this.getLista(oUsuario, request);
+				if (oUsuarioAlmacen != null) {
+					System.out.println("oUsuarioAlmacen error" + oUsuarioAlmacen.getError());
+					/** BUSCAR LOS PERFILES DEL USUARIO **/
+					if (oUsuarioAlmacen.getError() == null) {
+						List<UsuarioPerfilBean> lstUsuarioPerfilBean = new ArrayList<UsuarioPerfilBean>();
+						UsuarioPerfilBean us = new UsuarioPerfilBean();
+						us.setCodigoUsuario(oUsuarioAlmacen.getCodigo());
+						us.getPerfil().setCodigo(oUsuarioAlmacen.getPerfil().getCodigo());
+						lstUsuarioPerfilBean.add(us); 
+						 
+						oUsuarioAlmacen.setCodPerfilUsuSelec(oUsuarioAlmacen.getPerfil().getCodigo());
+						oUsuarioAlmacen.setLstUsuarioPerfil(lstUsuarioPerfilBean); 
+						return this.getLista(oUsuarioAlmacen, request);
+					}else {
+						ModelAndView mav = new ModelAndView("seguridad/login/login", "command",prmLogin);
+						mav.addObject("msgErrorLogin", oUsuarioAlmacen.getError());
+					//	mav.addObject("usuarioSesion", tmpUsuario);
+						cargarComboAlmacen(mav);
+						return mav;
+					}
+					
 				
-				
+				}else {
+					UsuarioBean tmpUsuario = new UsuarioBean();
+					tmpUsuario.setNombreUsuario("NV");
+					this.setUsuarioBean(tmpUsuario);
+					
+					ModelAndView mav = new ModelAndView("seguridad/login/login", "command",prmLogin);
+					mav.addObject("msgErrorLogin", "No tiene acceso al almacén seleccionado.");
+					mav.addObject("usuarioSesion", tmpUsuario);
+					cargarComboAlmacen(mav);
+					return mav;
+				} 
 				
 			} else {
 				UsuarioBean tmpUsuario = new UsuarioBean();
@@ -371,7 +416,8 @@ public class InicioController extends BaseController{
 		
 	//	ModelAndView mav = new ModelAndView("asistencial/registro-referencia");
 		System.out.println("inicia sistema "+ usuario.getAlmacen().getNombreAlmacen());
-		
+		System.out.println("inicia turno "+ usuario.getTurno().getCodigo());
+		System.out.println("perfil acceso "+ usuario.getPerfil().getCodigo());
 		try {
 			
 			int totalPerfiles = 0;
@@ -384,9 +430,14 @@ public class InicioController extends BaseController{
 				
 				AccesoBean filtroAccesoBean = new AccesoBean();
 				filtroAccesoBean.setPerfil(new PerfilBean());
-				filtroAccesoBean.getPerfil().setCodigo(usuario.getCodPerfilUsuSelec()); 
+				filtroAccesoBean.getPerfil().setCodigo(usuario.getPerfil().getCodigo()); 
  
+				List<AccesoBean> lstAccesoBean =  accesoService.getBuscarPorFiltros(filtroAccesoBean);				
 				
+				AccesoMenuVo accesoMenuVo = verificarAccesos(lstAccesoBean);
+				request.getSession().setAttribute("accesoMenu", accesoMenuVo);
+				mav.addObject("accesoMenu", accesoMenuVo);		
+				usuario.setLstAcceso(lstAccesoBean);
 			}
 	 
 			String totalVenta = "0.00";
@@ -564,116 +615,303 @@ public class InicioController extends BaseController{
 				  ){
 					
 					String nombreComponente = bean.getComponente().getNombreComponente();
-					
+					System.out.println( "nombreComponente " + nombreComponente);
 					/** INDICADOR **/
-					if (nombreComponente.equals("estadisticos")) {
+					if (nombreComponente.equals("Estadisticos")) {
 						
-						accesoMenuVo.setMenu_Estadisticos(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+						accesoMenuVo.setMenu_Estadisticos(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
 					}
 					
 					/** REFERENCIA **/
-					if (nombreComponente.equals("referencia")) {
+					if (nombreComponente.equals("Ventas")) { 
+						accesoMenuVo.setMenu_Venta(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
+
+					}if (nombreComponente.equals("Generar")) {
+						System.out.println("bean.getFlgAsignado() " + bean.getFlgAsignado());
+						accesoMenuVo.setSubMenu_venta_generar(new PermisoVo());
+						accesoMenuVo.getSubMenu_venta_generar().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_venta_generar().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_venta_generar().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_venta_generar().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_venta_generar().setExportacion(bean.isFlgExport() ? true : false);
 						
-						accesoMenuVo.setMenu_Referencia(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+					}if (nombreComponente.equals("ListarVenta")) {
+						accesoMenuVo.setSubMenu_venta_listar(new PermisoVo());
+						accesoMenuVo.getSubMenu_venta_listar().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_venta_listar().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_venta_listar().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_venta_listar().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_venta_listar().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("PacienteVenta")) {
+						accesoMenuVo.setSubMenu_venta_paciente(new PermisoVo());
+						accesoMenuVo.getSubMenu_venta_paciente().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_venta_paciente().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_venta_paciente().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_venta_paciente().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_venta_paciente().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("AnularVenta")) {
+						accesoMenuVo.setSubMenu_venta_anular(new PermisoVo());
+						accesoMenuVo.getSubMenu_venta_anular().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_venta_anular().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_venta_anular().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_venta_anular().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_venta_anular().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Devolución")) {
+						accesoMenuVo.setSubMenu_venta_devolucion(new PermisoVo());
+						accesoMenuVo.getSubMenu_venta_devolucion().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_venta_devolucion().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_venta_devolucion().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_venta_devolucion().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_venta_devolucion().setExportacion(bean.isFlgExport() ? true : false);
 						
 					}
 					
-					/** CONTRAREFERENCIA **/
-					if (nombreComponente.equals("contrareferencia")) {
+					/** INVENTARIO **/
+					if (nombreComponente.equals("Inventario")) { 
+						accesoMenuVo.setMenu_Inventario(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
-						accesoMenuVo.setMenu_Contrareferencia(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+					}if (nombreComponente.equals("Articulo")) {
+						accesoMenuVo.setSubMenu_inventario_articulo(new PermisoVo());
+						accesoMenuVo.getSubMenu_inventario_articulo().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_inventario_articulo().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_articulo().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_articulo().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_articulo().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Almacen")) {
+						accesoMenuVo.setSubMenu_inventario_almacen(new PermisoVo());
+						accesoMenuVo.getSubMenu_inventario_almacen().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_inventario_almacen().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_almacen().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_almacen().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_almacen().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("ConsultarInventario")) {
+						accesoMenuVo.setSubMenu_inventario_consultar(new PermisoVo());
+						accesoMenuVo.getSubMenu_inventario_consultar().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_inventario_consultar().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_consultar().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_consultar().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_consultar().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("InventarioGenerar")) {
+						accesoMenuVo.setSubMenu_inventario_generar(new PermisoVo());
+						accesoMenuVo.getSubMenu_inventario_generar().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_inventario_generar().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_generar().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_generar().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_inventario_generar().setExportacion(bean.isFlgExport() ? true : false);
 						
 					}
 					
-					/** CITA **/
-					if (nombreComponente.equals("citas")) {
+					/** MOVIMIENTO **/
+					if (nombreComponente.equals("Movimiento")) {
+						accesoMenuVo.setMenu_Movimiento(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
-						accesoMenuVo.setMenu_Citas(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+					}if (nombreComponente.equals("Compras")) {
+						accesoMenuVo.setSubMenu_movimiento_compra(new PermisoVo());
+						accesoMenuVo.getSubMenu_movimiento_compra().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_movimiento_compra().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_compra().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_compra().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_compra().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Ingeso/Salida")) {
+						accesoMenuVo.setSubMenu_movimiento_ingresoSalida(new PermisoVo());
+						accesoMenuVo.getSubMenu_movimiento_ingresoSalida().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_movimiento_ingresoSalida().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_ingresoSalida().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_ingresoSalida().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_ingresoSalida().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("ReporteKardex")) {
+						accesoMenuVo.setSubMenu_movimiento_kardex(new PermisoVo());
+						accesoMenuVo.getSubMenu_movimiento_kardex().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_movimiento_kardex().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_kardex().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_kardex().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_movimiento_kardex().setExportacion(bean.isFlgExport() ? true : false);
 						
 					} 
 					
-					/** BANCO DE SANGRE **/
-					if (nombreComponente.equals("bancoSangre")) {
+					/** MANTENIMIENTO **/
+					if (nombreComponente.equals("Mantenimiento")) { 
+						accesoMenuVo.setMenu_Mantenimiento(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
+	 
+					}if (nombreComponente.equals("Personal")) {
+						accesoMenuVo.setSubMenu_mantenimiento_personal(new PermisoVo());
+						accesoMenuVo.getSubMenu_mantenimiento_personal().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_mantenimiento_personal().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_personal().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_personal().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_personal().setExportacion(bean.isFlgExport() ? true : false);
 						
-						accesoMenuVo.setMenu_BancoSangre(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+					}if (nombreComponente.equals("Stock")) {
+						accesoMenuVo.setSubMenu_mantenimiento_stock(new PermisoVo());
+						accesoMenuVo.getSubMenu_mantenimiento_stock().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_mantenimiento_stock().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_stock().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_stock().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_stock().setExportacion(bean.isFlgExport() ? true : false);
 						
-					} if (nombreComponente.equals("postulantes")) {
-						accesoMenuVo.setSubMenu_banco_postulante(new PermisoVo());
-						accesoMenuVo.getSubMenu_banco_postulante().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false));
-						accesoMenuVo.getSubMenu_banco_postulante().setLectura(bean.isFlgRead() ? true : false);
-						accesoMenuVo.getSubMenu_banco_postulante().setEscritura(bean.isFlgWrite() ? true : false);
-						accesoMenuVo.getSubMenu_banco_postulante().setEliminacion(bean.isFlgDelete() ? true : false);
-						accesoMenuVo.getSubMenu_banco_postulante().setExportacion(bean.isFlgExport() ? true : false);
+					}if (nombreComponente.equals("TipoMovimiento")) {
+						accesoMenuVo.setSubMenu_mantenimiento_tipoMovimiento(new PermisoVo());
+						accesoMenuVo.getSubMenu_mantenimiento_tipoMovimiento().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_mantenimiento_tipoMovimiento().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_tipoMovimiento().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_tipoMovimiento().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_tipoMovimiento().setExportacion(bean.isFlgExport() ? true : false);
 						
-					} if (nombreComponente.equals("estadoFisico")) {
-						accesoMenuVo.setSubMenu_banco_estadoFisico(new PermisoVo());
-						accesoMenuVo.getSubMenu_banco_estadoFisico().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false));
-						accesoMenuVo.getSubMenu_banco_estadoFisico().setLectura(bean.isFlgRead() ? true : false);
-						accesoMenuVo.getSubMenu_banco_estadoFisico().setEscritura(bean.isFlgWrite() ? true : false);
-						accesoMenuVo.getSubMenu_banco_estadoFisico().setEliminacion(bean.isFlgDelete() ? true : false);
-						accesoMenuVo.getSubMenu_banco_estadoFisico().setExportacion(bean.isFlgExport() ? true : false);
+					}if (nombreComponente.equals("Catalogos")) {
+						accesoMenuVo.setSubMenu_mantenimiento_catalogos(new PermisoVo());
+						accesoMenuVo.getSubMenu_mantenimiento_catalogos().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_mantenimiento_catalogos().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_catalogos().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_catalogos().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_catalogos().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Laboratorio")) {
+						accesoMenuVo.setSubMenu_mantenimiento_laboratorio(new PermisoVo());
+						accesoMenuVo.getSubMenu_mantenimiento_laboratorio().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_mantenimiento_laboratorio().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_laboratorio().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_laboratorio().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_mantenimiento_laboratorio().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}    
 					
-					} if (nombreComponente.equals("entrevista")) {
-						accesoMenuVo.setSubMenu_banco_entrevista(new PermisoVo());
-						accesoMenuVo.getSubMenu_banco_entrevista().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false));
-						accesoMenuVo.getSubMenu_banco_entrevista().setLectura(bean.isFlgRead() ? true : false);
-						accesoMenuVo.getSubMenu_banco_entrevista().setEscritura(bean.isFlgWrite() ? true : false);
-						accesoMenuVo.getSubMenu_banco_entrevista().setEliminacion(bean.isFlgDelete() ? true : false);
-						accesoMenuVo.getSubMenu_banco_entrevista().setExportacion(bean.isFlgExport() ? true : false); 
+					/** REPORTE VENTA **/
+					if (nombreComponente.equals("ReporteVentas")) { 
+						accesoMenuVo.setMenu_RptVenta(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
-					} if (nombreComponente.equals("campania")) {
-						accesoMenuVo.setSubMenu_banco_campania(new PermisoVo());
-						accesoMenuVo.getSubMenu_banco_campania().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false));
-						accesoMenuVo.getSubMenu_banco_campania().setLectura(bean.isFlgRead() ? true : false);
-						accesoMenuVo.getSubMenu_banco_campania().setEscritura(bean.isFlgWrite() ? true : false);
-						accesoMenuVo.getSubMenu_banco_campania().setEliminacion(bean.isFlgDelete() ? true : false);
-						accesoMenuVo.getSubMenu_banco_campania().setExportacion(bean.isFlgExport() ? true : false); 
+					}if (nombreComponente.equals("Recaudacion")) {
+						accesoMenuVo.setSubMenu_ventaRpt_recaudacion(new PermisoVo());
+						accesoMenuVo.getSubMenu_ventaRpt_recaudacion().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ventaRpt_recaudacion().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_recaudacion().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_recaudacion().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_recaudacion().setExportacion(bean.isFlgExport() ? true : false);
 						
-					}if (nombreComponente.equals("lugarCampania")) {
-						accesoMenuVo.setSubMenu_banco_lugarCampania(new PermisoVo());
-						accesoMenuVo.getSubMenu_banco_lugarCampania().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false));
-						accesoMenuVo.getSubMenu_banco_lugarCampania().setLectura(bean.isFlgRead() ? true : false);
-						accesoMenuVo.getSubMenu_banco_lugarCampania().setEscritura(bean.isFlgWrite() ? true : false);
-						accesoMenuVo.getSubMenu_banco_lugarCampania().setEliminacion(bean.isFlgDelete() ? true : false);
-						accesoMenuVo.getSubMenu_banco_lugarCampania().setExportacion(bean.isFlgExport() ? true : false); 
-					}
+					}if (nombreComponente.equals("VentasDiarias")) {
+						accesoMenuVo.setSubMenu_ventaRpt_diario(new PermisoVo());
+						accesoMenuVo.getSubMenu_ventaRpt_diario().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ventaRpt_diario().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_diario().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_diario().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_diario().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Anulaciones")) {
+						accesoMenuVo.setSubMenu_ventaRpt_anulaciones(new PermisoVo());
+						accesoMenuVo.getSubMenu_ventaRpt_anulaciones().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ventaRpt_anulaciones().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_anulaciones().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_anulaciones().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_anulaciones().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("TipoPaciente")) {
+						accesoMenuVo.setSubMenu_ventaRpt_tipoPaciente(new PermisoVo());
+						accesoMenuVo.getSubMenu_ventaRpt_tipoPaciente().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ventaRpt_tipoPaciente().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_tipoPaciente().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_tipoPaciente().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_tipoPaciente().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Devoluciones")) {
+						accesoMenuVo.setSubMenu_ventaRpt_devoluciones(new PermisoVo());
+						accesoMenuVo.getSubMenu_ventaRpt_devoluciones().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ventaRpt_devoluciones().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_devoluciones().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_devoluciones().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ventaRpt_devoluciones().setExportacion(bean.isFlgExport() ? true : false);
+						
+					} 
 					
-					/** HERRAMIENTA **/
-					if (nombreComponente.equals("herramientas")) {
+					/** ICI **/
+					if (nombreComponente.equals("ReporteICI")) { 
+						accesoMenuVo.setMenu_RptICI(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
-						accesoMenuVo.setMenu_Herramientas(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+					}if (nombreComponente.equals("Diario")) {
+						accesoMenuVo.setSubMenu_ici_diario(new PermisoVo());
+						accesoMenuVo.getSubMenu_ici_diario().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ici_diario().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ici_diario().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ici_diario().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ici_diario().setExportacion(bean.isFlgExport() ? true : false);
+						
+					}if (nombreComponente.equals("Mensual")) {
+						accesoMenuVo.setSubMenu_ici_mensual(new PermisoVo());
+						accesoMenuVo.getSubMenu_ici_mensual().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_ici_mensual().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_ici_mensual().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_ici_mensual().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_ici_mensual().setExportacion(bean.isFlgExport() ? true : false);
+						
+					} 
+					
+					/** REPORTE ARTICULO **/
+					if (nombreComponente.equals("ReporteArticulo")) { 
+						accesoMenuVo.setMenu_RptArticulo(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
+						
+					}if (nombreComponente.equals("Vencimiento")) {
+						accesoMenuVo.setSubMenu_articuloRpt_vencimiento(new PermisoVo());
+						accesoMenuVo.getSubMenu_articuloRpt_vencimiento().setAsignado((!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false));
+						accesoMenuVo.getSubMenu_articuloRpt_vencimiento().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_articuloRpt_vencimiento().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_articuloRpt_vencimiento().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_articuloRpt_vencimiento().setExportacion(bean.isFlgExport() ? true : false);
 						
 					} 
 					
 					/** SEGURIDAD **/
-					if (nombreComponente.equals("seguridad")) {
+				 	if (nombreComponente.equals("Seguridad")) {
 						
-						accesoMenuVo.setMenu_Seguridad(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("1") ? true : false);
+						accesoMenuVo.setMenu_Seguridad(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
 						
-					}else if (nombreComponente.equals("usuario")) {
+					}if (nombreComponente.equals("usuario")) {
 						accesoMenuVo.setSubMenu_seguridad_usuario(new PermisoVo());
 						accesoMenuVo.getSubMenu_seguridad_usuario().setLectura(bean.isFlgRead() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_usuario().setEscritura(bean.isFlgWrite() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_usuario().setEliminacion(bean.isFlgDelete() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_usuario().setExportacion(bean.isFlgExport() ? true : false);
 						
-					}else if (nombreComponente.equals("perfil")) {
+					}if (nombreComponente.equals("perfil")) {
 						accesoMenuVo.setSubMenu_seguridad_perfil(new PermisoVo());
 						accesoMenuVo.getSubMenu_seguridad_perfil().setLectura(bean.isFlgRead() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_perfil().setEscritura(bean.isFlgWrite() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_perfil().setEliminacion(bean.isFlgDelete() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_perfil().setExportacion(bean.isFlgExport() ? true : false);
 					
-					}else if (nombreComponente.equals("acceso")) {
+					}if (nombreComponente.equals("acceso")) {
 						accesoMenuVo.setSubMenu_seguridad_acceso(new PermisoVo());
 						accesoMenuVo.getSubMenu_seguridad_acceso().setLectura(bean.isFlgRead() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_acceso().setEscritura(bean.isFlgWrite() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_acceso().setEliminacion(bean.isFlgDelete() ? true : false);
 						accesoMenuVo.getSubMenu_seguridad_acceso().setExportacion(bean.isFlgExport() ? true : false); 
 					} 
-				}
-				
+					 
+				 	/** HERRAMIENTA **/
+					if (nombreComponente.equals("Configuracion")) { 
+						accesoMenuVo.setMenu_Configuracion(!VO.isNull(bean.getFlgAsignado()) && bean.getFlgAsignado().equals("true") ? true : false);
+						
+					}if (nombreComponente.equals("Institucion")) {
+						accesoMenuVo.setSubMenu_configuracion_institucion(new PermisoVo());
+						accesoMenuVo.getSubMenu_configuracion_institucion().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_institucion().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_institucion().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_institucion().setExportacion(bean.isFlgExport() ? true : false); 
+					
+					}if (nombreComponente.equals("InventarioConfiguracion")) {
+						accesoMenuVo.setSubMenu_configuracion_inventario(new PermisoVo());
+						accesoMenuVo.getSubMenu_configuracion_inventario().setLectura(bean.isFlgRead() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_inventario().setEscritura(bean.isFlgWrite() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_inventario().setEliminacion(bean.isFlgDelete() ? true : false);
+						accesoMenuVo.getSubMenu_configuracion_inventario().setExportacion(bean.isFlgExport() ? true : false); 
+					}
+				}			
 			}
 		}
 	
@@ -694,24 +932,6 @@ public class InicioController extends BaseController{
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-	}
-
-
-
-
-	public List<CatalogoBean> getLstMaestra() {
-		return lstMaestra;
-	}
-
-
-
-
-	public void setLstMaestra(List<CatalogoBean> lstMaestra) {
-		this.lstMaestra = lstMaestra;
-	}
-	
-	
-	
-	
+	} 
 	
 }

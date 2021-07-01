@@ -9,6 +9,8 @@ public class AlmacenBean  extends BaseBean{
 	private String descripcion; 
 	private String codigoMinsa;
 	private String alias;
+	private CatalogoBean tipo;
+	private Boolean swPrincipal; 
 
 	public String getNombreAlmacen() {
 		return nombreAlmacen;
@@ -40,6 +42,25 @@ public class AlmacenBean  extends BaseBean{
 
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public CatalogoBean getTipo() {
+		if (tipo == null) {
+			tipo = new CatalogoBean();
+		}
+		return tipo;
+	}
+
+	public void setTipo(CatalogoBean tipo) {
+		this.tipo = tipo;
+	}
+
+	public Boolean getSwPrincipal() {
+		return swPrincipal;
+	}
+
+	public void setSwPrincipal(Boolean swPrincipal) {
+		this.swPrincipal = swPrincipal;
 	} 
 	
 	

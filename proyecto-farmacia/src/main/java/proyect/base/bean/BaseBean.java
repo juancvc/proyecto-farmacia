@@ -11,7 +11,7 @@ public class BaseBean {
 	protected String numeroVersion;
 	protected String numeroPeriodo;
 	 
-	protected CatalogoBean situacion; 
+	protected String idSituacion; 
 	protected String strFechaRegistro; 
 	protected Integer item;  
 	protected String usuarioModificacion;
@@ -22,10 +22,11 @@ public class BaseBean {
 	protected String ipRegistro;
 	protected Date fechaModificacion; 
 	protected Date fechaRegistro;
-	
+	protected Integer valida; 
 	protected boolean activo; 
 	protected String audSession; 
 	protected String audObservacionModificacion; 
+	protected String error;
 	
 	public BaseBean() {
 		super();
@@ -36,6 +37,14 @@ public class BaseBean {
 			codigo ="";
 		}
 		return codigo;
+	}
+
+	public Integer getValida() {
+		return valida;
+	}
+
+	public void setValida(Integer valida) {
+		this.valida = valida;
 	}
 
 	public String getIdUsuarioModificacion() {
@@ -74,15 +83,15 @@ public class BaseBean {
 		this.numeroPeriodo = numeroPeriodo;
 	}
 
-	public CatalogoBean getSituacion() {
-		if (situacion ==  null) {
+	public String getIdSituacion() {
+	/*	if (situacion ==  null) {
 			situacion = new CatalogoBean();
-		}
-		return situacion;
+		}*/
+		return idSituacion;
 	}
 
-	public void setSituacion(CatalogoBean situacion) {
-		this.situacion = situacion;
+	public void setIdSituacion(String situacion) {
+		this.idSituacion = situacion;
 	}
 
 	public String getStrFechaRegistro() {
@@ -171,6 +180,14 @@ public class BaseBean {
 
 	public void setAudObservacionModificacion(String audObservacionModificacion) {
 		this.audObservacionModificacion = audObservacionModificacion;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 	
 	

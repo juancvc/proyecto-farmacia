@@ -37,16 +37,14 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		boolean sw=false;
 		
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.insertar");
-            spq.setParameter("NOMUSUAR", t.getNombreUsuario());
-            spq.setParameter("PSWUSUAR", t.getPasswordUsuario());
-            
-            spq.setParameter("CODPERSO", t.getPersona()!=null? t.getPersona().getCodigo():null);
-            spq.setParameter("CODIPERF", t.getPerfil().getCodigo());
-            spq.setParameter("EMAIL", 	 t.getPersona().getCorreo());   
-            spq.setParameter("NUMECELU", t.getPersona().getTelfCelu());    ;
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.insert");
+            spq.setParameter("usuario", t.getNombreUsuario());
+            spq.setParameter("idPerfil", t.getPerfil().getCodigo());
+            spq.setParameter("clave", t.getPasswordUsuario()); 
+            spq.setParameter("ipPersona", t.getPersona()!=null? t.getPersona().getCodigo():null);
+            spq.setParameter("usuarioRegistro", t.getUsuarioRegistro());   
+            spq.setParameter("ipRegistro", t.getIpRegistro());    ;
 
-	        
 	        spq.execute();
 			
 			id = spq.getOutputParameterValue(1);
@@ -103,10 +101,10 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		boolean sw=false;
 		
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.eliminar");
-			spq.setParameter("CODUSUAR", t.getCodigo());
-		    spq.setParameter("NROPERIO", t.getNumeroPeriodo());         
-			spq.setParameter("AUPCIPMO", t.getIpModificacion());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.delete");
+			spq.setParameter("idUsuario", t.getCodigo());
+		    spq.setParameter("usuarioModificacion", t.getUsuarioModificacion());         
+			spq.setParameter("ipModificacion", t.getIpModificacion());
 	        spq.execute();
 			sw=true;
 				
@@ -172,10 +170,9 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		List<Usuario> lstLeotbcUsuario = null;
 		
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.validarAccesoAlmacen");
-			spq.setParameter("nombreUsuario", prmUsuarioBean.getNombreUsuario());
-			spq.setParameter("clave", prmUsuarioBean.getPasswordUsuario());
-			spq.setParameter("idAlmacen", prmUsuarioBean.getAlmacen().getCodigo());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.validarAcceso");
+			spq.setParameter("usuario", prmUsuarioBean.getNombreUsuario());
+			spq.setParameter("clave", prmUsuarioBean.getPasswordUsuario()); 
 			
 			if (spq.execute()) {
 				lstLeotbcUsuario = spq.getResultList();			
@@ -216,6 +213,10 @@ public class UsuarioDAOImp implements UsuarioDAO {
 			bean.setFlgRestPass(entity.getFlgResetClave()); 
 			bean.getPerfil().setCodigo(entity.getIdPerfil());
 			bean.getPerfil().setNombrePerfil(entity.getNombrePerfil());
+			bean.getAlmacen().setCodigo(entity.getIdAlmacen());
+			bean.getAlmacen().setNombreAlmacen(entity.getNombreAlmacen());
+			bean.getTurno().setCodigo(entity.getIdTurno()); 
+			bean.setError(entity.getError());
 		}
 		return bean;
 	}
@@ -259,8 +260,8 @@ public class UsuarioDAOImp implements UsuarioDAO {
 		List<Usuario> lstLeotbcUsuario = null;
 		System.out.println("buscarxcodigousua DAO " + prmUsuarioBean.getCodigoUsuario());
 		try {
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuarioObj.buscarPorCodigoUsuario");
-			spq.setParameter("CODUSUAR", prmUsuarioBean.getCodigoUsuario());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.buscarPorCodigoUsuario");
+			spq.setParameter("idUsuario", prmUsuarioBean.getCodigo());
 		
 			if (spq.execute()) {
 				lstLeotbcUsuario = spq.getResultList();			
@@ -294,6 +295,41 @@ public class UsuarioDAOImp implements UsuarioDAO {
 				lstLeotbcUsuario = spq.getResultList();			
 			}
 			
+			if (	lstLeotbcUsuario != null
+				&&	lstLeotbcUsuario.size() > 0) {
+				
+				objUsuarioBean = deSigehoUsuarioToUsuarioBean(lstLeotbcUsuario.get(0));
+			} 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+		}finally{
+			em.close();
+		}
+		return objUsuarioBean;
+	}
+
+	@Override
+	public UsuarioBean validarAccesoAlmacen(UsuarioBean prmUsuarioBean) throws DAOException {
+		UsuarioBean objUsuarioBean = null;
+		List<Usuario> lstLeotbcUsuario = null;
+		Object error= null; 
+		try {
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("usuario.validarAccesoAlmacen");
+			spq.setParameter("nombreUsuario", prmUsuarioBean.getNombreUsuario());
+			spq.setParameter("clave", prmUsuarioBean.getPasswordUsuario());
+			spq.setParameter("idAlmacen", prmUsuarioBean.getAlmacen().getCodigo());
+			spq.setParameter("idTurno", prmUsuarioBean.getTurno().getCodigo());
+			
+			if (spq.execute()) {
+				lstLeotbcUsuario = spq.getResultList();			
+			}
+			error = spq.getOutputParameterValue(5);
+			//	nroPeriodo = spq.getOutputParameterValue(2);
+			if (error != null) {
+				prmUsuarioBean.setError(error.toString()); 
+			}
 			if (	lstLeotbcUsuario != null
 				&&	lstLeotbcUsuario.size() > 0) {
 				

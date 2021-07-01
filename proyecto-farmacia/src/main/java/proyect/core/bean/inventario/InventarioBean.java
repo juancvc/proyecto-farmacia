@@ -18,6 +18,7 @@ public class InventarioBean  extends BaseBean{
 	private int cantidadItems;
 	private String cadenaCantidad;
 	private String cadenaIdStock;
+	private CatalogoBean situacion;
 	
 	public AlmacenBean getAlmacen() {
 		if (almacen == null) {
@@ -28,7 +29,20 @@ public class InventarioBean  extends BaseBean{
 	public void setAlmacen(AlmacenBean almacen) {
 		this.almacen = almacen;
 	}
+	
+	public CatalogoBean getSituacion() {
+		if (situacion == null) {
+			situacion = new CatalogoBean();
+		}
+		return situacion;
+	}
+	public void setSituacion(CatalogoBean situacion) {
+		this.situacion = situacion;
+	}
 	public PersonaBean getPersonalResponsable() {
+		if (personalResponsable == null) {
+			personalResponsable = new PersonaBean();
+		}
 		return personalResponsable;
 	}
 	public void setPersonalResponsable(PersonaBean personalResponsable) {

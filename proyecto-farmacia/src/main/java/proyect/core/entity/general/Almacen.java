@@ -26,7 +26,9 @@ import javax.persistence.Table;
 						procedureName="[usp_Almacen_buscarxCriterios]",
 						resultClasses= Almacen.class,
 						parameters={
-									@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreAlmacen", type=String.class) 
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="nombreAlmacen", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="idTipoCat02", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN, name="swPrincipal", type=Boolean.class)
 							}	
 				),
 				
@@ -38,6 +40,7 @@ import javax.persistence.Table;
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreAlmacen", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="alias", type=String.class),
+									@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoCat02", type=String.class),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioRegistro", type=String.class ),
 									@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipRegistro", type=String.class )
 							}					
@@ -51,6 +54,7 @@ import javax.persistence.Table;
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="nombreAlmacen", 	  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="descripcion",   	  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="alias", 			  type=String.class),
+								@StoredProcedureParameter(mode=ParameterMode.IN,  name="idTipoCat02", 		  type=String.class),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="usuarioModificacion", type=String.class ),
 								@StoredProcedureParameter(mode=ParameterMode.IN,  name="ipModificacion", 	  type=String.class)
 						}					
@@ -113,6 +117,11 @@ public class Almacen  {
 	@Column(name="ipRegistro")
 	private String ipRegistro;
 	
+	@Column(name="idTipoCat02")
+	private String idTipoCat02;
+	
+	@Column(name="swPrincipal")
+	private Boolean swPrincipal;
 	
 	public Almacen() { 
 	}
@@ -156,8 +165,6 @@ public class Almacen  {
 	public void setCodigoMinsa(String codigoMinsa) {
 		this.codigoMinsa = codigoMinsa;
 	}
-	
-	
 
 	public String getUsuarioRegistro() {
 		return usuarioRegistro;
@@ -173,6 +180,22 @@ public class Almacen  {
 
 	public void setIpRegistro(String ipRegistro) {
 		this.ipRegistro = ipRegistro;
+	}
+
+	public String getIdTipoCat02() {
+		return idTipoCat02;
+	}
+
+	public void setIdTipoCat02(String idTipoCat02) {
+		this.idTipoCat02 = idTipoCat02;
+	}
+
+	public Boolean getSwPrincipal() {
+		return swPrincipal;
+	}
+
+	public void setSwPrincipal(Boolean swPrincipal) {
+		this.swPrincipal = swPrincipal;
 	}
 
 	@Override

@@ -36,54 +36,65 @@ public class VentaDAOImpl implements VentaDAO{
 	public boolean insertar(VentaBean venta) throws DAOException {
 		boolean sw=false;
 		Object id = null;
-		Object valida= null;
+		Object valida= 0;
 		Object nroPeriodo = null;
-		Object nombreArticulo= "";
+		Object nombreArticulo= null;
+		Object idError= 0;
+		Object descError= null;
 		System.out.println("venta.getSfechaEmision() insertar " + venta.getSfechaEmision());
 		try { 
 			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.insertar"); 
 			spq.setParameter("idPersona", venta.getPersona().getCodigo());
-			
-			spq.setParameter("idEvento", "");
 			spq.setParameter("idAlmacen", venta.getAlmacen().getCodigo());
 			spq.setParameter("fechaAtencion", venta.getFechaAtencion());
  
 			spq.setParameter("idTurno", venta.getTurno().getCodigo());
 			spq.setParameter("idModalidadPago", venta.getModalidadPago().getIdRegistro());
 			spq.setParameter("tipoFinanciador", venta.getTipoFinanciador().getIdRegistro());
-		
-			
+
 			spq.setParameter("cantidadItems", venta.getCantidadItems());
 			spq.setParameter("cadenaPeriodoStock", venta.getCadenaNroPeriodoStock());
 			spq.setParameter("cadenaIdStock", venta.getCadenaCodigoStock());
 			spq.setParameter("cadenaCantidad", venta.getCadenaCantidad());
 			spq.setParameter("cadenaCantidadFaltante",venta.getCadenaCantidadFaltante());
-			spq.setParameter("tipoMoneda", venta.getTipoMoneda().getIdRegistro());
-			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());
-			spq.setParameter("ipRegistro", venta.getIpRegistro()); 
+			spq.setParameter("idTipoMoneda", venta.getTipoMoneda().getIdRegistro());
 			spq.setParameter("fechaEmision", venta.getSfechaEmision());
 			spq.setParameter("idTipoComprobanteCat02", venta.getTipoComprobante().getIdRegistro());
 			spq.setParameter("idTipoOperacionCat02", venta.getTipoOperacion().getIdRegistro());
 			spq.setParameter("nroSerie", venta.getSerie().getNroSerie());
 			
-			spq.setParameter("codctacte", venta.getCuentaCorrienteBean().getCodigo());
-			spq.setParameter("perctacte", venta.getCuentaCorrienteBean().getNumeroPeriodo());
-			spq.setParameter("verctacte", venta.getCuentaCorrienteBean().getNumeroVersion());
-			spq.setParameter("codepicta", venta.getCuentaCorrienteBean().getEpisodio().getCodigo());
-			spq.setParameter("perepicte", venta.getCuentaCorrienteBean().getEpisodio().getNumeroPeriodo());
-			spq.setParameter("verepicte", venta.getCuentaCorrienteBean().getEpisodio().getNumeroVersion());
-			spq.setParameter("tipoPaci", venta.getCuentaCorrienteBean().getEpisodio().getTipoPaciente().getIdRegistro());
+			spq.setParameter("idProcedenciaCat02", venta.getCuentaCorrienteBean().getTipoProcedencia().getIdRegistro());
+			spq.setParameter("idTipoCuentaCta02", venta.getCuentaCorrienteBean().getTipoCuentaCorriente().getIdRegistro());
+			
+			spq.setParameter("numeroEpisodio", venta.getCuentaCorrienteBean().getEpisodio().getNumeroEpisodio());
+			spq.setParameter("idEpisodio", venta.getCuentaCorrienteBean().getEpisodio().getCodigo());
+			spq.setParameter("periodoEpisodio", venta.getCuentaCorrienteBean().getEpisodio().getNumeroPeriodo());
+			spq.setParameter("versionEpisodio", venta.getCuentaCorrienteBean().getEpisodio().getNumeroVersion());
+			spq.setParameter("tipoPaciente", venta.getCuentaCorrienteBean().getEpisodio().getTipoPaciente().getIdRegistro());
+
+			spq.setParameter("codctacte", venta.getCuentaCorrienteBean().getIdCuentaCabV2());
+			spq.setParameter("perctacte", venta.getCuentaCorrienteBean().getPeriodoCuentaCabV2());
+			spq.setParameter("verctacte", venta.getCuentaCorrienteBean().getVersionCuentaCabV2());
+			
+			System.out.println("venta.getUsuarioRegistro() " + venta.getUsuarioRegistro());
+			spq.setParameter("usuarioRegistro", venta.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", venta.getIpRegistro()); 
+			spq.setParameter("macRegistro", "");
 			spq.execute(); 
+			
 			valida = spq.getOutputParameterValue(1);
 			nombreArticulo = spq.getOutputParameterValue(2);
 			id = spq.getOutputParameterValue(3);
 			nroPeriodo = spq.getOutputParameterValue(4);
+			idError = spq.getOutputParameterValue(34);
+			descError = spq.getOutputParameterValue(35);
 			if (VO.isNotNull(id)) {
 				sw = true;
-				venta.setSwValida(Boolean.valueOf(valida.toString()));
-				//venta.get.setNombreCortoArticulo(nombreArticulo.toString());
+				venta.setValida(Integer.valueOf(valida.toString()));
+				venta.setNombreArticuloSinStock(nombreArticulo.toString());
 				venta.setCodigo(id.toString());
 				venta.setNumeroPeriodo(nroPeriodo.toString());
+				venta.setError(descError.toString());
 			}
 			em.close();
 			
@@ -253,6 +264,12 @@ public class VentaDAOImpl implements VentaDAO{
 			bean.getSerie().setNroSerie(entity.getNroSerie());
 			bean.setMes(entity.getMes());
 			bean.setCantidadItems(entity.getCantidadItems());
+			bean.setCantidadTransAnul(entity.getCantidadTransAnul());
+			bean.setCantidadTransTotal(entity.getCantidadTransTotal());
+			bean.setCantidadTransVenta(entity.getCantidadTransVenta());
+			bean.setImporteAnulacion(entity.getImporteAnulacion());
+			bean.setImporteVenta(entity.getImporteVenta());
+			bean.setImporteTotal(entity.getImporteTotal());
 		/*	bean.getReporteVenta().setEnero(entity.getEnero());
 			bean.getReporteVenta().setFebrero(entity.getFebrero());
 			bean.getReporteVenta().setMarzo(entity.getMarzo());
@@ -415,6 +432,27 @@ public class VentaDAOImpl implements VentaDAO{
 			throw new DAOException(e);
 		}
 		return sw;
+	}
+
+	@Override
+	public List<VentaBean> reporteRecaudacion(VentaBean venta) throws DAOException {
+		List<Venta> lstVenta = null;	
+		List<VentaBean> lstVentaBean = null;
+		
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("venta.reporteRecaudacion"); 	
+			spq.setParameter("fechaEmisionDesde", venta.getFechaEmisionDesde());  			
+			spq.setParameter("fechaEmisionHasta", venta.getFechaEmisionHasta());  	
+			 if (spq.execute()) {
+				 lstVenta =  spq.getResultList(); 
+			 }		 
+			if (lstVenta != null && lstVenta.size() > 0) {
+				System.out.println("lstVenta.size() " + lstVenta.size());
+				lstVentaBean = deListaObjetoAListaObjetoBean(lstVenta);
+			 }
+			
+			em.close();
+				   
+		return lstVentaBean;
 	}
 	
 }

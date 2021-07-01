@@ -13,4 +13,6 @@ public interface UsuarioDAO extends BaseDAO<UsuarioBean> {
 	public UsuarioBean buscarxcodigousua(UsuarioBean prmUsuarioBean) throws DAOException;
 	
 	public UsuarioBean buscarxcodperso(UsuarioBean prmUsuarioBean) throws DAOException;
+	 
+	public UsuarioBean validarAccesoAlmacen(UsuarioBean prmUsuarioBean) throws DAOException;
 }

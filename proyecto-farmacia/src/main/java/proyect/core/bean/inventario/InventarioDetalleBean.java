@@ -20,6 +20,9 @@ public class InventarioDetalleBean  extends BaseBean{
 		this.inventario = inventario;
 	}
 	public StockBean getStock() {
+		if (stock == null) {
+			stock = new StockBean();
+		}
 		return stock;
 	}
 	public void setStock(StockBean stock) {

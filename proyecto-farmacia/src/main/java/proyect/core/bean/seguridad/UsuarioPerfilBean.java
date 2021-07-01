@@ -40,6 +40,9 @@ public class UsuarioPerfilBean extends BaseBean{
 
 
 	public PerfilBean getPerfil() {
+		if (perfil == null) {
+			perfil = new PerfilBean();
+		}
 		return perfil;
 	}
 

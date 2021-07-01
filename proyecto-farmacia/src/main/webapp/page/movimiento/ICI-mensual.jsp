@@ -121,7 +121,7 @@ body {
 											<label for="lbltipoSeguroPaciente" class="label_control">ALMACEN<span
 													class="required">*</span></label>
 											<div class="controls">
-												<f:select id="cboTipoArticulo" required="required" path="almacenBean.codigo"
+												<f:select id="cboTipoArticulo" required="required" path="almacenOrigen.codigo"
 													class="form-control">
 													<f:options items="${lstAlmacen}" itemValue="codigo"
 														itemLabel="nombreAlmacen" />

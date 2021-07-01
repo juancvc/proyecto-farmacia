@@ -191,6 +191,7 @@ input[type=text] {
 												</label>
 												<div class="controls">
 													<f:select id="tipoDocumentoPaciente" path="mes.idRegistro"
+													    onchange="cambiarNombreDocumento()"
 														required="required" class="form-control">
 														<f:option value="" label="Seleccione" selected="true"
 															disabled="disabled" />
@@ -205,7 +206,9 @@ input[type=text] {
 												</label>
 												<div class="controls">
 													<f:select id="tipoDocumentoPaciente"
-														path="periodo.idRegistro" required="required"
+														path="periodo.idRegistro" 
+														onchange="cambiarNombreDocumento()"
+														required="required"
 														class="form-control">
 														<f:option value="" label="Seleccione" selected="true"
 															disabled="disabled" />
@@ -291,16 +294,16 @@ input[type=text] {
 																</tr>
 															</thead>
 															<tbody id="idbodyStock" class="label_control">
-																<c:forEach var="orden" items="${lstOrdennombreBean}"
+																<c:forEach var="inventario" items="${lstInventarioDetalle}"
 																	varStatus="loop">
 																	<tr>
 																		<td>${loop.count}</td>
-																		<td>${orden.examen.descripcion}</td>
-																		<td>${orden.examen.tipo.descripcionCorta}</td>
-																		<td>${orden.cantidad}</td>
-																		<td>0</td>
-																		<td>${orden.examen.sPrecio}</td>
-																		<td>${orden.sImporte}</td>
+																		<td>${inventario.stock.articulo.nombre}</td>
+																		<td>${inventario.stock.lote}</td>
+																		<td>${inventario.stock.articulo.codigoSismed}</td>
+																		<td>${inventario.stock.articulo.tipoPresentacion.descripcionLarga}</td>
+																		<td>${inventario.stock.stock}</td>
+																		<td>${inventario.cantidad}</td>
 																		<c:choose>
 																			<c:when test="${codigo==null || codigo==''}">
 																				<td></td>
@@ -310,7 +313,7 @@ input[type=text] {
 																						class='btn btn-outline-danger btn-sm'
 																						data-toggle='tooltip' data-placement='top'
 																						title='Eliminar'
-																						onclick='confirmar_eliminar(${ciex.examen.codigo})'
+																						onclick='confirmar_eliminar(${inventario.stock.codigo})'
 																						data-original-title='Eliminar' id='eliminarDX'>
 																						<i class='icon-trash'></i>
 																					</button></td>

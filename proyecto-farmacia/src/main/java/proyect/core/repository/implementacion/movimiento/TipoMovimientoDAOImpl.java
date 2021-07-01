@@ -9,6 +9,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import proyect.base.repository.DAOException;
+import proyect.core.bean.general.CatalogoBean;
 import proyect.core.bean.movimiento.TipoMovimientoBean;
 import proyect.core.entity.movimiento.TipoMovimiento;
 import proyect.core.repository.interfaces.movimiento.TipoMovimientoDAO;
@@ -135,8 +136,8 @@ public class TipoMovimientoDAOImpl implements TipoMovimientoDAO {
 		List<TipoMovimiento> lstTipoMovimiento = null;	
 		List<TipoMovimientoBean> lstTipoMovimientoBean = null;
 		
-			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("TipoMovimiento.buscarPorFiltros");  
-		//	spq.setParameter("nombreTipoMovimiento", TipoMovimiento.getNombreTipoMovimiento()); 
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("tipoMovimiento.buscarPorFiltros");  
+		 	spq.setParameter("nombreTipoMovimiento", TipoMovimiento.getNombreTipoMovimiento()); 
 			
 			 if (spq.execute()) {
 				 lstTipoMovimiento =  spq.getResultList(); 
@@ -179,6 +180,10 @@ private List<TipoMovimientoBean> deListaObjetoAListaObjetoBean(List<TipoMovimien
 			
 			bean = new TipoMovimientoBean();
 			bean.setCodigo(entity.getIdTipoMovimiento());   
+			bean.setNombreTipoMovimiento(entity.getNombreTipoMovimiento());
+			bean.setCategoriaTipoMovimiento(new CatalogoBean());
+			bean.getCategoriaTipoMovimiento().setIdRegistro(entity.getIdCategoriaTipoMovimientoCat02());
+			bean.getClase().setIdRegistro(entity.getIdClaseMovimientoCat02());
 	 	}
 		
 		return bean;

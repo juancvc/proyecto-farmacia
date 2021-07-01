@@ -4,13 +4,13 @@ package proyect.web.controller.movimiento;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.axis.types.Entities;
+import javax.servlet.http.HttpServletResponse; 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -26,27 +26,35 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import proyect.core.bean.compra.CompraBean;
+import proyect.core.bean.compra.CompraItemBean;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.core.bean.general.PersonaBean;
+import proyect.core.bean.general.InstitucionBean;
 import proyect.core.bean.movimiento.MovimientoAlmacenBean;
+import proyect.core.bean.movimiento.TipoMovimientoBean;
+import proyect.core.bean.seguridad.UsuarioBean;
 import proyect.core.bean.stock.ArticuloBean;
-import proyect.core.bean.stock.StockBean;
-import proyect.core.bean.venta.VentaBean;
+import proyect.core.bean.stock.ProveedorBean;
+import proyect.core.bean.stock.StockBean; 
 import proyect.base.service.ServiceException;
 import proyect.core.service.interfaces.catalogo.Catalogo1Service;
 import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.AlmacenService;
+import proyect.core.service.interfaces.general.InstitucionService;
 import proyect.core.service.interfaces.movimiento.MovimientoAlmacenService;
+import proyect.core.service.interfaces.movimiento.TipoMovimientoService;
 import proyect.core.service.interfaces.stock.ArticuloService;
 import proyect.core.service.interfaces.stock.StockService;
-import proyect.web.controller.base.BaseController; 
+import proyect.web.controller.base.BaseController;
+import proyect.web.utilitarios.VO; 
 
 @Controller
 @RequestMapping(value = "movimientoAlmacenController")
@@ -54,14 +62,17 @@ public class MovimientoAlmacenController extends BaseController{
 	
 	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
 	private MovimientoAlmacenBean movimientoAlmacenBean;
-	
+	private CompraBean compraBean;
 	List<CatalogoBean> lstMes;
 	List<CatalogoBean> lstPeriodo;
-	List<StockBean> lstStocks;
+	List<CatalogoBean> lstTipo;
+	List<StockBean> lstStock;
 	List<ArticuloBean> lstArticulos;
 	List<AlmacenBean> lstAlmacen;
 	List<MovimientoAlmacenBean> lstMovimientoArticulo;
 	List<MovimientoAlmacenBean> lstICImensual;
+	List<TipoMovimientoBean> lstTipoMovimiento;
+	List<InstitucionBean> lstInstitucion;
 	
 	@Autowired
 	private ArticuloService articuloService;
@@ -75,20 +86,30 @@ public class MovimientoAlmacenController extends BaseController{
 	private Catalogo2Service catalogo2Service;
 	@Autowired
 	private StockService StockService;
+	@Autowired
+	private TipoMovimientoService tipoMovimientoService;
+	@Autowired
+	private InstitucionService institucionService;
 	
 	private void cargarCombos(ModelAndView mav) {
 		try {
+			InstitucionBean prmInstitucionBean = new InstitucionBean();
 			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
 			lstMes = catalogo2Service.listarPorCodigoTabla("000010", 2);
 			lstPeriodo = catalogo2Service.listarPorCodigoTabla("000011", 0);
+			lstTipo = catalogo2Service.listarPorCodigoTabla("000026", 0);
+			lstInstitucion = institucionService.getBuscarPorFiltros(prmInstitucionBean);
+			 
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
-		}
-		 
+		} 
 		mav.addObject("lstAlmacen", lstAlmacen); 
 		mav.addObject("lstMes", lstMes);
 		mav.addObject("lstPeriodo", lstPeriodo); 
+		mav.addObject("lstTipo", lstTipo); 
+		mav.addObject("lstInstitucion", lstInstitucion); 
+		
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
@@ -168,7 +189,7 @@ public class MovimientoAlmacenController extends BaseController{
 			HttpServletRequest request)
 			throws Exception { 
 		ArticuloBean articulo = new ArticuloBean(); 
-		System.out.println(movimientoAlmacenBean.getStockBean().getArticulo().getCodigo());
+		System.out.println(movimientoAlmacenBean.getStock().getArticulo().getCodigo());
 		ModelAndView mav = new ModelAndView("movimiento/kardex-articulo", "command", movimientoAlmacenBean); 
 		
 		try {
@@ -479,19 +500,19 @@ public class MovimientoAlmacenController extends BaseController{
 	            	contentCell.setCellValue(String.valueOf((i+1)));
 	            	contentCell = contentRow.createCell(2);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getStockBean().getArticulo().getNombre());
+	            	contentCell.setCellValue(movimiento.getStock().getArticulo().getNombre());
 	            	contentCell = contentRow.createCell(3);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getStockBean().getLote());
+	            	contentCell.setCellValue(movimiento.getStock().getLote());
 	            	contentCell = contentRow.createCell(4);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(dateFormat.format(movimiento.getStockBean().getFechaVencimiento()));
+	            	contentCell.setCellValue(dateFormat.format(movimiento.getStock().getFechaVencimiento()));
 	            	contentCell = contentRow.createCell(5);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getStockBean().getArticulo().getCodigoSismed());
+	            	contentCell.setCellValue(movimiento.getStock().getArticulo().getCodigoSismed());
 	            	contentCell = contentRow.createCell(6);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getStockBean().getStock());
+	            	contentCell.setCellValue(movimiento.getStock().getStock());
 
 	            	contentCell = contentRow.createCell(7);
 	            	contentCell.setCellStyle(bodyStyle);
@@ -528,7 +549,7 @@ public class MovimientoAlmacenController extends BaseController{
 	            	contentCell.setCellValue("0");
 	            	contentCell = contentRow.createCell(18);
 	            	contentCell.setCellStyle(bodyStyle);
-	            	contentCell.setCellValue(movimiento.getStockBean().getStock() * movimiento.getPrecio());
+	            	contentCell.setCellValue(movimiento.getStock().getStock() * movimiento.getPrecio());
 	            }
 	            workbook.write(new FileOutputStream("reporteExcel-ICI"+ this.getMovimientoAlmacenBean().getMes().getDescripcionCorta() 
 	            		+ ""+ this.getMovimientoAlmacenBean().getPeriodo().getIdRegistro()+".xls"));
@@ -558,16 +579,229 @@ public class MovimientoAlmacenController extends BaseController{
 	        return hssfColor;
 	    }
 
-	public MovimientoAlmacenBean getMovimientoAlmacenBean() {
-		return movimientoAlmacenBean;
-	}
 
-	public void setMovimientoAlmacenBean(MovimientoAlmacenBean movimientoAlmacenBean) {
-		this.movimientoAlmacenBean = movimientoAlmacenBean;
+	/***************** INGRESO/SALIDA ************************************/   
+	private void cargarCombosMovimiento(ModelAndView mav) {
+		try {
+			lstAlmacen = almacenService.getBuscarPorFiltros(new AlmacenBean());
+			lstTipoMovimiento = tipoMovimientoService.getBuscarPorFiltros(new TipoMovimientoBean());
+			lstPeriodo = catalogo2Service.listarPorCodigoTabla("000011", 0);
+		} catch (ServiceException e) {
+			System.out.println("printStackTrace");
+			e.printStackTrace();
+		}
+		 
+		mav.addObject("lstAlmacen", lstAlmacen); 
+		mav.addObject("lstTipoMovimiento", lstTipoMovimiento);
+		mav.addObject("lstPeriodo", lstPeriodo); 
 	}
-	   
-	   
-	   
+	
+	@RequestMapping(value = "/movimiento", method = RequestMethod.GET)
+	public ModelAndView movimiento(HttpServletRequest request) {
+		// cargarComboLeccion();
+		UsuarioBean usuario = (UsuarioBean) request.getSession().getAttribute("usuarioSesion");
+		MovimientoAlmacenBean movimientoAlmacenBean = new MovimientoAlmacenBean(); 
+		movimientoAlmacenBean.setAlmacenOrigen(usuario.getAlmacen());
+		ModelAndView mav = new ModelAndView("movimiento/ingreso-salida/registro-movimiento", "command", movimientoAlmacenBean); 
+		StockBean Stock = new StockBean();
+		Stock.setTipoLlamada("1");
+		
+		Stock.setAlmacen(usuario.getAlmacen());
+		try {
+			lstStock = StockService.getBuscarPorFiltros(Stock);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		mav.addObject("movimientoAlmacenBean", movimientoAlmacenBean);
+		mav.addObject("lstStock", lstStock); 
+		this.cargarCombosMovimiento(mav);
+		return mav;
+	} 
+	
+	@RequestMapping(value = "/llenarTipoMovimiento", method = RequestMethod.GET)
+	@ResponseBody
+	public TipoMovimientoBean cambiarTipoMovimiento(@RequestParam("index") int index,
+			HttpServletRequest request) {
+		return lstTipoMovimiento.get(index-1) ;
+
+	}
+	
+	@RequestMapping(value = "/refrescarListaArticulos", method = RequestMethod.GET)
+	public @ResponseBody MovimientoAlmacenBean refrescarListaArticulosMov(
+			@RequestParam("index") int index) throws Exception {
+		System.out.println("index " + index);
+		MovimientoAlmacenBean objMovimientoAlmacenBean = new MovimientoAlmacenBean(); 
+		objMovimientoAlmacenBean.setStock(lstStock.get(index)); 
+		System.out.println("objMovimientoAlmacenBean ::" + objMovimientoAlmacenBean.getStock().getArticulo().getNombre());
+		return objMovimientoAlmacenBean;
+	}
+	
+	@RequestMapping(value = "/llenarMovimiento", method = RequestMethod.GET)
+	@ResponseBody
+	public void llenarMovimiento(@ModelAttribute("movimientoAlmacenBean") 
+			MovimientoAlmacenBean movimientoAlmacenBean, HttpServletRequest request) {
+		this.setMovimientoAlmacenBean(movimientoAlmacenBean);
+	}
+	
+   @RequestMapping(value = "/asignarMovimiento", method = RequestMethod.POST)
+    public @ResponseBody List<MovimientoAlmacenBean> asignarCompra(
+    		@RequestBody MovimientoAlmacenBean[] compraItemArray, 
+    		HttpServletRequest request) {
+        System.out.println("MovimientoAlmacenBean ");
+		List<MovimientoAlmacenBean> lstMovimientoAlmacenBean = new ArrayList<MovimientoAlmacenBean>();
+		
+        try {
+        	
+			if (	!VO.isNull(compraItemArray)
+			   ) {
+				 
+				   System.out.println("guardarCambios ");
+				if(guardarCambios(compraItemArray,request)){ 
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        return lstMovimientoAlmacenBean;
+    }   
+   
+private boolean guardarCambios(MovimientoAlmacenBean[] lstMovimientoAlmacenBean, HttpServletRequest request){
+	boolean sw = false;
+	boolean swGuardado = true;
+	
+	String cadenaCantidad = "@"; 
+	String codigo = "";
+	String cadenaIdStock = "@"; 
+	String cadenaLote = "@";
+	String cadenaPrecioCompra = "@";
+	String cadenaPrecioVenta = "@";
+	String cadenaFechaVencimiento = "@";
+	String cadenaRegistroSanitario = "@";
+	System.out.println("this.getMovimientoAlmacenBean().almacenOrigen:" + this.getMovimientoAlmacenBean().getAlmacenOrigen().getCodigo());
+		for (int i = 0; i < lstMovimientoAlmacenBean.length; i++) {
+			
+			MovimientoAlmacenBean prmMovimientoAlmacenBean = lstMovimientoAlmacenBean[i];
+			cadenaCantidad = cadenaCantidad + prmMovimientoAlmacenBean.getCantidad() + "@";
+			cadenaIdStock = cadenaIdStock + prmMovimientoAlmacenBean.getStock().getCodigo() + "@"; 
+			cadenaLote = cadenaLote + prmMovimientoAlmacenBean.getStock().getLote() + "@"; 
+			cadenaPrecioCompra = cadenaPrecioCompra + prmMovimientoAlmacenBean.getStock().getPrecioCompra() + "@"; 
+			cadenaPrecioVenta = cadenaPrecioVenta + prmMovimientoAlmacenBean.getStock().getPrecioVenta() + "@"; 
+			cadenaFechaVencimiento = cadenaFechaVencimiento + prmMovimientoAlmacenBean.getStock().getsFechaVencimiento() + "@"; 
+			cadenaRegistroSanitario = cadenaRegistroSanitario + prmMovimientoAlmacenBean.getStock().getNroRegistroSanitario() + "@"; 
+		}
+		this.getMovimientoAlmacenBean().setCantidad(lstMovimientoAlmacenBean.length); 
+		this.getMovimientoAlmacenBean().setCadenaIdStock(cadenaIdStock);
+		this.getMovimientoAlmacenBean().setCadenaCantdArt(cadenaCantidad);
+		this.getMovimientoAlmacenBean().setTipoIngresoDocumento("2");
+		this.getMovimientoAlmacenBean().setNroDocumento("");
+		try {
+
+			if (this.getMovimientoAlmacenBean().getCodigo().equals("")) {
+				this.setAuditoria(this.getMovimientoAlmacenBean(), request, true);
+				  System.out.println("graba registro compra");
+				sw = (this.movimientoAlmacenService.insertar(this.getMovimientoAlmacenBean()));
+
+				if (sw) {
+					codigo = this.getMovimientoAlmacenBean().getCodigo(); 
+
+				} 
+
+			} else {
+				// UPDATE
+				this.setAuditoria(this.getMovimientoAlmacenBean(), request, false);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	return swGuardado;
+} 
+
+/***************INICIO TRANSFERENCIA INSTITUCIONAL***********************************/
+@RequestMapping(value = "/listadoTransferencia", method = RequestMethod.GET)
+public ModelAndView dolistadoTransferencia(@ModelAttribute("movimientoAlmacenBean") MovimientoAlmacenBean movimientoAlmacenBean,
+		HttpServletRequest request) {
+	return this.listadoTransferencia(movimientoAlmacenBean, request) ;
+}
+
+@RequestMapping(value = "/listadoTransferencia", method = RequestMethod.POST)
+@ResponseBody
+public ModelAndView listadoTransferencia(@ModelAttribute("movimientoAlmacenBean") MovimientoAlmacenBean movimientoAlmacenBean, 
+		HttpServletRequest request){
+ 
+	ModelAndView mav = new ModelAndView("movimiento/transferencia-institucional/listado-transferenciaInst", "command", movimientoAlmacenBean); 
+	this.cargarCombos(mav);
+	return mav;
+}
+
+@RequestMapping(value = "/nuevaTransferencia", method = RequestMethod.GET)
+public ModelAndView nuevaTransferencia(HttpServletRequest request) {
+	// cargarComboLeccion();
+	MovimientoAlmacenBean catalogoBean = new MovimientoAlmacenBean(); 
+	ModelAndView mav = new ModelAndView("movimiento/transferencia-institucional/registro-transferenciaInst", "command", catalogoBean); 
+	try {
+		lstArticulos = articuloService.getBuscarPorFiltros(new ArticuloBean());
+	//	lstProveedor = proveedorService.getBuscarPorFiltros(new ProveedorBean());
+	} catch (ServiceException e) { 
+		e.printStackTrace();
+	}
+	mav.addObject("lstArticulos", lstArticulos); 
+	//mav.addObject("lstProveedor", lstProveedor);
+	this.cargarCombos(mav);
+	return mav;
+}
+
+@RequestMapping(value = "/refrescarListaArticulosTransferencia", method = RequestMethod.GET)
+public @ResponseBody CompraItemBean refrescarListaCompra(@RequestParam("index") int index) throws Exception {
+	System.out.println("index " + index);
+	CompraItemBean objCompraItemBean = new CompraItemBean(); 
+	objCompraItemBean.getStock().setArticulo(lstArticulos.get(index)); 
+	objCompraItemBean.getStock().setLote("");
+	objCompraItemBean.getStock().setsFechaVencimiento("");
+	objCompraItemBean.getStock().setNroRegistroSanitario("");
+	objCompraItemBean.getStock().setPrecioCompra(0);
+	objCompraItemBean.getStock().setPrecioVenta(0);
+	objCompraItemBean.setSubtotal(0);
+	objCompraItemBean.setPrecio(0);
+	objCompraItemBean.setCantidad(1);
+//	objCompraItemBean.ejecutarImporte();
+	DecimalFormat df = new DecimalFormat("0.00"); 
+	objCompraItemBean.setsImporte((df.format(objCompraItemBean.getSubtotal()).replace(",", ".")));
+	//lstOrdenDetalleBean.add(objOrdenDetalleBean);
+	return objCompraItemBean;
+}
+
+
+@RequestMapping(value = "/llenarCompra", method = RequestMethod.GET)
+@ResponseBody
+public void llenarCompra(@ModelAttribute("compraBean") 
+			CompraBean compraBean, HttpServletRequest request) {
+	this.setCompraBean(compraBean);
+}
+
+
+public CompraBean getCompraBean() {
+	return compraBean;
+}
+
+public void setCompraBean(CompraBean compraBean) {
+	this.compraBean = compraBean;
+}
+
+/***************FIN TRANSFERENCIA INSTITUCIONAL***********************************/
+
+public MovimientoAlmacenBean getMovimientoAlmacenBean() {
+	return movimientoAlmacenBean;
+}
+
+public void setMovimientoAlmacenBean(MovimientoAlmacenBean movimientoAlmacenBean) {
+	this.movimientoAlmacenBean = movimientoAlmacenBean;
+}
+   
 }
 
 

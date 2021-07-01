@@ -87,7 +87,8 @@ font-size: 13px;
 
 						<!-- Page Heading -->
 						<div class="tituloForm">LISTADO INVENTARIO</div>
-
+						<input id="contextPath" type="hidden"
+							value="${pageContext.request.contextPath}">
 
 						<div class="card shadow mb-2">
 							<!-- Card Header - Accordion -->
@@ -105,6 +106,8 @@ font-size: 13px;
 											<div class="controls">
 												<f:select id="cboTipoArticulo" path="almacen.codigo"
 													class="form-control">
+													<f:option value="" label="Seleccione" selected="true"
+															disabled="disabled" />
 													<f:options items="${lstAlmacen}" itemValue="codigo"
 														itemLabel="nombreAlmacen" />
 												</f:select>
@@ -206,21 +209,21 @@ font-size: 13px;
 															
 															<c:choose>
 																	<c:when test="${inventario.situacion.idRegistro=='000001'}">
-																	<button type="button" title='Confirmar' onclick="" 
-																	class="btn btn-primary">
-																	<i class="fa fa-save"></i>
+																	<button type="button" title='Confirmar' onclick="confirmaEjecutar(${loop.index})" 
+																	class="btn btn-outline-success">
+																	<i class="fa fa-check"></i>
 																</button> 
 																<a title="Modificar" data-placement="top"
 																data-toggle="tooltip"
-																class="btn btn-outline-success btn-sm"
-																onclick=""
+																class="btn btn-outline-primary btn-sm"
+																onclick="javascript:modificarElementoGenerico('/inventarioController/modificar','${loop.index}')"
 																href="#"><i class="fas fa-pencil-alt"></i></a>
 
 																<button type='button'
 																	class='btn btn-outline-danger btn-sm'
 																	data-toggle='tooltip' data-placement='top'
 																	title='Eliminar'
-																	onclick="confirmar_eliminar(${loop.count});"
+																	onclick="confirmar_eliminar(${loop.index});"
 																	data-original-title='Eliminar' id='agregarEspecialidad'>
 																	<i class='fas fa-trash'></i>
 																</button>
@@ -236,7 +239,7 @@ font-size: 13px;
 																<a title="Imprimir" data-placement="top"
 																data-toggle="tooltip"
 																class="btn btn-outline-warning btn-sm"
-																href="">
+																href="${pageContext.request.contextPath}/inventarioController/rptInventarioProceso?index=${loop.index}">
 																<i class="fa fa-print"></i></a>
 																
 																	
@@ -275,27 +278,32 @@ font-size: 13px;
 	</a>
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">Ã</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+	<div class="modal fade text-xs-left" id="md_confirmacionEjecuta"
+				tabindex="-1" role="dialog" aria-labelledby="myModalLabel19"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="label_title_modal modal-header">
+
+							<h4 class="label_title" id="myModalLabel19">CONFIRMAR ACTUALIZACION</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p id="txt_confir" class="label_control">¿ESTÁ SEGURO DE
+								EJECUTAR PROCESO DE ACTUALIZACION DE INVENTARIO?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn grey btn-outline-secondary"
+								data-dismiss="modal">CERRAR</button>
+							<button id="btnConfirmarProceso" type="button"
+								class="btn btn-outline-primary">CONFIRMAR</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
 	<!-- Bootstrap core JavaScript-->
 
@@ -325,9 +333,9 @@ font-size: 13px;
 	<!-- Page level custom scripts -->
 
 
-	<!-- scripts  -->
+	<!-- scripts  --> 
 	<script
-		src="${pageContext.request.contextPath}/assets/js/page/venta/venta.js"
+		src="${pageContext.request.contextPath}/assets/js/page/inventario/inventario.js"
 		type="text/javascript" charset="utf-8"></script>
 
 	<script

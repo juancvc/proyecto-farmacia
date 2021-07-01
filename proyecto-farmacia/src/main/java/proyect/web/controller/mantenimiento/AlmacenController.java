@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.general.CatalogoBean;
-import proyect.base.service.ServiceException; 
+import proyect.base.service.ServiceException;
+import proyect.core.service.interfaces.catalogo.Catalogo2Service;
 import proyect.core.service.interfaces.general.AlmacenService;
 import proyect.web.controller.base.BaseController; 
 
@@ -22,22 +23,24 @@ import proyect.web.controller.base.BaseController;
 @RequestMapping(value = "almacenController")
 public class AlmacenController extends BaseController{
 	
-	List<CatalogoBean> lstcatalogos = new ArrayList<CatalogoBean>();
+	List<CatalogoBean> lstTipo = new ArrayList<CatalogoBean>();
 	List<AlmacenBean> lstAlmacenes = new ArrayList<AlmacenBean>();
 	private AlmacenBean almacenBean; 
+	
+	@Autowired
+	private Catalogo2Service catalogo2Service;
 	
 	@Autowired
 	private AlmacenService almecenService;
 	
 	private void cargarCombos(ModelAndView mav) {
-		/*try {
-			lstcatalogos = Catalogo1Service.listarTodascatalogos(new CatalogoBean());
+		 try {
+			 lstTipo = catalogo2Service.listarPorCodigoTabla("000025", 0);
 		} catch (ServiceException e) {
 			System.out.println("printStackTrace");
 			e.printStackTrace();
-		}
-		*/
-		mav.addObject("lstcatalogos", lstcatalogos);
+		} 
+		mav.addObject("lstTipo", lstTipo);
 	}
 	
 	@RequestMapping(value = "/buscar", method = RequestMethod.POST)
@@ -100,9 +103,9 @@ public class AlmacenController extends BaseController{
 		this.cargarCombos(mav);
 		return mav;
 	}
+	
 	@RequestMapping(value = "/modificar", method = RequestMethod.POST)
-	public ModelAndView modificar(@RequestParam("index") int index){  
-		 ;
+	public ModelAndView modificar(@RequestParam("index") int index){   
 		System.out.println("modificar index " + index); 
 		AlmacenBean almacenBean = new AlmacenBean();   
 		almacenBean = lstAlmacenes.get(index);

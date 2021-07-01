@@ -25,25 +25,18 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import proyect.base.repository.DAOException;
+import proyect.core.bean.general.AlmacenBean;
 import proyect.core.bean.seguridad.PerfilBean;
 import proyect.core.entity.seguridad.Perfil;
 import proyect.core.repository.interfaces.seguridad.PerfilDAO;
+import proyect.web.utilitarios.VO;
 
 @Transactional
 @Repository("perfilDAO")
 public class PerfilDAOImp implements PerfilDAO {
 
-	//@PersistenceContext(unitName = "emfSeguridad")
-	//private EntityManager em;
-	protected EntityManager entityManager;
-	
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-	@PersistenceContext//(unitName = "emfSeguridad")
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Override
 	public boolean insertar(PerfilBean t) throws DAOException {
@@ -51,19 +44,23 @@ public class PerfilDAOImp implements PerfilDAO {
 		Object id = null;
 		boolean sw = false;
 		try {
-			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.insertar");
-			spq.setParameter("NOMBPERF", t.getNombrePerfil()); 
-
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.insertar");
+			System.out.println("t.getNombrePerfil() " + t.getNombrePerfil());
+			spq.setParameter("nombrePerfil", t.getNombrePerfil()); 
+			spq.setParameter("descripcion", t.getDescripcion());
+			spq.setParameter("usuarioRegistro", t.getUsuarioRegistro());
+			spq.setParameter("ipRegistro", t.getIpRegistro());
+			spq.execute();
 			id = spq.getOutputParameterValue(1);
 			if (id != null) {
-				// t.setCodigo(Integer.valueOf(id.toString()));
+				t.setCodigo(id.toString());
 				sw = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			sw = false;
 		} finally {
-			getEntityManager().close();
+			em.close();
 		}
 		return sw;
 	}
@@ -74,7 +71,7 @@ public class PerfilDAOImp implements PerfilDAO {
 
 		boolean sw = false;
 		try {
-			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.actualizar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.actualizar");
 			spq.setParameter("CODIPERF", t.getCodigo());
 			spq.setParameter("NOMBPERF", t.getNombrePerfil()); 
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
@@ -86,7 +83,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			e.printStackTrace();
 			sw = false;
 		} finally {
-			getEntityManager().close();
+			em.close();
 		}
 		return sw;
 	}
@@ -96,7 +93,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		// TODO Auto-generated method stub
 		boolean sw = false;
 		try {
-			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.eliminar");
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.eliminar");
 			spq.setParameter("CODIPERF", t.getCodigo()); 
 			spq.setParameter("AUPCIPMO", t.getIpModificacion());
 
@@ -107,7 +104,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			e.printStackTrace();
 			sw = false;
 		} finally {
-			getEntityManager().close();
+			em.close();
 		}
 		return sw;
 	}
@@ -119,8 +116,8 @@ public class PerfilDAOImp implements PerfilDAO {
 
 		System.out.println("PerfilBean getBuscarPorObjecto " + t.getCodigo());
 		try {
-			StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.buscarObjeto");
-			spq.setParameter("CODIPERF", t.getCodigo());
+			StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.buscarxid");
+			spq.setParameter("codigo", t.getCodigo());
 
 			if (spq.execute()) {
 				lstPerfil = spq.getResultList();
@@ -135,7 +132,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			e.printStackTrace();
 			throw new DAOException(e);
 		} finally {
-			getEntityManager().close();
+			em.close();
 		}
 		return oRePerfilBean;
 	}
@@ -147,7 +144,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		List<PerfilBean> lstPerfilBean = new ArrayList<PerfilBean>();
 		List<Perfil> lstPerfil = null;
 
-		StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.buscarxcriterios");
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.buscarxcriterios");
 
 		spq.setParameter("nombrePerfil", t.getNombrePerfil());
 
@@ -161,7 +158,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			}
 			lstPerfilBean = deListaPerfilAListaPerfilBean(lstPerfil);
 		}
-		getEntityManager().close();
+		em.close();
 
 		return lstPerfilBean;
 	}
@@ -196,7 +193,7 @@ public class PerfilDAOImp implements PerfilDAO {
 		if (entity != null) {
 			bean.setCodigo(entity.getIdPerfil());
 			bean.setNombrePerfil(entity.getNombrePerfil());
-
+			bean.setDescripcion(entity.getDescripcion());
 		}
 		return bean;
 	}
@@ -205,24 +202,24 @@ public class PerfilDAOImp implements PerfilDAO {
 	@Override
 	public List<PerfilBean> listado() throws  DAOException {
 		System.out.println("PerfilBean listado");
-		System.out.println(" getEntityManager() " +  getEntityManager()); 
+		System.out.println(" em " +  em); 
 		List<PerfilBean> lstPerfilBean = new ArrayList<PerfilBean>();
 		
-			Query query = getEntityManager().createNativeQuery("SELECT * FROM PERFIL as p  WHERE estado = 1 ",Perfil.class);
+			Query query = em.createNativeQuery("SELECT * FROM PERFIL as p  WHERE estado = 1 ",Perfil.class);
 			List<Perfil> resultList = query.getResultList();
 			if (resultList != null && resultList.size() > 0) {
 				for ( Perfil p : resultList ) {
 				}
 				lstPerfilBean = deListaPerfilAListaPerfilBean(resultList);
 			}
-			getEntityManager().close();
+			em.close();
 			return lstPerfilBean;
 		 
 		
 	/***	List<PerfilBean> lstPerfilBean = new ArrayList<PerfilBean>();
 		List<Perfil> lstPerfil = null;
 
-		StoredProcedureQuery spq = getEntityManager().createNamedStoredProcedureQuery("perfil.listado"); 
+		StoredProcedureQuery spq = em.createNamedStoredProcedureQuery("perfil.listado"); 
 
 		if (spq.execute()) {
 			lstPerfil = spq.getResultList();
@@ -234,7 +231,7 @@ public class PerfilDAOImp implements PerfilDAO {
 			}
 			lstPerfilBean = deListaPerfilAListaPerfilBean(lstPerfil);
 		}
-		getEntityManager().close();
+		em.close();
 
 		return lstPerfilBean;*/
 	}
