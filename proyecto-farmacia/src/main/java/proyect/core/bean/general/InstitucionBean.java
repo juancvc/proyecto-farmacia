@@ -53,5 +53,5 @@ public class InstitucionBean  extends BaseBean{
 	}
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
-	}
+	} 
 }
